@@ -1,44 +1,54 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
+import GDI from '../images/GradientDescentImg.png';
+import KNNI from '../images/KnnImg.png';
+import LRI from '../images/LinearRegressionImag.png';
+import LogisticRI from '../images/LogisticRegressionImg.png';
+import NNI from '../images/NeuralNetworksImg.png';
 
 function Cards() {
     return (
-      <div className='cards'>
+      <div className='cards' id="cards_id">
         <h1>Main Algorithms</h1>
         <div className='cards__container'>
           <div className='cards__wrapper'>
             <ul className='cards__items'>
               <CardItem
-                src='../images/img-9.jpg'
-                text='Learn the K-Nearest Neighbors Algorithm'
-                label='KNN'
+                src= { LRI }
+                text='Learn the Linear Regression Algorithm'
+                info='This algorithm find the closest linear line to all the points'
+                label='Linear Regression'
                 path='/algorithms'
               />
               <CardItem
-                src='../images/img-2.jpg'
-                text='Travel through the Islands of Bali in a Private Cruise'
+                src= { GDI }
+                text='Learn the Gradient Descent Algorithm'
+                info='This algorithm helps in finiding the minimal point of a function'
                 label='Gradiant Descent'
                 path='/algorithms'
               />
             </ul>
             <ul className='cards__items'>
-              <CardItem
-                src='../images/img-3.jpg'
-                text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-                label='Mystery'
+            <CardItem
+                src= { KNNI }
+                text='Learn the K-Nearest Neighbors Algorithm'
+                info='This algorithm predects the type of an object based on its k-nearest-neighbors'
+                label='K Nearest Neighbors'
                 path='/algorithms'
               />
               <CardItem
-                src='../images/img-4.jpg'
-                text='Experience Football on Top of the Himilayan Mountains'
-                label='Adventure'
+                src= { NNI }
+                text='Learn the Neural Networks Algorithm'
+                info='This algorithm predects the right answer'
+                label='Neural Networks'
                 path='/algorithms'
               />
               <CardItem
-                src='../images/img-8.jpg'
-                text='Ride through the Sahara Desert on a guided camel tour'
-                label='Adrenaline'
+                src= { LogisticRI }
+                text='Learn the Linear Regression Algorithm'
+                info='This algorithm find the closest line to all the points'
+                label='Logistic Regression'
                 path='/algorithms'
               />
             </ul>

@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 import logo from '../MlLogo.png'
 import {Button} from './Button';
 import './Navbar.css';
@@ -59,13 +60,15 @@ function Navbar() {
                     </Link>
                   </li>
                   <li className='nav-item'>
-                    <Link
-                      to='/algorithms'
+                    <ScrollLink
+                      to='cards_id'
                       className='nav-links'
                       onClick={closeMobileMenu}
+                      spy={true} 
+                      smooth={true}
                     >
                       Algorithms
-                    </Link>
+                    </ScrollLink>
                   </li>
                   <li className='nav-item'>
                     <Link
