@@ -1,0 +1,44 @@
+.functionalities-container {
+    padding: 5rem;
+    flex-direction: column;
+}
+
+.functionalities-container > h1 {
+    text-align: left;
+    padding-bottom: 1rem;
+}
+
+.functionalities-container > p {
+    font-size: 20px;
+    padding-bottom: 1rem;
+    margin-bottom: 30px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+}
+
+.functionalities-content {
+    display: flex;
+}
+
+.functionalities-list {
+    width: 50%;
+    flex-direction: column;
+    list-style: none;
+}
+
+.functionalities-item {
+    flex-direction: column;
+    list-style: none;
+    padding-bottom: 4rem;
+}
+
+.functionalities-item > img {
+    width: 60px;
+    height: 60px;
+}
+
+.functionalities-content > div {
+    margin: 0 1rem;
+    border-radius: 10px;
+}
+

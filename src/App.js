@@ -7,15 +7,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <>
+    <div className='app-container'>
       <Router>
         <Navbar />
-        <Routes>
+        <Routes >
           <Route path='/' exact element={<Home/>} />
           <Route path='/service' element={<Service/>} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

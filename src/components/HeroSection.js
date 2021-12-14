@@ -5,10 +5,12 @@ import './HeroSection.css';
 
 function HeroSection() {
   return (
-    <div className='hero-container'>
-      {/*<video src='./videos/video-1.mp4' autoPlay loop muted />*/}
-      <h1>Our Features</h1>
-      <p>What are you waiting for?</p>
+    <div className='hero-container app-element'>
+      <h1>MLomda</h1>
+      <h3>Machine Learning Made Simple</h3>
+      <p>
+        It allows people with and without knowledge in computer science to learn and understand how Machine Learning works by useing 3D animation and simple explanations.
+      </p>
       <div className='hero-btns'>
         <Button
           className='btns'

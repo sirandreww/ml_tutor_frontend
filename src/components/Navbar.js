@@ -4,6 +4,7 @@ import { Link as ScrollLink } from 'react-scroll';
 import logo from '../MlLogo.png'
 import {Button} from './Button';
 import './Navbar.css';
+import '../App.css'
 
 
 function Navbar() {
@@ -28,9 +29,9 @@ function Navbar() {
     window.addEventListener('resize', showButton);
 
     return (
-        <>
-        <nav className="navbar">
-            <div className='navbar-container'>
+      <>
+        <nav className="navbar app-element">
+          <div className='navbar-container'>
                 <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
                     MLomda
                     {/*Image for the logo in navbar */} 
@@ -79,7 +80,6 @@ function Navbar() {
                       Sign In
                     </Link>
                   </li>
-
                   <li>
                     <Link
                       to='/sign-up'
@@ -91,9 +91,9 @@ function Navbar() {
                   </li>
           </ul>
           {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
-        </div>
-      </nav>
-    </>
+          </div>
+        </nav>
+      </>
   );   
 }
 
