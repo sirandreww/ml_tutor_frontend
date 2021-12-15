@@ -17,7 +17,7 @@ function Cards() {
               <CardItem
                 src= { LRI }
                 text='Learn the Linear Regression Algorithm'
-                info='This algorithm find the closest linear line to all the points'
+                info='This algorithm finds the closest linear line to all the points'
                 label='Linear Regression'
                 path='/algorithms'
               />
@@ -33,21 +33,21 @@ function Cards() {
             <CardItem
                 src= { KNNI }
                 text='Learn the K-Nearest Neighbors Algorithm'
-                info='This algorithm predects the type of an object based on its k-nearest-neighbors'
+                info='This algorithm predicts the type of an object based on its k-nearest-neighbors'
                 label='K Nearest Neighbors'
                 path='/algorithms'
               />
               <CardItem
                 src= { NNI }
                 text='Learn the Neural Networks Algorithm'
-                info='This algorithm predects the right answer'
+                info='This algorithm predicts the right answer'
                 label='Neural Networks'
                 path='/algorithms'
               />
               <CardItem
                 src= { LogisticRI }
                 text='Learn the Linear Regression Algorithm'
-                info='This algorithm find the closest line to all the points'
+                info='This algorithm finds the closest line to all the points'
                 label='Logistic Regression'
                 path='/algorithms'
               />
