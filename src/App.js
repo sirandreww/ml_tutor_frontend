@@ -1,5 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar.js';
+import Footer from './components/Footer.js';
 import React from 'react';
 import Home from './components/pages/Home';
 import Service from './components/pages/Service';
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' exact element={<Home/>} />
           <Route path='/service' element={<Service/>} />
         </Routes>
+        <Footer/>
       </Router>
     </div>
   );

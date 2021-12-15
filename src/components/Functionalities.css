@@ -21,9 +21,7 @@
 }
 
 .functionalities-list {
-    width: 50%;
-    flex-direction: column;
-    list-style: none;
+    display: inline;
 }
 
 .functionalities-item {
@@ -33,12 +31,21 @@
 }
 
 .functionalities-item > img {
-    width: 60px;
-    height: 60px;
+    width: 50%;
+    max-width: 60px;
+    height: 50%;
+    max-height: 60px;
 }
 
 .functionalities-content > div {
     margin: 0 1rem;
     border-radius: 10px;
+}
+
+.functionalities-img {
+    position: relative;
+    width: 100%;
+    overflow: clip;
+    transform: none;
 }
 
