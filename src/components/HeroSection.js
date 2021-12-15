@@ -9,7 +9,7 @@ function HeroSection() {
       <h1>MLomda</h1>
       <h3>Machine Learning Made Simple</h3>
       <p>
-        It allows people with and without knowledge in computer science to learn and understand how Machine Learning works by useing 3D animation and simple explanations.
+        It allows people with and without knowledge in computer science to learn and understand how Machine Learning works by using 3D animation and simple explanations.
       </p>
       <div className='hero-btns'>
         <Button
