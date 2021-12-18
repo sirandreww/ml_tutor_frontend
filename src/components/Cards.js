@@ -10,6 +10,8 @@ import NNI from '../images/NeuralNetworksImg.png';
 function Cards() {
     return (
       <div className='cards' id="cards_id">
+        {/* Don't delet this line, it prevent the window slide from stopping on h1 */}
+        <div className='cards__pos'>HI</div> 
         <h1>Main Algorithms</h1>
         <div className='cards__container'>
           <div className='cards__wrapper'>
@@ -26,7 +28,7 @@ function Cards() {
                 text='Learn the Gradient Descent Algorithm'
                 info='This algorithm helps in finiding the minimal point of a function'
                 label='Gradiant Descent'
-                path='/algorithms'
+                path='/algorithms/gd'
               />
             </ul>
             <ul className='cards__items'>

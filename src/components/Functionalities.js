@@ -18,25 +18,25 @@ function Functionalities() {
       <div className='functionalities-content'>
             <ul className='functionalities-list'>
                 <li className='functionalities-item'>
-                    <img src={GrI} />
+                    <img src={GrI} alt=''/>
                     <h3>2D/3D visual representation</h3>
                 </li>
                 <li className='functionalities-item'>
-                    <img src={SBSI} />
+                    <img src={SBSI} alt=''/>
                     <h3>Step by Step demonstrations</h3>
                 </li>
                 <li className='functionalities-item'>
-                    <img src={HisI} />
+                    <img src={HisI} alt=''/>
                     <h3>History of achievements</h3>
                 </li>
                 
                 <li className='functionalities-item'>
-                    <img src={LI} />
+                    <img src={LI} alt=''/>
                     <h3>Easy to understand explanations and examples</h3>
                 </li>
             </ul>
             <div className='functionalities-img'>
-                <img src={FunI} />
+                <img src={FunI} alt=''/>
             </div>
       </div>
     </div>

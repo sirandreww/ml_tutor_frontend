@@ -1,9 +1,9 @@
 import './App.css';
 import Navbar from './components/Navbar.js';
-import Footer from './components/Footer.js';
 import React from 'react';
 import Home from './components/pages/Home';
 import Service from './components/pages/Service';
+import Algorithms from './components/algorithms/GradientDescent.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
         <Routes >
           <Route path='/' exact element={<Home/>} />
           <Route path='/service' element={<Service/>} />
+          <Route path='/algorithms/gd' element={<Algorithms />} />
         </Routes>
-        <Footer/>
       </Router>
     </div>
   );

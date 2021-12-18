@@ -22,9 +22,7 @@ function Navbar() {
       }
     };
 
-    useEffect(() => {
-      showButton();
-    }, []);
+    useEffect(() => { showButton(); }, []);
 
     window.addEventListener('resize', showButton);
 
@@ -62,7 +60,7 @@ function Navbar() {
                   </li>
                   <li className='nav-item'>
                     <ScrollLink
-                      to='cards_id'
+                      to='cards'
                       className='nav-links'
                       onClick={closeMobileMenu}
                       spy={true} 

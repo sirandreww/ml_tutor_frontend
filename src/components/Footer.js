@@ -1,11 +1,12 @@
 
 
 
-import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
-import logo from '../MlLogo.png'
-import {Button} from './Button';
+import React from 'react';
+// import React, {useState, useEffect} from 'react';
+// import { Link } from 'react-router-dom';
+// import { Link as ScrollLink } from 'react-scroll';
+// import logo from '../MlLogo.png'
+// import {Button} from './Button';
 import './Footer.css';
 import '../App.css'
 
