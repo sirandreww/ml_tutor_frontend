@@ -1,11 +1,11 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
-import GDI from '../images/GradientDescentImg.png';
-import KNNI from '../images/KnnImg.png';
-import LRI from '../images/LinearRegressionImag.png';
-import LogisticRI from '../images/LogisticRegressionImg.png';
-import NNI from '../images/NeuralNetworksImg.png';
+import GDI from 'assets/images/GradientDescentImg.png';
+import KNNI from 'assets/images/KnnImg.png';
+import LRI from 'assets/images/LinearRegressionImag.png';
+import LogisticRI from 'assets/images/LogisticRegressionImg.png';
+import NNI from 'assets/images/NeuralNetworksImg.png';
 
 function Cards() {
     return (

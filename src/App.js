@@ -1,10 +1,11 @@
-import './App.css';
-import Navbar from './components/Navbar.js';
+import 'App.css';
+import Navbar from 'components/Navbar.js';
 import React from 'react';
-import Home from './components/pages/Home';
-import Service from './components/pages/Service';
-import Algorithms from './components/algorithms/GradientDescent.js';
+import Home from 'pages/Home.js';
+import Service from 'pages/Service';
+import Algorithms from 'pages/algorithms/GradientDescent.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Footer from 'components/Footer';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/service' element={<Service/>} />
           <Route path='/algorithms/gd' element={<Algorithms />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

@@ -1,6 +1,6 @@
 
 .hero-container {
-  background: url('../images/home_img_2.png'); 
+  background: url('../assets/images/home_img_2.png'); 
   flex-direction: column;
   justify-content: center;
   align-items: center;

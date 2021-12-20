@@ -1,0 +1,78 @@
+.demo-graph-board {
+    border: 2px solid;
+    height: 90%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.function-input > input {
+    height: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.solution-board {
+    height: 100%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.solution-board > table {
+    counter-reset: row-num -1;
+
+    background-color: #20262e;
+    color: #fff;
+    overflow: hidden;
+}
+
+.title {
+    color: orange;
+    background-color: #20262e;
+    overflow: hidden;
+}
+
+.solution-board > table tr:nth-child(even) {
+    background-color: rgb(46, 53, 62);
+}
+
+
+.solution-board > table tr {
+    counter-increment: row-num;
+}
+
+.solution-board > table tr td:first-child::before {
+    content: counter(row-num) ". ";
+}
+.solution-table > tr,td {
+    text-align: center;
+}
+
+.solution-graph-board {
+    height: 100%;
+    border: 2px solid;
+    padding-left: 2.5%;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.controls > button {
+    height: fit-content;
+    width: fit-content;
+    font-size: 20px;
+}
+
+.controls > button:hover {
+    background-color:dimgray;
+}
+
+.controls > button:active {
+    background-color:darkorange;
+}

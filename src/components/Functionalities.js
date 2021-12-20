@@ -1,11 +1,11 @@
 import React from 'react';
-import '../App.css';
+import 'App.css';
 import './Functionalities.css';
-import HisI from '../images/historyIcon.jpg'
-import GrI from '../images/graphIcon.png'
-import SBSI from '../images/StepByStepIcon.jpg'
-import LI from '../images/LenseIcon.png'
-import FunI from '../images/MachineLearning.png'
+import HisI from 'assets/images/historyIcon.jpg'
+import GrI from 'assets/images/graphIcon.png'
+import SBSI from 'assets/images/StepByStepIcon.jpg'
+import LI from 'assets/images/LenseIcon.png'
+import FunI from 'assets/images/MachineLearning.png'
 
 function Functionalities() {
   return (
