@@ -1,9 +1,12 @@
 .demo-graph-board {
-    border: 2px solid;
+    /* border: 2px solid; */
     height: 90%;
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .function-input > input {
@@ -76,8 +79,11 @@
 
 .solution-graph-board {
     height: 100%;
-    border: 2px solid;
+    /* border: 2px solid; */
     padding-left: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .controls {

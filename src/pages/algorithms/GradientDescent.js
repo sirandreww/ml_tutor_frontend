@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { Slider } from "@mui/material";
 import 'pages/algorithms/algorithms.css';
 import 'pages/algorithms/GradientDescent.css';
+import NI from 'assets/images/notebook.png';
+import GD1D from 'assets/images/GD1D.png';
+import GD1DS from 'assets/images/GD1DS.png';
+import GD2D from 'assets/images/GD2D.png';
+import GD2DS from 'assets/images/GD2DS.png';
 
 function Algorithms() {
     const tasks_name = ['Note Book', 'Demo 1D', 'Step-By-Step 1D', 'Demo 2D', 'Step-By-Step 2D', 'HyperParameter 1D', 'HyperParameter 2D']
@@ -55,7 +60,7 @@ function Algorithms() {
                 {
                     t0 ? // Python Notebook
                     <div>
-                        Python Notebook
+                        <img src={NI} alt=''/>
                     </div>: null
                 }
                 {
@@ -71,7 +76,7 @@ function Algorithms() {
                         </form>
                         <br />
                         <div className='demo-graph-board'>
-
+                            <img src={GD1D} alt='' width="50%"/>
                         </div>
                         <br />
                         <div className='controls'>
@@ -133,7 +138,7 @@ function Algorithms() {
                                 </tr>
                             </table>
                             <div className='solution-graph-board'>
-
+                                <img src={GD1DS} alt='' width="50%"/>
                             </div>
                         </div>
                         <br />
@@ -161,7 +166,7 @@ function Algorithms() {
                         </form>
                         <br />
                         <div className='demo-graph-board'>
-
+                            <img src={GD2D} alt='' width="50%"/>
                         </div>
                         <br />
                         <div className='controls'>
@@ -244,7 +249,7 @@ function Algorithms() {
                                 </tr>
                             </table>
                             <div className='solution-graph-board'>
-
+                                <img src={GD2DS} alt='' width="50%"/>
                             </div>
                         </div>
                         <br />
