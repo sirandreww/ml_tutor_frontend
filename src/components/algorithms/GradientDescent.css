@@ -13,6 +13,28 @@
     width: 90%;
 }
 
+
+
+.function-input > .controls,
+.solution-board > .results {
+    display: flex;
+    flex-direction: row;
+}
+
+.solution-board > .results > input {
+    border-style: none;
+    font-size: 16px;
+}
+
+.function-input > .controls > label {
+    width: 5%;
+}
+
+.function-input > .controls > .slider {
+    color: darkorange;
+    width: 300px;
+}
+
 .solution-board {
     height: 100%;
     width: 90%;
