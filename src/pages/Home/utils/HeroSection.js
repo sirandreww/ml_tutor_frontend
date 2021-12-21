@@ -25,7 +25,7 @@ export default function HeroSection() {
           gutterBottom
           fontFamily={"Playfair Display"}
         >
-          ML Tutor
+          MLomda
         </Typography>
         <Typography variant="h5" fontFamily={"Dosis"} align="center" color="#79B4B7" paragraph>
           Understand how Machine Learning works by using 3D animation and simple explanations.
