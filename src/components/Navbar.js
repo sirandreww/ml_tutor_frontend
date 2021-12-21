@@ -16,7 +16,7 @@ import logo from 'assets/images/MlLogo.png';
 import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Algorithms', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Navbar(props) {
@@ -112,6 +112,7 @@ export default function Navbar(props) {
                 ))}
               </Menu>
             </Box>
+            
             <Typography
               variant="h6"
               noWrap

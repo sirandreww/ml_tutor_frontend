@@ -31,7 +31,7 @@ function ProductValues() {
           minHeight: 400,
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="xl">
         <Grid container spacing={5}>
                 <Grid item xs={12} md={3}>
                     <Box sx={item}>
@@ -44,7 +44,7 @@ function ProductValues() {
                         <Typography variant="h6" sx={{ my: 5 }} color={text_color}>
                             2D/3D visual representation
                         </Typography>
-                        <Typography variant="h5" color={text_color}>
+                        <Typography variant="h5" color={text_color} textAlign='center'>
                             Understand the underlying mathematics using visual methods.
                         </Typography>
                     </Box>
@@ -60,7 +60,7 @@ function ProductValues() {
                         <Typography variant="h6" sx={{ my: 5 }} color={text_color}>
                             Step by Step demonstrations
                         </Typography >
-                        <Typography variant="h5" color={text_color}>
+                        <Typography variant="h5" color={text_color} textAlign='center'>
                             We take you through the learning process with no sudden jumps along the way!
                         </Typography>
                     </Box>
@@ -76,7 +76,7 @@ function ProductValues() {
                         <Typography variant="h6" sx={{ my: 5 }} color={text_color}>
                             Track your progress
                         </Typography>
-                        <Typography variant="h5" color={text_color}>
+                        <Typography variant="h5" color={text_color} textAlign='center'>
                             Never lose track of where you are.
                         </Typography>
                     </Box>
@@ -92,7 +92,7 @@ function ProductValues() {
                         <Typography variant="h6" sx={{ my: 5 }} color={text_color}>
                             Easy to understand
                         </Typography>
-                        <Typography variant="h5" color={text_color}>
+                        <Typography variant="h5" color={text_color} textAlign='center'>
                             Finally get that one topic you could never master!
                         </Typography>
                     </Box>
