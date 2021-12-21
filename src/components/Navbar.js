@@ -164,6 +164,7 @@ export default function Navbar(props) {
                 ))}
               </Menu>
             </Box>
+
           </Toolbar>
         </Container>
       </AppBar>

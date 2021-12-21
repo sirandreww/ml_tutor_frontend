@@ -11,7 +11,7 @@ function Cards() {
     return (
       <div className='cards' id="cards_id">
         {/* Don't delet this line, it prevent the window slide from stopping on h1 */}
-        <div className='cards__pos'>HI</div> 
+        <div className='cards__pos'></div> 
         <h1>Main Algorithms</h1>
         <div className='cards__container'>
           <div className='cards__wrapper'>

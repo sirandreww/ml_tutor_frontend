@@ -97,7 +97,7 @@ function ProductValues() {
                         </Typography>
                     </Box>
                 </Grid>
-            </Grid>
+        </Grid>
         </Container>
       </Box>
     );
