@@ -5,9 +5,9 @@ import { Copyright } from '@mui/icons-material';
 
 function Footer() {
     return (
-        <Box sx={{ bgcolor: '#393E46', p: 6 }} component="footer">
+        <Box sx={{ bgcolor: '#EEEEEE', p: 6 }} component="footer">
             <Typography variant="h6" align="center" gutterBottom>
-                Footer
+                MLomda
             </Typography>
             <Typography
                 variant="subtitle1"

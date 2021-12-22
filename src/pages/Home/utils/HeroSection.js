@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Stack } from '@mui/material';
-import backgroundImage from 'assets/images/home_img_3.png';
+import backgroundImage from 'assets/images/home_img_2.png';
 
 export default function HeroSection() {
   return (
@@ -23,11 +23,10 @@ export default function HeroSection() {
           align="center"
           color="white"
           gutterBottom
-          fontFamily={"Playfair Display"}
         >
           MLomda
         </Typography>
-        <Typography variant="h5" fontFamily={"Dosis"} align="center" color="#79B4B7" paragraph>
+        <Typography variant="h5" align="center" color="#79B4B7" paragraph>
           Understand how Machine Learning works by using 3D animation and simple explanations.
         </Typography>
         <Stack

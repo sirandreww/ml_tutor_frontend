@@ -16,17 +16,17 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <ScrollToTop />
-          <Routes >
-            <Route path='/' exact element={<Navbar position="fixed" />} />
-            <Route path='/service' element={<Navbar position="static" />} />
-            <Route path='/algorithms/gd' element={<Navbar position="static" />} />
-          </Routes>
-          
-          <Routes >
-            <Route path='/' exact element={<Home />} />
-            <Route path='/service' element={<Service />} />
-            <Route path='/algorithms/gd' element={<Algorithms />} />
-          </Routes>
+        <Routes >
+          <Route path='/' exact element={<Navbar position="fixed" />} />
+          <Route path='/service' element={<Navbar position="static" />} />
+          <Route path='/algorithms/gd' element={<Navbar position="static" />} />
+        </Routes>
+
+        <Routes >
+          <Route path='/' exact element={<Home />} />
+          <Route path='/service' element={<Service />} />
+          <Route path='/algorithms/gd' element={<Algorithms />} />
+        </Routes>
         <Footer />
       </Router>
     </ThemeProvider>
