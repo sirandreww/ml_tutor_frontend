@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logo from 'assets/images/MlLogo.png';
 import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
@@ -38,31 +37,16 @@ export default function Navbar(props) {
     setAnchorElUser(null);
   };
 
-  const {position} = props;
-  console.log(position);
-  const is_transparent = (position === "fixed");
-  console.log(is_transparent);
-  console.log(typeof(is_transparent));
-  const background = (is_transparent ? 'transparent' : "#3c4e76");
-  console.log(background);
-  console.log(typeof(background));
-
-  const app_bar_theme = createTheme({
-    palette: {
-      primary: {
-        main: "#3c4e76",
-        contrastText: background.toString(),
-      },
-    },
-  });
+  console.log(props);
+  console.log(props.scrollToColorParameters);
+  console.log(props.appBarParameters);
 
   return (
-    <ThemeProvider theme={app_bar_theme}>
-      <ScrollToColor transparent={background}>
-      <AppBar position={position} style={{background:{background}, boxShadow: 'none'}}>
+    <ScrollToColor {...props.scrollToColorParameters}>
+      <AppBar {...props.appBarParameters}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-          
+
             <Typography
               variant="h6"
               noWrap
@@ -70,10 +54,10 @@ export default function Navbar(props) {
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
               <Link to={"/"}>
-              <img src={logo} alt="Logo" width="40" height="40" />
+                <img src={logo} alt="Logo" width="40" height="40" />
               </Link>
             </Typography>
-          
+
 
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -112,7 +96,7 @@ export default function Navbar(props) {
                 ))}
               </Menu>
             </Box>
-            
+
             <Typography
               variant="h6"
               noWrap
@@ -120,7 +104,7 @@ export default function Navbar(props) {
               sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
               <Link to={"/"}>
-              <img src={logo} alt="Logo" width="40" height="40" />
+                <img src={logo} alt="Logo" width="40" height="40" />
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -168,8 +152,26 @@ export default function Navbar(props) {
           </Toolbar>
         </Container>
       </AppBar>
-      </ScrollToColor>
-    </ThemeProvider>
+    </ScrollToColor>
   );
 };
 
+Navbar.defaultProps = {
+  scrollToColorParameters: {
+    // nonTransparentBackgroundColor:"#3c4e76",
+    // transparentBackgroundColor:"#3c4e76",
+    // nonTransparentColor:"white",
+    // transparentColor:"white",
+    // nonTransparentTransition:"0.3s",
+    // transparentTransition:"0.5s",
+    // boxShadow:"none",
+    // padding:"10px 0px",
+  },
+  appBarParameters:{
+    position:"static",
+    // style:{
+    //   background: "#3c4e76",
+    //   boxShadow: 'none',
+    // } 
+  }
+}

@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Stack } from '@mui/material';
 import backgroundImage from 'assets/images/home_img_2.png';
+import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
@@ -36,7 +37,7 @@ export default function HeroSection() {
           justifyContent="center"
         >
           <Button variant="contained" color="success">Sign up</Button>
-          <Button variant="outlined">sign in</Button>
+          <Button variant="outlined" component={Link} to="/signin">sign in</Button>
         </Stack>
       </Container>
     </Box>

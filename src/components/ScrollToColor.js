@@ -13,14 +13,25 @@ const ScrollHandler = props => {
 
   return React.cloneElement(props.children, {
     style: {
-      backgroundColor: trigger ? "#3c4e76" : transparent,
-      color: trigger ? "white" : "white",
-      transition: trigger ? "0.3s" : "0.5s",
-      boxShadow: "none",
-      padding: "10px 0px"
+      backgroundColor: trigger ? props.nonTransparentBackgroundColor : props.transparentBackgroundColor,
+      color: trigger ? props.nonTransparentColor : props.transparentColor,
+      transition: trigger ? props.nonTransparentTransition : props.transparentTransition,
+      boxShadow: props.boxShadow,
+      padding: props.padding
     }
   });
 };
+
+ScrollHandler.defaultProps = {
+  nonTransparentBackgroundColor: "#3c4e76",
+  transparentBackgroundColor: "#3c4e76",
+  nonTransparentColor: "white",
+  transparentColor: "white",
+  nonTransparentTransition: "0.3s",
+  transparentTransition: "0.5s",
+  boxShadow: "none",
+  padding: "10px 0px",
+}
 
 const ScrollToColor = props => {
   return <ScrollHandler {...props}>{props.children}</ScrollHandler>;
