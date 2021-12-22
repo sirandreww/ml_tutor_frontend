@@ -2,7 +2,7 @@ import 'App.css';
 import React from 'react';
 import Home from 'pages/Home/Home.js';
 import Services from 'pages/Service';
-import Algorithms from 'pages/algorithms/GradientDescent.js';
+import GradientDescent from 'pages/algorithms/GradientDescent.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ScrollToTop from './components/ScrollToTop.js';
@@ -20,7 +20,7 @@ function App() {
         <Routes >
           <Route path='/' exact element={<Home />} />
           <Route path='/service' element={<Services />} />
-          <Route path='/algorithms/gd' element={<AlgorithmsDashboard component={Algorithms} />} />
+          <Route path='/algorithms/gd' element={<AlgorithmsDashboard component={<GradientDescent/>} />} />
           <Route path='/signin' element={<SignIn/>} />
         </Routes>
       </Router>

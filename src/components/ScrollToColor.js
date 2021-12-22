@@ -8,9 +8,6 @@ const ScrollHandler = props => {
     target: props.window ? window() : undefined
   });
 
-  const transparent = props.transparent;
-  console.log(transparent);
-
   return React.cloneElement(props.children, {
     style: {
       backgroundColor: trigger ? props.nonTransparentBackgroundColor : props.transparentBackgroundColor,

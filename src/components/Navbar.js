@@ -37,10 +37,6 @@ export default function Navbar(props) {
     setAnchorElUser(null);
   };
 
-  console.log(props);
-  console.log(props.scrollToColorParameters);
-  console.log(props.appBarParameters);
-
   return (
     <ScrollToColor {...props.scrollToColorParameters}>
       <AppBar {...props.appBarParameters}>
