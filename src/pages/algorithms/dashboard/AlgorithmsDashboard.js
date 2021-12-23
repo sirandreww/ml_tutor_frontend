@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from './ListItems';
-import MovingNavbar from './MovingNavbar.js';
+import Navbar from 'components/Navbar.js';
 
 function Copyright(props) {
   return (
@@ -63,11 +63,9 @@ export default function AlgorithmsDashboard(props) {
 
   return (
     <ThemeProvider theme={mdTheme}>
+      <Navbar />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-
-        <MovingNavbar isOpen={open} widthOpened={drawerWidthOpened} widthClosed={drawerWidthClosed} theme={mdTheme} />
-
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -95,10 +93,9 @@ export default function AlgorithmsDashboard(props) {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
-            overflow: 'visible',
+            overflow: 'auto',
           }}
         >
-          <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}>
 
             {props.component}
