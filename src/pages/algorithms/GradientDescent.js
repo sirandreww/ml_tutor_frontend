@@ -1,670 +1,157 @@
-import React from 'react';
-import { Slider } from "@mui/material";
-import NI from 'assets/images/notebook.png';
-import GD1D from 'assets/images/GD1D.png';
-import GD1DS from 'assets/images/GD1DS.png';
-import GD2D from 'assets/images/GD2D.png';
-import GD2DS from 'assets/images/GD2DS.png';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import * as React from 'react';
 import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import functionPlot from "function-plot";
 
+let contentsBounds = document.body.getBoundingClientRect();
+let width = 800;
+let height = 500;
+let ratio = contentsBounds.width / width;
+width *= ratio;
+height *= ratio;
 
-const tasks_name = [
-    'Note Book', 
-    'Demo 1D', 
-    'Step-By-Step 1D', 
-    'Demo 2D', 
-    'Step-By-Step 2D', 
-    'HyperParameter 1D', 
-    'HyperParameter 2D'
-]
+functionPlot({
+  target: "#plot1",
+  width,
+  height,
+  yAxis: { domain: [-1, 9] },
+  grid: true,
+  data: [
+    {
+      fn: "x^2",
+      derivative: {
+        fn: "2 * x",
+        updateOnMouseMove: true
+      }
+    }
+  ]
+});
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-            >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                {children}
-                </Box>
-            )}
-        </div>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
-}
+const steps = ['GD introduction', 'task 1', 'Create an ad'];
 
 export default function GradientDescent() {
-    const [value, setValue] = React.useState(0);
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [skipped, setSkipped] = React.useState(new Set());
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const isStepOptional = (step) => {
+        return step === 1;
+    };
+
+    const isStepSkipped = (step) => {
+        return skipped.has(step);
+    };
+
+    const handleNext = () => {
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+        }
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    // const handleSkip = () => {
+    //     if (!isStepOptional(activeStep)) {
+    //         // You probably want to guard against something like this,
+    //         // it should never occur unless someone's actively trying to break something.
+    //         throw new Error("You can't skip a step that isn't optional.");
+    //     }
+
+    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    //     setSkipped((prevSkipped) => {
+    //         const newSkipped = new Set(prevSkipped.values());
+    //         newSkipped.add(activeStep);
+    //         return newSkipped;
+    //     });
+    // };
+
+    const handleReset = () => {
+        setActiveStep(0);
     };
 
     return (
-        <Box
-            sx={{
-            backgroundColor: '#E4EFE7',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            minHeight: '100%',
-            }}
-        >
-            <Box
-                sx={{ 
-                    flexGrow: 1, 
-                    bgcolor: 'background.paper', 
-                    display: 'flex'
-                }}
-            >
-                <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="Vertical tabs example"
-                    sx={{ 
-                        borderRight: 1, 
-                        borderColor: 'divider',
-                    }}
-                >
-                    <Tab label={tasks_name[0]} {...a11yProps(0)} />
-                    <Tab label={tasks_name[1]} {...a11yProps(1)} />
-                    <Tab label={tasks_name[2]} {...a11yProps(2)} />
-                    <Tab label={tasks_name[3]} {...a11yProps(3)} />
-                    <Tab label={tasks_name[4]} {...a11yProps(4)} />
-                    <Tab label={tasks_name[5]} {...a11yProps(5)} />
-                    <Tab label={tasks_name[6]} {...a11yProps(6)} />
-                </Tabs>
-                <TabPanel value={value} index={0}>
-                    {/* NoteBook */}
-                    <div>
-                        <img src={NI} alt='' />
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    {/* Demo 1D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>alpha:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                        </form>
-                        <br />
-                        <div className='demo-graph-board'>
-                            <img src={GD1D} alt='' width="50%"/>
-                        </div>
-                        <br />
-                        <div className='controls'>
-                            <button>Demonstrate</button>
-                            <button>STOP</button>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    {/* Step By Step 1D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>alpha:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                        </form>
-                        <br />
-                        <div className='solution-board'>
-                            <table className='solution-table'>
-                                <tr className='title'>
-                                    <th>Step</th>
-                                    <th>x</th>
-                                    <th>dx</th>
-                                    <th>alpha*dx</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input value="0" readonly/></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                            </table>
-                            <div className='solution-graph-board'>
-                                <img src={GD1DS} alt='' width="50%"/>
-                            </div>
-                        </div>
-                        <br />
-                        <div className='controls'>
-                            <button>&#8680;</button>
-                            <button>&#8678;</button>
-                            <button>Check</button>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={3}>
-                    {/* Demo 2D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x, y):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>alpha:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>beta:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                        </form>
-                        <br />
-                        <div className='demo-graph-board'>
-                            <img src={GD2D} alt='' width="50%"/>
-                        </div>
-                        <br />
-                        <div className='controls'>
-                            <button>Demonstrate</button>
-                            <button>STOP</button>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={4}>
-                    {/* Step By Step 2D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x, y):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>alpha:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <label>beta:</label>
-                            <br/>
-                            <input type="text" name='title' />
-                        </form>
-                        <br />
-                        <div className='solution-board'>
-                            <table className='solution-table'>
-                                <tr className='title'>
-                                    <th>Step</th>
-                                    <th>x</th>
-                                    <th>dx</th>
-                                    <th>y</th>
-                                    <th>dy</th>
-                                    <th>alpha*dx</th>
-                                    <th>beta*dy</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input value="0" readonly/></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                    <td><input /></td>
-                                </tr>
-                            </table>
-                            <div className='solution-graph-board'>
-                                <img src={GD2DS} alt='' width="50%"/>
-                            </div>
-                        </div>
-                        <br />
-                        <div className='controls'>
-                            <button>&#8680;</button>
-                            <button>&#8678;</button>
-                            <button>Check</button>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={5}>
-                    {/* Hyepr Parameter 1D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <div className='controls'>
-                                <label>alpha:</label>
-                                <Slider 
-                                    className='slider'
-                                    defaultValue={1} 
-                                    valueLabelDisplay="auto"
-                                    min={0}
-                                    max={20}
-                                    step={0.1}
-                                />
-                            </div>
-                        </form>
-                        <br />
-                        <div className='solution-board'>
-                            <div className='solution-graph-board'>
+        <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={activeStep}>
+                {steps.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    if (isStepOptional(index)) {
+                        labelProps.optional = (
+                            <Typography variant="caption">Optional</Typography>
+                        );
+                    }
+                    if (isStepSkipped(index)) {
+                        stepProps.completed = false;
+                    }
+                    return (
+                        <Step key={label} {...stepProps}>
+                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        </Step>
+                    );
+                })}
+            </Stepper>
+            {activeStep === steps.length ? (
+                <React.Fragment>
+                    <Typography sx={{ mt: 2, mb: 1 }}>
+                        All steps completed - you&apos;re finished
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        <Button onClick={handleReset}>Reset</Button>
+                    </Box>
+                </React.Fragment>
+            ) : (
+                <React.Fragment>
 
-                            </div>
-                            <div className='results'>
-                                <span>(x'):  </span>
-                                <input readOnly value=""></input>
-                            </div>
-                            <div className='results'>
-                                <span>f(x'):  </span>
-                                <input readOnly value="" ></input>
-                            </div>
+                    {/* First Slide */}
+                    {(activeStep === 0) && (
+                        <div>
+                            <Typography sx={{ mt: 2 }}>Gradient descent is an iterative algorithm for finding a local minimum.</Typography>
+                            <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
+                            <Typography sx={{ mb: 1 }}>Take this function for example:</Typography>
+                            <div id="plot1"></div>
                         </div>
-                        <br />
-                        <div className='controls'>
-                            <button>&#8680;</button>
-                            <button>&#8678;</button>
-                            <button>Check</button>
-                        </div>
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={6}>
-                    {/* Hyepr Parameter 2D */}
-                    <div>
-                        <form className='function-input'>
-                            <label>f(x, y):</label>
-                            <br/>
-                            <input type="text" name='title' />
-                            <div className='controls'>
-                                <label>alpha:</label>
-                                <Slider 
-                                    className='slider'
-                                    defaultValue={1} 
-                                    valueLabelDisplay="auto"
-                                    min={0}
-                                    max={20}
-                                    step={0.1}
-                                />
-                            </div>
-                            <div className='controls'>
-                                <label>beta:</label>
-                                <Slider 
-                                    className='slider'
-                                    defaultValue={1} 
-                                    valueLabelDisplay="auto"
-                                    min={0}
-                                    max={20}
-                                    step={0.1}
-                                />
-                            </div>
-                        </form>
-                        <br />
-                        <div className='solution-board'>
-                            <div className='solution-graph-board'>
+                    )}
 
-                            </div>
-                            <div className='results'>
-                                <span>(x', y'):  </span>
-                                <input readOnly value=""></input>
-                            </div>
-                            <div className='results'>
-                                <span>f(x', y'):  </span>
-                                <input readOnly value="" ></input>
-                            </div>
-                        </div>
-                        <br />
-                        <div className='controls'>
-                            <button>&#8680;</button>
-                            <button>&#8678;</button>
-                            <button>Check</button>
-                        </div>
-                    </div>
-                </TabPanel>
-            </Box>
+
+
+
+
+
+
+                    {/* slide managing code */}
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Button
+                            color="inherit"
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            sx={{ mr: 1 }}
+                        >
+                            Back
+                        </Button>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        {/* {isStepOptional(activeStep) && (
+                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                                Skip
+                            </Button>
+                        )} */}
+
+                        <Button onClick={handleNext}>
+                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        </Button>
+                    </Box>
+                </React.Fragment>
+            )}
         </Box>
     );
 }
-
-
-// function Algorithms() {
-//     return (
-//         <div className='algorithms-container'>
-            
-//             <div className='question-panel'>
-//                 {
-//                     t0 ? // Python Notebook
-//                     <div>
-//                         <img src={NI} alt=''/>
-//                     </div>: null
-//                 }
-//                 {
-//                     t1 ? // Demo 1D
-//                     <div>
-//                         <form className='function-input'>
-//                             <label>f(x):</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>alpha:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                         </form>
-//                         <br />
-//                         <div className='demo-graph-board'>
-//                             <img src={GD1D} alt='' width="50%"/>
-//                         </div>
-//                         <br />
-//                         <div className='controls'>
-//                             <button>Demonstrate</button>
-//                             <button>STOP</button>
-//                         </div>
-//                     </div>: null
-//                 }
-                
-//                 {
-//                     t2 ? // Step-By-Step 1D
-//                     <div>
-//                         <form className='function-input'>
-//                             <label>f(x):</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>alpha:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                         </form>
-//                         <br />
-//                         <div className='solution-board'>
-//                             <table className='solution-table'>
-//                                 <tr className='title'>
-//                                     <th>Step</th>
-//                                     <th>x</th>
-//                                     <th>dx</th>
-//                                     <th>alpha*dx</th>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input value="0" readonly/></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                             </table>
-//                             <div className='solution-graph-board'>
-//                                 <img src={GD1DS} alt='' width="50%"/>
-//                             </div>
-//                         </div>
-//                         <br />
-//                         <div className='controls'>
-//                             <button>&#8680;</button>
-//                             <button>&#8678;</button>
-//                             <button>Check</button>
-//                         </div>
-//                     </div>: null
-//                 }
-                
-//                 {
-//                     t3 ? // Demo 2D
-//                     <div>
-//                         <form className='function-input'>
-//                             <label>f(x, y):</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>alpha:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>beta:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                         </form>
-//                         <br />
-//                         <div className='demo-graph-board'>
-//                             <img src={GD2D} alt='' width="50%"/>
-//                         </div>
-//                         <br />
-//                         <div className='controls'>
-//                             <button>Demonstrate</button>
-//                             <button>STOP</button>
-//                         </div>
-//                     </div>: null
-//                 }
-
-//                 {
-//                     t4 ? // Step-By-Step 2D
-//                     <div>
-//                         <form className='function-input'>
-//                             <label>f(x, y):</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>alpha:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <label>beta:</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                         </form>
-//                         <br />
-//                         <div className='solution-board'>
-//                             <table className='solution-table'>
-//                                 <tr className='title'>
-//                                     <th>Step</th>
-//                                     <th>x</th>
-//                                     <th>dx</th>
-//                                     <th>y</th>
-//                                     <th>dy</th>
-//                                     <th>alpha*dx</th>
-//                                     <th>beta*dy</th>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input value="0" readonly/></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                                 <tr>
-//                                     <td></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                     <td><input /></td>
-//                                 </tr>
-//                             </table>
-//                             <div className='solution-graph-board'>
-//                                 <img src={GD2DS} alt='' width="50%"/>
-//                             </div>
-//                         </div>
-//                         <br />
-//                         <div className='controls'>
-//                             <button>&#8680;</button>
-//                             <button>&#8678;</button>
-//                             <button>Check</button>
-//                         </div>
-//                     </div>: null
-//                 }
-
-//                 { 
-//                     t5 ? // Hyper Parameter 1D
-//                     c: null
-//                 }
-
-//                 { 
-//                     t6 ? // Hyper Parameter 1D
-//                     <div>
-//                         <form className='function-input'>
-//                             <label>f(x, y):</label>
-//                             <br/>
-//                             <input type="text" name='title' />
-//                             <div className='controls'>
-//                                 <label>alpha:</label>
-//                                 <Slider 
-//                                     className='slider'
-//                                     defaultValue={1} 
-//                                     valueLabelDisplay="auto"
-//                                     min={0}
-//                                     max={20}
-//                                     step={0.1}
-//                                 />
-//                             </div>
-//                             <div className='controls'>
-//                                 <label>beta:</label>
-//                                 <Slider 
-//                                     className='slider'
-//                                     defaultValue={1} 
-//                                     valueLabelDisplay="auto"
-//                                     min={0}
-//                                     max={20}
-//                                     step={0.1}
-//                                 />
-//                             </div>
-//                         </form>
-//                         <br />
-//                         <div className='solution-board'>
-//                             <div className='solution-graph-board'>
-
-//                             </div>
-//                             <div className='results'>
-//                                 <span>(x', y'):  </span>
-//                                 <input readOnly value=""></input>
-//                             </div>
-//                             <div className='results'>
-//                                 <span>f(x', y'):  </span>
-//                                 <input readOnly value="" ></input>
-//                             </div>
-//                         </div>
-//                         <br />
-//                         <div className='controls'>
-//                             <button>&#8680;</button>
-//                             <button>&#8678;</button>
-//                             <button>Check</button>
-//                         </div>
-//                     </div>: null
-//                 }
-//             </div>
-//         </div>
-//     );
-//     }
-
-// }
-
