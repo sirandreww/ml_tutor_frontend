@@ -7,39 +7,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import functionPlot from "function-plot";
 
-let contentsBounds = document.body.getBoundingClientRect();
-let width = 800;
-let height = 500;
-let ratio = contentsBounds.width / width;
-width *= ratio;
-height *= ratio;
-
-functionPlot({
-  target: "#plot1",
-  width,
-  height,
-  yAxis: { domain: [-1, 9] },
-  grid: true,
-  data: [
-    {
-      fn: "x^2",
-      derivative: {
-        fn: "2 * x",
-        updateOnMouseMove: true
-      }
-    }
-  ]
-});
-
-const steps = ['GD introduction', 'task 1', 'Create an ad'];
+const steps = ['GD introduction', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'];
 
 export default function GradientDescent() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
 
-    const isStepOptional = (step) => {
-        return step === 1;
-    };
+    // const isStepOptional = (step) => {
+    //     return step === 1;
+    // };
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -79,17 +55,43 @@ export default function GradientDescent() {
         setActiveStep(0);
     };
 
+    const plotRef = React.useRef();
+
+    React.useEffect(() => {
+        let width = 600;
+        let height = 450;
+
+        functionPlot({
+            target: "#plot1",
+            width,
+            height,
+            xAxis: { domain: [-20, 20] },
+            yAxis: { domain: [-15, 15] },
+            title: "0.001*(x^4 - 100*x^2)",
+            grid: true,
+            data: [
+                {
+                    fn: "0.001*(x^4 - 100*x^2)",
+                    derivative: {
+                        fn: "0.001*(4*x^3 - 200*x)",
+                        updateOnMouseMove: true
+                    }
+                }
+            ]
+        });
+    });
+    
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={activeStep}>
                 {steps.map((label, index) => {
                     const stepProps = {};
                     const labelProps = {};
-                    if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            <Typography variant="caption">Optional</Typography>
-                        );
-                    }
+                    // if (isStepOptional(index)) {
+                    //     labelProps.optional = (
+                    //         <Typography variant="caption">Optional</Typography>
+                    //     );
+                    // }
                     if (isStepSkipped(index)) {
                         stepProps.completed = false;
                     }
@@ -119,7 +121,9 @@ export default function GradientDescent() {
                             <Typography sx={{ mt: 2 }}>Gradient descent is an iterative algorithm for finding a local minimum.</Typography>
                             <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
                             <Typography sx={{ mb: 1 }}>Take this function for example:</Typography>
-                            <div id="plot1"></div>
+                            <div id="plot1">
+                                <svg ref={plotRef}></svg>
+                            </div>
                         </div>
                     )}
 
