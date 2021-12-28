@@ -7,11 +7,75 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import functionPlot from "function-plot";
 
+// --------------------------------------------------------
+import { create, all } from 'mathjs';
+const math = create(all, {})
+
+function getDev(f,v) {
+    try {
+        return math.derivative(f,v).toString()
+    }
+    catch (_) {
+        return '0'
+    }
+}
+
+function getGraph(f, v) {
+    let width = 600;
+    let height = 450;
+
+    functionPlot({
+        target: "#plot1",
+        width,
+        height,
+        xAxis: { domain: [-20, 20] },
+        yAxis: { domain: [-15, 15] },
+        title: f,
+        grid: true,
+        data: [
+            {
+                fn: f,
+                derivative: {
+                    fn: getDev(f, v),
+                    updateOnMouseMove: true
+                },
+            },
+            {
+                points: [
+                  [0, math.evaluate(f, {'x': 0})],
+                  [1, math.evaluate(f, {'x': 1})],
+                  [2, math.evaluate(f, {'x': 2})],
+                  [3, math.evaluate(f, {'x': 3})],
+                  [4, math.evaluate(f, {'x': 4})],
+                ],
+                fnType: 'points',
+                graphType: 'scatter'
+            },
+            {
+                vector: [-3, -3],
+                offset: [2, 4],
+                graphType: 'polyline',
+                fnType: 'vector'
+            }
+        ]
+    });
+}
+
+function getGraph2() {
+    return (<Box>
+        Hello World
+    </Box>);
+}
+// --------------------------------------------------------
+
 const steps = ['GD introduction', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'];
 
 export default function GradientDescent() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+
+    const [myfun, setFun] = React.useState('x^2')
+    const [alpha, setAlpha] = React.useState(1)
 
     // const isStepOptional = (step) => {
     //     return step === 1;
@@ -58,28 +122,13 @@ export default function GradientDescent() {
     const plotRef = React.useRef();
 
     React.useEffect(() => {
-        let width = 600;
-        let height = 450;
-
-        functionPlot({
-            target: "#plot1",
-            width,
-            height,
-            xAxis: { domain: [-20, 20] },
-            yAxis: { domain: [-15, 15] },
-            title: "0.001*(x^4 - 100*x^2)",
-            grid: true,
-            data: [
-                {
-                    fn: "0.001*(x^4 - 100*x^2)",
-                    derivative: {
-                        fn: "0.001*(4*x^3 - 200*x)",
-                        updateOnMouseMove: true
-                    }
-                }
-            ]
-        });
-    });
+        try {
+            getGraph(myfun, 'x')
+        }
+        catch (_) {
+            getGraph('0', 'x')
+        }
+    }, [myfun]);
     
     return (
         <Box sx={{ width: '100%' }}>
@@ -122,7 +171,18 @@ export default function GradientDescent() {
                             <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
                             <Typography sx={{ mb: 1 }}>Take this function for example:</Typography>
                             <div id="plot1">
-                                <svg ref={plotRef}></svg>
+                                <lable>f(x):</lable>
+                                <br/>
+                                <input type='text' onChange={event => setFun(event.target.value)}/>
+                                <br/>
+                                <lable>alpha:</lable>
+                                <br/>
+                                <input type='text' onChange={event => setAlpha(event.target.value)}/>
+                                
+                                <p>{getDev(myfun, 'x')}</p>
+                                {/* <svg ref={plotRef}></svg> */}
+                                {getGraph2()}
+                                <button onClick={()=> setFun('0.001*(x^4 - 100*x^2)')}>Calculate</button>
                             </div>
                         </div>
                     )}
