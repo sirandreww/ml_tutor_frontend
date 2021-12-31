@@ -15,7 +15,7 @@ import logo from 'assets/images/MlLogo.png';
 import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
 
-const pages = ['Algorithms', 'Pricing', 'Blog'];
+const pages = ['Algorithms'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Navbar(props) {
@@ -53,7 +53,6 @@ export default function Navbar(props) {
                 <img src={logo} alt="Logo" width="40" height="40" />
               </Link>
             </Typography>
-
 
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
