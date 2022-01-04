@@ -1,3 +1,4 @@
+// ------------------------ IMPORTS ------------------------  
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { styled } from "@mui/material/styles";
@@ -6,82 +7,17 @@ import Paper from "@mui/material/Paper";
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
+import { Button, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import BrushIcon from '@mui/icons-material/Brush';
 import Typography from '@mui/material/Typography';
 import functionPlot from "function-plot";
-import { create, all, clone } from 'mathjs';
+import { create, all } from 'mathjs';
 import Plotly from 'plotly.js-dist-min'
-import { IconButton } from '@mui/material';
 
-// --------------------------------------------------------
-// import * as vis from 'vis'
-// import * as vis3 from 'vis-graph3d'
-// var data = null;
-// var graph = null;
-
-// function custom(x, y) {
-//     return (Math.sin(x/50) * Math.cos(y/50) * 50 + 50);
-// }
-
-// function drawVisualization() {
-//     data = new vis.DataSet();
-//     var counter = 0;
-//     var steps = 50;  // number of datapoints will be steps*steps
-//     var axisMax = 314;
-//     var axisStep = axisMax / steps;
-//     for (var x = 0; x < axisMax; x+=axisStep) {
-//         for (var y = 0; y < axisMax; y+=axisStep) {
-//             var value = custom(x,y);
-//             data.add({id:counter++,x:x,y:y,z:value,style:value});
-//         }
-//     }
-
-//     // specify options
-//     var options = {
-//     width:  '600px',
-//     height: '600px',
-//     style: 'surface',
-//     showPerspective: true,
-//     showGrid: true,
-//     showShadow: false,
-//     keepAspectRatio: true,
-//     verticalRatio: 0.5
-//     };
-
-    
-//     // Instantiate our graph object.
-//     var container = document.getElementById('mygraph');
-//     graph = new vis.Graph3d(container, data, options);
-
-//     data = new vis.DataSet();
-//     data.add({x:1,y:1,z:1,style:1});
-//     var options = {
-//         width: "600px",
-//         height: "600px",
-//         style: "dot-size",
-//         showPerspective: false,
-//         showGrid: true,
-//         keepAspectRatio: true,
-//         legendLabel: "value",
-//         verticalRatio: 1.0,
-//         cameraPosition: {
-//           horizontal: -0.54,
-//           vertical: 0.5,
-//           distance: 1.6,
-//         },
-//         dotSizeMinFraction: 0.5,
-//         dotSizeMaxFraction: 2.5,
-//       };
-
-//       var container = document.getElementById('mygraph');
-//     graph = new vis.Graph3d(container, data, options);
-// }
-// --------------------------------------------------------
-
-
+// ------------------------ CODE ------------------------    
 
 const InputItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -129,7 +65,6 @@ function getPoints2D(f, startX, startY, steps_count, alpha) {
         y: [prevY],
         z: [math.evaluate(f, {'x': startX, 'y': startY})]
     }
-
     // console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
 
     for (let i = 0; i < steps_count; i++) {
@@ -289,6 +224,23 @@ export default function GradientDescent() {
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
     const [data2D, setData2D] = React.useState({x:[], y:[], z:[]})
+    const [draw, setDraw] = React.useState(false)
+
+    const handleStates = (
+        {fn = myfun, sx = startX, sy = startY, al = alpha, d2D = false, dr = draw, tck = ticking, cnt = count} = 
+        {fn: 'x^2', sx: 1, sy: 0, al: 0, d2D: 0, dr: {x:[], y:[], z:[]}, tck: false, cnt: 0}) => {
+        setFun(fn)
+        setStartX(sx)
+        setStartY(sy)
+        setAlpha(al)
+        setDraw(dr)
+        setCount(cnt)
+        setTicking(tck)
+
+        if(d2D) {
+            setData2D(getData2D(myfun))
+        }
+    }
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -318,51 +270,34 @@ export default function GradientDescent() {
             let points = null
             switch(activeStep) {
                 case 0:
-                    points = getPoints1D(clone(myfun), clone(startX), clone(count), clone(alpha))
+                    points = getPoints1D(myfun, startX, count, alpha)
                     getGraph1D(myfun, points)
                     break;
                 case 1:
-                    points = getPoints2D(clone(myfun), clone(startX), clone(startY), clone(count), clone(alpha))
-                    if(count === 0) {
-                        setData2D(getData2D(clone(myfun)))
+                    if(draw) {
+                        points = getPoints2D(myfun, startX, startY, count, alpha)
+                        getGraph2D(data2D, points)
                     }
-                    getGraph2D(data2D, points)
                     break;
-
                 default:
                     throw 'reach undefined case'.concat(activeStep.toString())
             }
         }
         catch (e) {
-            console.log("error at useEffect => \n", e)
+            console.log("error at useEffect on parameters changes => \n", e)
         }
-    }, [myfun, alpha, startX, startY, count, activeStep]);
+    }, [myfun, alpha, startX, startY, count, activeStep, draw, data2D]);
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
         try {
-            let points = null
-            switch(activeStep) {
-                case 0:
-                    points = getPoints1D(clone(myfun), clone(startX), clone(count), clone(alpha))
-                    getGraph1D(myfun, points)
-                    break;
-                case 1:
-                    points = getPoints2D(clone(myfun), clone(startX), clone(startY), clone(count), clone(alpha))
-                    let data = getData2D(clone(myfun))
-                    getGraph2D(data, points)
-                    break;
-
-                default:
-                    throw 'reach undefined case'.concat(activeStep.toString())
-            }
-            
+            const timer = setTimeout(() => ticking && setCount(count+1), 1e3)
+            return () => clearTimeout(timer)
         }
         catch (e) {
             console.log("error at useEffect => \n", e)
         }
-        const timer = setTimeout(() => ticking && setCount(count+1), 1e3)
-        return () => clearTimeout(timer)
+        
     });
     
     return (
@@ -412,19 +347,19 @@ export default function GradientDescent() {
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
                                                 f(x):
                                                 <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => {setTicking(false); setCount(0); setFun(event.target.value)}}/>
+                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({tck: false, cnt: 0, fn: event.target.value})}/>
                                             </Typography>
                                         </InputItem>
                                         <InputItem>
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
                                                 alpha:
                                                 <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => {setTicking(false); setCount(0); setAlpha(event.target.value)}}/>
+                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, cnt: 0, al: event.target.value})}/>
                                             </Typography>
                                         </InputItem>
                                         <InputItem>
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                Starting point (x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => {setTicking(false); setCount(0); setStartX(event.target.value)}}/>)
+                                                Starting point (x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, cnt: 0, sx: event.target.value})}/>)
                                             </Typography>
                                         </InputItem>
                                         <InputItem>
@@ -438,13 +373,13 @@ export default function GradientDescent() {
                                             <div id='graph-board'></div>
                                         </OutputItem>
                                         <ControlItem>
-                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> setCount(0)}>
+                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({tck: false, cnt: 0})}>
                                                 <ClearIcon fontSize="inherit" />
                                             </IconButton>
-                                            <IconButton aria-label="delete" size="large" onClick={()=> setTicking(false)}>
+                                            <IconButton aria-label="delete" size="large" onClick={()=> handleStates({tck: false})}>
                                                 <PauseIcon fontSize="inherit" />
                                             </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> setTicking(true)}>
+                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> handleStates({tck: true})}>
                                                 <PlayArrowIcon fontSize="inherit" />
                                             </IconButton>
                                             <p>{count}</p>
@@ -464,21 +399,21 @@ export default function GradientDescent() {
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
                                                 f(x, y):
                                                 <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => {setTicking(false); setCount(0); setFun(event.target.value)}}/>
+                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({fn: event.target.value, tck: false, cnt: 0})}/>
                                             </Typography>
                                         </InputItem>
                                         <InputItem>
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
                                                 alpha:
                                                 <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => {setTicking(false); setCount(0); setAlpha(event.target.value)}}/>
+                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, al: event.target.value})}/>
                                             </Typography>
                                         </InputItem>
                                         <InputItem>
                                             <Typography sx={{color: 'black', fontSize: '1rem'}}>
                                                 Starting point (
-                                                    x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => {setTicking(false); setCount(0); setStartX(event.target.value)}}/>,
-                                                    y = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => {setTicking(false); setCount(0); setStartY(event.target.value)}}/>
+                                                    x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sx: event.target.value})}/>,
+                                                    y = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sy: event.target.value})}/>
                                                 )
                                             </Typography>
                                         </InputItem>
@@ -493,13 +428,16 @@ export default function GradientDescent() {
                                             <div id='graph2-board'></div>
                                         </OutputItem>
                                         <ControlItem>
-                                        <IconButton aria-label="delete" size="large" color="error" onClick={()=> setCount(0)}>
+                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true, d2D: true})}>
+                                                <BrushIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({tck: false, dr: false, cnt: 0})}>
                                                 <ClearIcon fontSize="inherit" />
                                             </IconButton>
-                                            <IconButton aria-label="delete" size="large" onClick={()=> setTicking(false)}>
+                                            <IconButton aria-label="delete" size="large" onClick={()=> handleStates({tck: false})}>
                                                 <PauseIcon fontSize="inherit" />
                                             </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> setTicking(true)}>
+                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> handleStates({tck: true, dr: true, d2D: true})}>
                                                 <PlayArrowIcon fontSize="inherit" />
                                             </IconButton>
                                             <p>{count}</p>
