@@ -6,7 +6,7 @@ function PrettyLine() {
     return (
         <Container maxWidth="lg">
             <Box sx={{ minHeight: 50, }}></Box>
-            <Divider />
+            <Divider sx={{ borderBottomWidth: 3 }} />
             <Box sx={{ minHeight: 50, }}></Box>
         </Container>
     );

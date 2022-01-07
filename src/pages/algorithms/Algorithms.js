@@ -26,11 +26,11 @@ export default function Algorithms() {
                         align="center"
                         color="black"
                         gutterBottom
-                        fontFamily={"Playfair Display"}
+                        fontFamily={"Arial"}
                     >
                         How to Get started?
                     </Typography>
-                    <Typography variant="h5" fontFamily={"Dosis"} align="center" color="#79B4B7" paragraph>
+                    <Typography variant="h5" fontFamily={"Arial"} align="center" color="black" paragraph>
                         Simply choose one of the following algorithms and start learning!
                     </Typography>
                 </Container>

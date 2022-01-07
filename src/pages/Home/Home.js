@@ -10,7 +10,7 @@ function Home() {
     <>
       <Navbar
         appBarParameters={{ position: "fixed" }}
-        scrollToColorParameters={{ transparentBackgroundColor: "transparent" }}
+        scrollToColorParameters={{ transparentBackgroundColor: "transparent", nonTransparentBoxShadow: ""}}
       />
       <HeroSection />
       <PrettyLine />

@@ -26,7 +26,7 @@ ScrollHandler.defaultProps = {
   transparentColor: "black",
   nonTransparentTransition: "0.3s",
   transparentTransition: "0.5s",
-  nonTransparentBoxShadow: "",
+  nonTransparentBoxShadow: "none",
   transparentBoxShadow: "none",
   padding: "10px 0px",
 }
