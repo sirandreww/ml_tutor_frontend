@@ -40,7 +40,7 @@ export default function Navbar(props) {
   return (
     <ScrollToColor {...props.scrollToColorParameters}>
       <AppBar {...props.appBarParameters}>
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <Toolbar disableGutters>
 
             <Typography

@@ -13,20 +13,21 @@ const ScrollHandler = props => {
       backgroundColor: trigger ? props.nonTransparentBackgroundColor : props.transparentBackgroundColor,
       color: trigger ? props.nonTransparentColor : props.transparentColor,
       transition: trigger ? props.nonTransparentTransition : props.transparentTransition,
-      boxShadow: props.boxShadow,
+      boxShadow: trigger ? props.nonTransparentBoxShadow : props.transparentBoxShadow ,
       padding: props.padding
     }
   });
 };
 
 ScrollHandler.defaultProps = {
-  nonTransparentBackgroundColor: "#3c4e76",
-  transparentBackgroundColor: "#3c4e76",
-  nonTransparentColor: "white",
-  transparentColor: "white",
+  nonTransparentBackgroundColor: "white",
+  transparentBackgroundColor: "white",
+  nonTransparentColor: "black",
+  transparentColor: "black",
   nonTransparentTransition: "0.3s",
   transparentTransition: "0.5s",
-  boxShadow: "none",
+  nonTransparentBoxShadow: "",
+  transparentBoxShadow: "none",
   padding: "10px 0px",
 }
 
