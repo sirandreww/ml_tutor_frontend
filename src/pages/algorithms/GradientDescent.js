@@ -1,9 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -15,6 +13,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+import { button, LeftItem, CenterItem, RightItem } from './dashboard/utils'
 import Typography from '@mui/material/Typography';
 import functionPlot from "function-plot";
 import { create, all } from 'mathjs';
@@ -42,28 +41,412 @@ const HEADERS_2D = [
     ['newY', "y'"],
 ]
 
-const LeftItem = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "left",
-    color: theme.palette.text.secondary
-}));
-
-const CenterItem = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary
-}));
-
-const RightItem = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "right",
-    color: theme.palette.text.secondary
-}));
-
 const math = create(all, {})
+
+// --------------------------------------------------------
+
+const steps = ['GD introduction', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'];
+
+export default function GradientDescent() {
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [skipped, setSkipped] = React.useState(new Set());
+
+    const [myfun, setFun] = React.useState('x^2')
+    const [alpha, setAlpha] = React.useState(1)
+    const [startX, setStartX] = React.useState('0')
+    const [startY, setStartY] = React.useState('0')
+    const [ticking, setTicking] = React.useState(false)
+    const [count, setCount] = React.useState(0)
+    const [data2D, setData2D] = React.useState({x:[], y:[], z:[]})
+    const [draw, setDraw] = React.useState(false)
+
+    const handleStates = (
+        {fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw} = 
+        {fn: 'x^2', al: 1, sx: 0, sy: 0, tck: false, cnt: 0, d2D: {x:[], y:[], z:[]}, dr: false}) => {
+        setFun(fn)
+        setStartX(sx)
+        setStartY(sy)
+        setAlpha(al)
+        setDraw(dr)
+        setCount(cnt)
+        setTicking(tck)
+
+        if(dr) {
+            (myfun !== '') ? setData2D(getData2D(myfun)) : setData2D(d2D)
+        }
+    }
+
+    const isStepSkipped = (step) => {
+        return skipped.has(step);
+    };
+
+    const handleNext = () => {
+        handleStates()
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+        }
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+    };
+
+    const handleBack = () => {
+        handleStates()
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        handleStates()
+        setActiveStep(0);
+    };
+
+    React.useEffect(() => {
+        try {
+            let points = null
+            switch(activeStep) {
+                case 0:
+                case 1:
+                    points = getPoints1D(myfun, startX, count, alpha)
+                    getGraph1D(myfun, points)
+                    break;
+                case 2:
+                case 3:
+                    if(draw) {
+                        points = getPoints2D(myfun, startX, startY, count, alpha)
+                        getGraph2D(data2D, points)
+                    }
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    throw 'reach undefined case'.concat(activeStep.toString())
+            }
+        }
+        catch (e) {
+            console.log("error at useEffect on parameters changes => \n", e)
+        }
+    }, [myfun, alpha, startX, startY, count, activeStep, draw, data2D]);
+
+    // For Initial plot when the page loads for the first time
+    React.useEffect(() => {
+        try {
+            const timer = setTimeout(() => ticking && setCount(count+1), 1e3)
+            return () => clearTimeout(timer)
+        }
+        catch (e) {
+            console.log("error at useEffect => \n", e)
+        }
+        
+    });
+
+    // React.useEffect(() => {
+    //     try {
+    //         handleStates()
+    //     }
+    //     catch (e) {
+    //         console.log("error at useEffect => \n", e)
+    //     }
+        
+    // }, [activeStep]);
+    
+    return (
+        <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={activeStep}>
+                {steps.map((label, index) => {
+                    const stepProps = {};
+                    const labelProps = {};
+                    // if (isStepOptional(index)) {
+                    //     labelProps.optional = (
+                    //         <Typography variant="caption">Optional</Typography>
+                    //     );
+                    // }
+                    if (isStepSkipped(index)) {
+                        stepProps.completed = false;
+                    }
+                    return (
+                        <Step key={label} {...stepProps}>
+                            <StepLabel {...labelProps}>{label}</StepLabel>
+                        </Step>
+                    );
+                })}
+            </Stepper>
+            {activeStep === steps.length ? (
+                <React.Fragment>
+                    <Typography sx={{ mt: 2, mb: 1 }}>
+                        All steps completed - you&apos;re finished
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        <Button onClick={handleReset}>Reset</Button>
+                    </Box>
+                </React.Fragment>
+            ) : (
+                <React.Fragment>
+
+                    {/* First Slide */}
+                    {(activeStep === 0) && (
+                        <div>
+                            <Typography sx={{ mt: 2 }}>Gradient descent is an iterative algorithm for finding a local minimum.</Typography>
+                            <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
+                            <Typography sx={{ mb: 1 }}>Take this function for example:</Typography>
+                            <Box sx={{ width: "100%" }}>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
+                                    <Grid item xs={12}>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                f(x):
+                                                <br/>
+                                                <input type='text' value={myfun} style={{width:'100%', height: '2rem'}} onChange={event => handleStates({tck: false, cnt: 0, fn: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                alpha:
+                                                <br/>
+                                                <input type='text' value={alpha} onChange={event => handleStates({tck: false, cnt: 0, al: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                Starting point (x = <input type='text' style={{width:'5rem'}} value={startX} onChange={event => handleStates({tck: false, cnt: 0, sx: event.target.value})}/>)
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                The derivative of the function is:  {getDev(myfun, 'x')}
+                                            </Typography>
+                                        </LeftItem>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CenterItem>
+                                            <div id='graph-board'></div>
+                                        </CenterItem>
+                                        <RightItem>
+                                            {button({eventHandler: ()=> handleStates({tck: false, cnt: 0}), type: 'stop'})}
+                                            {button({eventHandler: ()=> handleStates({tck: false}), type: 'pause'})}
+                                            {button({eventHandler: ()=> handleStates({tck: true}), type: 'play'})}
+                                            <p>{count}</p>
+                                        </RightItem>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </div>
+                    )}
+
+                    {(activeStep === 1) && (
+                        <div>
+                            <Box sx={{ width: "100%" }}>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
+                                    <Grid item xs={12}>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                f(x):
+                                                <br/>
+                                                <input type='text' value={myfun} style={{width:'100%', height: '2rem'}} onChange={event => handleStates({tck: false, cnt: 0, fn: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                alpha:
+                                                <br/>
+                                                <input type='text' value={alpha} onChange={event => handleStates({tck: false, cnt: 0, al: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                Starting point (x = <input type='text' style={{width:'5rem'}} value={startX} onChange={event => handleStates({tck: false, cnt: 0, sx: event.target.value})}/>)
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                The derivative of the function is:  {getDev(myfun, 'x')}
+                                            </Typography>
+                                        </LeftItem>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CenterItem>
+                                            <QuestionTable 
+                                                rowsNum = { 5 }
+                                                headers = { HEADERS_1D }
+                                                exampleEnabled = { true }
+                                                rowNumbersEnabled = { true }
+                                                example = { getExample(myfun, [{'v':'x', 'val': startX}], alpha) }
+                                                correctAnswers = { getAnswers1D( HEADERS_1D, 6, myfun, startX, alpha) }
+                                            />
+                                            <div id='graph-board'></div>
+                                        </CenterItem>
+                                        <CenterItem>
+                                            {button({eventHandler: ()=> handleStates({tck: false, cnt: (count <= 0) ? 0 : count-1}), type: 'prev'})}
+                                            {button({eventHandler: ()=> handleStates({tck: false, cnt: 0}), type: 'stop'})}
+                                            {button({eventHandler: ()=> handleStates({tck: false, cnt: count + 1}), type: 'next'})}
+                                        </CenterItem>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                            
+                        </div>
+                    )}
+
+                    {(activeStep === 2) && (
+                        <div>
+                            <Box sx={{ width: "100%"}}>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
+                                    <Grid item xs={12}>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                f(x, y):
+                                                <br/>
+                                                <input type='text' value={myfun} style={{width:'100%', height: '2rem'}} onChange={event => handleStates({fn: event.target.value, tck: false, cnt: 0, dr: false})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                alpha:
+                                                <br/>
+                                                <input type='text' value={alpha} onChange={event => handleStates({tck: false, dr: false, cnt: 0, al: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                Starting point (
+                                                    x = <input type='text' style={{width:'5rem'}} value={startX} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sx: event.target.value})}/>,
+                                                    y = <input type='text' style={{width:'5rem'}} value={startY} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sy: event.target.value})}/>
+                                                )
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                The derivative of the function is:  f'(x) = {getDev(myfun, 'x')}, f'(y) = {getDev(myfun, 'y')}
+                                            </Typography>
+                                        </LeftItem>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CenterItem>
+                                            <div id='graph2-board'></div>
+                                        </CenterItem>
+                                        <RightItem>
+                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true})}>
+                                                <BrushIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({tck: false, dr: false, cnt: 0})}>
+                                                <ClearIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" onClick={()=> handleStates({tck: false})}>
+                                                <PauseIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> handleStates({tck: true, dr: true})}>
+                                                <PlayArrowIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <p>{count}</p>
+                                        </RightItem>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        <div id="mygraph"></div>
+                        
+                        </div>
+                    )}
+
+                    {(activeStep === 3) && (
+                        <div>
+                            <Box sx={{ width: "100%"}}>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
+                                    <Grid item xs={12}>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                f(x, y):
+                                                <br/>
+                                                <input type='text' value={myfun} style={{width:'100%', height: '2rem'}} onChange={event => handleStates({fn: event.target.value, tck: false, cnt: 0, dr: false})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                alpha:
+                                                <br/>
+                                                <input type='text' value={alpha} onChange={event => handleStates({tck: false, dr: false, cnt: 0, al: event.target.value})}/>
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                Starting point (
+                                                    x = <input type='text' style={{width:'5rem'}} value={startX} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sx: event.target.value})}/>,
+                                                    y = <input type='text' style={{width:'5rem'}} value={startY} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sy: event.target.value})}/>
+                                                )
+                                            </Typography>
+                                        </LeftItem>
+                                        <LeftItem>
+                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
+                                                The derivative of the function is:  f'(x) = {getDev(myfun, 'x')}, f'(y) = {getDev(myfun, 'y')}
+                                            </Typography>
+                                        </LeftItem>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CenterItem>
+                                            <QuestionTable 
+                                                rowsNum = { 5 }
+                                                headers = { HEADERS_2D }
+                                                rowNumbersEnabled = { true }
+                                                exampleEnabled = { true }
+                                                example = { getExample(myfun, [{'v':'x', 'val': startX}, {'v':'y', 'val': startY}], alpha) }
+                                                correctAnswers = { getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha) }
+                                            />
+                                            <div id='graph2-board'></div>
+                                        </CenterItem>
+                                        <CenterItem>
+                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true})}>
+                                                <BrushIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true, cnt: (count <= 0) ? 0 : count-1})}>
+                                                <ArrowBackIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({draw: true})}>
+                                                <ClearIcon fontSize="inherit" />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true, cnt: count + 1})}>
+                                                <ArrowForwardIcon fontSize="inherit" />
+                                            </IconButton>
+                                        </CenterItem>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        <div id="mygraph"></div>
+                        
+                        </div>
+                    )}
+
+                    
+                    {/* slide managing code */}
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Button
+                            color="inherit"
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            sx={{ mr: 1 }}
+                        >
+                            Back
+                        </Button>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        {/* {isStepOptional(activeStep) && (
+                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                                Skip
+                            </Button>
+                        )} */}
+
+                        <Button onClick={handleNext}>
+                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        </Button>
+                    </Box>
+                </React.Fragment>
+            )}
+        </Box>
+    );
+}
 
 function getDev(f,v) {
     try {
@@ -74,7 +457,6 @@ function getDev(f,v) {
         return '0'
     }
 }
-
 function getExample(f, vars, alpha) {
     try {
         alpha = parseFloat(alpha)
@@ -100,7 +482,7 @@ function getExample(f, vars, alpha) {
             tmps.push(tmp)
             nexts.push(next)
         }
-        console.log('returned=', ['', ...vs, ...devs, ...tmps, ...nexts])
+        // console.log('getExample=', ['', ...vs, ...devs, ...tmps, ...nexts])
         return ['', ...vs, ...devs, ...tmps, ...nexts]
     }
     catch (e) {
@@ -108,8 +490,6 @@ function getExample(f, vars, alpha) {
         return '0'
     }
 }
-
-
 function getPoints2D(f, startX, startY, steps_count, alpha) {
     try {
         var dfx = getDev(f,'x')
@@ -177,8 +557,6 @@ function getPoints1D(f, startX, steps_count, alpha) {
 
     return points
 }
-
-
 function getAnswers1D(header, rows, f, startX, alpha) {
     let keys = header.map((ele) => ele[0]);
     let res = {}
@@ -255,9 +633,6 @@ function getAnswers2D(header, rows, f, startX, startY, alpha) {
     return res
     
 }
-
-
-
 function getGraph1D(f, points) {
     var width = 800;
     var height = 500;
@@ -362,419 +737,3 @@ function getData2D(f) {
         return '0'
     }
 }
-// --------------------------------------------------------
-
-const steps = ['GD introduction', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'];
-
-export default function GradientDescent() {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
-
-    const [myfun, setFun] = React.useState('x^2')
-    const [alpha, setAlpha] = React.useState(1)
-    const [startX, setStartX] = React.useState('0')
-    const [startY, setStartY] = React.useState('0')
-    const [ticking, setTicking] = React.useState(false)
-    const [count, setCount] = React.useState(0)
-    const [data2D, setData2D] = React.useState({x:[], y:[], z:[]})
-    const [draw, setDraw] = React.useState(false)
-
-    const handleStates = (
-        {fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw} = 
-        {fn: 'x^2', al: 1, sx: 0, sy: 0, tck: false, cnt: 0, d2D: {x:[], y:[], z:[]}, dr: false}) => {
-        setFun(fn)
-        setStartX(sx)
-        setStartY(sy)
-        setAlpha(al)
-        setDraw(dr)
-        setCount(cnt)
-        setTicking(tck)
-
-        if(dr) {
-            (myfun !== '') ? setData2D(getData2D(myfun)) : setData2D(d2D)
-        }
-    }
-
-    const isStepSkipped = (step) => {
-        return skipped.has(step);
-    };
-
-    const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
-    React.useEffect(() => {
-        try {
-            let points = null
-            switch(activeStep) {
-                case 0:
-                case 1:
-                    points = getPoints1D(myfun, startX, count, alpha)
-                    getGraph1D(myfun, points)
-                    break;
-                case 2:
-                case 3:
-                    if(draw) {
-                        points = getPoints2D(myfun, startX, startY, count, alpha)
-                        getGraph2D(data2D, points)
-                    }
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                default:
-                    throw 'reach undefined case'.concat(activeStep.toString())
-            }
-        }
-        catch (e) {
-            console.log("error at useEffect on parameters changes => \n", e)
-        }
-    }, [myfun, alpha, startX, startY, count, activeStep, draw, data2D]);
-
-    // For Initial plot when the page loads for the first time
-    React.useEffect(() => {
-        try {
-            const timer = setTimeout(() => ticking && setCount(count+1), 1e3)
-            return () => clearTimeout(timer)
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-        }
-        
-    });
-
-    React.useEffect(() => {
-        try {
-            handleStates()
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-        }
-        
-    }, [activeStep]);
-    
-    return (
-        <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    // if (isStepOptional(index)) {
-                    //     labelProps.optional = (
-                    //         <Typography variant="caption">Optional</Typography>
-                    //     );
-                    // }
-                    if (isStepSkipped(index)) {
-                        stepProps.completed = false;
-                    }
-                    return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-            {activeStep === steps.length ? (
-                <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
-                    </Box>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-
-                    {/* First Slide */}
-                    {(activeStep === 0) && (
-                        <div>
-                            <Typography sx={{ mt: 2 }}>Gradient descent is an iterative algorithm for finding a local minimum.</Typography>
-                            <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
-                            <Typography sx={{ mb: 1 }}>Take this function for example:</Typography>
-                            <Box sx={{ width: "100%" }}>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
-                                    <Grid item xs={12}>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                f(x):
-                                                <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({tck: false, cnt: 0, fn: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                alpha:
-                                                <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, cnt: 0, al: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                Starting point (x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, cnt: 0, sx: event.target.value})}/>)
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                The derivative of the function is:  {getDev(myfun, 'x')}
-                                            </Typography>
-                                        </LeftItem>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <CenterItem>
-                                            <div id='graph-board'></div>
-                                        </CenterItem>
-                                        <RightItem>
-                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({tck: false, cnt: 0})}>
-                                                <ClearIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" onClick={()=> handleStates({tck: false})}>
-                                                <PauseIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> handleStates({tck: true})}>
-                                                <PlayArrowIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <p>{count}</p>
-                                        </RightItem>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </div>
-                    )}
-
-                    {(activeStep === 1) && (
-                        <div>
-                            <Box sx={{ width: "100%" }}>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
-                                    <Grid item xs={12}>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                f(x):
-                                                <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({tck: false, cnt: 0, fn: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                alpha:
-                                                <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, cnt: 0, al: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                Starting point (x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, cnt: 0, sx: event.target.value})}/>)
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                The derivative of the function is:  {getDev(myfun, 'x')}
-                                            </Typography>
-                                        </LeftItem>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <CenterItem>
-                                            <QuestionTable 
-                                                rowsNum = { 5 }
-                                                headers = { HEADERS_1D }
-                                                exampleEnabled = { true }
-                                                rowNumbersEnabled = { true }
-                                                example = { getExample(myfun, [{'v':'x', 'val': startX}], alpha) }
-                                                correctAnswers = { getAnswers1D( HEADERS_1D, 6, myfun, startX, alpha) }
-                                            />
-                                            <div id='graph-board'></div>
-                                        </CenterItem>
-                                        <CenterItem>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({cnt: (count <= 0) ? 0 : count-1})}>
-                                                <ArrowBackIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({cnt: 0})}>
-                                                <ClearIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({cnt: count + 1})}>
-                                                <ArrowForwardIcon fontSize="inherit" />
-                                            </IconButton>
-                                        </CenterItem>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            
-                        </div>
-                    )}
-
-                    {(activeStep === 2) && (
-                        <div>
-                            <Box sx={{ width: "100%"}}>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
-                                    <Grid item xs={12}>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                f(x, y):
-                                                <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({fn: event.target.value, tck: false, cnt: 0, dr: false})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                alpha:
-                                                <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, al: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                Starting point (
-                                                    x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sx: event.target.value})}/>,
-                                                    y = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sy: event.target.value})}/>
-                                                )
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                The derivative of the function is:  f'(x) = {getDev(myfun, 'x')}, f'(y) = {getDev(myfun, 'y')}
-                                            </Typography>
-                                        </LeftItem>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <CenterItem>
-                                            <div id='graph2-board'></div>
-                                        </CenterItem>
-                                        <RightItem>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true})}>
-                                                <BrushIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({tck: false, dr: false, cnt: 0})}>
-                                                <ClearIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" onClick={()=> handleStates({tck: false})}>
-                                                <PauseIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="success" onClick={()=> handleStates({tck: true, dr: true})}>
-                                                <PlayArrowIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <p>{count}</p>
-                                        </RightItem>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        <div id="mygraph"></div>
-                        
-                        </div>
-                    )}
-
-                    {(activeStep === 3) && (
-                        <div>
-                            <Box sx={{ width: "100%"}}>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1,}}>
-                                    <Grid item xs={12}>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                f(x, y):
-                                                <br/>
-                                                <input type='text' style={{width:'100%', height: '2rem'}} onChange={event => handleStates({fn: event.target.value, tck: false, cnt: 0, dr: false})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                alpha:
-                                                <br/>
-                                                <input type='text' defaultValue={'1'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, al: event.target.value})}/>
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                Starting point (
-                                                    x = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sx: event.target.value})}/>,
-                                                    y = <input type='text' style={{width:'5rem'}} defaultValue={'0'} onChange={event => handleStates({tck: false, dr: false, cnt: 0, sy: event.target.value})}/>
-                                                )
-                                            </Typography>
-                                        </LeftItem>
-                                        <LeftItem>
-                                            <Typography sx={{color: 'black', fontSize: '1rem'}}>
-                                                The derivative of the function is:  f'(x) = {getDev(myfun, 'x')}, f'(y) = {getDev(myfun, 'y')}
-                                            </Typography>
-                                        </LeftItem>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <CenterItem>
-                                            <QuestionTable 
-                                                rowsNum = { 5 }
-                                                headers = { HEADERS_2D }
-                                                rowNumbersEnabled = { true }
-                                                exampleEnabled = { true }
-                                                example = { getExample(myfun, [{'v':'x', 'val': startX}, {'v':'y', 'val': startY}], alpha) }
-                                                correctAnswers = { getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha) }
-                                            />
-                                            <div id='graph2-board'></div>
-                                        </CenterItem>
-                                        <CenterItem>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true})}>
-                                                <BrushIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true, cnt: (count <= 0) ? 0 : count-1})}>
-                                                <ArrowBackIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="error" onClick={()=> handleStates({draw: true})}>
-                                                <ClearIcon fontSize="inherit" />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" size="large" color="warning" onClick={()=> handleStates({dr: true, cnt: count + 1})}>
-                                                <ArrowForwardIcon fontSize="inherit" />
-                                            </IconButton>
-                                        </CenterItem>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        <div id="mygraph"></div>
-                        
-                        </div>
-                    )}
-
-                    
-                    {/* slide managing code */}
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Button
-                            color="inherit"
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            sx={{ mr: 1 }}
-                        >
-                            Back
-                        </Button>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        {/* {isStepOptional(activeStep) && (
-                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                Skip
-                            </Button>
-                        )} */}
-
-                        <Button onClick={handleNext}>
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                        </Button>
-                    </Box>
-                </React.Fragment>
-            )}
-        </Box>
-    );
-}
-
-
-
