@@ -14,7 +14,7 @@ function generateColumns(formater) {
         const [field, header] = formater[col];
         const editable = col !== 0
 
-        columns.push({ 
+        columns.push({
             field: field, 
             headerName: header, 
             editable: editable, 
@@ -22,7 +22,7 @@ function generateColumns(formater) {
             headerAlign: 'center', 
             flex: header.length, 
             align: 'center',
-            cellClassName: 'super-app-theme--cell',
+            cellClassName: 'super-app.default',
             headerClassName: 'super-app-theme--header',
         })
     }
@@ -38,7 +38,7 @@ function generateColumns(formater) {
  * @param {any[]} example if exampleEnabled is true the first line will be filled with the example answer (won't be editable), otherwise it will be ignored
  * @returns 
  */
-function generateRows(num, formater, example, exampleEnabled) {
+function generateRows(num, formater, example, exampleEnabled, rowNumberingEnabled) {
     var rows = []
     var tmp = {}
     var currentRow = 0
@@ -61,7 +61,7 @@ function generateRows(num, formater, example, exampleEnabled) {
 
         for (let index = 0; index < formater.length; index++) {
             const [field, ] = formater[index];
-            tmp[field] = (index === 0) ? currentRow + 1 : null
+            tmp[field] = (index === 0 && rowNumberingEnabled) ? currentRow + 1 : null
         }    
         
         rows.push(tmp)
@@ -75,24 +75,42 @@ function generateRows(num, formater, example, exampleEnabled) {
  * @param {object} props Component props
  * @param {Number} props.rowsNum The number of rows
  * @param {String[][]} props.headers [['field name', 'header name'],['field name', 'header name'],...], the first is the field name and the second is the header name (header name is what will be present to the user)
+ * @param {Boolean} props.rowNumbersEnabled if ture the first column will be numbered automatically
  * @param {Boolean} props.exampleEnabled if ture you must provide an example of the answer
  * @param {any[]} props.example if exampleEnabled is true the first line will be filled with the example answer (won't be editable), otherwise it will be ignored
+ * @param {{[Key: String]: any[]}} props.correctAnswers the key is the column header while the value is an array of the correct answers of that column (if exampleEnabled is true so include its answers).
  * @returns the desired table functionality
  */
- export default function QuestionTable({rowsNum, headers, exampleEnabled, example}) {
+ export default function QuestionTable({rowsNum, headers, rowNumbersEnabled, exampleEnabled, example, correctAnswers}) {
     const cs = generateColumns(headers)
-    const rs = generateRows(rowsNum, headers, example, exampleEnabled)
-
+    const rs = generateRows(rowsNum, headers, example, exampleEnabled, rowNumbersEnabled)
+    console.log(
+        '\nrowsNum=', rowsNum,
+        '\nheaders=', headers,
+        '\nexampleEnabled=', exampleEnabled,
+        '\nexample=', example,
+        '\ncs=', cs,
+        '\nrs=', rs,
+        '\ncorrectAnswers=', correctAnswers,
+    )
     return (
         <Box sx={{
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                pt: '5%',
-                pb: '5%',
-                pr: '5%',
-                pl: '5%',
-                '& .super-app-theme--cell': {
+                '& .default': {
                     backgroundColor: '#e8e8e8',
+                    color: '#1a3e72',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                },
+                '& .correct': {
+                    backgroundColor: 'rgba(157, 255, 118, 0.49)',
+                    color: '#1a3e72',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                },
+                '& .wrong': {
+                    backgroundColor: '#d47483',
                     color: '#1a3e72',
                     fontSize: '1rem',
                     fontWeight: '600',
@@ -112,6 +130,27 @@ function generateRows(num, formater, example, exampleEnabled) {
                 disableColumnMenu = { true }
                 hideFooter = { true }
                 autoHeight = { true }
+                getCellClassName={(params) => {
+                    // if(params.id === 0){
+                    //     console.log(
+                    //         '\nparams.getValue(params.id, params.field)=', params.getValue(params.id, params.field),
+                    //         '\ncorrectAnswers[params.field][params.id]=', correctAnswers[params.field][params.id],
+                    //         '\nparams.id', params.id,
+                    //         '\nparams.field', params.field,
+                    //         '\nparams.headerName', params.headerName,
+                    //         '\nequals? ', params.getValue(params.id, params.field) === correctAnswers[params.field][params.id]
+                    //     )
+                    // }
+                    if (params.getValue(params.id, params.field) === null || (exampleEnabled && params.id === 0) || (rowNumbersEnabled && params.field === headers[0][0])) {
+                        return 'default';
+                    }
+                    if(params.getValue(params.id, params.field) === correctAnswers[params.field][params.id]){
+                        return 'correct'
+                    }
+                    else{
+                        return 'wrong'
+                    }
+                }}
             />
         </Box>
     )
