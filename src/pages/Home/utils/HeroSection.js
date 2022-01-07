@@ -1,11 +1,8 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Box, Container, Stack, Fade } from '@mui/material';
-import backgroundImage from 'assets/images/home_img_2.png';
-import { Link } from 'react-router-dom';
+import { Box, Container } from '@mui/material';
 import { Grid, Paper } from '@mui/material';
-import Plotly from 'plotly.js-dist-min'
 import Graph2D from 'components/Graph2D';
 
 export default function HeroSection() {
@@ -39,10 +36,10 @@ export default function HeroSection() {
             </Typography>
 
             {/* a bit of space */}
-            <Box sx={{minHeight: 30,}}></Box>
+            <Box sx={{ minHeight: 30, }}></Box>
 
             {/* Button */}
-            <Button variant="contained" sx={{ textTransform: "none", backgroundColor: "#209070", height: "60px", width: "200px"}}>
+            <Button variant="contained" sx={{ textTransform: "none", backgroundColor: "#209070", height: "60px", width: "200px" }}>
               <Typography variant="h6" align="center" color="white" fontFamily={"Arial"}>
                 Get started
               </Typography>
@@ -50,9 +47,9 @@ export default function HeroSection() {
 
           </Grid>
           <Grid item xs={12} md={6}>
-              <Paper sx={{width: "100%", height:"475px"}} elevation={3}>
-                <Graph2D function="x^2 + 0.01*(y^4 - 100*y^2 + 100*y)"/>
-              </Paper>
+            <Paper sx={{ width: "100%", height: "475px" }} elevation={3}>
+              <Graph2D function="x^2 + 0.01*(y^4 - 100*y^2 + 100*y)" />
+            </Paper>
           </Grid>
         </Grid>
       </Container>

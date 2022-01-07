@@ -4,6 +4,7 @@ import HeroSection from './utils/HeroSection.js';
 import Algorithms from './utils/Algorithms.js';
 import Footer from 'components/Footer.js';
 import Navbar from 'components/Navbar.js';
+import PrettyLine from 'components/PrettyLine.js';
 
 function Home() {
   return (
@@ -13,7 +14,9 @@ function Home() {
         scrollToColorParameters={{ transparentBackgroundColor: "transparent" }}
       />
       <HeroSection />
+      <PrettyLine />
       <Functionalities />
+      <PrettyLine />
       <Algorithms />
       <Footer />
     </>

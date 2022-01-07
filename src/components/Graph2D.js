@@ -67,9 +67,6 @@ function getGraph2D(data){
 // --------------------------------------------------------
 
 export default function Graph2D(props) {
-
-    const plotRef = React.useRef();
-
     React.useEffect(() => {
         getGraph2D(getData2D(props.function))
     });

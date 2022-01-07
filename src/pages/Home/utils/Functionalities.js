@@ -8,6 +8,7 @@ import graphIcon from "assets/images/graphIcon.png"
 import StepByStepIcon from "assets/images/StepByStepIcon.jpg"
 import historyIcon from "assets/images/historyIcon.jpg"
 import LenseIcon from "assets/images/LenseIcon.png"
+import { Paper } from '@mui/material';
 
 const item = {
     display: 'flex',
@@ -20,6 +21,9 @@ const item = {
 function ProductValues() {
     const text_color = '#3c4e76';
     return (
+        <Container maxWidth="lg">
+            <Paper sx={{ width: "100%"}} elevation={3}>
+            
         <Box
         sx={{
           background: `url(${backgroundImage})`,
@@ -100,6 +104,8 @@ function ProductValues() {
         </Grid>
         </Container>
       </Box>
+      </Paper>
+      </Container>
     );
 }
 
