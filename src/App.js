@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ScrollToTop from './components/ScrollToTop.js';
 import SignIn from 'pages/sign/SignIn.js';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard.js';
+import Algorithms from 'pages/algorithms/Algorithms.js';
 
 const theme = createTheme({});
 
@@ -18,6 +19,7 @@ function App() {
         <ScrollToTop />
         <Routes >
           <Route path='/' exact element={<Home />} />
+          <Route path='/algorithms' element={<Algorithms />} />
           <Route path='/algorithms/gd' element={<AlgorithmsDashboard component={<GradientDescent/>} />} />
           <Route path='/signin' element={<SignIn/>} />
         </Routes>

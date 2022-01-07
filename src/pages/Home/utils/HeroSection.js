@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Box, Container } from '@mui/material';
 import { Grid, Paper } from '@mui/material';
 import Graph2D from 'components/Graph2D';
+import { Link } from 'react-router-dom';
 
 export default function HeroSection() {
   return (
@@ -39,11 +40,13 @@ export default function HeroSection() {
             <Box sx={{ minHeight: 30, }}></Box>
 
             {/* Button */}
-            <Button variant="contained" sx={{ textTransform: "none", backgroundColor: "#209070", height: "60px", width: "200px" }}>
-              <Typography variant="h6" align="center" color="white" fontFamily={"Arial"}>
-                Get started
-              </Typography>
-            </Button>
+            <Link to={"/algorithms"} style={{ textDecoration: 'none' }}>
+              <Button variant="contained" sx={{ textTransform: "none", backgroundColor: "#209070", height: "60px", width: "200px" }}>
+                <Typography variant="h6" align="center" color="white" fontFamily={"Arial"}>
+                  Get started
+                </Typography>
+              </Button>
+            </Link>
 
           </Grid>
           <Grid item xs={12} md={6}>

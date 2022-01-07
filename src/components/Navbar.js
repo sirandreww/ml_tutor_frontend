@@ -16,6 +16,7 @@ import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
 
 const pages = ['Algorithms'];
+const pages_links = { 'Algorithms': "/algorithms" };
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Navbar(props) {
@@ -85,9 +86,11 @@ export default function Navbar(props) {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Link to={pages_links[page]} style={{ textDecoration: 'none', color: "black"}}>
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  </Link>
                 ))}
               </Menu>
             </Box>
@@ -104,13 +107,15 @@ export default function Navbar(props) {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "inherit", display: 'block' }}
-                >
-                  {page}
-                </Button>
+                <Link to={pages_links[page]} style={{ textDecoration: 'none', color: "black" }}>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "inherit", display: 'block' }}
+                  >
+                    {page}
+                  </Button>
+                </Link>
               ))}
             </Box>
 
@@ -162,8 +167,8 @@ Navbar.defaultProps = {
     // boxShadow:"none",
     // padding:"10px 0px",
   },
-  appBarParameters:{
-    position:"static",
+  appBarParameters: {
+    position: "static",
     // style:{
     //   background: "#3c4e76",
     //   boxShadow: 'none',
