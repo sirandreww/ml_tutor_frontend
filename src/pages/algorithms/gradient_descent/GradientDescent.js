@@ -6,12 +6,15 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import Task0 from './tasks/Task0.js';
-import Task1 from './tasks/Task1.js';
-import Task2 from './tasks/Task2.js';
-import Task3 from './tasks/Task3.js';
 
-const steps = ['GD introduction', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'];
+import GradientDescentSlide1 from './slides/Slide1.js';
+import GradientDescentSlide2 from './slides/Slide2.js';
+import GradientDescentSlide3 from './slides/Slide3.js';
+import GradientDescentSlide4 from './slides/Slide4.js';
+import GradientDescentSlide5 from './slides/Slide5.js';
+import GradientDescentSlide6 from './slides/Slide5.js';
+
+const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
 
 export default function GradientDescent() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -39,7 +42,7 @@ export default function GradientDescent() {
     const handleReset = () => {
         setActiveStep(0);
     };
-
+    
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={activeStep}>
@@ -76,22 +79,32 @@ export default function GradientDescent() {
 
                     {/* First Slide */}
                     {(activeStep === 0) && (
-                        <Task0 />
+                        <GradientDescentSlide1 />
                     )}
 
                     {(activeStep === 1) && (
-                        <Task1 />
+                        <GradientDescentSlide2 />
                     )}
 
                     {(activeStep === 2) && (
-                        <Task2 />
+                        <GradientDescentSlide3 />
                     )}
 
                     {(activeStep === 3) && (
-                        <Task3 />
+                        <GradientDescentSlide4 />
                     )}
 
+                    {(activeStep === 4) && (
+                        <GradientDescentSlide5 />
+                    )}
 
+                    {(activeStep === 5) && (
+                        <GradientDescentSlide6 />
+                    )}
+
+                    
+
+                    
                     {/* slide managing code */}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
@@ -103,6 +116,11 @@ export default function GradientDescent() {
                             Back
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
+                        {/* {isStepOptional(activeStep) && (
+                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                                Skip
+                            </Button>
+                        )} */}
 
                         <Button onClick={handleNext}>
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
@@ -113,3 +131,4 @@ export default function GradientDescent() {
         </Box>
     );
 }
+

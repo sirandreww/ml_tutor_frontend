@@ -2,20 +2,68 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { IconButton } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
-import BrushIcon from '@mui/icons-material/Brush';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import { Button } from '@mui/material';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
 
-import { LeftItem, CenterItem } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
+import functionPlot from "function-plot";
 import { create, all } from 'mathjs';
 import Plotly from 'plotly.js-dist-min'
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 
+const PrettoSlider = styled(Slider)({
+    width: '30%',
+    height: 8,
+    '& .MuiSlider-track': {
+        border: 'none',
+    },
+    '& .MuiSlider-thumb': {
+        height: 24,
+        width: 24,
+        backgroundColor: '#fff',
+        border: '2px solid currentColor',
+        '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+            boxShadow: 'inherit',
+        },
+        '&:before': {
+            display: 'none',
+        },
+    },
+    '& .MuiSlider-valueLabel': {
+        lineHeight: 1.2,
+        fontSize: 12,
+        background: 'unset',
+        padding: 0,
+        width: 32,
+        height: 32,
+        borderRadius: '50% 50% 50% 0',
+        backgroundColor: '#1976d2',
+        transformOrigin: 'bottom left',
+        transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
+        '&:before': { display: 'none' },
+        '&.MuiSlider-valueLabelOpen': {
+            transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
+        },
+        '& > *': {
+            transform: 'rotate(45deg)',
+        },
+    },
+});
+
 // ------------------------ CODE ------------------------    
 const DIGITS = 3
+const HEADERS_1D = [
+    ['step', 'Step'],
+    ['x', 'x'],
+    ['dx', "f'(x)"],
+    ['tmpX', "alpha * f'(x)"],
+    ['newX', "x'"],
+]
 const HEADERS_2D = [
     ['step', 'Step'],
     ['x', 'x'],
@@ -32,7 +80,12 @@ const math = create(all, {})
 
 // --------------------------------------------------------
 
-export default function Slide5() {
+const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
+
+export default function GradientDescentSlide5() {
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [skipped, setSkipped] = React.useState(new Set());
+
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(1)
     const [startX, setStartX] = React.useState('0')
@@ -58,12 +111,58 @@ export default function Slide5() {
         }
     }
 
-    React.useEffect(() => {
-        let points = null;
-        points = getPoints2D(myfun, startX, startY, count, alpha);
-        getGraph2D(data2D, points);
+    const isStepSkipped = (step) => {
+        return skipped.has(step);
+    };
 
-    }, [myfun, alpha, startX, startY, count, draw, data2D]);
+    const handleNext = () => {
+        handleStates()
+        let newSkipped = skipped;
+        if (isStepSkipped(activeStep)) {
+            newSkipped = new Set(newSkipped.values());
+            newSkipped.delete(activeStep);
+        }
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+    };
+
+    const handleBack = () => {
+        handleStates()
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        handleStates()
+        setActiveStep(0);
+    };
+
+    React.useEffect(() => {
+        try {
+            let points = null
+            switch (activeStep) {
+                case 0:
+                case 1:
+                case 2:
+                    points = getPoints1D(myfun, startX, count, alpha)
+                    getGraph1D(myfun, points)
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    if (draw) {
+                        points = getPoints2D(myfun, startX, startY, count, alpha)
+                        getGraph2D(data2D, points)
+                    }
+                    break;
+                default:
+                    throw 'reach undefined case'.concat(activeStep.toString())
+            }
+        }
+        catch (e) {
+            console.log("error at useEffect on parameters changes => \n", e)
+        }
+    }, [myfun, alpha, startX, startY, count, activeStep, draw, data2D]);
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
@@ -77,16 +176,6 @@ export default function Slide5() {
 
     });
 
-    // React.useEffect(() => {
-    //     try {
-    //         handleStates()
-    //     }
-    //     catch (e) {
-    //         console.log("error at useEffect => \n", e)
-    //     }
-
-    // }, [activeStep]);
-
     return (
         <div>
             <Box sx={{ width: "100%" }}>
@@ -94,28 +183,17 @@ export default function Slide5() {
                     <Grid item xs={12}>
                         <LeftItem>
                             <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                f(x, y):
-                                <br />
+                                f(x, y):<br />
                                 <input type='text' value={myfun} style={{ width: '100%', height: '2rem' }} onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false })} />
-                            </Typography>
-                        </LeftItem>
-                        <LeftItem>
-                            <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                alpha:
-                                <br />
+                                <br /><br />
+                                alpha:<br />
                                 <input type='text' value={alpha} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, al: event.target.value })} />
-                            </Typography>
-                        </LeftItem>
-                        <LeftItem>
-                            <Typography sx={{ color: 'black', fontSize: '1rem' }}>
+                                <br /><br />
                                 Starting point (
                                 x = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: event.target.value })} />,
                                 y = <input type='text' style={{ width: '5rem' }} value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: event.target.value })} />
                                 )
-                            </Typography>
-                        </LeftItem>
-                        <LeftItem>
-                            <Typography sx={{ color: 'black', fontSize: '1rem' }}>
+                                <br /><br />
                                 The derivative of the function is:  f'(x) = {getDev(myfun, 'x')}, f'(y) = {getDev(myfun, 'y')}
                             </Typography>
                         </LeftItem>
@@ -133,24 +211,14 @@ export default function Slide5() {
                             <div id='graph2-board'></div>
                         </CenterItem>
                         <CenterItem>
-                            <IconButton aria-label="delete" size="large" color="warning" onClick={() => handleStates({ dr: true })}>
-                                <BrushIcon fontSize="inherit" />
-                            </IconButton>
-                            <IconButton aria-label="delete" size="large" color="warning" onClick={() => handleStates({ dr: true, cnt: (count <= 0) ? 0 : count - 1 })}>
-                                <ArrowBackIcon fontSize="inherit" />
-                            </IconButton>
-                            <IconButton aria-label="delete" size="large" color="error" onClick={() => handleStates({ draw: true })}>
-                                <ClearIcon fontSize="inherit" />
-                            </IconButton>
-                            <IconButton aria-label="delete" size="large" color="warning" onClick={() => handleStates({ dr: true, cnt: count + 1 })}>
-                                <ArrowForwardIcon fontSize="inherit" />
-                            </IconButton>
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true }), type: 'brush' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, draw: false }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: count + 1 }), type: 'next' })}
                         </CenterItem>
                     </Grid>
                 </Grid>
             </Box>
-            <div id="mygraph"></div>
-
         </div>
     );
 }
@@ -240,52 +308,146 @@ function getPoints2D(f, startX, startY, steps_count, alpha) {
         return '0'
     }
 }
+function getPoints1D(f, startX, steps_count, alpha) {
+    var points = [[startX, math.evaluate(f, { 'x': startX })]]
+    var df = getDev(f, 'x')
 
-function getAnswers2D(header, rows, f, startX, startY, alpha) {
-    let keys = header.map((ele) => ele[0]);
-    let res = {}
-    keys.forEach(key => res[key] = [])
-
-    var dfx = getDev(f, 'x')
-    var dfy = getDev(f, 'y')
-    startX = parseFloat(startX).toFixed(DIGITS)
-    startY = parseFloat(startY).toFixed(DIGITS)
+    // console.log(startX)
+    startX = parseFloat(startX)
+    steps_count = parseFloat(steps_count)
     alpha = parseFloat(alpha)
 
-    var prevX = startX
-    var prevY = startY
+    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
 
-    for (let i = 0; i < rows; i++) {
-        var ans = {
-            step: i,
-            x: prevX,
-            y: prevY,
-            dx: parseFloat(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-            dy: parseFloat(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-            tmpX: null,
-            tmpY: null,
-            newX: null,
-            newY: null,
-        }
-        ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-        ans.newX = parseFloat(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
-        ans.tmpY = parseFloat(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-        ans.newY = parseFloat(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
-
-        for (const [key, value] of Object.entries(ans)) {
-            res[key].push(value)
-        }
-
-        prevX = ans.newX
-        prevY = ans.newY
-
+    var prev = startX
+    for (let i = 0; i < steps_count; i++) {
+        // console.log("i=", i)
+        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
+        // console.log("alpha*df = ", tmp) 
+        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
+        // console.log("next = ", next)
+        points.push([next, math.evaluate(f, { 'x': next })])
+        prev = next
     }
-    // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-    console.log('res=', res)
-    return res
 
+    return points
+}
+function getAnswers1D(header, rows, f, startX, alpha) {
+    try {
+        let keys = header.map((ele) => ele[0]);
+        let res = {}
+        keys.forEach(key => res[key] = [])
+
+        var df = getDev(f, 'x')
+        startX = parseFloat(startX)
+        alpha = parseFloat(alpha)
+
+        var prev = startX
+        for (let i = 0; i < rows; i++) {
+            var ans = {
+                step: i,
+                x: prev,
+                dx: parseFloat(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
+                tmpX: null,
+                newX: null,
+            }
+            ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
+            ans.newX = parseFloat(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
+
+            for (const [key, value] of Object.entries(ans)) {
+                res[key].push(value)
+            }
+
+            prev = ans.newX
+
+        }
+        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
+
+        return res
+    }
+    catch (e) {
+        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
+    }
 }
 
+function getAnswers2D(header, rows, f, startX, startY, alpha) {
+    try {
+        let keys = header.map((ele) => ele[0]);
+        let res = {}
+        keys.forEach(key => res[key] = [])
+
+        var dfx = getDev(f, 'x')
+        var dfy = getDev(f, 'y')
+        startX = parseFloat(startX).toFixed(DIGITS)
+        startY = parseFloat(startY).toFixed(DIGITS)
+        alpha = parseFloat(alpha)
+
+        var prevX = startX
+        var prevY = startY
+
+        for (let i = 0; i < rows; i++) {
+            var ans = {
+                step: i,
+                x: prevX,
+                y: prevY,
+                dx: parseFloat(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
+                dy: parseFloat(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
+                tmpX: null,
+                tmpY: null,
+                newX: null,
+                newY: null,
+            }
+            ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
+            ans.newX = parseFloat(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
+            ans.tmpY = parseFloat(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
+            ans.newY = parseFloat(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
+
+            for (const [key, value] of Object.entries(ans)) {
+                res[key].push(value)
+            }
+
+            prevX = ans.newX
+            prevY = ans.newY
+
+        }
+        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
+        console.log('res=', res)
+        return res
+    }
+    catch (e) {
+        console.log('error at getAnswers2D(header, rows, f, startX, startY, alpha) => \n', e)
+    }
+
+}
+function getGraph1D(f, points) {
+    var width = 800;
+    var height = 500;
+    // console.log("points= \n", points)
+
+    functionPlot({
+        target: '#graph-board',
+        width,
+        height,
+        xAxis: { domain: [-(points[0][0] + 2), points[0][0] + 2], label: 'x' },
+        yAxis: { domain: [-(points[0][1] + 2), points[0][1] + 2], label: 'f(x)' },
+        title: f,
+        grid: true,
+        data: [
+            {
+                fn: f,
+                derivative: {
+                    fn: getDev(f, 'x'),
+                    updateOnMouseMove: true
+                },
+            },
+            {
+                points: points,
+                fnType: 'points',
+                graphType: 'polyline',
+            }
+        ]
+    });
+}
 function getGraph2D(data, points) {
     try {
         // console.log('getGraph2D - \n')
