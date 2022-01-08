@@ -83,8 +83,6 @@ const math = create(all, {})
 const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
 
 export default function GradientDescentSlide2() {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
 
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(1)
@@ -111,58 +109,16 @@ export default function GradientDescentSlide2() {
         }
     }
 
-    const isStepSkipped = (step) => {
-        return skipped.has(step);
-    };
-
-    const handleNext = () => {
-        handleStates()
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-    };
-
-    const handleBack = () => {
-        handleStates()
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    const handleReset = () => {
-        handleStates()
-        setActiveStep(0);
-    };
-
     React.useEffect(() => {
         try {
-            let points = null
-            switch (activeStep) {
-                case 0:
-                case 1:
-                case 2:
-                    points = getPoints1D(myfun, startX, count, alpha)
-                    getGraph1D(myfun, points)
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    if (draw) {
-                        points = getPoints2D(myfun, startX, startY, count, alpha)
-                        getGraph2D(data2D, points)
-                    }
-                    break;
-                default:
-                    throw 'reach undefined case'.concat(activeStep.toString())
-            }
+            let points = null;
+            points = getPoints1D(myfun, startX, count, alpha);
+            getGraph1D(myfun, points);
         }
         catch (e) {
             console.log("error at useEffect on parameters changes => \n", e)
         }
-    }, [myfun, alpha, startX, startY, count, activeStep, draw, data2D]);
+    }, [myfun, alpha, startX, startY, count, draw, data2D]);
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
