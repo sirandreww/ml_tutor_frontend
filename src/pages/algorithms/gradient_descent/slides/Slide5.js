@@ -2,68 +2,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import { Button } from '@mui/material';
-import Slider from '@mui/material/Slider';
-import { styled } from '@mui/material/styles';
-
-import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
-import functionPlot from "function-plot";
 import { create, all } from 'mathjs';
 import Plotly from 'plotly.js-dist-min'
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 
-const PrettoSlider = styled(Slider)({
-    width: '30%',
-    height: 8,
-    '& .MuiSlider-track': {
-        border: 'none',
-    },
-    '& .MuiSlider-thumb': {
-        height: 24,
-        width: 24,
-        backgroundColor: '#fff',
-        border: '2px solid currentColor',
-        '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-            boxShadow: 'inherit',
-        },
-        '&:before': {
-            display: 'none',
-        },
-    },
-    '& .MuiSlider-valueLabel': {
-        lineHeight: 1.2,
-        fontSize: 12,
-        background: 'unset',
-        padding: 0,
-        width: 32,
-        height: 32,
-        borderRadius: '50% 50% 50% 0',
-        backgroundColor: '#1976d2',
-        transformOrigin: 'bottom left',
-        transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
-        '&:before': { display: 'none' },
-        '&.MuiSlider-valueLabelOpen': {
-            transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
-        },
-        '& > *': {
-            transform: 'rotate(45deg)',
-        },
-    },
-});
-
 // ------------------------ CODE ------------------------    
 const DIGITS = 3
-const HEADERS_1D = [
-    ['step', 'Step'],
-    ['x', 'x'],
-    ['dx', "f'(x)"],
-    ['tmpX', "alpha * f'(x)"],
-    ['newX', "x'"],
-]
+
 const HEADERS_2D = [
     ['step', 'Step'],
     ['x', 'x'],
@@ -79,8 +26,6 @@ const HEADERS_2D = [
 const math = create(all, {})
 
 // --------------------------------------------------------
-
-const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
 
 export default function GradientDescentSlide5() {
 
@@ -266,68 +211,6 @@ function getPoints2D(f, startX, startY, steps_count, alpha) {
         return '0'
     }
 }
-function getPoints1D(f, startX, steps_count, alpha) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
-    var df = getDev(f, 'x')
-
-    // console.log(startX)
-    startX = parseFloat(startX)
-    steps_count = parseFloat(steps_count)
-    alpha = parseFloat(alpha)
-
-    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
-
-    var prev = startX
-    for (let i = 0; i < steps_count; i++) {
-        // console.log("i=", i)
-        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
-        // console.log("alpha*df = ", tmp) 
-        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
-        // console.log("next = ", next)
-        points.push([next, math.evaluate(f, { 'x': next })])
-        prev = next
-    }
-
-    return points
-}
-function getAnswers1D(header, rows, f, startX, alpha) {
-    try {
-        let keys = header.map((ele) => ele[0]);
-        let res = {}
-        keys.forEach(key => res[key] = [])
-
-        var df = getDev(f, 'x')
-        startX = parseFloat(startX)
-        alpha = parseFloat(alpha)
-
-        var prev = startX
-        for (let i = 0; i < rows; i++) {
-            var ans = {
-                step: i,
-                x: prev,
-                dx: parseFloat(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
-                tmpX: null,
-                newX: null,
-            }
-            ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
-            ans.newX = parseFloat(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
-
-            for (const [key, value] of Object.entries(ans)) {
-                res[key].push(value)
-            }
-
-            prev = ans.newX
-
-        }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-
-        return res
-    }
-    catch (e) {
-        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
-    }
-}
-
 function getAnswers2D(header, rows, f, startX, startY, alpha) {
     try {
         let keys = header.map((ele) => ele[0]);
@@ -376,35 +259,6 @@ function getAnswers2D(header, rows, f, startX, startY, alpha) {
         console.log('error at getAnswers2D(header, rows, f, startX, startY, alpha) => \n', e)
     }
 
-}
-function getGraph1D(f, points) {
-    var width = 800;
-    var height = 500;
-    // console.log("points= \n", points)
-
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(points[0][0] + 2), points[0][0] + 2], label: 'x' },
-        yAxis: { domain: [-(points[0][1] + 2), points[0][1] + 2], label: 'f(x)' },
-        title: f,
-        grid: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
-                },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: 'polyline',
-            }
-        ]
-    });
 }
 function getGraph2D(data, points) {
     try {
