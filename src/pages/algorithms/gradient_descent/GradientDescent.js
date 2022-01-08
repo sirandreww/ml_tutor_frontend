@@ -13,12 +13,12 @@ import BrushIcon from '@mui/icons-material/Brush';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import { button, LeftItem, CenterItem, RightItem } from './dashboard/utils'
+import { button, LeftItem, CenterItem, RightItem } from '../dashboard/utils'
 import Typography from '@mui/material/Typography';
 import functionPlot from "function-plot";
 import { create, all } from 'mathjs';
 import Plotly from 'plotly.js-dist-min'
-import QuestionTable from './dashboard/QuestionTable';
+import QuestionTable from '../dashboard/QuestionTable';
 
 // ------------------------ CODE ------------------------    
 const DIGITS = 3
