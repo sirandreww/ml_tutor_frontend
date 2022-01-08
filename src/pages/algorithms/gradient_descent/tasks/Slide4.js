@@ -16,7 +16,7 @@ import Plotly from 'plotly.js-dist-min';
 const math = create(all, {});
 
 
-export default function Task2() {
+export default function Slide4() {
     const [myfun, setFun] = React.useState('x^2 + y^2');
     const [alpha, setAlpha] = React.useState(0.01);
     const [startX, setStartX] = React.useState('10');

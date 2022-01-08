@@ -32,7 +32,7 @@ const math = create(all, {})
 
 // --------------------------------------------------------
 
-export default function Task3() {
+export default function Slide5() {
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(1)
     const [startX, setStartX] = React.useState('0')
