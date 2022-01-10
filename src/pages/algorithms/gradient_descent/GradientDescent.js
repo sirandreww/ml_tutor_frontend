@@ -7,12 +7,10 @@ import StepLabel from '@mui/material/StepLabel';
 import { Button, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-import GradientDescentSlide1 from './slides/Slide1.js';
-import GradientDescentSlide2 from './slides/Slide2.js';
-import GradientDescentSlide3 from './slides/Slide3.js';
 import GradientDescentSlide4 from './slides/Slide4.js';
 import GradientDescentSlide5 from './slides/Slide5.js';
 import GradientDescentSlide6 from './slides/Slide6.js';
+import GradientDescent1D from './slides/GradientDescent1D.js';
 
 const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
 
@@ -80,15 +78,27 @@ export default function GradientDescent() {
                         <Box height={50} />
                         {/* First Slide */}
                         {(activeStep === 0) && (
-                            <GradientDescentSlide1 />
+                            <GradientDescent1D 
+                                alphaType = 'input'
+                                buttonsType = 'playGround'
+                                generateQuestionTable = { false }
+                            />
                         )}
 
                         {(activeStep === 1) && (
-                            <GradientDescentSlide2 />
+                            <GradientDescent1D 
+                                alphaType = 'input'
+                                buttonsType = 'stepByStep'
+                                generateQuestionTable = { true }
+                            />
                         )}
 
                         {(activeStep === 2) && (
-                            <GradientDescentSlide3 />
+                            <GradientDescent1D 
+                            alphaType = 'slider'
+                            buttonsType = 'hyperParameter'
+                            generateQuestionTable = { false }
+                        />
                         )}
 
                         {(activeStep === 3) && (
