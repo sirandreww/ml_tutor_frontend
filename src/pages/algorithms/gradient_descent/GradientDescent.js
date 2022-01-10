@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import GradientDescentSlide1 from './slides/Slide1.js';
@@ -42,7 +42,7 @@ export default function GradientDescent() {
     const handleReset = () => {
         setActiveStep(0);
     };
-    
+
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={activeStep}>
@@ -76,35 +76,39 @@ export default function GradientDescent() {
                 </React.Fragment>
             ) : (
                 <React.Fragment>
+                    <Container maxWidth="md">
+                        <Box height={50} />
 
-                    {/* First Slide */}
-                    {(activeStep === 0) && (
-                        <GradientDescentSlide1 />
-                    )}
+                        {/* First Slide */}
+                        {(activeStep === 0) && (
+                            <GradientDescentSlide1 />
+                        )}
 
-                    {(activeStep === 1) && (
-                        <GradientDescentSlide2 />
-                    )}
+                        {(activeStep === 1) && (
+                            <GradientDescentSlide2 />
+                        )}
 
-                    {(activeStep === 2) && (
-                        <GradientDescentSlide3 />
-                    )}
+                        {(activeStep === 2) && (
+                            <GradientDescentSlide3 />
+                        )}
 
-                    {(activeStep === 3) && (
-                        <GradientDescentSlide4 />
-                    )}
+                        {(activeStep === 3) && (
+                            <GradientDescentSlide4 />
+                        )}
 
-                    {(activeStep === 4) && (
-                        <GradientDescentSlide5 />
-                    )}
+                        {(activeStep === 4) && (
+                            <GradientDescentSlide5 />
+                        )}
 
-                    {(activeStep === 5) && (
-                        <GradientDescentSlide6 />
-                    )}
+                        {(activeStep === 5) && (
+                            <GradientDescentSlide6 />
+                        )}
+                        <Box height={50} />
+                    </Container>
 
-                    
 
-                    
+
+
                     {/* slide managing code */}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
@@ -128,6 +132,7 @@ export default function GradientDescent() {
                     </Box>
                 </React.Fragment>
             )}
+            <Box height={50} />
         </Box>
     );
 }
