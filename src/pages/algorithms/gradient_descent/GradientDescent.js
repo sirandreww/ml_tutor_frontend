@@ -42,7 +42,7 @@ export default function GradientDescent() {
     const handleReset = () => {
         setActiveStep(0);
     };
-
+    
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={activeStep}>
@@ -78,7 +78,6 @@ export default function GradientDescent() {
                 <React.Fragment>
                     <Container maxWidth="md">
                         <Box height={50} />
-
                         {/* First Slide */}
                         {(activeStep === 0) && (
                             <GradientDescentSlide1 />
@@ -105,10 +104,7 @@ export default function GradientDescent() {
                         )}
                         <Box height={50} />
                     </Container>
-
-
-
-
+                    
                     {/* slide managing code */}
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button

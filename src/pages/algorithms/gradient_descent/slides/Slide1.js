@@ -4,13 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
-import functionPlot from "function-plot";
-import { create, all } from 'mathjs';
-
-// ------------------------ CODE ------------------------    
-
-const math = create(all, {})
-
+import { getPoints1D, getGraph1D, getDev } from '../helper';
 // --------------------------------------------------------
 
 export default function GradientDescentSlide1() {
@@ -63,7 +57,6 @@ export default function GradientDescentSlide1() {
     });
 
     return (
-
         <div>
             <Typography sx={{ mt: 2 }}>Gradient descent is an iterative algorithm for finding a local minimum.</Typography>
             <Typography>The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.</Typography>
@@ -100,69 +93,4 @@ export default function GradientDescentSlide1() {
             </Box>
         </div>
     );
-}
-
-function getDev(f, v) {
-    try {
-        return math.derivative(f, v).toString()
-    }
-    catch (e) {
-        console.log('error at getDev(f,v) => \n', e)
-        return '0'
-    }
-}
-
-function getPoints1D(f, startX, steps_count, alpha) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
-    var df = getDev(f, 'x')
-
-    // console.log(startX)
-    startX = parseFloat(startX)
-    steps_count = parseFloat(steps_count)
-    alpha = parseFloat(alpha)
-
-    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
-
-    var prev = startX
-    for (let i = 0; i < steps_count; i++) {
-        // console.log("i=", i)
-        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
-        // console.log("alpha*df = ", tmp) 
-        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
-        // console.log("next = ", next)
-        points.push([next, math.evaluate(f, { 'x': next })])
-        prev = next
-    }
-
-    return points
-}
-
-function getGraph1D(f, points) {
-    var width = 800;
-    var height = 500;
-    // console.log("points= \n", points)
-
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(points[0][0] + 2), points[0][0] + 2], label: 'x' },
-        yAxis: { domain: [-(points[0][1] + 2), points[0][1] + 2], label: 'f(x)' },
-        title: f,
-        grid: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
-                },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: 'polyline',
-            }
-        ]
-    });
 }
