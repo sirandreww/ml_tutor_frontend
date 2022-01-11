@@ -2,11 +2,114 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
+import functionPlot from "function-plot";
 import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
-import { getPoints1D, getGraph1D, PrettoSlider, getDev, HEADERS_1D, getExample, getAnswers1D } from 'pages/algorithms/gradient_descent/helper';
+import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
 // --------------------------------------------------------
+
+export const HEADERS_1D = [
+    ['step', 'Step'],
+    ['x', 'x'],
+    ['dx', "f'(x)"],
+    ['tmpX', "alpha * f'(x)"],
+    ['newX', "x'"],
+]
+
+function getPoints1D(f, startX, steps_count, alpha) {
+    var points = [[startX, math.evaluate(f, { 'x': startX })]]
+    var df = getDev(f, 'x')
+    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
+
+    startX = Number(startX)
+    steps_count = Number(steps_count)
+    alpha = Number(alpha)
+
+
+    var prev = startX
+    for (let i = 0; i < steps_count; i++) {
+        // console.log("i=", i)
+        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
+        // console.log("alpha*df = ", tmp) 
+        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
+        // console.log("next = ", next)
+        points.push([next, math.evaluate(f, { 'x': next })])
+        prev = next
+    }
+
+    // console.log('points=', points)
+    return points
+}
+
+function getGraph1D(f, points) {
+    var width = 800;
+    var height = 500;
+    // console.log("points= \n", points)
+    // console.log("f= \n", f)
+
+    functionPlot({
+        target: '#graph-board',
+        width,
+        height,
+        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
+        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
+        title: f,
+        grid: true,
+        data: [
+            {
+                fn: f,
+                derivative: {
+                    fn: getDev(f, 'x'),
+                    updateOnMouseMove: true
+                },
+            },
+            {
+                points: points,
+                fnType: 'points',
+                graphType: 'polyline',
+            }
+        ]
+    });
+}
+
+function getAnswers1D(header, rows, f, startX, alpha) {
+    try {
+        let keys = header.map((ele) => ele[0]);
+        let res = {}
+        keys.forEach(key => res[key] = [])
+
+        var df = getDev(f, 'x')
+        startX = Number(startX)
+        alpha = Number(alpha)
+
+        var prev = startX
+        for (let i = 0; i < rows; i++) {
+            var ans = {
+                step: i,
+                x: prev,
+                dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
+                tmpX: null,
+                newX: null,
+            }
+            ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
+            ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
+
+            for (const [key, value] of Object.entries(ans)) {
+                res[key].push(value)
+            }
+
+            prev = ans.newX
+
+        }
+        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
+
+        return res
+    }
+    catch (e) {
+        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
+    }
+}
 
 export default function GradientDescent1D(props) {
 
