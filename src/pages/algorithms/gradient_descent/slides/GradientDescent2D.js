@@ -2,12 +2,62 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
-import { getData2D, getPoints2D, getGraph2D, PrettoSlider, getDev } from '../helper';
+import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
+import { HEADERS_2D, getData2D, getPoints2D, getGraph2D, getDev, getExample, getAnswers2D, PrettoSlider } from '../helper';
 // --------------------------------------------------------
 
-export default function GradientDescentSlide6() {
+export default function GradientDescent2D(props) {
+
+    const { alphaType, buttonsType, generateQuestionTable} = props
+    const getAlphaInput = (type) => {
+        switch(type){
+            case 'slider':
+                return (
+                    <PrettoSlider
+                        valueLabelDisplay="auto"
+                        aria-label="pretto slider"
+                        defaultValue={alpha}
+                        step={0.05}
+                        min={0}
+                        max={10}
+                        onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
+                    />
+                );
+            case 'input':
+                return  <input type='text' value={alpha} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, al: event.target.value })} />
+            default:
+                return null
+        }
+    }
+
+    const getButtonsInput = (type) => {
+        switch(type){
+            case 'playGround':
+            case 'hyperParameter': 
+                return (
+                    <div>
+                        {button({ eventHandler: () => handleStates({ dr: true }), type: 'brush' })}
+                        {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: 0 }), type: 'stop' })}
+                        {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
+                        {button({ eventHandler: () => handleStates({ tck: true, dr: true }), type: 'play' })}
+                        <p>{count}</p>
+                    </div>
+                );
+            case 'stepByStep':
+                return (
+                    <div>
+                        {button({ eventHandler: () => handleStates({ tck: false, dr: true }), type: 'brush' })}
+                        {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                        {button({ eventHandler: () => handleStates({ tck: false, draw: false }), type: 'stop' })}
+                        {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: count + 1 }), type: 'next' })}
+                    </div>
+                );
+            default:
+                return null
+        }
+    }
 
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(1)
@@ -70,15 +120,7 @@ export default function GradientDescentSlide6() {
                                 <input type='text' value={myfun} style={{ width: '100%', height: '2rem' }} onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false })} />
                                 <br /><br />
                                 alpha:<br />
-                                <PrettoSlider
-                                    valueLabelDisplay="auto"
-                                    aria-label="pretto slider"
-                                    defaultValue={alpha}
-                                    step={0.05}
-                                    min={0}
-                                    max={10}
-                                    onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
-                                />
+                                { getAlphaInput(alphaType) }
                                 <br /><br />
                                 Starting point (
                                 x = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: event.target.value })} />,
@@ -91,15 +133,19 @@ export default function GradientDescentSlide6() {
                     </Grid>
                     <Grid item xs={12}>
                         <CenterItem>
+                            { generateQuestionTable ? <QuestionTable
+                                rowsNum={5}
+                                headers={HEADERS_2D}
+                                rowNumbersEnabled={true}
+                                exampleEnabled={true}
+                                example={getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
+                                correctAnswers={getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
+                            /> : null }
                             <div id='graph2-board'></div>
                         </CenterItem>
-                        <RightItem>
-                            {button({ eventHandler: () => handleStates({ dr: true }), type: 'brush' })}
-                            {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: 0 }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
-                            {button({ eventHandler: () => handleStates({ tck: true, dr: true }), type: 'play' })}
-                            <p>{count}</p>
-                        </RightItem>
+                        <CenterItem>
+                            { getButtonsInput(buttonsType) }
+                        </CenterItem>
                     </Grid>
                 </Grid>
             </Box>

@@ -79,13 +79,12 @@ export function getDev(f, v) {
 export function getPoints1D(f, startX, steps_count, alpha) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
     var df = getDev(f, 'x')
-
-    console.log(startX)
-    startX = parseFloat(startX)
-    steps_count = parseFloat(steps_count)
-    alpha = parseFloat(alpha)
-
     // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
+
+    startX = Number(startX)
+    steps_count = Number(steps_count)
+    alpha = Number(alpha)
+
 
     var prev = startX
     for (let i = 0; i < steps_count; i++) {
@@ -112,8 +111,8 @@ export function getGraph1D(f, points) {
         target: '#graph-board',
         width,
         height,
-        xAxis: { domain: [-(points[0][0] + 2), points[0][0] + 2], label: 'x' },
-        yAxis: { domain: [-(points[0][1] + 2), points[0][1] + 2], label: 'f(x)' },
+        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
+        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
         title: f,
         grid: true,
         data: [
@@ -137,10 +136,10 @@ export function getPoints2D(f, startX, startY, steps_count, alpha) {
     try {
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
-        var prevX = parseFloat(startX)
-        var prevY = parseFloat(startY)
-        steps_count = parseFloat(steps_count)
-        alpha = parseFloat(alpha)
+        var prevX = Number(startX)
+        var prevY = Number(startY)
+        steps_count = Number(steps_count)
+        alpha = Number(alpha)
 
         var points = {
             x: [prevX],
@@ -229,9 +228,9 @@ export function getGraph2D(data, points) {
 
 export function getExample(f, vars, alpha) {
     try {
-        alpha = parseFloat(alpha)
+        alpha = Number(alpha)
         var prevs = {}
-        vars.forEach(ele => prevs[ele.v] = parseFloat(ele.val).toFixed(DIGITS))
+        vars.forEach(ele => prevs[ele.v] = Number(ele.val).toFixed(DIGITS))
 
         var vs = []
         var devs = []
@@ -240,12 +239,12 @@ export function getExample(f, vars, alpha) {
 
         for (let index = 0; index < vars.length; index++) {
             let { v, val } = vars[index];
-            val = parseFloat(val).toFixed(DIGITS)
+            val = Number(val).toFixed(DIGITS)
 
             let df = getDev(f, v)
-            let dev = parseFloat(math.evaluate(df, prevs)).toFixed(DIGITS)
-            let tmp = parseFloat(math.evaluate('alpha*dev', { 'alpha': alpha, 'dev': dev })).toFixed(DIGITS)
-            let next = parseFloat(math.evaluate('v-tmp', { 'v': val, 'tmp': tmp })).toFixed(DIGITS)
+            let dev = Number(math.evaluate(df, prevs)).toFixed(DIGITS)
+            let tmp = Number(math.evaluate('alpha*dev', { 'alpha': alpha, 'dev': dev })).toFixed(DIGITS)
+            let next = Number(math.evaluate('v-tmp', { 'v': val, 'tmp': tmp })).toFixed(DIGITS)
 
             vs.push(val)
             devs.push(dev)
@@ -268,20 +267,20 @@ export function getAnswers1D(header, rows, f, startX, alpha) {
         keys.forEach(key => res[key] = [])
 
         var df = getDev(f, 'x')
-        startX = parseFloat(startX)
-        alpha = parseFloat(alpha)
+        startX = Number(startX)
+        alpha = Number(alpha)
 
         var prev = startX
         for (let i = 0; i < rows; i++) {
             var ans = {
                 step: i,
                 x: prev,
-                dx: parseFloat(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
+                dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
                 tmpX: null,
                 newX: null,
             }
-            ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
-            ans.newX = parseFloat(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
+            ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
+            ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
 
             for (const [key, value] of Object.entries(ans)) {
                 res[key].push(value)
@@ -307,9 +306,9 @@ export function getAnswers2D(header, rows, f, startX, startY, alpha) {
 
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
-        startX = parseFloat(startX).toFixed(DIGITS)
-        startY = parseFloat(startY).toFixed(DIGITS)
-        alpha = parseFloat(alpha)
+        startX = Number(startX).toFixed(DIGITS)
+        startY = Number(startY).toFixed(DIGITS)
+        alpha = Number(alpha)
 
         var prevX = startX
         var prevY = startY
@@ -319,17 +318,17 @@ export function getAnswers2D(header, rows, f, startX, startY, alpha) {
                 step: i,
                 x: prevX,
                 y: prevY,
-                dx: parseFloat(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-                dy: parseFloat(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
+                dx: Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
+                dy: Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
                 tmpX: null,
                 tmpY: null,
                 newX: null,
                 newY: null,
             }
-            ans.tmpX = parseFloat(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newX = parseFloat(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
-            ans.tmpY = parseFloat(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newY = parseFloat(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
+            ans.tmpX = Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
+            ans.newX = Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
+            ans.tmpY = Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
+            ans.newY = Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
 
             for (const [key, value] of Object.entries(ans)) {
                 res[key].push(value)
@@ -340,7 +339,7 @@ export function getAnswers2D(header, rows, f, startX, startY, alpha) {
 
         }
         // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-        console.log('res=', res)
+        // console.log('res=', res)
         return res
     }
     catch (e) {

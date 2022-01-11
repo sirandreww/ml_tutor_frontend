@@ -7,10 +7,8 @@ import StepLabel from '@mui/material/StepLabel';
 import { Button, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-import GradientDescentSlide4 from './slides/Slide4.js';
-import GradientDescentSlide5 from './slides/Slide5.js';
-import GradientDescentSlide6 from './slides/Slide6.js';
 import GradientDescent1D from './slides/GradientDescent1D.js';
+import GradientDescent2D from './slides/GradientDescent2D.js';
 
 const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
 
@@ -95,22 +93,37 @@ export default function GradientDescent() {
 
                         {(activeStep === 2) && (
                             <GradientDescent1D 
-                            alphaType = 'slider'
-                            buttonsType = 'hyperParameter'
-                            generateQuestionTable = { false }
-                        />
+                                alphaType = 'slider'
+                                buttonsType = 'hyperParameter'
+                                generateQuestionTable = { false }
+                            />
                         )}
 
                         {(activeStep === 3) && (
-                            <GradientDescentSlide4 />
+                            // <GradientDescentSlide4 />
+                            <GradientDescent2D 
+                                alphaType = 'input'
+                                buttonsType = 'playGround'
+                                generateQuestionTable = { false }
+                            />
                         )}
 
                         {(activeStep === 4) && (
-                            <GradientDescentSlide5 />
+                            // <GradientDescentSlide5 />
+                            <GradientDescent2D 
+                                alphaType = 'input'
+                                buttonsType = 'stepByStep'
+                                generateQuestionTable = { true }
+                            />
                         )}
 
                         {(activeStep === 5) && (
-                            <GradientDescentSlide6 />
+                            // <GradientDescentSlide6 />
+                            <GradientDescent2D 
+                                alphaType = 'slider'
+                                buttonsType = 'hyperParameter'
+                                generateQuestionTable = { false }
+                            />
                         )}
                         <Box height={50} />
                     </Container>
