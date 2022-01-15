@@ -7,10 +7,10 @@ Algorithms:
 - user input check (for functions, parameters, etc.)
 
 Gradient Descent - 
-1. Introductions pages are static (2D the graph is interactive and not static).
-2. In each task the user can enter what ever he wants, in the input is invalid the page must to break (data won't be rendered at worst case).
+1. Introduction pages are static (2D the graph is interactive and not static).
+2. In each task the user can enter whatever he wants, if the input is invalid the page must not break (data won't be rendered at worst case), log errors to console.
 3. Buttons works. (Play -> start real-time calcs, Clear -> stops the clear the boards, Puase -> puases the cals but keeps the data...).
-4. If user changes the input all real time calculations stops and tables are cleared (examples must be align with the input).
+4. If user changes the input all real time calculations stops and tables are cleared (examples in step by step tasks must be align with the input).
 
 Routing:
 - all links are relevant
