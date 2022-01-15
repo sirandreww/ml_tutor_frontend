@@ -6,11 +6,22 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { Button, Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
+import { LeftItem } from 'pages/algorithms/dashboard/utils';
 import GradientDescent1D from './slides/GradientDescent1D.js';
 import GradientDescent2D from './slides/GradientDescent2D.js';
+import Introduction1D from './slides/Introduction1D.js';
+import Introduction2D from './slides/Introduction2D.js';
 
-const steps = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6'];
+const steps = [
+    '1D Introduction', 
+    'Visualization', 
+    'Step By Step', 
+    'Hyper-Parameter', 
+    '2D Introduction', 
+    'Visualization', 
+    'Step By Step', 
+    'Hyper-Parameter'
+];
 
 export default function GradientDescent() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -45,11 +56,6 @@ export default function GradientDescent() {
                 {steps.map((label, index) => {
                     const stepProps = {};
                     const labelProps = {};
-                    // if (isStepOptional(index)) {
-                    //     labelProps.optional = (
-                    //         <Typography variant="caption">Optional</Typography>
-                    //     );
-                    // }
                     if (isStepSkipped(index)) {
                         stepProps.completed = false;
                     }
@@ -76,54 +82,103 @@ export default function GradientDescent() {
                         <Box height={50} />
                         {/* First Slide */}
                         {(activeStep === 0) && (
-                            <GradientDescent1D 
-                                alphaType = 'input'
-                                buttonsType = 'playGround'
-                                generateQuestionTable = { false }
-                            />
+                            <Introduction1D />
                         )}
-
+                        
                         {(activeStep === 1) && (
-                            <GradientDescent1D 
-                                alphaType = 'input'
-                                buttonsType = 'stepByStep'
-                                generateQuestionTable = { true }
-                            />
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Enter any function you want (the variable must be x), Hyper-Parameter and set the starting point.<br/>
+                                        Hit Play button to start the animation, you can also pause it and zoom in the graph by clicking pasue button or clear everthing on the X button.<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent1D 
+                                    alphaType = 'input'
+                                    buttonsType = 'playGround'
+                                    generateQuestionTable = { false }
+                                />
+                            </Box>
                         )}
 
                         {(activeStep === 2) && (
-                            <GradientDescent1D 
-                                alphaType = 'slider'
-                                buttonsType = 'hyperParameter'
-                                generateQuestionTable = { false }
-                            />
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Try calculate the value of each variable as the algorithm does (2 decimal points).<br/>
+                                        Each click on arrow will draw the next/previous step<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent1D 
+                                    alphaType = 'input'
+                                    buttonsType = 'stepByStep'
+                                    generateQuestionTable = { true }
+                                />
+                            </Box>
                         )}
 
                         {(activeStep === 3) && (
-                            // <GradientDescentSlide4 />
-                            <GradientDescent2D 
-                                alphaType = 'input'
-                                buttonsType = 'playGround'
-                                generateQuestionTable = { false }
-                            />
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Search for the best alpha which gets to the minimum with least steps.<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent1D 
+                                    alphaType = 'slider'
+                                    buttonsType = 'hyperParameter'
+                                    generateQuestionTable = { false }
+                                />
+                            </Box>
                         )}
 
                         {(activeStep === 4) && (
-                            // <GradientDescentSlide5 />
-                            <GradientDescent2D 
-                                alphaType = 'input'
-                                buttonsType = 'stepByStep'
-                                generateQuestionTable = { true }
-                            />
+                            <Introduction2D />
                         )}
 
                         {(activeStep === 5) && (
-                            // <GradientDescentSlide6 />
-                            <GradientDescent2D 
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Try it yourself like before (variables must be x and y).<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent2D 
+                                    alphaType = 'input'
+                                    buttonsType = 'playGround'
+                                    generateQuestionTable = { false }
+                                />
+                            </Box>
+                        )}
+
+                        {(activeStep === 6) && (
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Challenge yourslef and calculate each step.<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent2D 
+                                    alphaType = 'input'
+                                    buttonsType = 'stepByStep'
+                                    generateQuestionTable = { true }
+                                />
+                            </Box>
+                        )}
+
+                        {(activeStep === 7) && (
+                            <Box>
+                                <LeftItem>
+                                    <Typography>
+                                        Search for the best alpha which gets to the minimum with least steps.<br/>
+                                    </Typography>
+                                </LeftItem>
+                                <GradientDescent2D 
                                 alphaType = 'slider'
                                 buttonsType = 'hyperParameter'
                                 generateQuestionTable = { false }
-                            />
+                                />
+                            </Box>
                         )}
                         <Box height={50} />
                     </Container>
@@ -139,12 +194,6 @@ export default function GradientDescent() {
                             Back
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
-                        {/* {isStepOptional(activeStep) && (
-                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                Skip
-                            </Button>
-                        )} */}
-
                         <Button onClick={handleNext}>
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                         </Button>

@@ -3,7 +3,7 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 
 export const math = create(all, {})
-export const DIGITS = 3
+export const DIGITS = 2
 
 export const PrettoSlider = styled(Slider)({
     width: '30%',
