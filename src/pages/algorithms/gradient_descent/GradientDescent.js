@@ -40,14 +40,17 @@ export default function GradientDescent() {
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
+        window.scrollTo(0, 0)
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        window.scrollTo(0, 0)
     };
 
     const handleReset = () => {
         setActiveStep(0);
+        window.scrollTo(0, 0)
     };
     
     return (
