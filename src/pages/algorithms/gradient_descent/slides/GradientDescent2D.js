@@ -319,12 +319,13 @@ export default function GradientDescent2D(props) {
                     <Grid item xs={12}>
                         <CenterItem>
                             { generateQuestionTable ? <QuestionTable
-                                rowsNum={5}
-                                headers={HEADERS_2D}
-                                rowNumbersEnabled={true}
-                                exampleEnabled={true}
-                                example={getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
-                                correctAnswers={getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
+                                rowsNum = {5}
+                                headers = {HEADERS_2D}
+                                rowNumbersEnabled = {true}
+                                exampleEnabled = {true}
+                                example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
+                                correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
+                                comparator = {(res, ans) => Number(ans) === Number(res)}
                             /> : null }
                             <div id='graph2-board'></div>
                         </CenterItem>

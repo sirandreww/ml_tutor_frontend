@@ -221,12 +221,13 @@ export default function GradientDescent1D(props) {
                 <Grid item xs={12}>
                     <CenterItem>
                         {generateQuestionTable ? (<QuestionTable
-                            rowsNum={5}
-                            headers={HEADERS_1D}
-                            exampleEnabled={true}
-                            rowNumbersEnabled={true}
-                            example={getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
-                            correctAnswers={getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                            rowsNum = {5}
+                            headers = {HEADERS_1D}
+                            exampleEnabled = {true}
+                            rowNumbersEnabled = {true}
+                            example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
+                            correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                            comparator = {(res, ans) => Number(ans) === Number(res)}
                         />) : null
                         }
                         <div id='graph-board'></div>

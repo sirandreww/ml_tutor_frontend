@@ -71,18 +71,18 @@ function generateRows(num, formater, example, exampleEnabled, rowNumberingEnable
 }
 
 function identicalArrays(array1, array2) {
-    console.log('identicalArrays')
-    console.log('array1 = ', array1)
-    console.log('array2 = ', array2)
+    // console.log('identicalArrays')
+    // console.log('array1 = ', array1)
+    // console.log('array2 = ', array2)
 
     if (array1.length !== array2.length) {
         return false
     }
 
     for (let i = 0; i < array1.length; i++) {
-        console.log('i = ', i)
-        console.log('array1[i] = ', array1[i])
-        console.log('array2[i] = ', array2[i])
+        // console.log('i = ', i)
+        // console.log('array1[i] = ', array1[i])
+        // console.log('array2[i] = ', array2[i])
         if(array1[i] !== array2[i]) {
             return false
         }
@@ -98,9 +98,14 @@ function identicalArrays(array1, array2) {
  * @param {Boolean} exampleEnabled if ture you must provide an example of the answer
  * @param {any[]} example if exampleEnabled is true the first line will be filled with the example answer (won't be editable), otherwise it will be ignored
  * @param {{[Key: String]: any[]}} correctAnswers the key is the column header while the value is an array of the correct answers of that column (if exampleEnabled is true so include its answers).
+ * @param {(,) => Boolean} comparator function to compare the input of the user to the answer, if not provided it compares via ===
  * @returns the desired table functionality
  */
 class QuestionTable extends React.Component {
+
+    compare(current, to) {
+        return current === to
+    }
 
     constructor(props) {
         super(props)
@@ -112,6 +117,7 @@ class QuestionTable extends React.Component {
             exampleEnabled: props.exampleEnabled,
             example: props.example,
             correctAnswers: props.correctAnswers,
+            comparator: ('comparator' in props) ? props.comparator : this.compare 
         }
 
         // console.log('props.rowsNum = ', props.rowsNum)
@@ -210,7 +216,7 @@ class QuestionTable extends React.Component {
                     if (params.getValue(params.id, params.field) === null || (this.state.exampleEnabled && params.id === 0) || (this.state.rowNumbersEnabled && params.field === this.state.headers[0][0])) {
                         return 'default';
                     }
-                    if(params.getValue(params.id, params.field) === this.state.correctAnswers[params.field][params.id]){
+                    if( this.state.comparator(params.getValue(params.id, params.field), this.state.correctAnswers[params.field][params.id]) ){
                         return 'correct'
                     }
                     else{
