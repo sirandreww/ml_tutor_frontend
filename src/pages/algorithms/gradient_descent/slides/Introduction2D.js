@@ -173,7 +173,7 @@ export default function Introduction2D() {
                 The first 10 steps the algorithm takes are shown the following animation.<br/>
                 <br/>
             </Typography>
-            <div id='graph2-board' style={{'pointer-events': 'none'}}></div>
+            <div id='graph2-board' style={{pointerEvents: 'none'}}></div>
             <Typography>
                 <br/>
                 How the algorithm achives this?<br/>

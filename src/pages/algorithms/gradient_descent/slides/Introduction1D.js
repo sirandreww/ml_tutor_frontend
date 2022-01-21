@@ -4,7 +4,6 @@ import functionPlot from "function-plot";
 import Typography from '@mui/material/Typography';
 import { getDev, math } from 'pages/algorithms/gradient_descent/helper';
 
-
 function getPoints1D(f, startX, steps_count, alpha) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
     var df = getDev(f, 'x')
@@ -97,7 +96,7 @@ export default function Introduction1D() {
                 The first 10 steps the algorithm takes are shown the following animation.<br/>
                 <br/>
             </Typography>
-            <div id='graph-board' style={{'pointer-events': 'none'}}></div>
+            <div id='graph-board' style={{pointerEvents: 'none'}}></div>
             <Typography>
                 <br/>
                 How the algorithm achives this?<br/>
