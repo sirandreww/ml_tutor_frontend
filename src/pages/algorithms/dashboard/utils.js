@@ -111,3 +111,20 @@ export const RightItem = styled(Paper)(({ theme }) => ({
     textAlign: "right",
     color: theme.palette.text.secondary
 }));
+
+export const mathJaxConfig = {
+    loader: { load: ["[tex]/html"] },
+    tex: {
+      packages: { "[+]": ["html"] },
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"]
+      ]
+    }
+};
+
+export const mathJaxStyle = { fontSize: '1.2em' }

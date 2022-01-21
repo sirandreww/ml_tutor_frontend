@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "better-react-mathjax": "^1.0.3",
     "function-plot": "^1.22.7",
     "mathjs": "^10.0.1",
     "plotly.js": "^2.8.3",
