@@ -97,7 +97,7 @@ export default function Introduction1D() {
                 The first 10 steps the algorithm takes are shown the following animation.<br/>
                 <br/>
             </Typography>
-            <div id='graph-board'></div>
+            <div id='graph-board' style={{'pointer-events': 'none'}}></div>
             <Typography>
                 <br/>
                 How the algorithm achives this?<br/>
