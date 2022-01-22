@@ -3,11 +3,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import functionPlot from "function-plot";
-import { button, LeftItem, CenterItem, RightItem, mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem, RightItem } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
-import { MathJax, MathJaxContext } from "better-react-mathjax";
 // --------------------------------------------------------
 
 export const HEADERS_1D = [
@@ -115,26 +114,22 @@ function getAnswers1D(header, rows, f, startX, alpha) {
 export default function GradientDescent1D(props) {
 
     const { alphaType, buttonsType, generateQuestionTable} = props
-
     const getAlphaInput = (type) => {
         switch(type){
             case 'slider':
                 return (
-                    <span>
-                        <br/>
-                        <PrettoSlider
-                            valueLabelDisplay="auto"
-                            aria-label="pretto slider"
-                            defaultValue={alpha}
-                            step={0.05}
-                            min={0}
-                            max={2}
-                            onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
-                        />
-                    </span>
+                    <PrettoSlider
+                        valueLabelDisplay="auto"
+                        aria-label="pretto slider"
+                        defaultValue={alpha}
+                        step={0.05}
+                        min={0}
+                        max={2}
+                        onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
+                    />
                 );
             case 'input':
-                return <input type='text' value={alpha} style={{ height: '2rem', fontSize: '1.2rem' }} onChange={event => handleStates({ tck: false, cnt: 0, al: event.target.value })} />
+                return <input type='text' value={alpha} onChange={event => handleStates({ tck: false, cnt: 0, al: event.target.value })} />
             default:
                 return null
         }
@@ -183,8 +178,9 @@ export default function GradientDescent1D(props) {
 
     React.useEffect(() => {
         try {
-            let points = getPoints1D(myfun, startX, count, alpha)
-            getGraph1D(myfun, points)
+            let points = null;
+            points = getPoints1D(myfun, startX, count, alpha);
+            getGraph1D(myfun, points);
         }
         catch (e) {
             console.log("error at useEffect on parameters changes => \n", e)
@@ -200,46 +196,46 @@ export default function GradientDescent1D(props) {
         catch (e) {
             console.log("error at useEffect => \n", e)
         }
+
     });
 
     return (
         <div>
-            <Box sx={{ width: "100%" }}>
-                <MathJaxContext version={3} config={mathJaxConfig}>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
-                        <Grid item xs={12}>
-                            <LeftItem>
-                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                    <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> = <input type='text' value={myfun} style={{ width: '70%', height: '2rem', fontSize: '1.2rem' }} onChange={event => handleStates({ tck: false, cnt: 0, fn: event.target.value })} />
-                                    <br /><br />
-                                    <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = { getAlphaInput(alphaType) }
-                                    <br /><br />
-                                    Starting point (x = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />)
-                                    <br /><br />
-                                    The derivative of the function is:<br/>  
-                                    <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx} = \\)"}</MathJax> {getDev(myfun, 'x')}<br/>
-                                </Typography>
-                            </LeftItem>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <CenterItem>
-                                {generateQuestionTable ? (<QuestionTable
-                                    rowsNum = {5}
-                                    headers = {HEADERS_1D}
-                                    exampleEnabled = {true}
-                                    rowNumbersEnabled = {true}
-                                    example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
-                                    correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
-                                    comparator = {(res, ans) => Number(ans) === Number(res)}
-                                />) : null
-                                }
-                                <div id='graph-board'></div>
-                            </CenterItem>
-                            { getButtonsInput(buttonsType) }
-                        </Grid>
-                    </Grid>
-                </MathJaxContext>
-            </Box>
-        </div>
+        <Box sx={{ width: "100%" }}>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
+                <Grid item xs={12}>
+                    <LeftItem>
+                        <Typography sx={{ color: 'black', fontSize: '1rem' }}>
+                            f(x):<br />
+                            <input type='text' value={myfun} style={{ width: '100%', height: '2rem' }} onChange={event => handleStates({ tck: false, cnt: 0, fn: event.target.value })} />
+                            <br /><br />
+                            alpha:<br />
+                            { getAlphaInput(alphaType) }
+                            <br /><br />
+                            Starting point (x = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />)
+                            <br /><br />
+                            The derivative of the function is:  {getDev(myfun, 'x')}
+                        </Typography>
+                    </LeftItem>
+                </Grid>
+                <Grid item xs={12}>
+                    <CenterItem>
+                        {generateQuestionTable ? (<QuestionTable
+                            rowsNum = {5}
+                            headers = {HEADERS_1D}
+                            exampleEnabled = {true}
+                            rowNumbersEnabled = {true}
+                            example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
+                            correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                            comparator = {(res, ans) => Number(ans) === Number(res)}
+                        />) : null
+                        }
+                        <div id='graph-board'></div>
+                    </CenterItem>
+                    { getButtonsInput(buttonsType) }
+                </Grid>
+            </Grid>
+        </Box>
+    </div>
     );
 }

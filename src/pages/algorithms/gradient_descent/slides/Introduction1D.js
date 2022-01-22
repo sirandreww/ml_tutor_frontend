@@ -3,8 +3,6 @@ import Box from '@mui/material/Box';
 import functionPlot from "function-plot";
 import Typography from '@mui/material/Typography';
 import { getDev, math } from 'pages/algorithms/gradient_descent/helper';
-import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
-import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 function getPoints1D(f, startX, steps_count, alpha) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
@@ -88,41 +86,37 @@ export default function Introduction1D() {
         }
     });
 
-    const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
     return (
         <Box sx={{ width: '100%' }}>
-            <MathJaxContext version={3} config={mathJaxConfig}>
-                <Typography component={'span'}>
-                    <h1 style={headers_style}>Gradient descent 1D</h1>
-                    <br/>
-                    Gradient descent is an iterative algorithm for finding a local minimum. <br/>
-                    It starts at a given point and the idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.<br/>
-                    <br/>
-                    Let us take for example <MathJax style={mathJaxStyle} inline>{"\\(f(x) = x^{2}\\)"}</MathJax> as function and <MathJax style={mathJaxStyle} inline>{"\\(x = 5\\)"}</MathJax> will be the starting point.<br/>
-                    The first 10 steps the algorithm takes are shown the following animation.<br/>
-                    <br/>
-                </Typography>
-                <div id='graph-board' style={{pointerEvents: 'none'}}></div>
-                <Typography component={'span'}>
-                    <br/>
-                    <h4 style={headers_style}>How the algorithm achives this?</h4><br/>
-                    In each step the algorithm calculates the derivative in the current point and based on that it calculate the next point.<br/>
-                    First we will introduce the Hyper-Parameter called alpha, this variable holds a number which is responsible on the step size.<br/>
-                    <br/><br/>
-                    {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - the x value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> - the y value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - is the derivative of f.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax> - the y value of the derivative at x.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - is the Hyper-parameter.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>  - will be the x value of the new point.<br/><br/>
-                    <br/><br/>
-                    {tab}<h4 style={headers_style}>So in each step the algorithm do the following:</h4><br/>
-                    {tab}{tab}1. calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax><br/><br/>
-                    {tab}{tab}2. Apply <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x))\\)"}</MathJax><br/><br/>
-                </Typography>
-            </MathJaxContext>
+            <Typography>
+                Gradient descent is an iterative algorithm for finding a local minimum. <br/>
+                It starts at a given point and the idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.<br/>
+                <br/>
+                Let us take for example f(x) = x^2 as function and x = 5 will be the starting point.<br/>
+                The first 10 steps the algorithm takes are shown the following animation.<br/>
+                <br/>
+            </Typography>
+            <div id='graph-board' style={{pointerEvents: 'none'}}></div>
+            <Typography>
+                <br/>
+                How the algorithm achives this?<br/>
+                In each step the algorithm calculates the derivative in the current point and based on that it calculate the next point.<br/>
+                First we will introduce the Hyper-Parameter called alpha, this variable holds a number which is responsible on the step size.<br/>
+                <br/>
+                Some definitions:<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x - the x value of the point.<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f(x) - the y value of the point.<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f' - is the derivative of f.<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f'(x) - the y value of the derivative at x.<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha - is the Hyper-parameter.<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_x - will be the x value of the new point.<br/>
+                <br/>
+                So in each step the algorithm do the following:<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. calculate f'(x)<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. new_x = x - (alpha * f'(x))<br/>
+                <br/>
+                Thats how the algorithm calculate the next point.<br/>
+            </Typography>
         </Box>
     )
 }
