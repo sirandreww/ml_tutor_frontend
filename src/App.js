@@ -10,6 +10,7 @@ import i18next from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
+import LoadingScreen from "components/LoadingScreen";
 
 const theme = createTheme({});
 const Home = lazy(() => import("pages/Home/Home.js"));
@@ -36,7 +37,7 @@ function App() {
     <I18nextProvider i18n={i18next}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<LoadingScreen />}>
             <ScrollToTop />
             <Routes>
               <Route path="/" exact element={<Home />} />
