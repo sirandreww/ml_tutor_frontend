@@ -12,11 +12,11 @@ import { useTranslation } from "react-i18next";
 // --------------------------------------------------------
 
 export const HEADERS_1D = [
-    ['step', 'Step'],
-    ['x', 'x'],
-    ['dx', "f'(x)"],
-    ['tmpX', "alpha * f'(x)"],
-    ['newX', "x'"],
+    ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
+    ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
+    ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax>, 1],
+    ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha * \\frac{df}{dx}(x)\\)"}</MathJax>, 1],
+    ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
 ]
 
 function getPoints1D(f, startX, steps_count, alpha) {

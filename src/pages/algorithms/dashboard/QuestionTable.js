@@ -11,7 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 function generateColumns(formater) {
     var columns = []
     for (let col = 0; col < formater.length; col++) {
-        const [field, header] = formater[col];
+        const [field, header, flex_percent] = formater[col];
         const editable = col !== 0
 
         columns.push({
@@ -20,7 +20,7 @@ function generateColumns(formater) {
             editable: editable, 
             sortable: false, 
             headerAlign: 'center', 
-            flex: header.length, 
+            flex: flex_percent, 
             align: 'center',
             cellClassName: 'super-app.default',
             headerClassName: 'super-app-theme--header',
