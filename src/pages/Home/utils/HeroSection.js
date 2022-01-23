@@ -5,9 +5,14 @@ import { Box, Container } from '@mui/material';
 import { Grid, Paper } from '@mui/material';
 import Graph2D from 'components/Graph2D';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
+const languageAlign = () => {
+  const lang = i18next.language
 
-import {useTranslation} from "react-i18next";
+  return (lang === 'en') ? 'left' : 'right'
+}
 
 export default function HeroSection() {
   const [t] = useTranslation('translation');
@@ -28,7 +33,7 @@ export default function HeroSection() {
             <Typography
               component="h1"
               variant="h1"
-              align="left"
+              align={languageAlign()}
               color="black"
               fontFamily={"Arial"}
               gutterBottom
@@ -37,7 +42,7 @@ export default function HeroSection() {
             </Typography>
 
             {/* Hero description */}
-            <Typography variant="h4" align="left" color="#777777" paragraph fontFamily={"Arial"}>
+            <Typography variant="h4" align={languageAlign()} color="#777777" paragraph fontFamily={"Arial"}>
               {t("homepage.intro")}
             </Typography>
 
