@@ -14,19 +14,20 @@ import Introduction2D from './slides/Introduction2D.js';
 import {useTranslation} from "react-i18next";
 
 const steps = [
-    '1D Introduction', 
-    'Visualization', 
-    'Step By Step', 
-    'Hyper-Parameter', 
-    '2D Introduction', 
-    'Visualization', 
-    'Step By Step', 
-    'Hyper-Parameter'
+    "1d_int",
+    "1d_vis",
+    "1d_sbs",
+    "1d_hyp",
+    "2d_int",
+    "2d_vis",
+    "2d_sbs",
+    "2d_hyp"
 ];
 
 export default function GradientDescent() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+    const [t] = useTranslation('translation')
 
     const isStepSkipped = (step) => {
         return skipped.has(step);
@@ -54,7 +55,6 @@ export default function GradientDescent() {
         window.scrollTo(0, 0)
     };
     
-    const [t] = useTranslation(['translation']);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -67,7 +67,7 @@ export default function GradientDescent() {
                     }
                     return (
                         <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
+                            <StepLabel {...labelProps}>{t("gd.tasks.".concat(label))}</StepLabel>
                         </Step>
                     );
                 })}

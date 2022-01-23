@@ -69,6 +69,16 @@
             "alpha":"alpha",
             "starting_point":"Starting point",
             "derivative":"The derivative of the function is"
+        },
+        "tasks" : {
+            "1d_int": "1D Introduction",
+            "1d_vis": "1D Visualization",
+            "1d_sbs": "Step By Step",
+            "1d_hyp": "Hyper-Parameter",
+            "2d_int": "2D Introduction",
+            "2d_vis": "2D Visualization",
+            "2d_sbs": "Step By Step",
+            "2d_hyp": "Hyper-Parameter"
         }
     },
 
