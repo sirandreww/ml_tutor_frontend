@@ -28,7 +28,7 @@ function Cards() {
                 text='Learn the Gradient Descent Algorithm'
                 info='This algorithm helps in finiding the minimal point of a function'
                 label='Gradiant Descent'
-                path='/algorithms/gd'
+                path='/algorithms/gd1'
               />
             </ul>
             <ul className='cards__items'>
