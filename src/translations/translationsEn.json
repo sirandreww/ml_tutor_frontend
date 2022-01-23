@@ -2,6 +2,7 @@
     "next": "Next",
     "back": "Back",
     "finish": "Finish",
+    "reset": "Reset",
     "homepage":{
         "intro":"Understand how Machine Learning works by using 3D animation and simple explanations.",
         "get_started_btn":"Get started",

@@ -79,7 +79,7 @@ export default function GradientDescent() {
                     </Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
+                        <Button onClick={handleReset}>{t("reset")}</Button>
                     </Box>
                 </React.Fragment>
             ) : (
