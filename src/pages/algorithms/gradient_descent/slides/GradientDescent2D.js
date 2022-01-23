@@ -12,15 +12,15 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 // --------------------------------------------------------
 
 export const HEADERS_2D = [
-    ['step', 'Step'],
-    ['x', 'x'],
-    ['y', 'y'],
-    ['dx', "dfx(x, y)"],
-    ['dy', "dfy(x, y)"],
-    ['tmpX', "alpha * dfx(x, y)"],
-    ['tmpY', "alpha * dfy(x, y)"],
-    ['newX', "x'"],
-    ['newY', "y'"],
+    ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
+    ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
+    ['y', <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax>, 1],
+    ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>, 1],
+    ['dy', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax>, 1],
+    ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dx}\\)"}</MathJax>, 2],
+    ['tmpY', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dy}\\)"}</MathJax>, 2],
+    ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
+    ['newY', <MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax>, 1],
 ]
 
 
