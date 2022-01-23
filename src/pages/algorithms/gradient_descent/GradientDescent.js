@@ -54,7 +54,7 @@ export default function GradientDescent() {
         window.scrollTo(0, 0)
     };
     
-    const {t} = useTranslation(['translation']);
+    const [t] = useTranslation(['translation']);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -197,11 +197,11 @@ export default function GradientDescent() {
                             onClick={handleBack}
                             sx={{ mr: 1 }}
                         >
-                            Back
+                            {t("back")}
                         </Button>
                         <Box sx={{ flex: '1 1 auto' }} />
                         <Button onClick={handleNext}>
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            {activeStep === steps.length - 1 ? t("finish") : t("next")}
                         </Button>
                     </Box>
                 </React.Fragment>
