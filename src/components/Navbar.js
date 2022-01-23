@@ -7,17 +7,24 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import logo from 'assets/images/MlLogo.png';
 import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
+import i18next from "i18next";
+import LanguageIcon from '@mui/icons-material/Language';
 
 const pages = ['Algorithms'];
 const pages_links = { 'Algorithms': "/algorithms" };
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [['he', 'עברית'], ['en', 'English']];
+
+const changeLang = (lan) => {
+  console.log(lan)
+  i18next.changeLanguage(lan);
+  
+}
 
 export default function Navbar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -120,9 +127,9 @@ export default function Navbar(props) {
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip title="Select Language">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <LanguageIcon />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -142,8 +149,8 @@ export default function Navbar(props) {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                  <MenuItem key={setting[0]} onClick = {() => { changeLang(setting[0]); handleCloseUserMenu()}}>
+                    <Typography textAlign="center">{setting[1]}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

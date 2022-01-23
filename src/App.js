@@ -5,24 +5,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ScrollToTop from './components/ScrollToTop.js';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard.js';
-
 import i18next from "i18next";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({});
-
 const Home = lazy(() => import('pages/Home/Home.js'));
 const Algorithms = lazy(() => import('pages/algorithms/Algorithms.js'));
 const SignIn = lazy(() => import('pages/sign/SignIn.js'));
 // const GD = lazy(() => import('pages/sign/SignIn.js'));
 //<AlgorithmsDashboard component={<GradientDescent />} />
-function App() {
-  const {t} = useTranslation(['translation']);
 
-  const onChange = (event) => {
-    i18next.changeLanguage(event.target.value);
-    
-  }
+
+function App() {
+  useTranslation(['translation']);
   document.body.dir = i18next.dir();
 
   return (
@@ -38,12 +33,6 @@ function App() {
           </Routes>
         </ Suspense>
       </Router>
-
-      <select name="language" onChange={onChange}>
-          <option value="en">English</option>
-          <option value="he">עברית</option>
-      </select>
-
     </ThemeProvider>
   );
 }
