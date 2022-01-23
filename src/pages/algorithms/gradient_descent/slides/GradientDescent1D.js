@@ -3,11 +3,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import functionPlot from "function-plot";
-import { button, LeftItem, CenterItem, RightItem, mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle, languageAlign, languageDirection, AlignedItem, languageReversedDirection, languageReversedAlign } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { useTranslation } from "react-i18next";
 // --------------------------------------------------------
 
 export const HEADERS_1D = [
@@ -113,7 +114,7 @@ function getAnswers1D(header, rows, f, startX, alpha) {
 }
 
 export default function GradientDescent1D(props) {
-
+    const [t] = useTranslation('translation')
     const { alphaType, buttonsType, generateQuestionTable} = props
 
     const getAlphaInput = (type) => {
@@ -145,19 +146,23 @@ export default function GradientDescent1D(props) {
             case 'playGround':
             case 'hyperParameter': 
                 return (
-                    <RightItem>
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
-                        {button({ eventHandler: () => handleStates({ tck: true }), type: 'play' })}
-                        <p>{count}</p>
-                    </RightItem>
+                    <CenterItem>
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({ tck: true }), type: 'play' })}
+                            <p>{count}</p>
+                        </Box>
+                    </CenterItem>
                 );
             case 'stepByStep':
                 return (
                     <CenterItem>
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: count + 1 }), type: 'next' })}
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: count + 1 }), type: 'next' })}
+                        </Box>
                     </CenterItem>
                 );
             default:
@@ -214,26 +219,38 @@ export default function GradientDescent1D(props) {
                                     <br /><br />
                                     <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = { getAlphaInput(alphaType) }
                                     <br /><br />
-                                    Starting point (x = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />)
-                                    <br /><br />
-                                    The derivative of the function is:<br/>  
-                                    <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx} = \\)"}</MathJax> {getDev(myfun, 'x')}<br/>
+                                </Typography>
+                                <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
+                                    {t("gd.slides.starting_point")}:<br/>
+                                </Typography>
+                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
+                                    <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />
+                                    <br/><br/>
+                                </Typography>
+                                <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
+                                    {t("gd.slides.derivative")}:<br/>  
+                                </Typography>
+                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
+                                    <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx} = \\)"}</MathJax> {getDev(myfun, 'x')}
+                                    <br/><br/>
                                 </Typography>
                             </LeftItem>
                         </Grid>
                         <Grid item xs={12}>
                             <CenterItem>
-                                {generateQuestionTable ? (<QuestionTable
-                                    rowsNum = {5}
-                                    headers = {HEADERS_1D}
-                                    exampleEnabled = {true}
-                                    rowNumbersEnabled = {true}
-                                    example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
-                                    correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
-                                    comparator = {(res, ans) => Number(ans) === Number(res)}
-                                />) : null
-                                }
-                                <Box sx={{ width: "100%" }} id='graph-board' />
+                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                                    {generateQuestionTable ? (<QuestionTable
+                                        rowsNum = {5}
+                                        headers = {HEADERS_1D}
+                                        exampleEnabled = {true}
+                                        rowNumbersEnabled = {true}
+                                        example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
+                                        correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                                        comparator = {(res, ans) => Number(ans) === Number(res)}
+                                    />) : null
+                                    }
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
+                                </Box>
                             </CenterItem>
                             { getButtonsInput(buttonsType) }
                         </Grid>

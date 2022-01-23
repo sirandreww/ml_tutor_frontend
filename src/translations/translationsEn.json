@@ -1,4 +1,8 @@
 {
+    "next": "Next",
+    "back": "Back",
+    "finish": "Finish",
+    "reset": "Reset",
     "homepage":{
         "intro":"Understand how Machine Learning works by using 3D animation and simple explanations.",
         "get_started_btn":"Get started",
@@ -64,7 +68,7 @@
         "slides":{
             "alpha":"alpha",
             "starting_point":"Starting point",
-            "derivative":"The derivative of the function is:"
+            "derivative":"The derivative of the function is"
         }
     },
 
