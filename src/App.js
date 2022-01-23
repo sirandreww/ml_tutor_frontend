@@ -14,9 +14,15 @@ const theme = createTheme({});
 const Home = lazy(() => import("pages/Home/Home.js"));
 const Algorithms = lazy(() => import("pages/algorithms/Algorithms.js"));
 const SignIn = lazy(() => import("pages/sign/SignIn.js"));
-const GD1 = lazy(() => import("pages/algorithms/gradient_descent/slides/GD1"));
-// const GD = lazy(() => import('pages/sign/SignIn.js'));
-//<AlgorithmsDashboard component={<GradientDescent />} />
+const GD1 = lazy(() => import("pages/algorithms/gradient_descent/GD1"));
+const GD2 = lazy(() => import("pages/algorithms/gradient_descent/GD2"));
+const GD3 = lazy(() => import("pages/algorithms/gradient_descent/GD3"));
+const GD4 = lazy(() => import("pages/algorithms/gradient_descent/GD4"));
+const GD5 = lazy(() => import("pages/algorithms/gradient_descent/GD5"));
+const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
+const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
+const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
+const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
 
 i18next.use(initReactI18next).init({
   resources: {
@@ -42,6 +48,14 @@ function App() {
               <Route path="/" exact element={<Home />} />
               <Route path="/algorithms" element={<Algorithms />} />
               <Route path="/algorithms/gd1" element={<GD1 />} />
+              <Route path="/algorithms/gd2" element={<GD2 />} />
+              <Route path="/algorithms/gd3" element={<GD3 />} />
+              <Route path="/algorithms/gd4" element={<GD4 />} />
+              <Route path="/algorithms/gd5" element={<GD5 />} />
+              <Route path="/algorithms/gd6" element={<GD6 />} />
+              <Route path="/algorithms/gd7" element={<GD7 />} />
+              <Route path="/algorithms/gd8" element={<GD8 />} />
+              <Route path="/algorithms/gd9" element={<GD9 />} />
               <Route path="/signin" element={<SignIn />} />
             </Routes>
           </Suspense>
