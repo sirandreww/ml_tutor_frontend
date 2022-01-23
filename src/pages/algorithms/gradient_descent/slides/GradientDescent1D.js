@@ -233,7 +233,7 @@ export default function GradientDescent1D(props) {
                                     comparator = {(res, ans) => Number(ans) === Number(res)}
                                 />) : null
                                 }
-                                <div id='graph-board'></div>
+                                <Box sx={{ width: "100%" }} id='graph-board' />
                             </CenterItem>
                             { getButtonsInput(buttonsType) }
                         </Grid>

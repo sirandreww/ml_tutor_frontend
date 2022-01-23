@@ -13,6 +13,7 @@
     },
 
     "algorithms":{
+        "algos": "Algorithms",
         "get_started":"How to Get started?",
         "choose_alg":"Simply choose one of the following algorithms and start learning!"
     },
