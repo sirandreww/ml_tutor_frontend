@@ -95,8 +95,8 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Enter any function you want (the variable must be x), Hyper-Parameter and set the starting point.<br/>
-                                        Hit Play button to start the animation, you can also pause it and zoom in the graph by clicking pasue button or clear everthing on the X button.<br/>
+                                        Enter a function (can be any function you want but the variable must be x), Hyper-Parameter and set the starting point.<br/>
+                                        Hit the play button to start the animation, you can also pause it and zoom in the graph by clicking the pasue button or clear everthing using the X button.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent1D 
@@ -111,8 +111,8 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Try calculate the value of each variable as the algorithm does (2 decimal points).<br/>
-                                        Each click on arrow will draw the next/previous step<br/>
+                                        Try to calculate the value of each variable as the algorithm does (2 decimal points).<br/>
+                                        Each click on the arrow will draw the next/previous step<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent1D 
@@ -127,7 +127,7 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Search for the best alpha which gets to the minimum with least steps.<br/>
+                                        Search for the best alpha which gets to the minimum with the least amount of steps.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent1D 
@@ -146,7 +146,7 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Try it yourself like before (variables must be x and y).<br/>
+                                        Try it yourself! Just like before the variables must be x and y.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent2D 
@@ -176,7 +176,7 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Search for the best alpha which gets to the minimum with least steps.<br/>
+                                        Search for the best alpha which gets to the minimum with the least amount of steps.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent2D 
