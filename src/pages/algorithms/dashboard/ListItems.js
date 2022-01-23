@@ -9,6 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import {useTranslation} from "react-i18next";
 
 export const mainListItems = (
   <div>
@@ -45,9 +46,11 @@ export const mainListItems = (
   </div>
 );
 
+const [t] = useTranslation('translation');
+
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset>{t("list_items.sub_head")}</ListSubheader>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />

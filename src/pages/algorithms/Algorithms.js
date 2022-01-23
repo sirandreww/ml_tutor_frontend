@@ -4,8 +4,10 @@ import { Box, Container, Stack } from '@mui/material';
 import Cards from 'components/Cards.js';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer.js';
+import {useTranslation} from "react-i18next";
 
 export default function Algorithms() {
+    const [t] = useTranslation('translation');
     return (
         <div>
             <Navbar />
@@ -28,10 +30,10 @@ export default function Algorithms() {
                         gutterBottom
                         fontFamily={"Arial"}
                     >
-                        How to Get started?
+                        {t("algorithms.get_started")}
                     </Typography>
                     <Typography variant="h5" fontFamily={"Arial"} align="center" color="black" paragraph>
-                        Simply choose one of the following algorithms and start learning!
+                        {t("algorithms.choose_alg")}
                     </Typography>
                 </Container>
                 <Stack

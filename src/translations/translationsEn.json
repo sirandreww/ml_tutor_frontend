@@ -1,0 +1,85 @@
+{
+    "homepage":{
+        "intro":"Understand how Machine Learning works by using 3D animation and simple explanations.",
+        "get_started_btn":"Get started",
+        "first_paper_header":"2D/3D visual representation",
+        "first_paper_text":"Understand the underlying mathematics using visual methods.",
+        "second_paper_header":"Step by Step demonstrations",
+        "second_paper_text":"We take you through the learning process with no sudden jumps along the way!",
+        "third_paper_header":"Track your progress",
+        "third_paper_text":"Never lose track of where you are.",
+        "fourth_paper_header":"Easy to understand",
+        "fourth_paper_text":"Finally get that one topic you could never master!"
+    },
+
+    "algorithms":{
+        "get_started":"How to Get started?",
+        "choose_alg":"Simply choose one of the following algorithms and start learning!"
+    },
+
+    "cards":{
+        "main_algs":"Main Algorithms",
+        
+        "linear_regression":{
+            "text":"Learn the Linear Regression Algorithm",
+            "info":"This algorithm finds the closest linear line to all the points",
+            "label":"Linear Regression"
+
+        },
+        
+        "gradient_descent":{
+            "text":"Learn the Gradient Descent Algorithm",
+            "info":"This algorithm helps in finiding the minimal point of a function",
+            "label":"Gradiant Descent"
+        },
+
+        "knn":{
+            "text":"Learn the K-Nearest Neighbors Algorithm",
+            "info":"This algorithm predicts the type of an object based on its k-nearest-neighbors",
+            "label":"K Nearest Neighbors"
+        },
+
+        "neural_networks":{
+            "text":"Learn the Neural Networks Algorithm",
+            "info":"This algorithm predicts the right answer",
+            "label":"Neural Networks"
+        },
+
+        "logistic_regression":{
+            "text":"Learn the Logistic Regression Algorithm",
+            "info":"This algorithm finds the closest line to all the points",
+            "label":"Logistic Regression"
+        }
+
+        
+
+    },
+
+    "gd":{
+        "end":"All steps completed - you're finished",
+        "description":"Gradient descent is an iterative algorithm for finding a local minimum.",
+        "idea":"The idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.",
+        "example":"Take this function for example:",
+        "slides":{
+            "alpha":"alpha",
+            "starting_point":"Starting point",
+            "derivative":"The derivative of the function is:"
+        }
+    },
+
+    "sign_in":{
+        "login":"Sign in",
+        "forgot_pass":"Forgot password?",
+        "sign_up":"Don't have an account? Sign Up"
+    },
+
+    "footer":{
+        "made_by":"Made by Technion Students!"
+    },
+
+    "list_items":{
+        "sub_head":"Saved reports"
+    },
+
+    "task":"task"
+}

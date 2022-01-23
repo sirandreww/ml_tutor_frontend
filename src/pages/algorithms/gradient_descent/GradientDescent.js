@@ -11,6 +11,7 @@ import GradientDescent1D from './slides/GradientDescent1D.js';
 import GradientDescent2D from './slides/GradientDescent2D.js';
 import Introduction1D from './slides/Introduction1D.js';
 import Introduction2D from './slides/Introduction2D.js';
+import {useTranslation} from "react-i18next";
 
 const steps = [
     '1D Introduction', 
@@ -53,6 +54,8 @@ export default function GradientDescent() {
         window.scrollTo(0, 0)
     };
     
+    const {t} = useTranslation(['translation']);
+
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper activeStep={activeStep}>
@@ -72,7 +75,7 @@ export default function GradientDescent() {
             {activeStep === steps.length ? (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
+                        {t("gd.end")}
                     </Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Box sx={{ flex: '1 1 auto' }} />

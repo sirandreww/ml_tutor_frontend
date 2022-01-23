@@ -10,6 +10,8 @@ import historyIcon from "assets/images/historyIcon.jpg"
 import LenseIcon from "assets/images/LenseIcon.png"
 import { Paper } from '@mui/material';
 
+import {useTranslation} from "react-i18next";
+
 const item = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -20,6 +22,7 @@ const item = {
 
 function ProductValues() {
     const text_color = '#3c4e76';
+    const [t] = useTranslation('translation');
     return (
         <Container maxWidth="lg">
             <Paper sx={{ width: "100%" }} elevation={3}>
@@ -45,10 +48,10 @@ function ProductValues() {
                                         sx={{ height: 55 }}
                                     />
                                     <Typography variant="h6" sx={{ my: 5 }} color={text_color} align="center">
-                                        2D/3D visual representation
+                                        {t("homepage.first_paper_header")}
                                     </Typography>
                                     <Typography variant="h5" color={text_color} align="center">
-                                        Understand the underlying mathematics using visual methods.
+                                        {t("homepage.first_paper_text")}    
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -61,10 +64,10 @@ function ProductValues() {
                                         sx={{ height: 55 }}
                                     />
                                     <Typography variant="h6" sx={{ my: 5 }} color={text_color} align="center">
-                                        Step by Step demonstrations
+                                        {t("homepage.second_paper_header")}
                                     </Typography >
                                     <Typography variant="h5" color={text_color} align="center">
-                                        We take you through the learning process with no sudden jumps along the way!
+                                        {t("homepage.second_paper_text")}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -77,10 +80,10 @@ function ProductValues() {
                                         sx={{ height: 55 }}
                                     />
                                     <Typography variant="h6" sx={{ my: 5 }} color={text_color} align="center">
-                                        Track your progress
+                                        {t("homepage.third_paper_header")} 
                                     </Typography>
                                     <Typography variant="h5" color={text_color} align="center">
-                                        Never lose track of where you are.
+                                        {t("homepage.third_paper_text")} 
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -93,10 +96,10 @@ function ProductValues() {
                                         sx={{ height: 55 }}
                                     />
                                     <Typography variant="h6" sx={{ my: 5 }} color={text_color} align="center">
-                                        Easy to understand
+                                        {t("homepage.fourth_paper_header")}
                                     </Typography>
                                     <Typography variant="h5" color={text_color} align="center">
-                                        Finally get that one topic you could never master!
+                                        {t("homepage.fourth_paper_text")} 
                                     </Typography>
                                 </Box>
                             </Grid>

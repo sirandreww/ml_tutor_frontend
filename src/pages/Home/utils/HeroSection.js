@@ -6,7 +6,12 @@ import { Grid, Paper } from '@mui/material';
 import Graph2D from 'components/Graph2D';
 import { Link } from 'react-router-dom';
 
+
+import {useTranslation} from "react-i18next";
+
 export default function HeroSection() {
+  const [t] = useTranslation('translation');
+
   return (
     <Box
       sx={{
@@ -33,7 +38,7 @@ export default function HeroSection() {
 
             {/* Hero description */}
             <Typography variant="h4" align="left" color="#777777" paragraph fontFamily={"Arial"}>
-              Understand how Machine Learning works by using 3D animation and simple explanations.
+              {t("homepage.intro")}
             </Typography>
 
             {/* a bit of space */}
@@ -43,7 +48,7 @@ export default function HeroSection() {
             <Link to={"/algorithms"} style={{ textDecoration: 'none' }}>
               <Button variant="contained" sx={{ textTransform: "none", backgroundColor: "#209070", height: "60px", width: "200px" }}>
                 <Typography variant="h6" align="center" color="white" fontFamily={"Arial"}>
-                  Get started
+                  {t("homepage.get_started_btn")}
                 </Typography>
               </Button>
             </Link>
