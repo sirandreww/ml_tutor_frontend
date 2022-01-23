@@ -15,6 +15,7 @@ import ScrollToColor from './ScrollToColor';
 import { Link } from 'react-router-dom';
 import i18next from "i18next";
 import LanguageIcon from '@mui/icons-material/Language';
+import { useTranslation } from "react-i18next";
 
 const pages = ['Algorithms'];
 const pages_links = { 'Algorithms': "/algorithms" };
@@ -27,6 +28,7 @@ const changeLang = (lan) => {
 }
 
 export default function Navbar(props) {
+  const [t] = useTranslation('translation');
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -95,7 +97,7 @@ export default function Navbar(props) {
                 {pages.map((page) => (
                   <Link to={pages_links[page]} style={{ textDecoration: 'none', color: "black"}}>
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography textAlign="center">{t("algorithms.algos")}</Typography>
                     </MenuItem>
                   </Link>
                 ))}
@@ -120,7 +122,7 @@ export default function Navbar(props) {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "inherit", display: 'block' }}
                   >
-                    {page}
+                    {t("algorithms.algos")}
                   </Button>
                 </Link>
               ))}
@@ -129,7 +131,7 @@ export default function Navbar(props) {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Select Language">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <LanguageIcon />
+                  <LanguageIcon fontSize="large"/>
                 </IconButton>
               </Tooltip>
               <Menu

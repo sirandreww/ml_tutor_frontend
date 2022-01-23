@@ -333,7 +333,7 @@ export default function GradientDescent2D(props) {
                                     correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
                                     comparator = {(res, ans) => Number(ans) === Number(res)}
                                 /> : null }
-                                <div id='graph2-board'></div>
+                                <Box sx={{ width: "100%" }} id='graph2-board'/>
                             </CenterItem>
                             <CenterItem>
                                 { getButtonsInput(buttonsType) }
