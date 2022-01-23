@@ -184,7 +184,7 @@ export default function Introduction2D() {
                 <div id='graph2-board' style={{pointerEvents: 'none'}}></div>
                 <Typography component={'span'}>
                     <br/>
-                    <h4 style={headers_style}>How does the algorithm achives this?</h4><br/>
+                    <h4 style={headers_style}>How does the algorithm achieves this?</h4><br/>
                     Almost the same as before!<br/>
                     <br/><br/>
                     {tab}<h4 style={headers_style}>Some definitions:</h4><br/>

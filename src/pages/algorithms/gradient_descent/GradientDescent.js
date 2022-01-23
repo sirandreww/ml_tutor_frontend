@@ -96,7 +96,7 @@ export default function GradientDescent() {
                                 <LeftItem>
                                     <Typography>
                                         Enter a function (can be any function you want but the variable must be x), Hyper-Parameter and set the starting point.<br/>
-                                        Hit the play button to start the animation, you can also pause it and zoom in the graph by clicking the pasue button or clear everthing using the X button.<br/>
+                                        Hit the play button to start the animation, you can also pause it and zoom in the graph by clicking the pause button or clear everything using the X button.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent1D 
@@ -161,7 +161,7 @@ export default function GradientDescent() {
                             <Box>
                                 <LeftItem>
                                     <Typography>
-                                        Challenge yourslef and calculate each step.<br/>
+                                        Challenge yourself and calculate each step.<br/>
                                     </Typography>
                                 </LeftItem>
                                 <GradientDescent2D 

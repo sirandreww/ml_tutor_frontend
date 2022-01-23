@@ -106,7 +106,7 @@ export default function Introduction1D() {
                 <div id='graph-board' style={{pointerEvents: 'none'}}></div>
                 <Typography component={'span'}>
                     <br/>
-                    <h4 style={headers_style}>How does the algorithm achive this?</h4><br/>
+                    <h4 style={headers_style}>How does the algorithm achieve this?</h4><br/>
                     In each step the algorithm calculates the derivative of the current point and based on that it calculate the next point.<br/>
                     First we will introduce a Hyper-Parameter called alpha. Alpha holds a number which is responsible for the step size.<br/>
                     <br/><br/>
