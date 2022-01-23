@@ -199,7 +199,7 @@ function getData2D(f) {
 export default function GradientDescent2D(props) {
     const [t] = useTranslation('translation')
     const { alphaType, buttonsType, generateQuestionTable} = props
-    
+
     const getAlphaInput = (type) => {
         switch(type){
             case 'slider':
@@ -334,16 +334,18 @@ export default function GradientDescent2D(props) {
                         </Grid>
                         <Grid item xs={12}>
                             <CenterItem>
-                                { generateQuestionTable ? <QuestionTable
-                                    rowsNum = {5}
-                                    headers = {HEADERS_2D}
-                                    rowNumbersEnabled = {true}
-                                    exampleEnabled = {true}
-                                    example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
-                                    correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
-                                    comparator = {(res, ans) => Number(ans) === Number(res)}
-                                /> : null }
-                                <Box sx={{ width: "100%" }} id='graph2-board'/>
+                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                                    { generateQuestionTable ? <QuestionTable
+                                        rowsNum = {5}
+                                        headers = {HEADERS_2D}
+                                        rowNumbersEnabled = {true}
+                                        exampleEnabled = {true}
+                                        example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
+                                        correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
+                                        comparator = {(res, ans) => Number(ans) === Number(res)}
+                                    /> : null }
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board'/>
+                                </Box>
                             </CenterItem>
                             { getButtonsInput(buttonsType) }
                         </Grid>

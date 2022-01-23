@@ -147,18 +147,22 @@ export default function GradientDescent1D(props) {
             case 'hyperParameter': 
                 return (
                     <CenterItem>
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
-                        {button({ eventHandler: () => handleStates({ tck: true }), type: 'play' })}
-                        <p>{count}</p>
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({ tck: true }), type: 'play' })}
+                            <p>{count}</p>
+                        </Box>
                     </CenterItem>
                 );
             case 'stepByStep':
                 return (
                     <CenterItem>
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, cnt: count + 1 }), type: 'next' })}
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, cnt: count + 1 }), type: 'next' })}
+                        </Box>
                     </CenterItem>
                 );
             default:
@@ -234,17 +238,19 @@ export default function GradientDescent1D(props) {
                         </Grid>
                         <Grid item xs={12}>
                             <CenterItem>
-                                {generateQuestionTable ? (<QuestionTable
-                                    rowsNum = {5}
-                                    headers = {HEADERS_1D}
-                                    exampleEnabled = {true}
-                                    rowNumbersEnabled = {true}
-                                    example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
-                                    correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
-                                    comparator = {(res, ans) => Number(ans) === Number(res)}
-                                />) : null
-                                }
-                                <Box sx={{ width: "100%" }} id='graph-board' />
+                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                                    {generateQuestionTable ? (<QuestionTable
+                                        rowsNum = {5}
+                                        headers = {HEADERS_1D}
+                                        exampleEnabled = {true}
+                                        rowNumbersEnabled = {true}
+                                        example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
+                                        correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                                        comparator = {(res, ans) => Number(ans) === Number(res)}
+                                    />) : null
+                                    }
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
+                                </Box>
                             </CenterItem>
                             { getButtonsInput(buttonsType) }
                         </Grid>
