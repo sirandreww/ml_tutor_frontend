@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import Plotly from 'plotly.js-dist-min';
 import Typography from '@mui/material/Typography';
 import { getDev, math } from '../helper';
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
+
 
 function getPoints2D(f, startX, startY, steps_count, alpha) {
     try {
@@ -164,39 +167,45 @@ export default function Introduction2D() {
         }
     });
 
+    const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
+
     return (
         <Box sx={{ width: '100%' }}>
-            <Typography>
-                Now let us see how Gradient Descent handle functions with 2 variables!<br/>
-                <br/>
-                Let us take for example f(x, y) = x^2 + y^2 as function and (x = 10, y = -10) will be the starting point.<br/>
-                The first 10 steps the algorithm takes are shown the following animation.<br/>
-                <br/>
-            </Typography>
-            <div id='graph2-board' style={{pointerEvents: 'none'}}></div>
-            <Typography>
-                <br/>
-                How the algorithm achives this?<br/>
-                Almost the same as before, Some definitions:<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x - the x value of the point.<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y - the y value of the point.<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f(x, y) - the z value of the point.<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fx' - is the derivative of f by x variable (consider y as number).<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fx'(x, y) - the z value of the derivative at (x, y).<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fy' - is the derivative of f by y variable (consider x as number).<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fy'(x, y) - the z value of the derivative at (x, y).<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha - is the Hyper-parameter.<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_x - will be the x value of the new point.<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_y - will be the y value of the new point.<br/>
-                <br/>
-                So in each step the algorithm do the following:<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. calculate fx'(x, y)<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. calculate fy'(x, y)<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. new_x = x - (alpha * fx'(x, y))<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. new_y = y - (alpha * fy'(x, y))<br/>
-                <br/>
-                Thats how the algorithm calculate the next point as you can see almost the same calculations!.<br/>
-            </Typography>
+            <MathJaxContext version={3} config={mathJaxConfig}>
+                <Typography component={'span'}>
+                <h1 style={headers_style}>Gradient descent 2D</h1>
+                    Now let us see how Gradient Descent handle functions with 2 variables!<br/>
+                    <br/>
+                    Let us take for example <MathJax style={mathJaxStyle} inline>{"\\(f(x, y) = x^{2} + y^{2}\\)"}</MathJax> as function and  <MathJax style={mathJaxStyle} inline>{"\\((x = 10, y = -10)\\)"}</MathJax> will be the starting point.<br/>
+                    The first 10 steps the algorithm takes are shown the following animation.<br/>
+                    <br/>
+                </Typography>
+                <div id='graph2-board' style={{pointerEvents: 'none'}}></div>
+                <Typography component={'span'}>
+                    <br/>
+                    <h4 style={headers_style}>How the algorithm achives this?</h4><br/>
+                    Almost the same as before!<br/>
+                    <br/><br/>
+                    {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - the x value of the point.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - the y value of the point.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x, y)\\)"}</MathJax> - the z value of the point.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - is the derivative of f by x variable (consider y as number).<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax> - the z value of the derivative at (x, y).<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax> - is the derivative of f by y variable (consider x as number).<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax> - the z value of the derivative at (x, y).<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - is the Hyper-parameter.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax> - will be the x value of the new point.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax> - will be the y value of the new point.<br/><br/>
+                    <br/><br/>
+                    {tab}<h4 style={headers_style}>So in each step the algorithm do the following:</h4><br/>
+                    {tab}{tab}1. Calculate<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax><br/><br/>
+                    {tab}{tab}2. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax><br/><br/>
+                    {tab}{tab}3. Apply <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x, y))\\)"}</MathJax><br/><br/>
+                    {tab}{tab}4. Apply <MathJax style={mathJaxStyle} inline>{"\\(y_{new} = y - (\\alpha * \\frac{df}{dy}(x, y))\\)"}</MathJax><br/><br/>
+                </Typography>
+            </MathJaxContext>
         </Box>
     )
 }

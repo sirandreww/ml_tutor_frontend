@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "better-react-mathjax": "^1.0.3",
     "function-plot": "^1.22.7",
     "mathjs": "^10.0.1",
     "plotly.js": "^2.8.3",
@@ -28,10 +29,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=4096 start",
-    "build": "react-scripts --max_old_space_size=4096 build",
-    "test": "react-scripts --max_old_space_size=4096 test",
-    "eject": "react-scripts --max_old_space_size=4096 eject"
+    "start": "react-scripts --max_old_space_size=5120 start",
+    "build": "react-scripts --max_old_space_size=5120 build",
+    "test": "react-scripts --max_old_space_size=5120 test",
+    "eject": "react-scripts --max_old_space_size=5120 eject"
   },
   "eslintConfig": {
     "extends": [
