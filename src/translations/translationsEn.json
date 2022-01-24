@@ -29,7 +29,6 @@
             "text":"Learn the Linear Regression Algorithm",
             "info":"This algorithm finds the closest linear line to all the points",
             "label":"Linear Regression"
-
         },
         
         "gradient_descent":{

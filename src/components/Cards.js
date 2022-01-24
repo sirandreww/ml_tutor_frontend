@@ -6,51 +6,53 @@ import KNNI from 'assets/images/KnnImg.png';
 import LRI from 'assets/images/LinearRegressionImag.png';
 import LogisticRI from 'assets/images/LogisticRegressionImg.png';
 import NNI from 'assets/images/NeuralNetworksImg.png';
+import {useTranslation} from "react-i18next";
 
 function Cards() {
+  const [t] = useTranslation('translation');
     return (
       <div className='cards' id="cards_id">
         {/* Don't delet this line, it prevent the window slide from stopping on h1 */}
         <div className='cards__pos'></div> 
-        <h1>Main Algorithms</h1>
+        <h1>{t("cards.main_algs")}</h1>
         <div className='cards__container'>
           <div className='cards__wrapper'>
             <ul className='cards__items'>
               <CardItem
                 src= { LRI }
-                text='Learn the Linear Regression Algorithm'
-                info='This algorithm finds the closest linear line to all the points'
-                label='Linear Regression'
+                text={t("cards.linear_regression.text")}
+                info={t("cards.linear_regression.info")}
+                label={t("cards.linear_regression.label")}
                 path='/algorithms'
               />
               <CardItem
                 src= { GDI }
-                text='Learn the Gradient Descent Algorithm'
-                info='This algorithm helps in finiding the minimal point of a function'
-                label='Gradiant Descent'
+                text={t("cards.gradient_descent.text")}
+                info={t("cards.gradient_descent.info")}
+                label={t("cards.gradient_descent.label")}
                 path='/algorithms/gd1'
               />
             </ul>
             <ul className='cards__items'>
             <CardItem
                 src= { KNNI }
-                text='Learn the K-Nearest Neighbors Algorithm'
-                info='This algorithm predicts the type of an object based on its k-nearest-neighbors'
-                label='K Nearest Neighbors'
+                text={t("cards.knn.text")}
+                info={t("cards.knn.info")}
+                label={t("cards.knn.label")}
                 path='/algorithms'
               />
               <CardItem
                 src= { NNI }
-                text='Learn the Neural Networks Algorithm'
-                info='This algorithm predicts the right answer'
-                label='Neural Networks'
+                text={t("cards.neural_networks.text")}
+                info={t("cards.neural_networks.info")}
+                label={t("cards.neural_networks.label")}
                 path='/algorithms'
               />
               <CardItem
                 src= { LogisticRI }
-                text='Learn the Linear Regression Algorithm'
-                info='This algorithm finds the closest line to all the points'
-                label='Logistic Regression'
+                text={t("cards.logistic_regression.text")}
+                info={t("cards.logistic_regression.info")}
+                label={t("cards.logistic_regression.label")}
                 path='/algorithms'
               />
             </ul>

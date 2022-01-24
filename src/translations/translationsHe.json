@@ -26,10 +26,9 @@
         "main_algs":"אלגוריתמים עיקריים",
         
         "linear_regression":{
-            "text": "תלמד את האלגוריתם רגרסיה לינארית.",
+            "text": "תלמד את האלגוריתם linear regression.",
             "info":"האלגוריתם מוצא את הקו הלינארי הכי קרוב לכל הנקודות.",
-            "label":"רגרסיה לינארית"
-
+            "label":"linear regression"
         },
         
         "gradient_descent":{
@@ -45,15 +44,15 @@
         },
 
         "neural_networks":{
-            "text":"תלמד את האלגוריתם של רשתות ניורוניות.",
+            "text":"תלמד את האלגוריתם neural networks",
             "info":"האלגוריתם חוזה את התשובה הנכונה.",
-            "label":"רשתות ניורוניות"
+            "label":"neural networks"
         },
 
         "logistic_regression":{
-            "text":"תלמד את האלגוריתם של רגרסיה לוגיסטית.",
+            "text":"תלמד את האלגוריתם logistic regression.",
             "info":"האלגוריתם מוצא את הקו הכי קרוב לכל הנקודות.",
-            "label":"רגרסיה לוגיסטית"
+            "label":"logistic regression"
         }
 
     },
