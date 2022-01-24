@@ -24,6 +24,7 @@ const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
 const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
 const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
 
+// lol
 i18next.use(initReactI18next).init({
   resources: {
     en: { translation: translationsEn },
