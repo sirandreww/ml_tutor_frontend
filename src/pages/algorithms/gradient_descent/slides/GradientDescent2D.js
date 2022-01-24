@@ -2,8 +2,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import Plotly from 'plotly.js-dist-min';
-import { button, LeftItem, CenterItem, languageAlign, languageDirection, AlignedItem, languageReversedDirection, languageReversedAlign } from 'pages/algorithms/dashboard/utils'
+import Plotly from 'plotly.js-gl3d-dist-min';
+import { button, LeftItem, CenterItem, languageAlign, languageDirection } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { getDev, getExample, PrettoSlider, math, DIGITS } from '../helper';

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Plotly from 'plotly.js-dist-min';
+import Plotly from 'plotly.js-gl3d-dist-min';
 import Typography from '@mui/material/Typography';
 import { getDev, math } from '../helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
