@@ -24,10 +24,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=5120 start",
-    "build": "react-scripts --max_old_space_size=5120 build",
-    "test": "react-scripts --max_old_space_size=5120 test",
-    "eject": "react-scripts --max_old_space_size=5120 eject"
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
+    "test": "react-scripts --max_old_space_size=4096 test",
+    "eject": "react-scripts --max_old_space_size=4096 eject"
   },
   "eslintConfig": {
     "extends": [
