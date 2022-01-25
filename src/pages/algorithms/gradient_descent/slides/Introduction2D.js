@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Plotly from 'plotly.js-gl3d-dist-min';
 import Typography from '@mui/material/Typography';

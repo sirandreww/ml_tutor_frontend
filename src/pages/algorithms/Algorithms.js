@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Stack } from '@mui/material';
 import Cards from 'components/Cards.js';

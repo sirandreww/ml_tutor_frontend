@@ -1,5 +1,5 @@
 // ------------------------ IMPORTS ------------------------  
-import * as React from 'react';
+import React from 'react';
 import { create, all } from 'mathjs';
 import Plotly from 'plotly.js-gl3d-dist-min';
 

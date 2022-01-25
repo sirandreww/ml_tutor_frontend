@@ -1,5 +1,5 @@
 // ------------------------ IMPORTS ------------------------  
-import * as React from 'react';
+import React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';

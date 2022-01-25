@@ -1,5 +1,5 @@
 // ------------------------ IMPORTS ------------------------  
-import * as React from 'react';
+import React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import Introduction1D from 'pages/algorithms/linear_regression/slides/Introduction1D';
 

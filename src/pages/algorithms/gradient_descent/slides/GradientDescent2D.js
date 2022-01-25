@@ -1,5 +1,5 @@
 // ------------------------ IMPORTS ------------------------  
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import Plotly from 'plotly.js-gl3d-dist-min';

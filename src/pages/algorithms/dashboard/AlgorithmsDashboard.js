@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Container from '@mui/material/Container';
 import Navbar from 'components/Navbar.js';
 import Footer from 'components/Footer.js';
