@@ -23,7 +23,7 @@ function Cards() {
                 text={t("cards.linear_regression.text")}
                 info={t("cards.linear_regression.info")}
                 label={t("cards.linear_regression.label")}
-                path='/algorithms'
+                path='/algorithms/lr1'
               />
               <CardItem
                 src= { GDI }
