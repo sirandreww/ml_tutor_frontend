@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { getDev, math } from '../helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
-
+import {useTranslation} from "react-i18next";
 
 function getPoints2D(f, startX, startY, steps_count, alpha) {
     try {
@@ -169,43 +169,44 @@ export default function Introduction2D() {
 
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
+    const [t] = useTranslation('translation');
 
     return (
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
                 <h1 style={headers_style}>Gradient descent 2D</h1>
-                    Now let us see how Gradient Descent handles functions with 2 variables!<br/>
+                    {t("gd.gd_two_vars")}<br/>
                     <br/>
-                    Let's take for example <MathJax style={mathJaxStyle} inline>{"\\(f(x, y) = x^{2} + y^{2}\\)"}</MathJax> as the function and  <MathJax style={mathJaxStyle} inline>{"\\((x = 10, y = -10)\\)"}</MathJax> as the starting point.<br/>
-                    The first 10 steps the algorithm takes are shown in the following animation:<br/>
+                    {t("gd.example_1")} <MathJax style={mathJaxStyle} inline>{"\\(f(x, y) = x^{2} + y^{2}\\)"}</MathJax> {t("gd.example_2")}  <MathJax style={mathJaxStyle} inline>{"\\((x = 10, y = -10)\\)"}</MathJax> {t("gd.example_3")}<br/>
+                    {t("gd.steps")} <br/>
                     <br/>
                 </Typography>
                 <div id='graph2-board' style={{pointerEvents: 'none'}}></div>
                 <Typography component={'span'}>
                     <br/>
-                    <h4 style={headers_style}>How does the algorithm achieves this?</h4><br/>
-                    Almost the same as before!<br/>
+                    <h4 style={headers_style}>{t("gd.how")}</h4><br/>
+                    {t("gd.almost_descr")}<br/>
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - the x value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - the y value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x, y)\\)"}</MathJax> - the z value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - the derivative of f by x variable (consider y as a constant).<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax> - the value of the derivative by x at (x, y).<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax> - the derivative of f by y variable (consider x as a constant).<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax> - the value of the derivative by y at (x, y).<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - the Hyper-parameter that dictates step size.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax> - the x value of the new point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax> - the y value of the new point.<br/><br/>
+                    {tab}<h4 style={headers_style}>{t("gd.defs")}</h4><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - {t("gd.point_vals.x_val")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - {t("gd.point_vals.y_val")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x, y)\\)"}</MathJax> - {t("gd.point_vals.z_val")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - {t("gd.derivatives.f_by_x")} <br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax> - {t("gd.derivatives.val_f_by_x")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax> - {t("gd.derivatives.f_by_y")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax> - {t("gd.derivatives.val_f_by_y")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - {t("gd.hyperparameter")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax> - {t("gd.point_vals.x_val_new")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax> - {t("gd.point_vals.y_val_new")}<br/><br/>
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>In each step the algorithm does the following:</h4><br/>
-                    {tab}{tab}1. Calculate<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax><br/><br/>
-                    {tab}{tab}2. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax><br/><br/>
-                    {tab}{tab}3. Apply <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x, y))\\)"}</MathJax><br/><br/>
-                    {tab}{tab}4. Apply <MathJax style={mathJaxStyle} inline>{"\\(y_{new} = y - (\\alpha * \\frac{df}{dy}(x, y))\\)"}</MathJax><br/><br/>
-                    {tab}{tab}5. Apply <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
-                    {tab}{tab}6. Apply <MathJax style={mathJaxStyle} inline>{"\\(y = y_{new}\\)"}</MathJax><br/><br/>
+                    {tab}<h4 style={headers_style}>{t("gd.foreach_step")}</h4><br/>
+                    {tab}{tab}1. {t("gd.calc")}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax><br/><br/>
+                    {tab}{tab}2. {t("gd.calc")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax><br/><br/>
+                    {tab}{tab}3. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x, y))\\)"}</MathJax><br/><br/>
+                    {tab}{tab}4. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(y_{new} = y - (\\alpha * \\frac{df}{dy}(x, y))\\)"}</MathJax><br/><br/>
+                    {tab}{tab}5. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
+                    {tab}{tab}6. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(y = y_{new}\\)"}</MathJax><br/><br/>
                 </Typography>
             </MathJaxContext>
         </Box>

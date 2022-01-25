@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { getDev, math } from 'pages/algorithms/gradient_descent/helper';
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import {useTranslation} from "react-i18next";
+
 
 function getPoints1D(f, startX, steps_count, alpha) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
@@ -90,38 +92,38 @@ export default function Introduction1D() {
 
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
+    const [t] = useTranslation('translation');
+    
     return (
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
                     <h1 style={headers_style}>Gradient descent 1D</h1>
                     <br/>
-                    Gradient descent is an iterative algorithm for finding a local minimum. <br/>
-                    It starts at a given point and the idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.<br/>
+                    {t("gd.description")}
                     <br/>
-                    Let us take for example <MathJax style={mathJaxStyle} inline>{"\\(f(x) = x^{2}\\)"}</MathJax> as the function and <MathJax style={mathJaxStyle} inline>{"\\(x = 5\\)"}</MathJax> as the starting point.<br/>
-                    The first 10 steps the algorithm takes are shown in the following animation:<br/>
+                    {t("gd.example_1")} <MathJax style={mathJaxStyle} inline>{"\\(f(x) = x^{2}\\)"}</MathJax> {t("gd.example_2")} <MathJax style={mathJaxStyle} inline>{"\\(x = 5\\)"}</MathJax> {t("gd.example_3")}<br/>
+                    {t("gd.steps")}<br/>
                     <br/>
                 </Typography>
                 <div id='graph-board' style={{pointerEvents: 'none'}}></div>
                 <Typography component={'span'}>
                     <br/>
-                    <h4 style={headers_style}>How does the algorithm achieve this?</h4><br/>
-                    In each step the algorithm calculates the derivative of the current point and based on that it calculate the next point.<br/>
-                    First we will introduce a Hyper-Parameter called alpha. Alpha holds a number which is responsible for the step size.<br/>
+                    <h4 style={headers_style}>{t("gd.how")}</h4><br/>
+                    {t("gd.idea")}
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - the x value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> - the y value of the point.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - the derivative of f.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax> - the value of the derivative at x.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - the Hyper-parameter that dictates step size.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>  - the x value of the new point.<br/><br/>
+                    {tab}<h4 style={headers_style}>{t("gd.defs")}</h4><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - {t("gd.point_vals.x_val")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> - {t("gd.point_vals.y_val")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - {t("gd.derivatives.description")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax> - {t("gd.derivatives.derivative_val_x")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - {t("gd.hyperparameter")}<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>  - {t("gd.point_vals.x_val_new")}<br/><br/>
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>In each step the algorithm does the following:</h4><br/>
-                    {tab}{tab}1. calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax><br/><br/>
-                    {tab}{tab}2. Apply <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x))\\)"}</MathJax><br/><br/>
-                    {tab}{tab}3. Apply <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
+                    {tab}<h4 style={headers_style}>{t("gd.foreach_step")}</h4><br/>
+                    {tab}{tab}1. {t("gd.calc")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax><br/><br/>
+                    {tab}{tab}2. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x))\\)"}</MathJax><br/><br/>
+                    {tab}{tab}3. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
                 </Typography>
             </MathJaxContext>
         </Box>

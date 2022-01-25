@@ -5,6 +5,7 @@ import GDStepper from 'pages/algorithms/gradient_descent/slides/GDStepper';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 
+
 export default function GD9() {
     const [t] = useTranslation('translation')
     return (
@@ -22,3 +23,4 @@ export default function GD9() {
         />
     );
 }
+

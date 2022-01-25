@@ -5,8 +5,10 @@ import GDStepper from 'pages/algorithms/gradient_descent/slides/GDStepper';
 import GradientDescent2D from "pages/algorithms/gradient_descent/slides/GradientDescent2D";
 import { Typography, Box } from '@mui/material';
 import { LeftItem } from 'pages/algorithms/dashboard/utils';
+import {useTranslation} from "react-i18next";
 
 export default function GD7() {
+    const [t] = useTranslation('translation')
     return (
         <AlgorithmsDashboard
             stepper={<GDStepper activeStep={6} />}
@@ -14,7 +16,7 @@ export default function GD7() {
                 <Box>
                     <LeftItem>
                         <Typography>
-                            Challenge yourself and calculate each step.<br />
+                            {t("gd.challenge")}
                         </Typography>
                     </LeftItem>
                     <GradientDescent2D

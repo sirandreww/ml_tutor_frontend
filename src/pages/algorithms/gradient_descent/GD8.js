@@ -5,8 +5,10 @@ import GDStepper from 'pages/algorithms/gradient_descent/slides/GDStepper';
 import GradientDescent2D from "pages/algorithms/gradient_descent/slides/GradientDescent2D";
 import { Typography, Box } from '@mui/material';
 import { LeftItem } from 'pages/algorithms/dashboard/utils';
+import {useTranslation} from "react-i18next";
 
 export default function GD8() {
+    const [t] = useTranslation('translation');
     return (
         <AlgorithmsDashboard
             stepper={<GDStepper activeStep={7} />}
@@ -14,7 +16,7 @@ export default function GD8() {
                 <Box>
                     <LeftItem>
                         <Typography>
-                            Search for the best alpha which gets to the minimum with the least amount of steps.<br />
+                            {t("gd.search_alpha")}
                         </Typography>
                     </LeftItem>
                     <GradientDescent2D
