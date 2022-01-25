@@ -3,12 +3,11 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
 import functionPlot from "function-plot";
-import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle, languageAlign, languageDirection, AlignedItem, languageReversedDirection, languageReversedAlign } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { useTranslation } from "react-i18next";
 import {TextField} from "@mui/material";
 // --------------------------------------------------------
 
@@ -115,7 +114,6 @@ function getAnswers1D(header, rows, f, startX, alpha) {
 }
 
 export default function GradientDescent1D(props) {
-    const [t] = useTranslation('translation')
     const { alphaType, buttonsType, generateQuestionTable} = props
 
     const getAlphaInput = (type) => {

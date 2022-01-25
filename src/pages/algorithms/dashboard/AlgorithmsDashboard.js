@@ -5,16 +5,51 @@ import Footer from 'components/Footer.js';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import AlgorithmStepper from 'pages/algorithms/dashboard/AlgorithmStepper';
+
+const gd_steps = [
+  "1d_int",
+  "1d_vis",
+  "1d_sbs",
+  "1d_hyp",
+  "2d_int",
+  "2d_vis",
+  "2d_sbs",
+  "2d_hyp"
+];
+
+const lr_steps = [
+  "1d_int",
+  "1d_vis",
+  "1d_sbs",
+  "1d_hyp",
+  "2d_int",
+  "2d_vis",
+  "2d_sbs",
+  "2d_hyp"
+];
 
 export default function AlgorithmsDashboard(props) {
   const [t] = useTranslation(['translation']);
+
+  var currentStepNames = []
+  if (props.currentAlgorithmName === "gd"){
+    currentStepNames = gd_steps
+  } else if (props.currentAlgorithmName === "lr"){
+    currentStepNames = lr_steps
+  }
 
   return (
     <div>
       <Navbar />
       <Container maxWidth="lg">
         {/* stepper at top */}
-        {props.stepper}
+        <AlgorithmStepper
+          currentStep={props.currentStep}
+          stepNames={currentStepNames}
+          isStepSkipped={props.isStepSkipped}
+        />
+
 
         {/* actual content */}
         <Box sx={{ width: '100%' }}>

@@ -9,7 +9,6 @@ import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { getDev, getExample, PrettoSlider, math, DIGITS } from '../helper';
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { useTranslation } from "react-i18next";
 import { TextField } from "@mui/material";
 // --------------------------------------------------------
 
@@ -198,7 +197,6 @@ function getData2D(f) {
 }
 
 export default function GradientDescent2D(props) {
-    const [t] = useTranslation('translation')
     const { alphaType, buttonsType, generateQuestionTable} = props
 
     const getAlphaInput = (type) => {

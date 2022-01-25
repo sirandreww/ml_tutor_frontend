@@ -23,7 +23,7 @@ const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
 const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
 const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
 const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
-const LR1 = lazy(() => import("pages/algorithms/linear_regression/LinearRegression"));
+const LR1 = lazy(() => import("pages/algorithms/linear_regression/LR1"));
 
 
 i18next.use(initReactI18next).init({
