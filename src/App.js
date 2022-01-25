@@ -23,6 +23,8 @@ const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
 const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
 const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
 const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
+const LR1 = lazy(() => import("pages/algorithms/linear_regression/LinearRegression"));
+
 
 i18next.use(initReactI18next).init({
   resources: {
@@ -56,6 +58,7 @@ function App() {
               <Route path="/algorithms/gd7" element={<GD7 />} />
               <Route path="/algorithms/gd8" element={<GD8 />} />
               <Route path="/algorithms/gd9" element={<GD9 />} />
+              <Route path="/algorithms/lr1" element={<LR1 />} />
               <Route path="/signin" element={<SignIn />} />
             </Routes>
           </Suspense>
