@@ -1,5 +1,6 @@
+import React from "react";
+// import React, { Suspense, lazy } from "react";
 import "App.css";
-import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ScrollToTop from "./components/ScrollToTop.js";
@@ -10,21 +11,34 @@ import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
 
-const theme = createTheme({});
-const Home = lazy(() => import("pages/Home/Home.js"));
-const Algorithms = lazy(() => import("pages/algorithms/Algorithms.js"));
-const SignIn = lazy(() => import("pages/sign/SignIn.js"));
-const GD1 = lazy(() => import("pages/algorithms/gradient_descent/GD1"));
-const GD2 = lazy(() => import("pages/algorithms/gradient_descent/GD2"));
-const GD3 = lazy(() => import("pages/algorithms/gradient_descent/GD3"));
-const GD4 = lazy(() => import("pages/algorithms/gradient_descent/GD4"));
-const GD5 = lazy(() => import("pages/algorithms/gradient_descent/GD5"));
-const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
-const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
-const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
-const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
-const LR1 = lazy(() => import("pages/algorithms/linear_regression/LR1"));
+// const Home = lazy(() => import("pages/Home/Home.js"));
+// const Algorithms = lazy(() => import("pages/algorithms/Algorithms.js"));
+// const SignIn = lazy(() => import("pages/sign/SignIn.js"));
+// const GD1 = lazy(() => import("pages/algorithms/gradient_descent/GD1"));
+// const GD2 = lazy(() => import("pages/algorithms/gradient_descent/GD2"));
+// const GD3 = lazy(() => import("pages/algorithms/gradient_descent/GD3"));
+// const GD4 = lazy(() => import("pages/algorithms/gradient_descent/GD4"));
+// const GD5 = lazy(() => import("pages/algorithms/gradient_descent/GD5"));
+// const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
+// const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
+// const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
+// const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
+// const LR1 = lazy(() => import("pages/algorithms/linear_regression/LR1"));
+import Home from "pages/Home/Home.js";
+import Algorithms from "pages/algorithms/Algorithms.js";
+import SignIn from "pages/sign/SignIn.js";
+import GD1 from "pages/algorithms/gradient_descent/GD1";
+import GD2 from "pages/algorithms/gradient_descent/GD2";
+import GD3 from "pages/algorithms/gradient_descent/GD3";
+import GD4 from "pages/algorithms/gradient_descent/GD4";
+import GD5 from "pages/algorithms/gradient_descent/GD5";
+import GD6 from "pages/algorithms/gradient_descent/GD6";
+import GD7 from "pages/algorithms/gradient_descent/GD7";
+import GD8 from "pages/algorithms/gradient_descent/GD8";
+import GD9 from "pages/algorithms/gradient_descent/GD9";
+import LR1 from "pages/algorithms/linear_regression/LR1";
 
+const theme = createTheme({});
 
 i18next.use(initReactI18next).init({
   resources: {
@@ -44,7 +58,7 @@ function App() {
     <I18nextProvider i18n={i18next}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Suspense fallback={<LoadingScreen />}>
+          {/* <Suspense fallback={<LoadingScreen />}> */}
             <ScrollToTop />
             <Routes>
               <Route path="/" exact element={<Home />} />
@@ -61,7 +75,7 @@ function App() {
               <Route path="/algorithms/lr1" element={<LR1 />} />
               <Route path="/signin" element={<SignIn />} />
             </Routes>
-          </Suspense>
+          {/* </Suspense> */}
         </Router>
       </ThemeProvider>
     </I18nextProvider>
