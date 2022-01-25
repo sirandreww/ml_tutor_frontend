@@ -9,6 +9,7 @@ import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
 import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
+import {TextField} from "@mui/material";
 // --------------------------------------------------------
 
 export const HEADERS_1D = [
@@ -122,7 +123,6 @@ export default function GradientDescent1D(props) {
             case 'slider':
                 return (
                     <span>
-                        <br/>
                         <PrettoSlider
                             valueLabelDisplay="auto"
                             aria-label="pretto slider"
@@ -135,7 +135,7 @@ export default function GradientDescent1D(props) {
                     </span>
                 );
             case 'input':
-                return <input type='text' value={alpha} style={{ height: '2rem', fontSize: '1.2rem' }} onChange={event => handleStates({ tck: false, cnt: 0, al: event.target.value })} />
+                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ tck: false, cnt: 0, al: event.target.value })} />
             default:
                 return null
         }
@@ -214,28 +214,50 @@ export default function GradientDescent1D(props) {
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
                             <LeftItem>
-                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                    <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> = <input type='text' value={myfun} style={{ width: '70%', height: '2rem', fontSize: '1.2rem' }} onChange={event => handleStates({ tck: false, cnt: 0, fn: event.target.value })} />
-                                    <br /><br />
-                                    <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = { getAlphaInput(alphaType) }
-                                    <br /><br />
-                                </Typography>
-                                <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                    {t("gd.slides.starting_point")}:<br/>
-                                </Typography>
-                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                    <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> = <input type='text' style={{ width: '5rem' }} value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />
-                                    <br/><br/>
-                                </Typography>
-                                <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                    {t("gd.slides.derivative")}:<br/>  
-                                </Typography>
-                                <Typography sx={{ color: 'black', fontSize: '1rem' }}>
-                                    <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx} = \\)"}</MathJax> {getDev(myfun, 'x')}
-                                    <br/><br/>
-                                </Typography>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center" justify="center">
+                                    <Grid item xs={1}>
+                                        <Typography style={{ color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        <TextField autoFocus fullWidth value={myfun} onChange={event => handleStates({ tck: false, cnt: 0, fn: event.target.value })} />
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        { getAlphaInput(alphaType) }
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(x_{0}\\)"}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        <TextField autoFocus fullWidth value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />
+                                    </Grid>
+                                </Grid>
                             </LeftItem>
                         </Grid>
+
+                        <Grid item xs={12}>
+                            <LeftItem>
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}  alignItems="center" justify="center">
+                                    <Grid item xs={1}>
+                                        <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        <TextField autoFocus fullWidth readOnly={true} value={getDev(myfun, 'x')} />
+                                    </Grid>
+                                </Grid>
+                            </LeftItem>
+                        </Grid>
+
                         <Grid item xs={12}>
                             <CenterItem>
                                 <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>

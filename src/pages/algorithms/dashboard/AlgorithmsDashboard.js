@@ -32,13 +32,14 @@ export default function AlgorithmsDashboard(props) {
               color="inherit"
               disabled={props.isPreviousDisabled}
               sx={{ mr: 1 }}
+              variant='contained'
             >
               {t("back")}
             </Button>
           </Link>
           <Box sx={{ flex: '1 1 auto' }} />
           <Link to={props.next} style={{ textDecoration: 'none', color: "black" }}>
-            <Button >
+            <Button variant='contained' color='info'>
               {props.isNextDisabled ? t("finish") : t("next")}
             </Button>
           </Link>
