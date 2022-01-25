@@ -60,39 +60,39 @@
 
     "gd":{
         "end": "סיימת את כל השלבים!",
-        "description":"Gradient descent is an iterative algorithm for finding a local minimum.\nIt starts at a given point and the idea is to take repeated steps in the opposite direction of the gradient (derivative) of the function at the current point.",
+        "description":"Gradient descent הוא אלגוריתם איטרטיבי למציאת מינימום מקומי.\nזה מתחיל בנקודה נתונה והרעיון הוא לעשות צעדים חוזרים ונשנים בכיוון ההפוך לשיפוע (נגזרת) של הפונקציה בנקודה הנוכחית.",
         "idea": "הרעיון מאחורי זה הוא לקחת צעדים בכיוונים מנוגדים מהנגזרת של הפונקציה בנקודה מסויימת.",
-        "example_1":"Let us take for example",
-        "example_2":"as the function and",
-        "example_3":"as the starting point.",
-        "gd_two_vars":"Now let us see how Gradient Descent handles functions with 2 variables!",
+        "example_1":"בוא ניקח לדוגמא את הפונקציה",
+        "example_2":"עם",
+        "example_3":"כנקודת התחלה",
+        "gd_two_vars":"כעת נראה כיצד Gradient Descent מטפל בפונקציות עם 2 משתנים!",
 
-        "steps":"The first 10 steps the algorithm takes are shown in the following animation:",
-        "how":"How does the algorithm achieve this?",
-        "defs":"Some definitions:",
-        "almost_descr":"Almost the same as before!",
+        "steps":"נציג למטה באנימציה את עשרת הצעדים הראשוניים של האלגוריתם:",
+        "how":"איך האלגוריתם משיג זאת?",
+        "defs":"הגדרות:",
+        "almost_descr":"בצורה ממש דומה כמו קודם!",
 
         "point_vals":{
-            "x_val":"the x value of the point.",
-            "y_val":"the y value of the point.",
-            "x_val_new":"the x value of the new point.",
-            "y_val_new":"the y value of the new point.",
-            "z_val":"the z value of the point."
+            "x_val":"את ערך x של הנקודה.",
+            "y_val":"את ערך y של הנקודה.",
+            "x_val_new":"את ערך x של הנקודה החדשה.",
+            "y_val_new":"את ערך y של הנקודה החדשה.",
+            "z_val":"את ערך z של הנקודה."
         },
 
         "derivatives":{
-            "description":"the derivative of f.",
-            "derivative_val_x":"the value of the derivative at x.",
-            "f_by_x":"the derivative of f by x variable (consider y as a constant).",
-            "f_by_y":"the derivative of f by y variable (consider x as a constant).",
-            "val_f_by_x":"the value of the derivative by x at (x, y).",
-            "val_f_by_y":"the value of the derivative by y at (x, y)."
+            "description":"הנגזרת של הפונקציה f.",
+            "derivative_val_x":"להיות ערך הנגזרת של הפונקציה בנקודה x.",
+            "f_by_x":"הנגזרת החלקית של הפונקציה f לפי המשתנה x (תתיחס ל-y כמספר וגזור כרגיל).",
+            "f_by_y":"הנגזרת החלקית של הפונקציה f לפי המשתנה y (תתיחס ל-x כמספר וגזור כרגיל).",
+            "val_f_by_x":"הערך של הנגזרת החלקית של הפונקציה f לפי המשתנה x בנקודה (x, y).",
+            "val_f_by_y":"הערך של הנגזרת החלקית של הפונקציה f לפי המשתנה y בנקודה (x, y)."
         },
         
-        "hyperparameter":"the Hyper-parameter that dictates step size.",
-        "foreach_step":"In each step the algorithm does the following:",
-        "calc":"calculate",
-        "apply":"Apply",
+        "hyperparameter":"ה-Hyper-parameter שמכתיב את גודל הצעד.",
+        "foreach_step":"בכל שלב האלגוריתם עושה את הפעולות הבאות:",
+        "calc":"חשב",
+        "apply":"השם",
 
         "slides":{
             "alpha": "אלפא",
@@ -110,11 +110,11 @@
             "2d_hyp": "היפר-פרמטר"
         },
 
-        "enter_func":"Enter a function (can be any function you want but the variable must be x), Hyper-Parameter and set the starting point.\nHit the play button to start the animation, you can also pause it and zoom in the graph by clicking the pause button or clear everything using the X button.",
-        "try_calc":"Try to calculate the value of each variable as the algorithm does (2 decimal points).\nEach click on the arrow will draw the next/previous step",
-        "search_alpha":"Search for the best alpha which gets to the minimum with the least amount of steps.",
-        "you_try":"Try it yourself! Just like before the variables must be x and y.",
-        "challenge":"Challenge yourself and calculate each step."
+        "enter_func":"הזינו פונקציה (יכולה להיות כל פונקציה שתרצו אבל המשתנה חייב להיות x), Hyper-Parameter וקבעו את נקודת ההתחלה.\nלחץ על כפתור ההפעלה כדי להתחיל את האנימציה, אתה יכול גם להשהות אותה ולהגדיל את הגרף על ידי לחיצה על כפתור ההשהיה או לנקות הכל באמצעות כפתור X.",
+        "try_calc":"נסו לחשב את הערך של כל משתנה כפי שעושה האלגוריתם (2 נקודות עשרוניות).\nכל לחיצה על החץ תצייר את השלב הבא/הקודם",
+        "search_alpha":"חפש את האלפא הטוב ביותר שמגיע למינימום בכמות הצעדים הקטנה ביותר.",
+        "you_try":"נסה זאת בעצמך! בדיוק כמו קודם המשתנים חייבים להיות x ו-y.",
+        "challenge":"אתגר את עצמך וחשב כל שלב באלגוריתם."
     },
 
     "sign_in":{

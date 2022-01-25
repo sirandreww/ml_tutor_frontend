@@ -212,7 +212,7 @@ export default function GradientDescent2D(props) {
                             defaultValue={alpha}
                             step={0.05}
                             min={0}
-                            max={10}
+                            max={2}
                             onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
                         />
                     </span>
@@ -230,20 +230,24 @@ export default function GradientDescent2D(props) {
             case 'hyperParameter': 
                 return (
                     <CenterItem>
-                        {button({ eventHandler: () => handleStates({ dr: true }), type: 'brush' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: 0 }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
-                        {button({ eventHandler: () => handleStates({ tck: true, dr: true }), type: 'play' })}
-                        <p>{count}</p>
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ dr: true }), type: 'brush' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({ tck: true, dr: true }), type: 'play' })}
+                            <p>{count}</p>
+                        </Box>
                     </CenterItem>
                 );
             case 'stepByStep':
                 return (
                     <CenterItem>
-                        {button({ eventHandler: () => handleStates({ tck: false, dr: true }), type: 'brush' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, dr: false }), type: 'stop' })}
-                        {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: count + 1 }), type: 'next' })}
+                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true }), type: 'brush' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ tck: false, dr: true, cnt: count + 1 }), type: 'next' })}
+                        </Box>
                     </CenterItem>
                 );
             default:

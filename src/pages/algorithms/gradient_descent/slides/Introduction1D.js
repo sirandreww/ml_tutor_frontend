@@ -98,7 +98,9 @@ export default function Introduction1D() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
-                    <h1 style={headers_style}>Gradient descent 1D</h1>
+                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                        <h1 style={headers_style}>Gradient descent 1D</h1>
+                    </Typography>
                     <br/>
                     {t("gd.description")}
                     <br/>

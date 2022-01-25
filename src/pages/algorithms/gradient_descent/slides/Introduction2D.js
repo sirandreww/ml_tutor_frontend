@@ -175,7 +175,9 @@ export default function Introduction2D() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
-                <h1 style={headers_style}>Gradient descent 2D</h1>
+                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                        <h1 style={headers_style}>Gradient descent 2D</h1>
+                    </Typography>
                     {t("gd.gd_two_vars")}<br/>
                     <br/>
                     {t("gd.example_1")} <MathJax style={mathJaxStyle} inline>{"\\(f(x, y) = x^{2} + y^{2}\\)"}</MathJax> {t("gd.example_2")}  <MathJax style={mathJaxStyle} inline>{"\\((x = 10, y = -10)\\)"}</MathJax> {t("gd.example_3")}<br/>

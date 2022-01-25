@@ -4,6 +4,7 @@ import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard'
 import GDStepper from 'pages/algorithms/gradient_descent/slides/GDStepper';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
+import {languageAlign, languageDirection} from "../dashboard/utils";
 
 
 export default function GD9() {
@@ -12,7 +13,7 @@ export default function GD9() {
         <AlgorithmsDashboard
             stepper={<GDStepper activeStep={8} />}
             component={
-                <Typography sx={{ mt: 2, mb: 1 }}>
+                <Typography sx={{ mt: 2, mb: 1, textAlign: languageAlign(), direction: languageDirection() }}>
                     {t("gd.end")}
                 </Typography>
             }

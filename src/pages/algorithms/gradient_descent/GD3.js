@@ -3,7 +3,7 @@ import * as React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import GDStepper from 'pages/algorithms/gradient_descent/slides/GDStepper';
 import { Box, Typography } from '@mui/material';
-import { LeftItem } from 'pages/algorithms/dashboard/utils';
+import {languageAlign, languageDirection, LeftItem} from 'pages/algorithms/dashboard/utils';
 import GradientDescent1D from 'pages/algorithms/gradient_descent/slides/GradientDescent1D';
 import {useTranslation} from "react-i18next";
 
@@ -15,7 +15,7 @@ export default function GD3() {
             component={
                 <Box>
                     <LeftItem>
-                        <Typography>
+                        <Typography  sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
                         {t("gd.try_calc")}
                         </Typography>
                     </LeftItem>
