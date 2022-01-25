@@ -1,15 +1,7 @@
-# Beautify math using LaTEX or similar (MathJax)
+# Add Linear Regression algorithm - in progress
 
-# Add Linear Regression algorithm
+# Translate to Hebrew - in progress
 
-# Check English for typos and syntax (maybe integrate automatic spell check)   -  https://www.npmjs.com/package/simple-spellchecker
+# Translate to Arabic - For the next sprint?
 
-# Integrate translation (i8next)
-
-# Translate to Hebrew
-
-# Translate to Arabic
-
-# Add basic tests
-
-# Add more pictures to the home page?
+# Add basic tests - For the next sprint
