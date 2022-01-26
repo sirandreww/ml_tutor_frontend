@@ -12,7 +12,7 @@ export default function GD4() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={3}
+            currentStep={3}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -23,13 +23,14 @@ export default function GD4() {
                                 </Typography>
                             </LeftItem>
                         </Grid>
-                        <Grid item xs={12}></Grid>
+                        <Grid item xs={12}>
+                            <GradientDescent1D
+                                alphaType='slider'
+                                buttonsType='hyperParameter'
+                                generateQuestionTable={false}
+                            />
+                        </Grid>
                     </Grid>
-                    <GradientDescent1D
-                        alphaType='slider'
-                        buttonsType='hyperParameter'
-                        generateQuestionTable={false}
-                    />
                 </Box>
             }
             previous="/algorithms/gd3"

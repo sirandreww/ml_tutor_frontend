@@ -7,7 +7,7 @@ export default function GD1() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={0}
+            currentStep={0}
             component={<Introduction1D />}
             previous="/algorithms/gd1"
             isPreviousDisabled={true}

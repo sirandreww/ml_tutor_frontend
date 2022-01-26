@@ -55,7 +55,7 @@ export default function AlgorithmsDashboard(props) {
         <Box sx={{ width: '100%' }}>
           <Container maxWidth="md">
             <Box height={50} />
-            {props.component}
+              {props.component}
             <Box height={50} />
           </Container>
         </Box>

@@ -12,7 +12,7 @@ export default function GD2() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={1}
+            currentStep={1}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -23,14 +23,14 @@ export default function GD2() {
                                 </Typography>
                             </LeftItem>
                         </Grid>
-                        <Grid item xs={12}></Grid>
+                        <Grid item xs={12}>
+                            <GradientDescent1D
+                                alphaType='input'
+                                buttonsType='playGround'
+                                generateQuestionTable={false}
+                            />
+                        </Grid>
                     </Grid>
-
-                    <GradientDescent1D
-                        alphaType='input'
-                        buttonsType='playGround'
-                        generateQuestionTable={false}
-                    />
                 </Box>
             }
             previous="/algorithms/gd1"
