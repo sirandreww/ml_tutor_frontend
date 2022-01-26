@@ -12,7 +12,7 @@ export default function GD6() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={5}
+            currentStep={5}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -23,13 +23,14 @@ export default function GD6() {
                                 </Typography>
                             </LeftItem>
                         </Grid>
-                        <Grid item xs={12}></Grid>
+                        <Grid item xs={12}>
+                            <GradientDescent2D
+                                alphaType='input'
+                                buttonsType='playGround'
+                                generateQuestionTable={false}
+                            />
+                        </Grid>
                     </Grid>
-                    <GradientDescent2D
-                        alphaType='input'
-                        buttonsType='playGround'
-                        generateQuestionTable={false}
-                    />
                 </Box>
             }
             previous="/algorithms/gd5"

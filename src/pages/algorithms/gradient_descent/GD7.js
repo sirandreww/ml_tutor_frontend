@@ -12,7 +12,7 @@ export default function GD7() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={6}
+            currentStep={6}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -23,13 +23,14 @@ export default function GD7() {
                                 </Typography>
                             </LeftItem>
                         </Grid>
-                        <Grid item xs={12}></Grid>
+                        <Grid item xs={12}>
+                            <GradientDescent2D
+                                alphaType='input'
+                                buttonsType='stepByStep'
+                                generateQuestionTable={true}
+                            />
+                        </Grid>
                     </Grid>
-                    <GradientDescent2D
-                        alphaType='input'
-                        buttonsType='stepByStep'
-                        generateQuestionTable={true}
-                    />
                 </Box>
             }
             previous="/algorithms/gd6"

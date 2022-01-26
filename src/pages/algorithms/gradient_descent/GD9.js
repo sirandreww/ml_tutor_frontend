@@ -11,7 +11,7 @@ export default function GD9() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={8}
+            currentStep={8}
             component={
                 <Typography sx={{ mt: 2, mb: 1, textAlign: languageAlign(), direction: languageDirection() }}>
                     {t("gd.end")}

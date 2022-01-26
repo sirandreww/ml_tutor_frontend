@@ -12,7 +12,7 @@ export default function GD8() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            activeStep={7}
+            currentStep={7}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -23,13 +23,14 @@ export default function GD8() {
                                 </Typography>
                             </LeftItem>
                         </Grid>
-                        <Grid item xs={12}></Grid>
+                        <Grid item xs={12}>
+                            <GradientDescent2D
+                                alphaType='slider'
+                                buttonsType='hyperParameter'
+                                generateQuestionTable={false}
+                            />
+                        </Grid>
                     </Grid>
-                    <GradientDescent2D
-                        alphaType='slider'
-                        buttonsType='hyperParameter'
-                        generateQuestionTable={false}
-                    />
                 </Box>
             }
             previous="/algorithms/gd7"
