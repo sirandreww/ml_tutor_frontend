@@ -39,10 +39,12 @@ think of how the user will use our application, by steps and actions. then, comm
 this will resemble more realisctic user flow
 
 End-to-end Test:
--frontend to backend and vuce versa
+-frontend to backend and vice versa
+-complete mockup of user interacting with the web
+-Support test recording which is great for documentation
 
 Tools:
-Unit + Integration -> React testing library
+Unit + Integration -> Jest as the Test Runner and React testing library as a module
 
 End-To-End -> Cypress
 
