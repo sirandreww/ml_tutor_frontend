@@ -75,12 +75,9 @@ function getGraph1D(f: string, points: [number, number][]) {
     });
 }
 
-function getAnswers1D(header, rows, f, startX, alpha) {
+function getAnswers1D(header: [string, any ,number][], rows: number, f: string, startX: number, alpha: number) {
+    let res: string[] = []
     try {
-        let keys = header.map((ele) => ele[0]);
-        let res = {}
-        keys.forEach(key => res[key] = [])
-
         var df = getDev(f, 'x')
         startX = Number(startX)
         alpha = Number(alpha)
@@ -91,26 +88,24 @@ function getAnswers1D(header, rows, f, startX, alpha) {
                 step: i,
                 x: prev,
                 dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
-                tmpX: null,
-                newX: null,
+                tmpX: "",
+                newX: "",
             }
             ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
             ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
 
             for (const [key, value] of Object.entries(ans)) {
-                res[key].push(value)
+                res.push(value.toString())
             }
 
-            prev = ans.newX
+            prev = Number(ans.newX)
 
         }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-
-        return res
     }
     catch (e) {
         console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
     }
+    return res
 }
 
 export default function GradientDescent1D(props) {
@@ -169,14 +164,14 @@ export default function GradientDescent1D(props) {
     }
 
     const [myfun, setFun] = React.useState('x^2')
-    const [alpha, setAlpha] = React.useState(1)
-    const [startX, setStartX] = React.useState('0')
+    const [alpha, setAlpha] = React.useState(0.1)
+    const [startX, setStartX] = React.useState(-1)
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
 
     const handleStates = (
         { fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count } =
-            { fn: 'x^2', al: 1, sx: 0, tck: false, cnt: 0 }) => {
+            { fn: 'x^2', al: 0.1, sx: -1, tck: false, cnt: 0 }) => {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)

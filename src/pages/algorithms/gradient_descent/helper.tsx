@@ -61,30 +61,29 @@ export function getExample(f: string, vars: { 'v': string, 'val': number }[], al
         var prevs: { [id: string] : number; } = {}
         vars.forEach(ele => prevs[ele.v] = Number(Number(ele.val).toFixed(DIGITS)))
 
-        var vs = []
-        var devs = []
-        var tmps = []
-        var nexts = []
+        var vs: string[] = []
+        var devs: string[] = []
+        var tmps: string[] = []
+        var nexts: string[] = []
 
         for (let index = 0; index < vars.length; index++) {
             let { v, val } = vars[index];
-            val = Number(Number(val).toFixed(DIGITS))
-
+            let val_str = Number(val).toFixed(DIGITS)
             let df = getDev(f, v)
-            let dev = Number(Number(math.evaluate(df, prevs)).toFixed(DIGITS))
-            let tmp = Number(Number(math.evaluate('alpha*dev', { 'alpha': alpha, 'dev': dev })).toFixed(DIGITS))
-            let next = Number(Number(math.evaluate('v-tmp', { 'v': val, 'tmp': tmp })).toFixed(DIGITS))
+            let dev = Number(math.evaluate(df, prevs)).toFixed(DIGITS)
+            let tmp = Number(math.evaluate('alpha*dev', { 'alpha': alpha, 'dev': dev })).toFixed(DIGITS)
+            let next = Number(math.evaluate('v-tmp', { 'v': val, 'tmp': tmp })).toFixed(DIGITS)
 
-            vs.push(val)
+            vs.push(val_str)
             devs.push(dev)
             tmps.push(tmp)
             nexts.push(next)
         }
         // console.log('getExample=', ['', ...vs, ...devs, ...tmps, ...nexts])
-        return [ ...vs, ...devs, ...tmps, ...nexts]
+        return ['', ...vs, ...devs, ...tmps, ...nexts]
     }
     catch (e) {
         console.log('error at getExample(f, vars, alpha) => \n', e)
-        return []
+        return ["error", "error", "error"]
     }
 }

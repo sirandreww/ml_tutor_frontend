@@ -70,7 +70,7 @@ function generateRows(num: number, formater: [string, string][], example: number
     return rows
 }
 
-function identicalArrays(array1: number[], array2: number[]) {
+function identicalArrays(array1: string[], array2: string[]) {
     // console.log('identicalArrays')
     // console.log('array1 = ', array1)
     // console.log('array2 = ', array2)
@@ -96,7 +96,13 @@ type MyProps = {
     message: string;
 };
 type MyState = {
-    count: number; // like this
+    rowsNum: number,
+    headers: string,
+    rowNumbersEnabled: boolean,
+    exampleEnabled: boolean,
+    example: string[],
+    correctAnswers: string[],
+    comparator: (x: number, y: number) => boolean
 };
 
 /**
@@ -112,9 +118,8 @@ type MyState = {
  */
 class QuestionTable extends React.Component<MyProps, MyState> {
 
-    constructor(props: {rowsNum: number, headers: string, rowNumbersEnabled: boolean, exampleEnabled: boolean, example: number[], correctAnswers: number[], comparator: (x: number, y: number) => boolean}) {
-        super(props)
-    
+    constructor(props: {rowsNum: number, headers: string, rowNumbersEnabled: boolean, exampleEnabled: boolean, example: string[], correctAnswers: string[], comparator: (x: number, y: number) => boolean}) {
+        super()
         this.state = {
             rowsNum: props.rowsNum,
             headers: props.headers,
@@ -219,7 +224,7 @@ class QuestionTable extends React.Component<MyProps, MyState> {
                         //         '\nparams.headerName', params.headerName,
                         //         '\nequals? ', params.getValue(params.id, params.field) === correctAnswers[params.field][params.id]
                         //     )
-                        if (params.getValue(params.id, params.field) === null || (this.state.exampleEnabled && params.id === 0) || (this.state.rowNumbersEnabled && params.field === this.state.headers[0][0])) {
+                        if (params.getValue(params.id, params.field) === null || (this.state.exampleEnabled && params.id === 0) || (this.state.rowNumbersEnabled && params.field === this.state.headers[0][0]) || params.getValue(params.id, params.field) === "") {
                             return 'default';
                         }
                         if (this.state.comparator(params.getValue(params.id, params.field), this.state.correctAnswers[params.field][params.id])) {
