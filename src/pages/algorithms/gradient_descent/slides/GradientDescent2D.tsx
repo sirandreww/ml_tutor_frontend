@@ -378,7 +378,7 @@ export default function GradientDescent2D(props: {alphaType: string, buttonsType
                                         exampleEnabled = {true}
                                         example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
                                         correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
-                                        comparator = {(res: number, ans: number) => Number(ans) === Number(res)}}}
+                                        comparator = {(res: number, ans: number) => Number(ans) === Number(res)}
                                     /> : null }
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board'/>
                                 </Box>

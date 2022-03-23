@@ -27,20 +27,20 @@ const changeLang = (lan: string) => {
   
 }
 
-type ScrollToColorProps = {
-  nonTransparentBackgroundColor: string,
-  transparentBackgroundColor: string,
-  nonTransparentColor: string,
-  transparentColor: string,
-  nonTransparentTransition: string,
-  transparentTransition: string,
-  nonTransparentBoxShadow: string,
-  transparentBoxShadow: string,
-  padding: string,
-  children: any,
-}
+// type ScrollToColorProps = {
+//   nonTransparentBackgroundColor: string,
+//   transparentBackgroundColor: string,
+//   nonTransparentColor: string,
+//   transparentColor: string,
+//   nonTransparentTransition: string,
+//   transparentTransition: string,
+//   nonTransparentBoxShadow: string,
+//   transparentBoxShadow: string,
+//   padding: string,
+//   children: any,
+// }
 
-type appBarParametersProps = any
+// type appBarParametersProps = any
 
 export default function Navbar(props: { scrollToColorParameters: any, appBarParameters: any}) {
   const [t] = useTranslation('translation');
