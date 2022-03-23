@@ -66,7 +66,11 @@ function getGraph2D(data){
 
 // --------------------------------------------------------
 
-export default function Graph2D(props) {
+type Props = {
+    function: string,
+}
+
+export default function Graph2D(props: Props) {
     React.useEffect(() => {
         getGraph2D(getData2D(props.function))
     });

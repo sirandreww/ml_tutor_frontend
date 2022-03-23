@@ -5,6 +5,14 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { useTranslation } from "react-i18next";
 
+
+
+type Props = {
+    currentStep: number,
+    stepNames: string[],
+    isStepSkipped: boolean,
+}
+
 export default function AlgorithmStepper(props) {
     const [t] = useTranslation('translation')
 

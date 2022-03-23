@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import Navbar from 'components/Navbar.js';
-import Footer from 'components/Footer.js';
+import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";

@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Box, Container, Stack } from '@mui/material';
-import Cards from 'components/Cards.js';
+import Cards from 'components/Cards.tsx';
 import Navbar from 'components/Navbar';
-import Footer from 'components/Footer.js';
+import Footer from 'components/Footer';
 import {useTranslation} from "react-i18next";
 
 export default function Algorithms() {

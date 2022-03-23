@@ -31,7 +31,19 @@ ScrollHandler.defaultProps = {
   padding: "10px 0px",
 }
 
-const ScrollToColor = props => {
+type Props = {
+  nonTransparentBackgroundColor: string,
+  transparentBackgroundColor: string,
+  nonTransparentColor: string,
+  transparentColor: string,
+  nonTransparentTransition: string,
+  transparentTransition: string,
+  nonTransparentBoxShadow: string,
+  transparentBoxShadow: string,
+  padding: string,
+}
+
+const ScrollToColor = (props: Props) => {
   return <ScrollHandler {...props}>{props.children}</ScrollHandler>;
 };
 

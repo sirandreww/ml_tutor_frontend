@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, Container } from '@mui/material';
 import { Grid, Paper } from '@mui/material';
-import Graph2D from 'components/Graph2D';
+import Graph2D from 'components/Graph2D.tsx';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";

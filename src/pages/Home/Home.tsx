@@ -1,9 +1,9 @@
 import React from 'react';
-import Functionalities from './utils/Functionalities.js';
-import HeroSection from './utils/HeroSection.js';
-import Footer from 'components/Footer.js';
-import Navbar from 'components/Navbar.js';
-import PrettyLine from 'components/PrettyLine.js';
+import Functionalities from './utils/Functionalities';
+import HeroSection from './utils/HeroSection';
+import Footer from 'components/Footer';
+import Navbar from 'components/Navbar.tsx';
+import PrettyLine from 'components/PrettyLine';
 
 function Home() {
   return (

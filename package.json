@@ -11,6 +11,10 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.42",
+    "@types/react-dom": "^17.0.14",
     "better-react-mathjax": "^1.0.3",
     "function-plot": "^1.22.7",
     "i18next": "^21.6.7",
@@ -21,6 +25,7 @@
     "react-i18next": "^11.15.3",
     "react-router-dom": "^6.1.0",
     "react-scripts": "4.0.1",
+    "typescript": "^3.9.10",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
