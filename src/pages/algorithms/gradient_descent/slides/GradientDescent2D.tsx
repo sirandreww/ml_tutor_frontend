@@ -12,20 +12,20 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { TextField } from "@mui/material";
 // --------------------------------------------------------
 
-export const HEADERS_2D = [
-    ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
-    ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
-    ['y', <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax>, 1],
-    ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>, 1],
-    ['dy', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax>, 1],
-    ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dx}\\)"}</MathJax>, 2],
-    ['tmpY', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dy}\\)"}</MathJax>, 2],
-    ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
-    ['newY', <MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax>, 1],
+export const HEADERS_2D : [string, any ,number][] = [
+    ['step',    <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,                      1],
+    ['x',       <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>,                         1],
+    ['y',       <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax>,                         1],
+    ['dx',      <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>,            1],
+    ['dy',      <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax>,            1],
+    ['tmpX',    <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dx}\\)"}</MathJax>,    2],
+    ['tmpY',    <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dy}\\)"}</MathJax>,    2],
+    ['newX',    <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>,                   1],
+    ['newY',    <MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax>,                   1],
 ]
 
 
-function getPoints2D(f, startX, startY, steps_count, alpha) {
+function getPoints2D(f: string, startX: number, startY: number, steps_count: number, alpha: number) {
     try {
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
@@ -65,11 +65,15 @@ function getPoints2D(f, startX, startY, steps_count, alpha) {
     }
     catch (e) {
         console.log('error at getPoints2D(f, startX, startY, steps_count, alpha) => \n', e)
-        return '0'
+        return {
+            x: [],
+            y: [],
+            z: []
+        }
     }
 }
 
-function getGraph2D(data, points) {
+function getGraph2D(data: { [id: string] : number[]; }, points: { [id: string] : number[]; }) {
     try {
         // console.log('getGraph2D - \n')
         // console.log('data = ', data, '\n')
@@ -115,41 +119,39 @@ function getGraph2D(data, points) {
     }
     catch (e) {
         console.log('error at getGraph2D(data, points) => \n', e)
-        return '0'
     }
 }
 
-function getAnswers2D(header, rows, f, startX, startY, alpha) {
+function getAnswers2D(header: [string, any ,number][], rows: number, f: string, startX: number, startY: number, alpha: number) {
+    let res: { [id: string] : number[]; } = {}
     try {
         let keys = header.map((ele) => ele[0]);
-        let res = {}
         keys.forEach(key => res[key] = [])
 
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
-        startX = Number(startX).toFixed(DIGITS)
-        startY = Number(startY).toFixed(DIGITS)
+        startX = Number(Number(startX).toFixed(DIGITS))
+        startY = Number(Number(startY).toFixed(DIGITS))
         alpha = Number(alpha)
 
         var prevX = startX
         var prevY = startY
 
         for (let i = 0; i < rows; i++) {
-            var ans = {
+            var ans: { [id: string] : number; } = {
                 step: i,
                 x: prevX,
                 y: prevY,
-                dx: Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-                dy: Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-                tmpX: null,
-                tmpY: null,
-                newX: null,
-                newY: null,
+                dx: Number(Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS)),
+                dy: Number(Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS)),
+                tmpX: Number(Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)),
+                tmpY: Number(Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)),
+                newX: 0,
+                newY: 0,
             }
-            ans.tmpX = Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newX = Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
-            ans.tmpY = Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newY = Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
+
+            ans.newX = Number(Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS))
+            ans.newY = Number(Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS))
 
             for (const [key, value] of Object.entries(ans)) {
                 res[key].push(value)
@@ -159,47 +161,41 @@ function getAnswers2D(header, rows, f, startX, startY, alpha) {
             prevY = ans.newY
 
         }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-        // console.log('res=', res)
-        return res
     }
     catch (e) {
         console.log('error at getAnswers2D(header, rows, f, startX, startY, alpha) => \n', e)
     }
+    return res
 
 }
 
-function getData2D(f) {
+function getData2D(f: string) {
+    var data: { [id: string] : number[]; } = {
+        x: [],
+        y: [],
+        z: []
+    }
+    // try
     try {
-        var data = {
-            x: [],
-            y: [],
-            z: []
-        }
-
         for (let y = -10; y < 11; y += 1) {
-            var new_y = [[], []]
             for (let x = -10; x < 11; x += 1) {
-                new_y[0].push(math.evaluate(f, { 'x': x, 'y': y }))
-                new_y[1].push(x)
+                data.z.push(math.evaluate(f, { 'x': x, 'y': y }))
+                data.x.push(x)
+                data.y.push(y)
             };
-            data.x.push(new_y[1])
-            data.y.push(y)
-            data.z.push(new_y[0])
         }
-
-        return data
     }
     catch (e) {
         console.log('error at getData2D(f) => \n', e)
-        return '0'
     }
+    // end of try-catch
+    return data
 }
 
-export default function GradientDescent2D(props) {
+export default function GradientDescent2D(props: {alphaType: string, buttonsType: string, generateQuestionTable: boolean}) {
     const { alphaType, buttonsType, generateQuestionTable} = props
 
-    const getAlphaInput = (type) => {
+    const getAlphaInput = (type: string) => {
         switch(type){
             case 'slider':
                 return (
@@ -211,7 +207,7 @@ export default function GradientDescent2D(props) {
                             step={0.05}
                             min={0}
                             max={2}
-                            onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
+                            onChange={(_event: any, value: any) => handleStates({ tck: false, dr: false, al: value })}
                         />
                     </span>
                 );
@@ -222,7 +218,7 @@ export default function GradientDescent2D(props) {
         }
     }
 
-    const getButtonsInput = (type) => {
+    const getButtonsInput = (type: string) => {
         switch(type){
             case 'playGround':
             case 'hyperParameter': 
@@ -255,8 +251,8 @@ export default function GradientDescent2D(props) {
 
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(1)
-    const [startX, setStartX] = React.useState('0')
-    const [startY, setStartY] = React.useState('0')
+    const [startX, setStartX] = React.useState(0)
+    const [startY, setStartY] = React.useState(0)
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
     const [data2D, setData2D] = React.useState({ x: [], y: [], z: [] })
@@ -382,7 +378,7 @@ export default function GradientDescent2D(props) {
                                         exampleEnabled = {true}
                                         example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
                                         correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
-                                        comparator = {(res, ans) => Number(ans) === Number(res)}
+                                        comparator = {(res: number, ans: number) => Number(ans) === Number(res)}}}
                                     /> : null }
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board'/>
                                 </Box>

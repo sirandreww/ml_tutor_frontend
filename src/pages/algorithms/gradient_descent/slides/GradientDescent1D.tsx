@@ -19,8 +19,8 @@ export const HEADERS_1D = [
     ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
 ]
 
-function getPoints1D(f, startX, steps_count, alpha) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
+function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
+    var points: [number, number][] = [[startX, math.evaluate(f, { 'x': startX })]]
     var df = getDev(f, 'x')
     // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
 
@@ -44,7 +44,7 @@ function getPoints1D(f, startX, steps_count, alpha) {
     return points
 }
 
-function getGraph1D(f, points) {
+function getGraph1D(f: string, points: [number, number][]) {
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)

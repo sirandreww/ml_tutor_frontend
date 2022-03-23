@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import AlgorithmStepper from 'pages/algorithms/dashboard/AlgorithmStepper';
 
-const gd_steps = [
+const gd_steps: string[] = [
   "1d_int",
   "1d_vis",
   "1d_sbs",
@@ -18,7 +18,7 @@ const gd_steps = [
   "2d_hyp"
 ];
 
-const lr_steps = [
+const lr_steps: string[] = [
   "1d_int",
   "1d_vis",
   "1d_sbs",
@@ -29,13 +29,15 @@ const lr_steps = [
   "2d_hyp"
 ];
 
-export default function AlgorithmsDashboard(props) {
+export default function AlgorithmsDashboard(props:
+  { currentAlgorithmName: string, currentStep: number, component: any, previous: string, isPreviousDisabled: boolean, next: string, isNextDisabled: boolean, isStepSkipped: boolean}
+) {
   const [t] = useTranslation(['translation']);
 
-  var currentStepNames = []
-  if (props.currentAlgorithmName === "gd"){
+  var currentStepNames: string[] = []
+  if (props.currentAlgorithmName === "gd") {
     currentStepNames = gd_steps
-  } else if (props.currentAlgorithmName === "lr"){
+  } else if (props.currentAlgorithmName === "lr") {
     currentStepNames = lr_steps
   }
 
@@ -55,7 +57,7 @@ export default function AlgorithmsDashboard(props) {
         <Box sx={{ width: '100%' }}>
           <Container maxWidth="md">
             <Box height={50} />
-              {props.component}
+            {props.component}
             <Box height={50} />
           </Container>
         </Box>
@@ -85,4 +87,8 @@ export default function AlgorithmsDashboard(props) {
       <Footer />
     </div>
   );
+}
+
+AlgorithmsDashboard.defaultProps = {
+  isStepSkipped: false
 }

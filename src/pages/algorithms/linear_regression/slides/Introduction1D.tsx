@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
-function getGraph1D(f, points) {
+function getGraph1D(f: string, points: number[][]) {
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)

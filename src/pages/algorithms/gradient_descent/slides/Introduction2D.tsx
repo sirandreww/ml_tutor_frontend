@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
+// @ts-ignore
 import Plotly from 'plotly.js-gl3d-dist-min';
 import Typography from '@mui/material/Typography';
 import { getDev, math } from '../helper';
@@ -8,7 +9,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
 import {useTranslation} from "react-i18next";
 
-function getPoints2D(f, startX, startY, steps_count, alpha) {
+function getPoints2D(f:string, startX: number, startY: number, steps_count: number, alpha: number) {
     try {
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
@@ -48,11 +49,15 @@ function getPoints2D(f, startX, startY, steps_count, alpha) {
     }
     catch (e) {
         console.log('error at getPoints2D(f, startX, startY, steps_count, alpha) => \n', e)
-        return '0'
+        return {
+            x: [],
+            y: [],
+            z: []
+        }
     }
 }
 
-function getGraph2D(data, points) {
+function getGraph2D(data: { [id: string] : number[]; }, points: { [id: string] : number[]; }) {
     try {
         // console.log('getGraph2D - \n')
         // console.log('data = ', data, '\n')
@@ -105,35 +110,30 @@ function getGraph2D(data, points) {
     }
     catch (e) {
         console.log('error at getGraph2D(data, points) => \n', e)
-        return '0'
     }
 }
 
-function getData2D(f) {
+function getData2D(f: string) {
+    var data: { [id: string] : number[]; } = {
+        x: [],
+        y: [],
+        z: []
+    }
+    // try
     try {
-        var data = {
-            x: [],
-            y: [],
-            z: []
-        }
-
         for (let y = -10; y < 11; y += 1) {
-            var new_y = [[], []]
             for (let x = -10; x < 11; x += 1) {
-                new_y[0].push(math.evaluate(f, { 'x': x, 'y': y }))
-                new_y[1].push(x)
+                data.z.push(math.evaluate(f, { 'x': x, 'y': y }))
+                data.x.push(x)
+                data.y.push(y)
             };
-            data.x.push(new_y[1])
-            data.y.push(y)
-            data.z.push(new_y[0])
         }
-
-        return data
     }
     catch (e) {
         console.log('error at getData2D(f) => \n', e)
-        return '0'
     }
+    // end of try-catch
+    return data
 }
 
 const fun = 'x^2 + y^2';
@@ -145,8 +145,7 @@ export default function Introduction2D() {
     React.useEffect(() => {
         try {
             console.log(count)
-            let points = null;
-            points = getPoints2D(fun, '10', '-10', count, '0.05');
+            let points = getPoints2D(fun, 10, -10, count, 0.05);
             getGraph2D(data, points);
         }
         catch (e) {
@@ -157,13 +156,14 @@ export default function Introduction2D() {
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
         try {
-            let new_count = null;
+            let new_count = 0;
             (count < 10) ? new_count = count + 1 : new_count = 0
             const timer = setTimeout(() => setCount(new_count), 1e3)
             return () => clearTimeout(timer)
         }
         catch (e) {
             console.log("error at useEffect => \n", e)
+            return () => (4)
         }
     });
 

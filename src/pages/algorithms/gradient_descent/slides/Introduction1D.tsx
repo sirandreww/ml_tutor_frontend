@@ -8,7 +8,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 
 
-function getPoints1D(f, startX, steps_count, alpha) {
+function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
     var df = getDev(f, 'x')
     // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
@@ -33,7 +33,7 @@ function getPoints1D(f, startX, steps_count, alpha) {
     return points
 }
 
-function getGraph1D(f, points) {
+function getGraph1D(f: string, points: number[][]) {
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)
@@ -70,7 +70,7 @@ export default function Introduction1D() {
 
     React.useEffect(() => {
         try {
-            let points = getPoints1D('x^2', '5', count, '0.2');
+            let points = getPoints1D('x^2', 5, count, 0.2);
             getGraph1D('x^2', points);
         }
         catch (e) {
@@ -80,13 +80,14 @@ export default function Introduction1D() {
 
     React.useEffect(() => {
         try {
-            let new_count = null;
+            let new_count = 0;
             (count < 10) ? new_count = count + 1 : new_count = 0
             const timer = setTimeout(() => setCount(new_count), 1e3)
             return () => clearTimeout(timer)
         }
         catch (e) {
             console.log("error at useEffect => \n", e)
+            return () => (0)
         }
     });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useScrollTrigger } from "@mui/material";
 
-const ScrollHandler = props => {
+const ScrollHandler = (props: any) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -41,6 +41,7 @@ type Props = {
   nonTransparentBoxShadow: string,
   transparentBoxShadow: string,
   padding: string,
+  children: any,
 }
 
 const ScrollToColor = (props: Props) => {

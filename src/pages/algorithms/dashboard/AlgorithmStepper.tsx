@@ -13,7 +13,7 @@ type Props = {
     isStepSkipped: boolean,
 }
 
-export default function AlgorithmStepper(props) {
+export default function AlgorithmStepper(props: Props) {
     const [t] = useTranslation('translation')
 
     return (

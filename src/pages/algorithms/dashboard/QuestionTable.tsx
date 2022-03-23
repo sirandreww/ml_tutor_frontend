@@ -15,12 +15,12 @@ function generateColumns(formater) {
         const editable = col !== 0
 
         columns.push({
-            field: field, 
-            headerName: header, 
-            editable: editable, 
-            sortable: false, 
-            headerAlign: 'center', 
-            flex: flex_percent, 
+            field: field,
+            headerName: header,
+            editable: editable,
+            sortable: false,
+            headerAlign: 'center',
+            flex: flex_percent,
             align: 'center',
             cellClassName: 'super-app.default',
             headerClassName: 'super-app-theme--header',
@@ -38,16 +38,16 @@ function generateColumns(formater) {
  * @param {any[]} example if exampleEnabled is true the first line will be filled with the example answer (won't be editable), otherwise it will be ignored
  * @returns 
  */
-function generateRows(num, formater, example, exampleEnabled, rowNumberingEnabled) {
+function generateRows(num: number, formater: [string, string][], example: number[], exampleEnabled: boolean, rowNumberingEnabled: boolean) {
     var rows = []
-    var tmp = {}
+    var tmp: {[id: string]: number} = {}
     var currentRow = 0
-    
+
     if (exampleEnabled) {
         tmp['id'] = currentRow
-        
+
         for (let index = 0; index < formater.length; index++) {
-            const [field, ] = formater[index];
+            const [field,] = formater[index];
             tmp[field] = (index === 0) ? currentRow + 1 : example[index]
         }
 
@@ -57,20 +57,20 @@ function generateRows(num, formater, example, exampleEnabled, rowNumberingEnable
     }
 
     for (; currentRow < num; currentRow++) {
-        tmp = {'id': currentRow}
+        tmp = { 'id': currentRow }
 
         for (let index = 0; index < formater.length; index++) {
-            const [field, ] = formater[index];
-            tmp[field] = (index === 0 && rowNumberingEnabled) ? currentRow + 1 : null
-        }    
-        
+            const [field,] = formater[index];
+            tmp[field] = (index === 0 && rowNumberingEnabled) ? currentRow + 1 : 0
+        }
+
         rows.push(tmp)
     }
 
     return rows
 }
 
-function identicalArrays(array1, array2) {
+function identicalArrays(array1: number[], array2: number[]) {
     // console.log('identicalArrays')
     // console.log('array1 = ', array1)
     // console.log('array2 = ', array2)
@@ -83,13 +83,22 @@ function identicalArrays(array1, array2) {
         // console.log('i = ', i)
         // console.log('array1[i] = ', array1[i])
         // console.log('array2[i] = ', array2[i])
-        if(array1[i] !== array2[i]) {
+        if (array1[i] !== array2[i]) {
             return false
         }
-        
+
     }
     return true
 }
+
+type MyProps = {
+    // using `interface` is also ok
+    message: string;
+};
+type MyState = {
+    count: number; // like this
+};
+
 /**
  * Table for users to enter their answers and it will check them automatically!
  * @param {Number} rowsNum The number of rows
@@ -98,16 +107,12 @@ function identicalArrays(array1, array2) {
  * @param {Boolean} exampleEnabled if ture you must provide an example of the answer
  * @param {any[]} example if exampleEnabled is true the first line will be filled with the example answer (won't be editable), otherwise it will be ignored
  * @param {{[Key: String]: any[]}} correctAnswers the key is the column header while the value is an array of the correct answers of that column (if exampleEnabled is true so include its answers).
- * @param {(,) => Boolean} comparator function to compare the input of the user to the answer, if not provided it compares via ===
+ * @param {(,) => Boolean} comparator function to compare the input of the user to the answer
  * @returns the desired table functionality
  */
-class QuestionTable extends React.Component {
+class QuestionTable extends React.Component<MyProps, MyState> {
 
-    compare(current, to) {
-        return current === to
-    }
-
-    constructor(props) {
+    constructor(props: {rowsNum: number, headers: string, rowNumbersEnabled: boolean, exampleEnabled: boolean, example: number[], correctAnswers: number[], comparator: (x: number, y: number) => boolean}) {
         super(props)
     
         this.state = {
@@ -119,6 +124,7 @@ class QuestionTable extends React.Component {
             correctAnswers: props.correctAnswers,
             comparator: ('comparator' in props) ? props.comparator : this.compare 
         }
+
 
         // console.log('props.rowsNum = ', props.rowsNum)
         // console.log('props.headers = ', props.headers)
@@ -153,7 +159,7 @@ class QuestionTable extends React.Component {
             exampleEnabled: nextProps.exampleEnabled,
             example: nextProps.example,
             correctAnswers: nextProps.correctAnswers,
-        });  
+        });
     }
 
     // Invoked before the re-render occures in order to save some information and returns is as a third paremeter to componentDidUpdate
@@ -196,35 +202,35 @@ class QuestionTable extends React.Component {
                     fontWeight: '1000',
                 },
             }}
-        >
-            <DataGrid
-                columns = { generateColumns(this.state.headers) }
-                rows = { generateRows(this.state.rowsNum, this.state.headers, this.state.example, this.state.exampleEnabled, this.state.rowNumbersEnabled) }
-                isCellEditable = { (params) => !this.state.exampleEnabled || params.row.id !== 0 }
-                disableColumnMenu = { true }
-                hideFooter = { true }
-                autoHeight = { true }
-                getCellClassName={(params) => {
-                    //     console.log(
-                    //         '\nparams.getValue(params.id, params.field)=', params.getValue(params.id, params.field),
-                    //         '\ncorrectAnswers[params.field][params.id]=', correctAnswers[params.field][params.id],
-                    //         '\nparams.id', params.id,
-                    //         '\nparams.field', params.field,
-                    //         '\nparams.headerName', params.headerName,
-                    //         '\nequals? ', params.getValue(params.id, params.field) === correctAnswers[params.field][params.id]
-                    //     )
-                    if (params.getValue(params.id, params.field) === null || (this.state.exampleEnabled && params.id === 0) || (this.state.rowNumbersEnabled && params.field === this.state.headers[0][0])) {
-                        return 'default';
-                    }
-                    if( this.state.comparator(params.getValue(params.id, params.field), this.state.correctAnswers[params.field][params.id]) ){
-                        return 'correct'
-                    }
-                    else{
-                        return 'wrong'
-                    }
-                }}
-            />
-        </Box>
+            >
+                <DataGrid
+                    columns={generateColumns(this.state.headers)}
+                    rows={generateRows(this.state.rowsNum, this.state.headers, this.state.example, this.state.exampleEnabled, this.state.rowNumbersEnabled)}
+                    isCellEditable={(params) => !this.state.exampleEnabled || params.row.id !== 0}
+                    disableColumnMenu={true}
+                    hideFooter={true}
+                    autoHeight={true}
+                    getCellClassName={(params) => {
+                        //     console.log(
+                        //         '\nparams.getValue(params.id, params.field)=', params.getValue(params.id, params.field),
+                        //         '\ncorrectAnswers[params.field][params.id]=', correctAnswers[params.field][params.id],
+                        //         '\nparams.id', params.id,
+                        //         '\nparams.field', params.field,
+                        //         '\nparams.headerName', params.headerName,
+                        //         '\nequals? ', params.getValue(params.id, params.field) === correctAnswers[params.field][params.id]
+                        //     )
+                        if (params.getValue(params.id, params.field) === null || (this.state.exampleEnabled && params.id === 0) || (this.state.rowNumbersEnabled && params.field === this.state.headers[0][0])) {
+                            return 'default';
+                        }
+                        if (this.state.comparator(params.getValue(params.id, params.field), this.state.correctAnswers[params.field][params.id])) {
+                            return 'correct'
+                        }
+                        else {
+                            return 'wrong'
+                        }
+                    }}
+                />
+            </Box>
         )
     }
 }

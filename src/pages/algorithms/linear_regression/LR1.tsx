@@ -7,7 +7,7 @@ export default function LR1() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
-            activeStep={0}
+            currentStep={0}
             component={<Introduction1D />}
             previous="/algorithms/lr1"
             isPreviousDisabled={true}

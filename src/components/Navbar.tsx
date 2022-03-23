@@ -17,25 +17,40 @@ import i18next from "i18next";
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from "react-i18next";
 
-const pages = ['Algorithms'];
-const pages_links = { 'Algorithms': "/algorithms" };
+const pages: string[] = ['Algorithms'];
+const pages_links: {[id: string]: string;} = { 'Algorithms': "/algorithms" };
 const settings = [['he', 'עברית'], ['en', 'English']];
 
-const changeLang = (lan) => {
+const changeLang = (lan: string) => {
   console.log(lan)
   i18next.changeLanguage(lan);
   
 }
 
-export default function Navbar(props) {
+type ScrollToColorProps = {
+  nonTransparentBackgroundColor: string,
+  transparentBackgroundColor: string,
+  nonTransparentColor: string,
+  transparentColor: string,
+  nonTransparentTransition: string,
+  transparentTransition: string,
+  nonTransparentBoxShadow: string,
+  transparentBoxShadow: string,
+  padding: string,
+  children: any,
+}
+
+type appBarParametersProps = any
+
+export default function Navbar(props: { scrollToColorParameters: any, appBarParameters: any}) {
   const [t] = useTranslation('translation');
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Functionalities from './utils/Functionalities';
 import HeroSection from './utils/HeroSection';
 import Footer from 'components/Footer';
-import Navbar from 'components/Navbar.tsx';
+import Navbar from 'components/Navbar';
 import PrettyLine from 'components/PrettyLine';
 
 function Home() {

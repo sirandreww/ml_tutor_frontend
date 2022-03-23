@@ -7,7 +7,7 @@ import Plotly from 'plotly.js-gl3d-dist-min';
 
 const math = create(all, {})
 
-function getData2D(f) {
+function getData2D(f: string) {
     var data = {
         x: [],
         y: [],
