@@ -169,14 +169,14 @@ export default function GradientDescent1D(props) {
     }
 
     const [myfun, setFun] = React.useState('x^2')
-    const [alpha, setAlpha] = React.useState(1)
-    const [startX, setStartX] = React.useState('0')
+    const [alpha, setAlpha] = React.useState(0.1)
+    const [startX, setStartX] = React.useState('-1')
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
 
     const handleStates = (
         { fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count } =
-            { fn: 'x^2', al: 1, sx: 0, tck: false, cnt: 0 }) => {
+            { fn: 'x^2', al: 0.1, sx: -1, tck: false, cnt: 0 }) => {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)

@@ -254,8 +254,8 @@ export default function GradientDescent2D(props) {
     }
 
     const [myfun, setFun] = React.useState('x^2')
-    const [alpha, setAlpha] = React.useState(1)
-    const [startX, setStartX] = React.useState('0')
+    const [alpha, setAlpha] = React.useState(0.05)
+    const [startX, setStartX] = React.useState('-10')
     const [startY, setStartY] = React.useState('0')
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
@@ -264,7 +264,7 @@ export default function GradientDescent2D(props) {
 
     const handleStates = (
         { fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw } =
-            { fn: 'x^2', al: 1, sx: 0, sy: 0, tck: false, cnt: 0, d2D: { x: [], y: [], z: [] }, dr: false }) => {
+            { fn: 'x^2', al: 0.05, sx: -10, sy: 0, tck: false, cnt: 0, d2D: { x: [], y: [], z: [] }, dr: false }) => {
         setFun(fn)
         setStartX(sx)
         setStartY(sy)
