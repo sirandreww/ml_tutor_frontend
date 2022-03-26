@@ -136,6 +136,8 @@ export default function Navbar(props: { scrollToColorParameters: any, appBarPara
                     key={page}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "inherit", display: 'block' }}
+                    variant="contained"
+                    color="success"
                   >
                     {t("algorithms.algos")}
                   </Button>
