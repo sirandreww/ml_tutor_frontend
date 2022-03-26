@@ -1,5 +1,4 @@
 // ------------------------ IMPORTS ------------------------  
-import React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import GradientDescent2D from "pages/algorithms/gradient_descent/slides/GradientDescent2D";
 import { Typography, Box } from '@mui/material';

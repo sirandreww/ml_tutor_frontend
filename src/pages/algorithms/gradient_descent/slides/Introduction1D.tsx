@@ -1,69 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import functionPlot from "function-plot";
 import Typography from '@mui/material/Typography';
-import { getDev, math } from 'pages/algorithms/gradient_descent/helper';
+import { getPoints1D, getGraph1D } from 'pages/algorithms/gradient_descent/helper';
 import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 
-
-function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
-    var df = getDev(f, 'x')
-    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
-
-    startX = Number(startX)
-    steps_count = Number(steps_count)
-    alpha = Number(alpha)
-
-
-    var prev = startX
-    for (let i = 0; i < steps_count; i++) {
-        // console.log("i=", i)
-        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
-        // console.log("alpha*df = ", tmp) 
-        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
-        // console.log("next = ", next)
-        points.push([next, math.evaluate(f, { 'x': next })])
-        prev = next
-    }
-
-    // console.log('points=', points)
-    return points
-}
-
-function getGraph1D(f: string, points: number[][]) {
-    var width = 800;
-    var height = 500;
-    // console.log("points= \n", points)
-    // console.log("f= \n", f)
-
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
-        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
-        title: f,
-        grid: true,
-        disableZoom: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
-                },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: 'polyline',
-            }
-        ]
-    });
-}
 
 export default function Introduction1D() {
     const [count, setCount] = React.useState(0)

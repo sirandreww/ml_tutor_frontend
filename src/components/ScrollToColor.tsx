@@ -5,6 +5,8 @@ const ScrollHandler = (props: any) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
+    // Andrew Please check this
+    // @ts-ignore
     target: props.window ? window() : undefined
   });
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { Button, IconButton, Tooltip } from '@mui/material';
@@ -10,6 +9,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import i18next from "i18next";
 
+
+type eventHandler = { eventHandler: any }
 
 export const languageAlign = () => {
     const lang = i18next.language
@@ -31,7 +32,7 @@ export const languageReversedDirection = () => {
     return (lang === 'en') ? 'ltr' : 'rtl'
 }
 
-export const button = ({eventHandler, type}) => {
+export const button = ({eventHandler, type}: { eventHandler: any, type: string }) => {
     switch(type) {
         case 'play': return playButton({eventHandler})
         case 'pause': return pauseButton({eventHandler})
@@ -43,69 +44,69 @@ export const button = ({eventHandler, type}) => {
     }
 }
 
-function playButton({eventHandler}) {
+function playButton(handler: eventHandler) {
     return(
         <Tooltip title="Play" arrow>
-            <IconButton aria-label="delete" size="large" color="success" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
                 <PlayArrowIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function pauseButton({eventHandler}) {
+function pauseButton(handler: eventHandler) {
     return(
         <Tooltip title="Pause" arrow>
-            <IconButton aria-label="delete" size="large" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" onClick={handler.eventHandler}>
                 <PauseIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function stopButton({eventHandler}) {
+function stopButton(handler: eventHandler) {
     return(
         <Tooltip title="Clear" arrow>
-            <IconButton aria-label="delete" size="large" color="error" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
                 <ClearIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function prevButton({eventHandler}) {
+function prevButton(handler: eventHandler) {
     return(
         <Tooltip title="Previous" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <ArrowBackIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function nextButton({eventHandler}) {
+function nextButton(handler: eventHandler) {
     return(
         <Tooltip title="Next" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <ArrowForwardIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function brushButton({eventHandler}) {
+function brushButton(handler: eventHandler) {
     return(
         <Tooltip title="Draw" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={eventHandler}>
+            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <BrushIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )
 }
 
-function defaultButton({eventHandler}) {
+function defaultButton(handler: eventHandler) {
     return(
-        <Button aria-label="delete" size="large" color="error" onClick={eventHandler}>
+        <Button aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
             default button - you may want to change it
         </Button>
     )

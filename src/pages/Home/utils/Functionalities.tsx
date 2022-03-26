@@ -1,4 +1,6 @@
-import React from 'react';
+// Andrew please check this
+// @ts-nocheck 
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';

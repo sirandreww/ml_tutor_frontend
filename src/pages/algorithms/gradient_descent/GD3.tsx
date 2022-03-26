@@ -1,5 +1,4 @@
 // ------------------------ IMPORTS ------------------------  
-import React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import { Box, Typography } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'pages/algorithms/dashboard/utils';

@@ -1,7 +1,7 @@
 
 
 
-const lr_steps = [
+export const lr_steps = [
     "1d_int",
     "1d_vis",
     "1d_sbs",

@@ -1,21 +1,28 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import { create, all } from 'mathjs';
+// Andrew Please check this
+// @ts-ignore
 import Plotly from 'plotly.js-gl3d-dist-min';
 
 // ------------------------ CODE ------------------------    
 
 const math = create(all, {})
+type Data = {
+    x: any[],
+    y: any[],
+    z: any[],
+}
 
 function getData2D(f: string) {
-    var data = {
+    var data: Data = {
         x: [],
         y: [],
         z: []
     }
 
     for (let y = -10; y < 11; y += 1)  {
-        var new_y = [[], []]
+        var new_y: Array<Array<any>> = [[], []]
         for (let x = -10; x < 11; x += 1)  {
             new_y[0].push(math.evaluate(f, {'x': x, 'y': y}))
             new_y[1].push(x)
@@ -28,7 +35,7 @@ function getData2D(f: string) {
     return data
 }
 
-function getGraph2D(data){
+function getGraph2D(data: Data){
     // console.log('getGraph2D - \n')
     // console.log('data = ', data, '\n')
     // console.log('points = ', points, '\n')

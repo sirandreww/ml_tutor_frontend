@@ -1,5 +1,4 @@
 // ------------------------ IMPORTS ------------------------  
-import React from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -18,10 +17,12 @@ export default function AlgorithmStepper(props: Props) {
 
     return (
         <Stepper activeStep={props.currentStep}>
-            {props.stepNames.map((label, index) => {
+            {props.stepNames.map((label) => {
                 const stepProps = {};
                 const labelProps = {};
                 if (props.isStepSkipped) {
+                    // Andrew Please check this
+                    // @ts-ignore
                     stepProps.completed = false;
                 }
                 return (

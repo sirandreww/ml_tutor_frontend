@@ -1,5 +1,5 @@
 // import React from "react";
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import "App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -61,7 +61,7 @@ function App() {
           <Suspense fallback={<LoadingScreen />}>
             <ScrollToTop />
             <Routes>
-              <Route path="/" exact element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/algorithms" element={<Algorithms />} />
               <Route path="/algorithms/gd1" element={<GD1 />} />
               <Route path="/algorithms/gd2" element={<GD2 />} />

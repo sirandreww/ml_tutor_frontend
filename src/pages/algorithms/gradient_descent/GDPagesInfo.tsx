@@ -1,7 +1,7 @@
 
 
 
-const gd_steps = [
+export const gd_steps = [
     "1d_int",
     "1d_vis",
     "1d_sbs",

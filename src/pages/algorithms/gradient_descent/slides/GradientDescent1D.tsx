@@ -1,79 +1,25 @@
+// Andrew Please check - Need to fix getAnswers1D & QuestionTable & some react componenets (Remove the 2 lines and see errors)
+// @ts-nocheck 
+
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import functionPlot from "function-plot";
 import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils'
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
-import { PrettoSlider, getDev, getExample, math, DIGITS } from 'pages/algorithms/gradient_descent/helper';
+import { PrettoSlider, getDev, getExample, math, DIGITS, getPoints1D, getGraph1D } from 'pages/algorithms/gradient_descent/helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {TextField} from "@mui/material";
 // --------------------------------------------------------
 
-export const HEADERS_1D = [
+export const HEADERS_1D: (string | number | JSX.Element)[][] = [
     ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
     ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
     ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax>, 1],
     ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha * \\frac{df}{dx}(x)\\)"}</MathJax>, 1],
     ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
 ]
-
-function getPoints1D(f, startX, steps_count, alpha) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
-    var df = getDev(f, 'x')
-    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
-
-    startX = Number(startX)
-    steps_count = Number(steps_count)
-    alpha = Number(alpha)
-
-
-    var prev = startX
-    for (let i = 0; i < steps_count; i++) {
-        // console.log("i=", i)
-        var tmp = math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })
-        // console.log("alpha*df = ", tmp) 
-        var next = math.evaluate('prev-tmp', { 'prev': prev, 'tmp': tmp })
-        // console.log("next = ", next)
-        points.push([next, math.evaluate(f, { 'x': next })])
-        prev = next
-    }
-
-    // console.log('points=', points)
-    return points
-}
-
-function getGraph1D(f, points) {
-    var width = 800;
-    var height = 500;
-    // console.log("points= \n", points)
-    // console.log("f= \n", f)
-
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
-        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
-        title: f,
-        grid: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
-                },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: 'polyline',
-            }
-        ]
-    });
-}
 
 function getAnswers1D(header, rows, f, startX, alpha) {
     try {
@@ -113,10 +59,16 @@ function getAnswers1D(header, rows, f, startX, alpha) {
     }
 }
 
-export default function GradientDescent1D(props) {
+type Props = {
+    alphaType: string, 
+    buttonsType: string, 
+    generateQuestionTable: boolean
+}
+
+export default function GradientDescent1D(props: Props) {
     const { alphaType, buttonsType, generateQuestionTable} = props
 
-    const getAlphaInput = (type) => {
+    const getAlphaInput = (type: string) => {
         switch(type){
             case 'slider':
                 return (
@@ -128,27 +80,27 @@ export default function GradientDescent1D(props) {
                             step={0.05}
                             min={0}
                             max={2}
-                            onChange={(event, value) => handleStates({ tck: false, dr: false, al: value })}
+                            onChange={(_, value) => handleStates({fn: myfun, al: Number(value), sx: startX, tck: false, cnt: count})}
                         />
                     </span>
                 );
             case 'input':
-                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ tck: false, cnt: 0, al: event.target.value })} />
+                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0})} />
             default:
                 return null
         }
     }
 
-    const getButtonsInput = (type) => {
+    const getButtonsInput = (type: string) => {
         switch(type){
             case 'playGround':
             case 'hyperParameter': 
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ tck: false }), type: 'pause' })}
-                            {button({ eventHandler: () => handleStates({ tck: true }), type: 'play' })}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0}), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: count}), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: true, cnt: count }), type: 'play' })}
                             <p>{count}</p>
                         </Box>
                     </CenterItem>
@@ -157,9 +109,9 @@ export default function GradientDescent1D(props) {
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({ tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
-                            {button({ eventHandler: () => handleStates({ tck: false, cnt: 0 }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ tck: false, cnt: count + 1 }), type: 'next' })}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev'})}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0}), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: count + 1}), type: 'next' })}
                         </Box>
                     </CenterItem>
                 );
@@ -170,13 +122,11 @@ export default function GradientDescent1D(props) {
 
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(0.1)
-    const [startX, setStartX] = React.useState('-1')
+    const [startX, setStartX] = React.useState(-1)
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
 
-    const handleStates = (
-        { fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count } =
-            { fn: 'x^2', al: 0.1, sx: -1, tck: false, cnt: 0 }) => {
+    const handleStates = ({ fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count }: {fn: string, al: number, sx: number, tck: boolean, cnt: number }) => {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)
@@ -202,6 +152,7 @@ export default function GradientDescent1D(props) {
         }
         catch (e) {
             console.log("error at useEffect => \n", e)
+            return
         }
     });
 
