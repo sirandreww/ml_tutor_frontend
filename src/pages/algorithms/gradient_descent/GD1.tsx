@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import Introduction1D from 'pages/algorithms/gradient_descent/slides/Introduction1D';
+import Introduction1D from 'components/GradientDescentIntroduction1D';
 
 export default function GD1() {
     return (

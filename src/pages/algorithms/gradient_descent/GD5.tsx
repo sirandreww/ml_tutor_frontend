@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import Introduction2D from 'pages/algorithms/gradient_descent/slides/Introduction2D';
+import Introduction2D from 'components/GradientDescentIntroduction2D';
 
 export default function GD5() {
     return (

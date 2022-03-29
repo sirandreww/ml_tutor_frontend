@@ -4,7 +4,7 @@ import { Suspense, lazy } from "react";
 import "App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "components/ScrollToTop";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";

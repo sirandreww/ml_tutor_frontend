@@ -64,7 +64,7 @@ type Props = {
     generateQuestionTable: boolean
 }
 
-export default function GradientDescent1D(props: Props) {
+export default function GradientDescentGenericPage1D(props: Props) {
     const { alphaType, buttonsType, generateQuestionTable} = props
 
     const getAlphaInput = (type: string) => {

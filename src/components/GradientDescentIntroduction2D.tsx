@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { getPoints2D, getGraph2D, getData2D } from '../helper';
+import { getPoints2D, getGraph2D, getData2D } from 'components/GradientDescentHelper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import {useTranslation} from "react-i18next";
@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 const fun = 'x^2 + y^2';
 const data = getData2D(fun)
 
-export default function Introduction2D() {
+export default function GradientDescentIntroduction2D() {
     const [count, setCount] = React.useState(0)
 
     React.useEffect(() => {

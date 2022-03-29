@@ -7,7 +7,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 
 
-export default function Introduction1D() {
+export default function GradientDescentIntroduction1D() {
     const [count, setCount] = React.useState(0)
 
     React.useEffect(() => {

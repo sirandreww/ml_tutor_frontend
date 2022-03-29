@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
-import { getDev, getExample, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from '../helper';
+import { getDev, getExample, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from 'components/GradientDescentHelper';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { TextField } from "@mui/material";
@@ -68,7 +68,7 @@ type Props = {
     generateQuestionTable: boolean
 }
 
-export default function GradientDescent2D(props: Props) {
+export default function GradientDescentGenericPage2D(props: Props) {
     const { alphaType, buttonsType, generateQuestionTable} = props
 
     const getAlphaInput = (type: string) => {
