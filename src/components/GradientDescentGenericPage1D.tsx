@@ -5,56 +5,11 @@ import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
-import { PrettoSlider, getDev, getExample, math, DIGITS, getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
+import { PrettoSlider, getDev, getCorrectAnswers, getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {TextField} from "@mui/material";
+import { getOneDimensionalColumnNames } from 'components/QuestionTableDefinitions';
 // --------------------------------------------------------
-
-export const HEADERS_1D: (string | number | JSX.Element)[][] = [
-    ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
-    ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
-    ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax>, 1],
-    ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha * \\frac{df}{dx}(x)\\)"}</MathJax>, 1],
-    ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
-]
-
-function getAnswers1D(header, rows, f, startX, alpha) {
-    try {
-        let keys = header.map((ele) => ele[0]);
-        let res = {}
-        keys.forEach(key => res[key] = [])
-
-        var df = getDev(f, 'x')
-        startX = Number(startX)
-        alpha = Number(alpha)
-
-        var prev = startX
-        for (let i = 0; i < rows; i++) {
-            var ans = {
-                step: i,
-                x: prev,
-                dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
-                tmpX: null,
-                newX: null,
-            }
-            ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
-            ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
-
-            for (const [key, value] of Object.entries(ans)) {
-                res[key].push(value)
-            }
-
-            prev = ans.newX
-
-        }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-
-        return res
-    }
-    catch (e) {
-        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
-    }
-}
 
 type Props = {
     alphaType: string, 
@@ -123,7 +78,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
 
-    const handleStates = ({ fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count }: {fn: string, al: number, sx: number, tck: boolean, cnt: number }) => {
+    function handleStates({fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count}) {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)
@@ -160,14 +115,16 @@ export default function GradientDescentGenericPage1D(props: Props) {
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
                             <LeftItem>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center" justify="center">
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
                                         <Typography style={{ color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={myfun} onChange={event => handleStates({ tck: false, cnt: 0, fn: event.target.value })} />
+                                        <TextField autoFocus fullWidth value={myfun} onChange={
+                                            event => handleStates({fn:event.target.value, al:alpha, sx:startX, tck:false, cnt:0})
+                                            } />
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -183,7 +140,9 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={startX} onChange={event => handleStates({ tck: false, cnt: 0, sx: event.target.value })} />
+                                        <TextField autoFocus fullWidth value={startX} onChange={
+                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value) , tck: false, cnt: 0})
+                                            } />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -191,14 +150,14 @@ export default function GradientDescentGenericPage1D(props: Props) {
 
                         <Grid item xs={12}>
                             <LeftItem>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}  alignItems="center" justify="center">
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}  alignItems="center">
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth readOnly={true} value={getDev(myfun, 'x')} />
+                                        <TextField autoFocus fullWidth InputProps={{readOnly: true,}} value={getDev(myfun, 'x')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -209,13 +168,11 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                 <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
                                     {generateQuestionTable ? (<QuestionTable
                                         rowsNum = {5}
-                                        headers = {HEADERS_1D}
+                                        headers = {getOneDimensionalColumnNames()}
                                         exampleEnabled = {true}
-                                        rowNumbersEnabled = {true}
-                                        example = {getExample(myfun, [{ 'v': 'x', 'val': startX }], alpha)}
-                                        correctAnswers = {getAnswers1D(HEADERS_1D, 6, myfun, startX, alpha)}
+                                        correctAnswers = {getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}
                                         comparator = {(res, ans) => Number(ans) === Number(res)}
-                                    />) : null
+                                    />) : <div></div>
                                     }
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
                                 </Box>

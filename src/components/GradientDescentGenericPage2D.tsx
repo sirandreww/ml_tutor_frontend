@@ -5,71 +5,24 @@ import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
-import { getDev, getExample, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from 'components/GradientDescentHelper';
+import { getDev, getCorrectAnswers, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from 'components/GradientDescentHelper';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { TextField } from "@mui/material";
+import { getTwoDimensionalColumnNames } from 'components/QuestionTableDefinitions';
 // --------------------------------------------------------
 
-function getAnswers2D(header: [string, JSX.Element, number][], rows: number, f:string, startX:number, startY:number, alpha:number): {[id: string]: string[]} {
-    try {
-        let keys = header.map((ele) => ele[0]);
-        let res = {}
-        keys.forEach(key => res[key] = [])
-
-        var dfx = getDev(f, 'x')
-        var dfy = getDev(f, 'y')
-        alpha = Number(alpha)
-
-        var prevX = startX
-        var prevY = startY
-
-        for (let i = 0; i < rows; i++) {
-            var ans = {
-                step: i,
-                x: prevX,
-                y: prevY,
-                dx: Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })),
-                dy: Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })),
-                tmpX: 0,
-                tmpY: 0,
-                newX: 0,
-                newY: 0,
-            }
-            ans.tmpX = Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY }))
-            ans.newX = Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX }))
-            ans.tmpY = Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY }))
-            ans.newY = Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY }))
-
-            for (const [key, value] of Object.entries(ans)) {
-                res[key].push(value)
-            }
-
-            prevX = ans.newX
-            prevY = ans.newY
-
-        }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-        // console.log('res=', res)
-        return res
-    }
-    catch (e) {
-        console.log('error at getAnswers2D(header, rows, f, startX, startY, alpha) => \n', e)
-    }
-
-}
-
 type Props = {
-    alphaType: string, 
-    buttonsType: string, 
+    alphaType: string,
+    buttonsType: string,
     generateQuestionTable: boolean
 }
 
 export default function GradientDescentGenericPage2D(props: Props) {
-    const { alphaType, buttonsType, generateQuestionTable} = props
+    const { alphaType, buttonsType, generateQuestionTable } = props
 
     const getAlphaInput = (type: string) => {
-        switch(type){
+        switch (type) {
             case 'slider':
                 return (
                     <span>
@@ -80,27 +33,27 @@ export default function GradientDescentGenericPage2D(props: Props) {
                             step={0.05}
                             min={0}
                             max={2}
-                            onChange={(_, value) => handleStates({ fn: myfun, al:  Number(value), sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: false })}
+                            onChange={(_, value) => handleStates({ fn: myfun, al: Number(value), sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: false })}
                         />
                     </span>
                 );
             case 'input':
-                return  <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
+                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
             default:
                 return null
         }
     }
 
     const getButtonsInput = (type: string) => {
-        switch(type){
+        switch (type) {
             case 'playGround':
-            case 'hyperParameter': 
+            case 'hyperParameter':
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                             {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: ticking, cnt: count, d2D: data2D, dr: true }), type: 'brush' })}
                             {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: true }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: draw}), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: draw }), type: 'pause' })}
                             {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: true, cnt: count, d2D: data2D, dr: true }), type: 'play' })}
                             <p>{count}</p>
                         </Box>
@@ -131,9 +84,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
     const [data2D, setData2D] = React.useState({ x: new Array<Array<Number>>(), y: new Array<Number>(), z: new Array<Array<Number>>() })
     const [draw, setDraw] = React.useState(false)
 
-    const handleStates = (
-        { fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw  }: 
-        {fn: string, al: number, sx: number, sy: number, tck: boolean, cnt: number, d2D: XYZdata, dr: boolean }) => {
+    function handleStates({fn= myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw}) {
         setFun(fn)
         setStartX(sx)
         setStartY(sy)
@@ -179,7 +130,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
                             <LeftItem>
-                                <Grid  container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center" justify="center">
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(f(x, y)\\)"}</MathJax>
@@ -194,7 +145,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        { getAlphaInput(alphaType) }
+                                        {getAlphaInput(alphaType)}
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -202,7 +153,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: event.target.value })} />
+                                        <TextField autoFocus fullWidth value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value) })} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -210,7 +161,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: event.target.value })} />
+                                        <TextField autoFocus fullWidth value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value) })} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -226,7 +177,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth readOnly={true} value={getDev(myfun, 'x')} />
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
 
                                     <Grid item xs={2}>
@@ -235,7 +186,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth readOnly={true} value={getDev(myfun, 'y')} />
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -243,20 +194,18 @@ export default function GradientDescentGenericPage2D(props: Props) {
 
                         <Grid item xs={12}>
                             <CenterItem>
-                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
-                                    { generateQuestionTable ? <QuestionTable
-                                        rowsNum = {5}
-                                        headers = {HEADERS_2D}
-                                        rowNumbersEnabled = {true}
-                                        exampleEnabled = {true}
-                                        example = {getExample(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha)}
-                                        correctAnswers = {getAnswers2D(HEADERS_2D, 6, myfun, startX, startY, alpha)}
-                                        comparator = {(res, ans) => Number(ans) === Number(res)}
-                                    /> : null }
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board'/>
+                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                    {generateQuestionTable ? <QuestionTable
+                                        rowsNum={5}
+                                        headers={getTwoDimensionalColumnNames()}
+                                        exampleEnabled={true}
+                                        correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha, 5)}
+                                        comparator={(res, ans) => Number(ans) === Number(res)}
+                                    /> : <div></div>}
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board' />
                                 </Box>
                             </CenterItem>
-                            { getButtonsInput(buttonsType) }
+                            {getButtonsInput(buttonsType)}
                         </Grid>
                     </Grid>
                 </MathJaxContext>

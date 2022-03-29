@@ -2,6 +2,7 @@ import { create, all } from 'mathjs';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import functionPlot from "function-plot";
+// @ts-ignore
 import Plotly from 'plotly.js-gl3d-dist-min';
 
 export type XYZ = {
@@ -69,7 +70,7 @@ export function getDev(f: string, v: string) {
 }
 
 
-export function getExample(f: string, vars: { 'v': string, 'val': number }[], alpha: number) {
+export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number }[], alpha: number, depth: number, ): {[id: string]: string[]} {
     try {
         alpha = Number(alpha)
         var prevs: { [id: string] : number; } = {}
@@ -274,5 +275,43 @@ export function getGraph2D(data: XYZdata, points: XYZ) {
     catch (e) {
         console.log('error at getGraph2D(data, points) => \n', e)
         return
+    }
+}
+
+function getAnswers1D(header, rows, f, startX, alpha) {
+    try {
+        let keys = header.map((ele) => ele[0]);
+        let res = {}
+        keys.forEach(key => res[key] = [])
+
+        var df = getDev(f, 'x')
+        startX = Number(startX)
+        alpha = Number(alpha)
+
+        var prev = startX
+        for (let i = 0; i < rows; i++) {
+            var ans = {
+                step: i,
+                x: prev,
+                dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
+                tmpX: null,
+                newX: null,
+            }
+            ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
+            ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
+
+            for (const [key, value] of Object.entries(ans)) {
+                res[key].push(value)
+            }
+
+            prev = ans.newX
+
+        }
+        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
+
+        return res
+    }
+    catch (e) {
+        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
     }
 }

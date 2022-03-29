@@ -2,26 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
-import { getTwoDimensionsColumnNames } from './QuestionTableDefinitions';
-
-
-
-
-
-const example_rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-
-
-
 // function generateColumns(formater: [string, JSX.Element, number][]): GridColDef[] {
 //     var columns: GridColDef[] = [];
 //     for (let col = 0; col < formater.length; col++) {
@@ -81,11 +61,9 @@ function generateRows(num: number, headers: [string, JSX.Element, number][], exa
 
 type QuestionTableProps = {
     rowsNum: number,
-    headers: [string, JSX.Element, number][],
-    rowNumbersEnabled: boolean,
+    headers: GridColDef[],
     exampleEnabled: boolean,
-    example: { [Key: string]: string[] },
-    correctAnswers: { [Key: string]: string[] },
+    correctAnswers: {[id: string]: string[]},
     comparator: (a: string, b: string) => boolean,
 };
 
@@ -121,7 +99,7 @@ export default function QuestionTable(props: QuestionTableProps) {
         }}
         >
             <DataGrid
-                columns={getTwoDimensionsColumnNames()}
+                columns={props.headers}
                 rows={generateRows(props.rowsNum, props.headers, props.example, props.exampleEnabled, props.rowNumbersEnabled)}
                 isCellEditable={(params) => !props.exampleEnabled || params.row.id !== 0}
                 disableColumnMenu={true}
