@@ -1,5 +1,3 @@
-// Andrew Please check - Need to fix getAnswers1D & QuestionTable & some react componenets (Remove the 2 lines and see errors)
-
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import Box from '@mui/material/Box';

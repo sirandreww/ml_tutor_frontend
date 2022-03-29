@@ -1,7 +1,6 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import { create, all } from 'mathjs';
-// Andrew Please check this
 // @ts-ignore
 import Plotly from 'plotly.js-gl3d-dist-min';
 

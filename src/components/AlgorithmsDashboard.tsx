@@ -5,7 +5,7 @@ import Footer from 'components/Footer';
 import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import AlgorithmStepper from 'components/AlgorithmsDashboard';
+import AlgorithmStepper from 'components/AlgorithmStepper';
 
 const gd_steps: string[] = [
   "1d_int",

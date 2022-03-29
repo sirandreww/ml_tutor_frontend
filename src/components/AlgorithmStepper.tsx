@@ -22,7 +22,6 @@ export default function AlgorithmStepper(props: Props) {
                 const stepProps = {};
                 const labelProps = {};
                 if (props.isStepSkipped) {
-                    // Andrew Please check this
                     // @ts-ignore
                     stepProps.completed = false;
                 }
