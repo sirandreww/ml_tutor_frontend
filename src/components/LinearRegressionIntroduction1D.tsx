@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import functionPlot from "function-plot";
 import Typography from '@mui/material/Typography';
-import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
+import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 function getGraph1D(f: string, points: number[][]) {

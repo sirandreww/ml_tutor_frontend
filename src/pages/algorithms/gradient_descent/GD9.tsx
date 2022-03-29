@@ -1,9 +1,9 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
-import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
+import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
-import { languageAlign, languageDirection } from "../dashboard/utils";
+import { languageAlign, languageDirection } from 'components/LanguageAndButtonUtility';
 
 
 export default function GD9() {

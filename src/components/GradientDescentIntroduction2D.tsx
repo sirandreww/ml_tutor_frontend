@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { getPoints2D, getGraph2D, getData2D } from '../helper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
+import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import {useTranslation} from "react-i18next";
 
 const fun = 'x^2 + y^2';

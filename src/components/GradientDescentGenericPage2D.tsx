@@ -1,32 +1,20 @@
 // Andrew Please check - Need to fix getAnswers1D & QuestionTable & some react componenets (Remove the 2 lines and see errors)
-// @ts-nocheck 
+
 
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { button, LeftItem, CenterItem } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
-import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
+import QuestionTable from 'components/QuestionTable';
 import { getDev, getExample, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from '../helper';
-import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
+import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { TextField } from "@mui/material";
 // --------------------------------------------------------
 
-export const HEADERS_2D: (string | number | JSX.Element)[][] = [
-    ['step', <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>, 1],
-    ['x', <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>, 1],
-    ['y', <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax>, 1],
-    ['dx', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>, 1],
-    ['dy', <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax>, 1],
-    ['tmpX', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dx}\\)"}</MathJax>, 2],
-    ['tmpY', <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dy}\\)"}</MathJax>, 2],
-    ['newX', <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>, 1],
-    ['newY', <MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax>, 1],
-]
-
-function getAnswers2D(header, rows, f, startX, startY, alpha) {
+function getAnswers2D(header: [string, JSX.Element, number][], rows: number, f:string, startX:number, startY:number, alpha:number): {[id: string]: string[]} {
     try {
         let keys = header.map((ele) => ele[0]);
         let res = {}
@@ -34,8 +22,6 @@ function getAnswers2D(header, rows, f, startX, startY, alpha) {
 
         var dfx = getDev(f, 'x')
         var dfy = getDev(f, 'y')
-        startX = Number(startX).toFixed(DIGITS)
-        startY = Number(startY).toFixed(DIGITS)
         alpha = Number(alpha)
 
         var prevX = startX
@@ -46,17 +32,17 @@ function getAnswers2D(header, rows, f, startX, startY, alpha) {
                 step: i,
                 x: prevX,
                 y: prevY,
-                dx: Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-                dy: Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })).toFixed(DIGITS),
-                tmpX: null,
-                tmpY: null,
-                newX: null,
-                newY: null,
+                dx: Number(math.evaluate(dfx, { 'x': prevX, 'y': prevY })),
+                dy: Number(math.evaluate(dfy, { 'x': prevX, 'y': prevY })),
+                tmpX: 0,
+                tmpY: 0,
+                newX: 0,
+                newY: 0,
             }
-            ans.tmpX = Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newX = Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX })).toFixed(DIGITS)
-            ans.tmpY = Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })).toFixed(DIGITS)
-            ans.newY = Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY })).toFixed(DIGITS)
+            ans.tmpX = Number(math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY }))
+            ans.newX = Number(math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': ans.tmpX }))
+            ans.tmpY = Number(math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY }))
+            ans.newY = Number(math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': ans.tmpY }))
 
             for (const [key, value] of Object.entries(ans)) {
                 res[key].push(value)

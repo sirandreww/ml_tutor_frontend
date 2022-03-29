@@ -1,8 +1,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { getPoints1D, getGraph1D } from 'pages/algorithms/gradient_descent/helper';
-import { mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils';
+import { getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
+import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 

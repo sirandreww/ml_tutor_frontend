@@ -1,9 +1,9 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
-import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
+import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { Box, Typography } from '@mui/material';
-import { languageAlign, languageDirection, LeftItem } from 'pages/algorithms/dashboard/utils';
-import GradientDescent1D from 'pages/algorithms/gradient_descent/slides/GradientDescent1D';
+import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
+import GradientDescent1D from 'components/GradientDescentGenericPage1D';
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 

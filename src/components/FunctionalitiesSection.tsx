@@ -1,6 +1,5 @@
 // Andrew please check this
-// @ts-nocheck 
-
+import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -22,7 +21,7 @@ const item = {
     px: 5,
 };
 
-function ProductValues() {
+function FunctionalitiesSection() {
     const text_color = '#3c4e76';
     const [t] = useTranslation('translation');
     return (
@@ -113,4 +112,4 @@ function ProductValues() {
     );
 }
 
-export default ProductValues;
+export default FunctionalitiesSection;

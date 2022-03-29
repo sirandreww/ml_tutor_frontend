@@ -1,6 +1,6 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
-import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
+import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import Introduction2D from 'pages/algorithms/gradient_descent/slides/Introduction2D';
 
 export default function GD5() {

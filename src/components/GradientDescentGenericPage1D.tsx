@@ -1,14 +1,13 @@
 // Andrew Please check - Need to fix getAnswers1D & QuestionTable & some react componenets (Remove the 2 lines and see errors)
-// @ts-nocheck 
 
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'pages/algorithms/dashboard/utils'
+import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
-import QuestionTable from 'pages/algorithms/dashboard/QuestionTable';
-import { PrettoSlider, getDev, getExample, math, DIGITS, getPoints1D, getGraph1D } from 'pages/algorithms/gradient_descent/helper';
+import QuestionTable from 'components/QuestionTable';
+import { PrettoSlider, getDev, getExample, math, DIGITS, getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {TextField} from "@mui/material";
 // --------------------------------------------------------

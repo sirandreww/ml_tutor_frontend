@@ -1,4 +1,3 @@
-// @ts-nocheck 
 import { create, all } from 'mathjs';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
