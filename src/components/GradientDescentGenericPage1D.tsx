@@ -7,21 +7,21 @@ import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
 import { PrettoSlider, getDev, getCorrectAnswers, getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import { getOneDimensionalColumnNames } from 'components/QuestionTableDefinitions';
 // --------------------------------------------------------
 
 type Props = {
-    alphaType: string, 
-    buttonsType: string, 
+    alphaType: string,
+    buttonsType: string,
     generateQuestionTable: boolean
 }
 
 export default function GradientDescentGenericPage1D(props: Props) {
-    const { alphaType, buttonsType, generateQuestionTable} = props
+    const { alphaType, buttonsType, generateQuestionTable } = props
 
     const getAlphaInput = (type: string) => {
-        switch(type){
+        switch (type) {
             case 'slider':
                 return (
                     <span>
@@ -32,27 +32,27 @@ export default function GradientDescentGenericPage1D(props: Props) {
                             step={0.05}
                             min={0}
                             max={2}
-                            onChange={(_, value) => handleStates({fn: myfun, al: Number(value), sx: startX, tck: false, cnt: count})}
+                            onChange={(_, value) => handleStates({ fn: myfun, al: Number(value), sx: startX, tck: false, cnt: count })}
                         />
                     </span>
                 );
             case 'input':
-                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0})} />
+                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0 })} />
             default:
                 return null
         }
     }
 
     const getButtonsInput = (type: string) => {
-        switch(type){
+        switch (type) {
             case 'playGround':
-            case 'hyperParameter': 
+            case 'hyperParameter':
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0}), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: count}), type: 'pause' })}
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: true, cnt: count }), type: 'play' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: count }), type: 'pause' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: true, cnt: count }), type: 'play' })}
                             <p>{count}</p>
                         </Box>
                     </CenterItem>
@@ -61,9 +61,9 @@ export default function GradientDescentGenericPage1D(props: Props) {
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev'})}
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0}), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({fn: myfun, al: alpha, sx: startX, tck: false, cnt: count + 1}), type: 'next' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: (count <= 0) ? 0 : count - 1 }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0 }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: count + 1 }), type: 'next' })}
                         </Box>
                     </CenterItem>
                 );
@@ -78,7 +78,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
 
-    function handleStates({fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count}) {
+    function handleStates({ fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count }) {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)
@@ -87,25 +87,14 @@ export default function GradientDescentGenericPage1D(props: Props) {
     }
 
     React.useEffect(() => {
-        try {
-            let points = getPoints1D(myfun, startX, count, alpha)
-            getGraph1D(myfun, points)
-        }
-        catch (e) {
-            console.log("error at useEffect on parameters changes => \n", e)
-        }
+        let points = getPoints1D(myfun, startX, count, alpha)
+        getGraph1D(myfun, points)
     }, [myfun, alpha, startX, count]);
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
-        try {
-            const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
-            return () => clearTimeout(timer)
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-            return
-        }
+        const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
+        return () => clearTimeout(timer)
     });
 
     return (
@@ -123,8 +112,8 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                     </Grid>
                                     <Grid item xs={11}>
                                         <TextField autoFocus fullWidth value={myfun} onChange={
-                                            event => handleStates({fn:event.target.value, al:alpha, sx:startX, tck:false, cnt:0})
-                                            } />
+                                            event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0 })
+                                        } />
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -132,7 +121,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        { getAlphaInput(alphaType) }
+                                        {getAlphaInput(alphaType)}
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -141,8 +130,8 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                     </Grid>
                                     <Grid item xs={11}>
                                         <TextField autoFocus fullWidth value={startX} onChange={
-                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value) , tck: false, cnt: 0})
-                                            } />
+                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0 })
+                                        } />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -150,14 +139,14 @@ export default function GradientDescentGenericPage1D(props: Props) {
 
                         <Grid item xs={12}>
                             <LeftItem>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}  alignItems="center">
+                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth InputProps={{readOnly: true,}} value={getDev(myfun, 'x')} />
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -165,19 +154,19 @@ export default function GradientDescentGenericPage1D(props: Props) {
 
                         <Grid item xs={12}>
                             <CenterItem>
-                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                                     {generateQuestionTable ? (<QuestionTable
-                                        rowsNum = {5}
-                                        headers = {getOneDimensionalColumnNames()}
-                                        exampleEnabled = {true}
-                                        correctAnswers = {getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}
-                                        comparator = {(res, ans) => Number(ans) === Number(res)}
+                                        rowsNum={5}
+                                        headers={getOneDimensionalColumnNames()}
+                                        exampleEnabled={true}
+                                        correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}
+                                        comparator={(res, ans) => Number(ans) === Number(res)}
                                     />) : <div></div>
                                     }
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
                                 </Box>
                             </CenterItem>
-                            { getButtonsInput(buttonsType) }
+                            {getButtonsInput(buttonsType)}
                         </Grid>
                     </Grid>
                 </MathJaxContext>

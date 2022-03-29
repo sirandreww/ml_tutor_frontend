@@ -61,12 +61,7 @@ export default function Introduction1D() {
     let points = [[1,3],[2,4],[3,8],[4,9]];
     
     React.useEffect(() => {
-        try {
-            getGraph1D('2.2*x+0.5', points);
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-        }
+        getGraph1D('2.2*x+0.5', points);
     });
 
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

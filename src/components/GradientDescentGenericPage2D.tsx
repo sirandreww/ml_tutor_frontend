@@ -84,7 +84,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
     const [data2D, setData2D] = React.useState({ x: new Array<Array<Number>>(), y: new Array<Number>(), z: new Array<Array<Number>>() })
     const [draw, setDraw] = React.useState(false)
 
-    function handleStates({fn= myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw}) {
+    function handleStates({ fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw }) {
         setFun(fn)
         setStartX(sx)
         setStartY(sy)
@@ -99,28 +99,16 @@ export default function GradientDescentGenericPage2D(props: Props) {
     }
 
     React.useEffect(() => {
-        try {
-            if (draw) {
-                let points = getPoints2D(myfun, startX, startY, count, alpha);
-                getGraph2D(data2D, points);
-            }
-        }
-        catch (e) {
-            console.log("error at useEffect on parameters changes => \n", e)
+        if (draw) {
+            let points = getPoints2D(myfun, startX, startY, count, alpha);
+            getGraph2D(data2D, points);
         }
     }, [myfun, alpha, startX, startY, count, draw, data2D]);
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
-        try {
-            const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
-            return () => clearTimeout(timer)
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-            return
-        }
-
+        const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
+        return () => clearTimeout(timer)
     });
 
     return (

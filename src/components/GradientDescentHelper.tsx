@@ -60,21 +60,22 @@ export const PrettoSlider = styled(Slider)({
 });
 
 export function getDev(f: string, v: string) {
-    try {
-        return math.derivative(f, v).toString()
-    }
-    catch (e) {
-        console.log('error at getDev(f,v) => \n', e)
-        return 'error'
-    }
+    return math.derivative(f, v).toString()
 }
 
 
-export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number }[], alpha: number, depth: number, ): {[id: string]: string[]} {
-    try {
-        alpha = Number(alpha)
-        var prevs: { [id: string] : number; } = {}
-        vars.forEach(ele => prevs[ele.v] = Number(Number(ele.val).toFixed(DIGITS)))
+function getCorrectAnswersAux(f: string, vars: { 'v': string, 'val': number }[], alpha: number, maxDepth: number, currentDepth: number): { [id: string]: string }[] {
+    let isOneDimension = vars.length === 1;
+    // assert(isOneDimension || vars.length === 2);
+    if (currentDepth >= maxDepth) {
+        if (isOneDimension) {
+            return [];
+        } else {
+            return [];
+        }
+    } else {
+        var prevs: { [id: string]: number; } = {}
+        vars.forEach(ele => prevs[ele.v] = Number(ele.val))
 
         var vs: string[] = []
         var devs: string[] = []
@@ -94,13 +95,22 @@ export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number 
             tmps.push(tmp)
             nexts.push(next)
         }
-        // console.log('getExample=', ['', ...vs, ...devs, ...tmps, ...nexts])
-        return ['', ...vs, ...devs, ...tmps, ...nexts]
+        
+        if (isOneDimension) {
+            const recursive = getCorrectAnswersAux(f, [{ 'v': 'x', 'val': Number(nexts[0]) }], alpha, maxDepth, currentDepth + 1)
+            return [{ "step": currentDepth.toString(), "x": vs[0], "dx": devs[0], 'a*dx': tmps[0], "newX": nexts[0] }, ...recursive];
+        } else {
+            const recursive = getCorrectAnswersAux(f, [{ 'v': 'x', 'val': Number(nexts[0]) }, { 'v': 'y', 'val': Number(nexts[1]) }], alpha, maxDepth, currentDepth + 1)
+            return [{ "step": currentDepth.toString(), "x": vs[0], "y": vs[1], "dx": devs[0], "dy": devs[1], 'a*dx': tmps[0], 'a*dy': tmps[1], "newX": nexts[0], "newY": nexts[1] }, ...recursive];
+        }
     }
-    catch (e) {
-        console.log('error at getExample(f, vars, alpha) => \n', e)
-        return ["error", "error", "error"]
-    }
+
+    // console.log('getExample=', ['', ...vs, ...devs, ...tmps, ...nexts])
+
+}
+
+export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number }[], alpha: number, depth: number,): { [id: string]: string }[] {
+    return getCorrectAnswersAux(f, vars, alpha, depth, 0)
 }
 
 export function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
@@ -168,150 +178,93 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
         z: [math.evaluate(f, { 'x': startX, 'y': startY })]
     }
 
-    try {
-        var dfx = getDev(f, 'x')
-        var dfy = getDev(f, 'y')
+    var dfx = getDev(f, 'x')
+    var dfy = getDev(f, 'y')
 
-        console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
+    console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
 
-        for (let i = 0; i < steps_count; i++) {
-            console.log("i=", i)
+    for (let i = 0; i < steps_count; i++) {
+        console.log("i=", i)
 
-            var tmpX = math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
-            var tmpY = math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
-            var nextX = math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': tmpX })
-            var nextY = math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': tmpY })
-            var z = math.evaluate(f, { 'x': nextX, 'y': nextY })
+        var tmpX = math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
+        var tmpY = math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
+        var nextX = math.evaluate('prevX-tmpX', { 'prevX': prevX, 'tmpX': tmpX })
+        var nextY = math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': tmpY })
+        var z = math.evaluate(f, { 'x': nextX, 'y': nextY })
 
-            console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY )
-            points.x.push(nextX)
-            points.y.push(nextY)
-            points.z.push(z)
+        console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY)
+        points.x.push(nextX)
+        points.y.push(nextY)
+        points.z.push(z)
 
-            prevX = nextX
-            prevY = nextY
-        }
-
-        console.log("points = ", points)
-        return points
-
+        prevX = nextX
+        prevY = nextY
     }
-    catch (e) {
-        console.log('error at getPoints2D(f, startX, startY, steps_count, alpha) => \n', e)
-        return {x: [], y: [], z: []}
-    }
+
+    console.log("points = ", points)
+    return points
 }
 
 export function getData2D(f: string) {
-    var data: {x: Number[][], y: Number[], z: Number[][]} = {x: [], y: [], z: []}
+    var data: { x: Number[][], y: Number[], z: Number[][] } = { x: [], y: [], z: [] }
     console.log('aseel data= ', data)
-    try {    
-        for (let y = -10; y < 11; y += 1) {
-            var xs = new Array<Number>()
-            var zs = new Array<Number>()
+    for (let y = -10; y < 11; y += 1) {
+        var xs = new Array<Number>()
+        var zs = new Array<Number>()
 
-            for (let x = -10; x < 11; x += 1) {
-                zs.push(math.evaluate(f, { 'x': x, 'y': y }))
-                xs.push(x)
-            };
+        for (let x = -10; x < 11; x += 1) {
+            zs.push(math.evaluate(f, { 'x': x, 'y': y }))
+            xs.push(x)
+        };
 
-            data.x.push(xs)
-            data.y.push(y)
-            data.z.push(zs)
-        }
-
-        return data
+        data.x.push(xs)
+        data.y.push(y)
+        data.z.push(zs)
     }
-    catch (e) {
-        console.log('error at getData2D(f) => \n', e)
-        return {x: [], y: [], z: []}
-    }
+
+    return data
 }
 
 export function getGraph2D(data: XYZdata, points: XYZ) {
-    try {
-        console.log('getGraph2D - \n')
-        console.log('data = ', data, '\n')
-        console.log('points = ', points, '\n')
+    console.log('getGraph2D - \n')
+    console.log('data = ', data, '\n')
+    console.log('points = ', points, '\n')
 
-        var z = new Array<Array<Number>>()
+    var z = new Array<Array<Number>>()
 
-        for (let y = -10; y < 11; y += 1) {
-            var new_y = new Array<Number>()
-            for (let x = -10; x < 11; x += 1) {
-                new_y.push(x)
-            };
-            z.push(new_y)
-        }
-        const data_z1 = {
-            type: 'surface',
-            x: data.x,
-            y: data.y,
-            z: data.z,
-            colorscale: 'Viridis',
-            lighting: {
-                roughness: 0.2
-            }
+    for (let y = -10; y < 11; y += 1) {
+        var new_y = new Array<Number>()
+        for (let x = -10; x < 11; x += 1) {
+            new_y.push(x)
         };
-        const data_z2 = {
-            type: 'scatter3d',
-            mode: 'points',
-            x: points.x,
-            y: points.y,
-            z: points.z,
-            marker: { color: 'red' }
-        };
-        const layout = {
-            xaxis: {
-                range: [-5, 5]
-            },
-            yaxis: {
-                range: [-5, 5]
-            }
+        z.push(new_y)
+    }
+    const data_z1 = {
+        type: 'surface',
+        x: data.x,
+        y: data.y,
+        z: data.z,
+        colorscale: 'Viridis',
+        lighting: {
+            roughness: 0.2
         }
-        var config = { responsive: true }
-        Plotly.newPlot('graph2-board', [data_z1, data_z2], layout, config);
-    }
-    catch (e) {
-        console.log('error at getGraph2D(data, points) => \n', e)
-        return
-    }
-}
-
-function getAnswers1D(header, rows, f, startX, alpha) {
-    try {
-        let keys = header.map((ele) => ele[0]);
-        let res = {}
-        keys.forEach(key => res[key] = [])
-
-        var df = getDev(f, 'x')
-        startX = Number(startX)
-        alpha = Number(alpha)
-
-        var prev = startX
-        for (let i = 0; i < rows; i++) {
-            var ans = {
-                step: i,
-                x: prev,
-                dx: Number(math.evaluate(df, { 'x': prev })).toFixed(DIGITS),
-                tmpX: null,
-                newX: null,
-            }
-            ans.tmpX = Number(math.evaluate('alpha*('.concat(df).concat(')'), { 'alpha': alpha, 'x': prev })).toFixed(DIGITS)
-            ans.newX = Number(math.evaluate('prev-tmp', { 'prev': prev, 'tmp': ans.tmpX })).toFixed(DIGITS)
-
-            for (const [key, value] of Object.entries(ans)) {
-                res[key].push(value)
-            }
-
-            prev = ans.newX
-
+    };
+    const data_z2 = {
+        type: 'scatter3d',
+        mode: 'points',
+        x: points.x,
+        y: points.y,
+        z: points.z,
+        marker: { color: 'red' }
+    };
+    const layout = {
+        xaxis: {
+            range: [-5, 5]
+        },
+        yaxis: {
+            range: [-5, 5]
         }
-        // ['', x, math.evaluate(df, {'x': x}), dfx, math.evaluate('x-tmp', {'x': x, 'tmp': dfx})]
-
-        return res
     }
-    catch (e) {
-        console.log('error at getAnswers1D(header, rows, f, startX, alpha) => \n', e)
-    }
+    var config = { responsive: true }
+    Plotly.newPlot('graph2-board', [data_z1, data_z2], layout, config);
 }

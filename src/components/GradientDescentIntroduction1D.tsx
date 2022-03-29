@@ -11,26 +11,15 @@ export default function GradientDescentIntroduction1D() {
     const [count, setCount] = React.useState(0)
 
     React.useEffect(() => {
-        try {
-            let points = getPoints1D('x^2', 5, count, 0.2);
-            getGraph1D('x^2', points);
-        }
-        catch (e) {
-            console.log("error at useEffect on parameters changes => \n", e)
-        }
+        let points = getPoints1D('x^2', 5, count, 0.2);
+        getGraph1D('x^2', points);
     }, [count]);
 
     React.useEffect(() => {
-        try {
-            let new_count = 0;
-            (count < 10) ? new_count = count + 1 : new_count = 0
-            const timer = setTimeout(() => setCount(new_count), 1e3)
-            return () => clearTimeout(timer)
-        }
-        catch (e) {
-            console.log("error at useEffect => \n", e)
-            return () => (0)
-        }
+        let new_count = 0;
+        (count < 10) ? new_count = count + 1 : new_count = 0
+        const timer = setTimeout(() => setCount(new_count), 1e3)
+        return () => clearTimeout(timer)
     });
 
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

@@ -19,7 +19,7 @@ export function getTwoDimensionalColumnNames(): GridColDef[] {
             field: 'step',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: false, align:"center"
         },
         {
             field: 'x',
@@ -80,7 +80,7 @@ export function getOneDimensionalColumnNames(): GridColDef[] {
             field: 'step',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: false, align:"center"
         },
         {
             field: 'x',
