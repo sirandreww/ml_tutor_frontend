@@ -1,4 +1,5 @@
 // ------------------------ IMPORTS ------------------------  
+import React from 'react';
 import AlgorithmsDashboard from 'pages/algorithms/dashboard/AlgorithmsDashboard';
 import Introduction2D from 'pages/algorithms/gradient_descent/slides/Introduction2D';
 
