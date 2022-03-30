@@ -3,42 +3,31 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 
 // @ts-ignore
-function generateRows(rowsNum: number, headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {
-    // var rows: { [id: string]: string }[] = []
+function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {
+    let length = correctAnswers.length
 
-    // if (exampleEnabled) {
-    //     var tmp: { [id: string]: string } = {}
-    //     tmp['id'] = currentRow.toString()
+    var generated: { [id: string]: string }[] = [];
+    for(var i = 0; i < length; i += 1){
+        if (i === 0 && exampleEnabled) {
+            generated.push({...correctAnswers[0]});
+        } else {
+            var tmp:{ [id: string]: string } = {}
+            for(var key in correctAnswers[i]) {
+                if (key === "step"){
+                    tmp[key] = correctAnswers[i][key];
+                } else {
+                    tmp[key] = "";
+                }
+                
+            }
+            generated.push(tmp);
+        }
+    }
 
-    //     for (let index = 0; index < headers.length; index++) {
-    //         const field: string = (headers[index])[0];
-    //         tmp[field] = (index === 0) ? "1" : example[index]
-    //     }
-
-    //     rows.push(tmp)
-    //     currentRow += 1
-    //     num += 1
-    // }
-
-    // for (; currentRow < num; currentRow++) {
-    //     var tmp: { [id: string]: string } = {}
-    //     tmp['id'] = currentRow.toString()
-
-    //     for (let index = 0; index < headers.length; index++) {
-    //         const field: string = (headers[index])[0];
-    //         tmp[field] = (index === 0 && rowNumberingEnabled) ? (currentRow + 1).toString() : ""
-    //     }
-
-    //     rows.push(tmp)
-    // }
-
-    // return rows
-
-    return correctAnswers;
+    return generated;
 }
 
 type QuestionTableProps = {
-    rowsNum: number,
     headers: GridColDef[],
     exampleEnabled: boolean,
     correctAnswers: { [id: string]: string }[],
@@ -78,14 +67,14 @@ export default function QuestionTable(props: QuestionTableProps) {
         >
             <DataGrid
                 columns={props.headers}
-                rows={generateRows(props.rowsNum, props.headers, props.exampleEnabled, props.correctAnswers)}
+                rows={generateRows(props.headers, props.exampleEnabled, props.correctAnswers)}
                 isCellEditable={(params) => !props.exampleEnabled || params.row.id !== 0}
                 disableColumnMenu={true}
                 hideFooter={true}
                 autoHeight={true}
                 getRowId={(row) => Number(row.step)}
                 getCellClassName={(params: GridCellParams<string>) => {
-                    if (params.value === '' || params.field === "step") {
+                    if (params.value === '' || params.field === "step" || (props.exampleEnabled && params.row["step"] === "0")) {
                         return '';
                     } else if (props.comparator(params.value, props.correctAnswers[Number(params.id)][params.field])){
                         return 'correct';

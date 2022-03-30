@@ -157,7 +157,6 @@ export default function GradientDescentGenericPage1D(props: Props) {
                             <CenterItem>
                                 <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                                     {generateQuestionTable ? (<QuestionTable
-                                        rowsNum={5}
                                         headers={getOneDimensionalColumnNames()}
                                         exampleEnabled={true}
                                         correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}

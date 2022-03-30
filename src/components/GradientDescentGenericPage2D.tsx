@@ -76,10 +76,10 @@ export default function GradientDescentGenericPage2D(props: Props) {
         }
     }
 
-    const [myfun, setFun] = React.useState('x^2')
+    const [myfun, setFun] = React.useState('x^2+y^2')
     const [alpha, setAlpha] = React.useState(0.05)
     const [startX, setStartX] = React.useState(-10)
-    const [startY, setStartY] = React.useState(0)
+    const [startY, setStartY] = React.useState(-10)
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
     const [data2D, setData2D] = React.useState({ x: new Array<Array<Number>>(), y: new Array<Number>(), z: new Array<Array<Number>>() })
@@ -185,7 +185,6 @@ export default function GradientDescentGenericPage2D(props: Props) {
                             <CenterItem>
                                 <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                                     {generateQuestionTable ? <QuestionTable
-                                        rowsNum={5}
                                         headers={getTwoDimensionalColumnNames()}
                                         exampleEnabled={true}
                                         correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha, 5)}

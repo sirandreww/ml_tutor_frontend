@@ -25,49 +25,49 @@ export function getTwoDimensionalColumnNames(): GridColDef[] {
             field: 'x',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'y',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'dx',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'dy',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'a*dx',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dx}\\)"}</MathJax>,
-            flex: 2, editable: false
+            flex: 2, editable: true
         },
         {
             field: 'a*dy',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\alpha*\\frac{df}{dy}\\)"}</MathJax>,
-            flex: 2, editable: false
+            flex: 2, editable: true
         },
         {
             field: 'newX',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'newY',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
     ];
 
@@ -86,25 +86,25 @@ export function getOneDimensionalColumnNames(): GridColDef[] {
             field: 'x',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'dx',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'a*dx',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(\\alpha * \\frac{df}{dx}(x)\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
         {
             field: 'newX',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>,
-            flex: 1, editable: false
+            flex: 1, editable: true
         },
     ];
 
