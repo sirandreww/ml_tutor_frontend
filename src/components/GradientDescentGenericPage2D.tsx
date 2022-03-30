@@ -5,11 +5,12 @@ import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
-import { getDev, getCorrectAnswers, PrettoSlider, math, DIGITS, getData2D, getGraph2D, getPoints2D, XYZdata } from 'components/GradientDescentHelper';
+import { getDev, getCorrectAnswers, PrettoSlider, getData2D, getGraph2D, getPoints2D } from 'components/GradientDescentHelper';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { TextField } from "@mui/material";
 import { getTwoDimensionalColumnNames } from 'components/QuestionTableDefinitions';
+import FunctionTextField from './FunctionTextField';
+import NumberTextField from 'components/NumberTextField';
 // --------------------------------------------------------
 
 type Props = {
@@ -38,7 +39,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                     </span>
                 );
             case 'input':
-                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
+                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
             default:
                 return null
         }
@@ -125,7 +126,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth value={myfun} onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false })} />
+                                        <FunctionTextField value={myfun} vars="xy" onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false })} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -141,7 +142,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value) })} />
+                                        <NumberTextField value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value) })} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -149,7 +150,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value) })} />
+                                        <NumberTextField value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value) })} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -165,7 +166,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                        <FunctionTextField vars='xy' InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} onChange={(_)=>(_)}/>
                                     </Grid>
 
                                     <Grid item xs={2}>
@@ -174,7 +175,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
+                                        <FunctionTextField vars='xy' InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} onChange={(_)=>(_)}/>
                                     </Grid>
                                 </Grid>
                             </LeftItem>

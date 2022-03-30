@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 
 // @ts-ignore
 function generateRows(rowsNum: number, headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {

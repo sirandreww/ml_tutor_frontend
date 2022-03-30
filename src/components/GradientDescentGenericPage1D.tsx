@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
 import { PrettoSlider, getDev, getCorrectAnswers, getPoints1D, getGraph1D } from 'components/GradientDescentHelper';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { TextField } from "@mui/material";
 import { getOneDimensionalColumnNames } from 'components/QuestionTableDefinitions';
+import FunctionTextField from './FunctionTextField';
+import NumberTextField from 'components/NumberTextField';
 // --------------------------------------------------------
 
 type Props = {
@@ -37,7 +38,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                     </span>
                 );
             case 'input':
-                return <TextField autoFocus fullWidth value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0 })} />
+                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0 })} />
             default:
                 return null
         }
@@ -111,7 +112,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={myfun} onChange={
+                                        <FunctionTextField value={myfun} vars="x" onChange={
                                             event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0 })
                                         } />
                                     </Grid>
@@ -129,7 +130,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={startX} onChange={
+                                        <NumberTextField value={startX} onChange={
                                             event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0 })
                                         } />
                                     </Grid>
@@ -146,7 +147,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={getDev(myfun, 'x')} onChange={(_)=>(_)}/>
                                     </Grid>
                                 </Grid>
                             </LeftItem>
