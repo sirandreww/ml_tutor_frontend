@@ -12,7 +12,7 @@ export default function GD3() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            currentStep={2}
+            currentStep={3}
             component={
                 <Box>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
@@ -33,10 +33,6 @@ export default function GD3() {
                     </Grid>
                 </Box>
             }
-            previous="/algorithms/gd2"
-            isPreviousDisabled={false}
-            next="/algorithms/gd4"
-            isNextDisabled={false}
         />
     );
 }

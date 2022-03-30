@@ -36,7 +36,6 @@ const GD5 = lazy(() => import("pages/algorithms/gradient_descent/GD5"));
 const GD6 = lazy(() => import("pages/algorithms/gradient_descent/GD6"));
 const GD7 = lazy(() => import("pages/algorithms/gradient_descent/GD7"));
 const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
-const GD9 = lazy(() => import("pages/algorithms/gradient_descent/GD9"));
 const LR1 = lazy(() => import("pages/algorithms/linear_regression/LR1"));
 const LR2 = lazy(() => import("pages/algorithms/linear_regression/LR2"));
 
@@ -73,7 +72,6 @@ function App() {
               <Route path="/algorithms/gd6" element={<GD6 />} />
               <Route path="/algorithms/gd7" element={<GD7 />} />
               <Route path="/algorithms/gd8" element={<GD8 />} />
-              <Route path="/algorithms/gd9" element={<GD9 />} />
               <Route path="/algorithms/lr1" element={<LR1 />} />
               <Route path="/algorithms/lr2" element={<LR2 />} />
               <Route path="/signin" element={<SignIn />} />

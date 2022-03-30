@@ -7,12 +7,8 @@ export default function LR2() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
-            currentStep={1}
+            currentStep={2}
             component={<CSVTable />}
-            previous="/algorithms/lr1"
-            isPreviousDisabled={false}
-            next="/algorithms/lr2"
-            isNextDisabled={false}
         />
     );
 }

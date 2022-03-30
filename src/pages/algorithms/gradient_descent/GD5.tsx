@@ -7,12 +7,8 @@ export default function GD5() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="gd"
-            currentStep={4}
+            currentStep={5}
             component={ <Introduction2D /> }
-            previous="/algorithms/gd4"
-            isPreviousDisabled={false}
-            next="/algorithms/gd6"
-            isNextDisabled={false}
         />
     );
 }

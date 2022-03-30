@@ -7,12 +7,8 @@ export default function LR1() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
-            currentStep={0}
+            currentStep={1}
             component={<Introduction1D />}
-            previous="/algorithms/lr1"
-            isPreviousDisabled={true}
-            next="/algorithms/lr2"
-            isNextDisabled={false}
         />
     );
 }

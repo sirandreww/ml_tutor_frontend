@@ -29,17 +29,30 @@ const lr_steps: string[] = [
   "2d_hyp"
 ];
 
-export default function AlgorithmsDashboard(props:
-  { currentAlgorithmName: string, currentStep: number, component: any, previous: string, isPreviousDisabled: boolean, next: string, isNextDisabled: boolean, isStepSkipped: boolean}
-) {
+export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr"), currentStep: number, component: any }) {
   const [t] = useTranslation(['translation']);
 
+  // isPreviousDisabled when step is 0
+  let isPreviousDisabled = (props.currentStep === 0);
+
+  var pathPrefix = ""
   var currentStepNames: string[] = []
   if (props.currentAlgorithmName === "gd") {
     currentStepNames = gd_steps
+    pathPrefix = "/algorithms/gd";
   } else if (props.currentAlgorithmName === "lr") {
     currentStepNames = lr_steps
+    pathPrefix = "/algorithms/lr";
   }
+
+  // isNextDisabled when in last step
+  let isNextDisabled = (props.currentStep === (currentStepNames.length));
+
+  // previous path
+  let previousPath = ''.concat(pathPrefix).concat((Math.max(1, props.currentStep - 1)).toString());
+
+  // next path 
+  let nextPath = isNextDisabled ? "/algorithms" : ''.concat(pathPrefix).concat((props.currentStep + 1).toString());
 
   return (
     <div>
@@ -49,7 +62,7 @@ export default function AlgorithmsDashboard(props:
         <AlgorithmStepper
           currentStep={props.currentStep}
           stepNames={currentStepNames}
-          isStepSkipped={props.isStepSkipped}
+          currentAlgorithmName={props.currentAlgorithmName}
         />
 
 
@@ -64,10 +77,10 @@ export default function AlgorithmsDashboard(props:
 
         {/* slide managing code */}
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-          <Link to={props.previous} style={{ textDecoration: 'none', color: "black" }}>
+          <Link to={previousPath} style={{ textDecoration: 'none', color: "black" }}>
             <Button
               color="inherit"
-              disabled={props.isPreviousDisabled}
+              disabled={isPreviousDisabled}
               sx={{ mr: 1 }}
               variant='contained'
             >
@@ -75,9 +88,11 @@ export default function AlgorithmsDashboard(props:
             </Button>
           </Link>
           <Box sx={{ flex: '1 1 auto' }} />
-          <Link to={props.next} style={{ textDecoration: 'none', color: "black" }}>
-            <Button variant='contained' color='info'>
-              {props.isNextDisabled ? t("finish") : t("next")}
+          <Link to={nextPath} style={{ textDecoration: 'none', color: "black" }}>
+            <Button
+              variant='contained'
+              color='info'>
+              {isNextDisabled ? t("finish") : t("next")}
             </Button>
           </Link>
         </Box>
@@ -87,8 +102,4 @@ export default function AlgorithmsDashboard(props:
       <Footer />
     </div>
   );
-}
-
-AlgorithmsDashboard.defaultProps = {
-  isStepSkipped: false
 }
