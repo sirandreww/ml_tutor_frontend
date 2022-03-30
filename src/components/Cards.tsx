@@ -53,7 +53,7 @@ function Cards() {
                 text={t("cards.logistic_regression.text")}
                 info={t("cards.logistic_regression.info")}
                 label={t("cards.logistic_regression.label")}
-                path='/algorithms'
+                path='/algorithms/logreg1'
               />
             </ul>
           </div>

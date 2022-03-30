@@ -23,7 +23,18 @@ const lr_steps: string[] = [
   "1d_vis",
 ];
 
-export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr"), currentStep: number, component: any }) {
+const log_reg_steps: string[] = [
+  "log_reg_step_1_title",
+  "log_reg_step_2_title",
+  "log_reg_step_3_title",
+  "log_reg_step_4_title",
+  "log_reg_step_5_title",
+  "log_reg_step_6_title",
+  "log_reg_step_7_title",
+  "log_reg_step_8_title"
+]
+
+export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr" | "logreg"), currentStep: number, component: any }) {
   const [t] = useTranslation(['translation']);
 
   // isPreviousDisabled when step is 0
@@ -37,6 +48,9 @@ export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd"
   } else if (props.currentAlgorithmName === "lr") {
     currentStepNames = lr_steps
     pathPrefix = "/algorithms/lr";
+  } else if (props.currentAlgorithmName === "logreg") {
+    currentStepNames = log_reg_steps
+    pathPrefix = "/algorithms/logreg";
   }
 
   // isNextDisabled when in last step
