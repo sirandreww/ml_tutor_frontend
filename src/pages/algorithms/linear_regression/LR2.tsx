@@ -1,16 +1,16 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import Introduction1D from 'components/LinearRegressionIntroduction1D';
+import CSVTable from 'components/CSVTable';
 
-export default function LR1() {
+export default function LR2() {
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
-            currentStep={0}
-            component={<Introduction1D />}
+            currentStep={1}
+            component={<CSVTable />}
             previous="/algorithms/lr1"
-            isPreviousDisabled={true}
+            isPreviousDisabled={false}
             next="/algorithms/lr2"
             isNextDisabled={false}
         />
