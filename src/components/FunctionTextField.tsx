@@ -10,22 +10,23 @@ function isFunction(str: any, vars: ("x" | "xy")) {
         return false; // we only process strings!  
     } else {
         try {
+            var isFunction = true;
             if (vars === "x") {
                 // quick check
-                isStringNumeric(math.evaluate(str, { 'x': 0 }));
+                isFunction = isFunction && (isStringNumeric(math.evaluate(str, { 'x': 0 }).toString()));
+                console.log("isFunction = ", isFunction)
 
                 // check derivatives
                 let dx = math.derivative(str, "x").toString();
 
                 // check points
                 for (let i = -3; i <= 3; i += 1) {
-                    isStringNumeric(math.evaluate(str, { 'x': i }));
-                    isStringNumeric(math.evaluate(dx, { 'x': i }));
+                    isFunction = isFunction && (isStringNumeric(math.evaluate(str, { 'x': i }).toString()));
+                    isFunction = isFunction && (isStringNumeric(math.evaluate(dx, { 'x': i }).toString()));
                 }
-                return true;
             } else if (vars === "xy") {
                 // quick check
-                isStringNumeric(math.evaluate(str, { 'x': 0, 'y': 0 }));
+                isFunction = isFunction && (isStringNumeric(math.evaluate(str, { 'x': 0, 'y': 0 }).toString()));
 
                 // check derivatives
                 let dx = math.derivative(str, "x").toString();
@@ -34,15 +35,15 @@ function isFunction(str: any, vars: ("x" | "xy")) {
                 // check points
                 for (let i = -3; i <= 3; i += 1) {
                     for (let j = -3; j <= 3; j += 1) {
-                        isStringNumeric(math.evaluate(str, { 'x': i, 'y': j }));
-                        isStringNumeric(math.evaluate(dx, { 'x': i, 'y': j }));
-                        isStringNumeric(math.evaluate(dy, { 'x': i, 'y': j }));
+                        isFunction = isFunction && (isStringNumeric(math.evaluate(str, { 'x': i, 'y': j }).toString()));
+                        isFunction = isFunction && (isStringNumeric(math.evaluate(dx, { 'x': i, 'y': j }).toString()));
+                        isFunction = isFunction && (isStringNumeric(math.evaluate(dy, { 'x': i, 'y': j }).toString()));
                     }
                 }
-                return true;
             } else {
                 return false;
             }
+            return isFunction;
         } catch (e) {
             return false;
         }
@@ -54,8 +55,9 @@ export default function FunctionTextField(props: { value: string, onChange: (eve
     /// function that checks that input is numeric before it calls on change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
+        console.log("event.target.value = ", event.target.value);
         if (isFunction(event.target.value, props.vars)) {
-            console.log("event.target.value = ", event.target.value)
+            console.log("event.target.value = ", event.target.value, " passed checks!")
             props.onChange(event);
         }
     };

@@ -1,6 +1,5 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { isNumeric } from "mathjs";
 
 export function isStringNumeric(str: any) {
     if (typeof str != "string" || str === ''){
@@ -8,8 +7,7 @@ export function isStringNumeric(str: any) {
     } else {
         // @ts-ignore
         return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-        !isNaN(parseFloat(str)) &&
-        isNumeric(str)// ...and ensure strings of whitespace fail
+        !isNaN(parseFloat(str))// ...and ensure strings of whitespace fail
     }
 }
 
@@ -18,8 +16,10 @@ export default function NumberTextField(props: { value: number, onChange: (event
     /// function that checks that input is numeric before it calls on change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
+        console.log("event.target.value = ", event.target.value)
         if (isStringNumeric(event.target.value)){
-            Number(event.target.value)
+            console.log("event.target.value = ", event.target.value, " passed checks!");
+            Number(event.target.value);
             props.onChange(event);
         }
     };

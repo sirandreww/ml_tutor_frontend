@@ -1,74 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
-import { create, all } from 'mathjs';
-// @ts-ignore
-import Plotly from 'plotly.js-gl3d-dist-min';
+import { getData2D, getGraph2D } from 'components/GradientDescentHelper';
 
-// ------------------------ CODE ------------------------    
-
-const math = create(all, {})
-type Data = {
-    x: any[],
-    y: any[],
-    z: any[],
-}
-
-function getData2D(f: string) {
-    var data: Data = {
-        x: [],
-        y: [],
-        z: []
-    }
-
-    for (let y = -10; y < 11; y += 1)  {
-        var new_y: Array<Array<any>> = [[], []]
-        for (let x = -10; x < 11; x += 1)  {
-            new_y[0].push(math.evaluate(f, {'x': x, 'y': y}))
-            new_y[1].push(x)
-        };
-        data.x.push(new_y[1])
-        data.y.push(y)
-        data.z.push(new_y[0])
-    }
-
-    return data
-}
-
-function getGraph2D(data: Data){
-    // console.log('getGraph2D - \n')
-    // console.log('data = ', data, '\n')
-    // console.log('points = ', points, '\n')
-
-    var z = []
-
-    for (let y = -10; y < 11; y += 1)  {
-        var new_y = []
-        for (let x = -10; x < 11; x += 1)  {
-            new_y.push(x)
-        };
-        z.push(new_y)
-    }
-    const data_z1 = {
-        type: 'surface',
-        x: data.x,
-        y: data.y,
-        z: data.z,
-        colorscale: 'Viridis', 
-        lighting: {
-            roughness: 0.2
-        }
-    };
-    const layout = {
-        xaxis: {
-            range: [-5, 5]
-        },
-        yaxis: {
-            range: [-5, 5]
-        }
-    }
-    var config = {responsive: true}
-    Plotly.newPlot('graph2-board', [data_z1,], layout, config);
-}
 
 // --------------------------------------------------------
 
@@ -78,7 +11,7 @@ type Props = {
 
 export default function Graph2D(props: Props) {
     React.useEffect(() => {
-        getGraph2D(getData2D(props.function))
+        getGraph2D(getData2D(props.function), {x:[],y:[],z:[]})
     });
     
     return (<div id='graph2-board'></div>);

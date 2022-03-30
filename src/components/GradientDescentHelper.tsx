@@ -104,9 +104,6 @@ function getCorrectAnswersAux(f: string, vars: { 'v': string, 'val': number }[],
             return [{ "step": currentDepth.toString(), "x": vs[0], "y": vs[1], "dx": devs[0], "dy": devs[1], 'a*dx': tmps[0], 'a*dy': tmps[1], "newX": nexts[0], "newY": nexts[1] }, ...recursive];
         }
     }
-
-    // console.log('getExample=', ['', ...vs, ...devs, ...tmps, ...nexts])
-
 }
 
 export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number }[], alpha: number, depth: number,): { [id: string]: string }[] {
@@ -116,7 +113,6 @@ export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number 
 export function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
     var points = [[startX, math.evaluate(f, { 'x': startX })]]
     var df = getDev(f, 'x')
-    // console.log("f=", f, "df=", df, " startX=", startX, " steps_count=", steps_count, " alpha=", alpha)
 
     startX = Number(startX)
     steps_count = Number(steps_count)
