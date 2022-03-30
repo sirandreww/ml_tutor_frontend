@@ -46,7 +46,7 @@ function Cards() {
                 text={t("cards.neural_networks.text")}
                 info={t("cards.neural_networks.info")}
                 label={t("cards.neural_networks.label")}
-                path='/algorithms'
+                path='/algorithms/nn1'
               />
               <CardItem
                 src= { LogisticRI }

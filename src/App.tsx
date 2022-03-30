@@ -54,6 +54,9 @@ const LogReg6 = lazy(() => import("pages/algorithms/logistic_regression/LogReg6"
 const LogReg7 = lazy(() => import("pages/algorithms/logistic_regression/LogReg7"));
 const LogReg8 = lazy(() => import("pages/algorithms/logistic_regression/LogReg8"));
 
+// ------------------------ Neural Network ------------------------ 
+const NN1 = lazy(() => import("pages/algorithms/neural_network/NN1"));
+
 const theme = createTheme({});
 
 i18next.use(initReactI18next).init({
@@ -103,6 +106,9 @@ function App() {
               <Route path="/algorithms/logreg6" element={<LogReg6 />} />
               <Route path="/algorithms/logreg7" element={<LogReg7 />} />
               <Route path="/algorithms/logreg8" element={<LogReg8 />} />
+
+              {/* // ------------------------ Neural Network ------------------------  */}
+              <Route path="/algorithms/nn1" element={<NN1 />} />
 
               <Route path="/signin" element={<SignIn />} />
             </Routes>

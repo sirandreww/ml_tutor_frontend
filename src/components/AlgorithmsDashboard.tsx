@@ -34,7 +34,11 @@ const log_reg_steps: string[] = [
   "log_reg_step_8_title"
 ]
 
-export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr" | "logreg"), currentStep: number, component: any }) {
+const neural_network_steps: string[] = [
+  "nn_step_1_title",
+]
+
+export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr" | "logreg" | "nn"), currentStep: number, component: any }) {
   const [t] = useTranslation(['translation']);
 
   // isPreviousDisabled when step is 0
@@ -43,14 +47,17 @@ export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd"
   var pathPrefix = ""
   var currentStepNames: string[] = []
   if (props.currentAlgorithmName === "gd") {
-    currentStepNames = gd_steps
+    currentStepNames = gd_steps;
     pathPrefix = "/algorithms/gd";
   } else if (props.currentAlgorithmName === "lr") {
-    currentStepNames = lr_steps
+    currentStepNames = lr_steps;
     pathPrefix = "/algorithms/lr";
   } else if (props.currentAlgorithmName === "logreg") {
-    currentStepNames = log_reg_steps
+    currentStepNames = log_reg_steps;
     pathPrefix = "/algorithms/logreg";
+  } else if (props.currentAlgorithmName === "nn") {
+    currentStepNames = neural_network_steps;
+    pathPrefix = "/algorithms/nn";
   }
 
   // isNextDisabled when in last step

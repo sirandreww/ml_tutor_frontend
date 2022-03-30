@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 type Props = {
     currentStep: number,
     stepNames: string[],
-    currentAlgorithmName: ("gd" | "lr" | "logreg")
+    currentAlgorithmName: ("gd" | "lr" | "logreg" | "nn")
 }
 
 export default function AlgorithmStepper(props: Props) {
