@@ -110,8 +110,8 @@ export function getCorrectAnswers(f: string, vars: { 'v': string, 'val': number 
     return getCorrectAnswersAux(f, vars, alpha, depth, 0)
 }
 
-export function getPoints1D(f: string, startX: number, steps_count: number, alpha: number) {
-    var points = [[startX, math.evaluate(f, { 'x': startX })]]
+export function getPoints1D(f: string, startX: number, steps_count: number, alpha: number): [number, number][] {
+    var points: [number, number][] = [[startX, Number(math.evaluate(f, { 'x': startX }))]]
     var df = getDev(f, 'x')
 
     startX = Number(startX)
@@ -134,7 +134,7 @@ export function getPoints1D(f: string, startX: number, steps_count: number, alph
     return points
 }
 
-export function getGraph1D(f: string, points: number[][]) {
+export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("polyline" | "interval" | "scatter") ) {
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)
@@ -159,7 +159,7 @@ export function getGraph1D(f: string, points: number[][]) {
             {
                 points: points,
                 fnType: 'points',
-                graphType: 'polyline',
+                graphType: pointsGraphType === undefined ? 'polyline': pointsGraphType,
             }
         ]
     });
