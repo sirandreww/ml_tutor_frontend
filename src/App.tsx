@@ -12,10 +12,12 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
+import { ErrorBoundary } from 'react-error-boundary';
 
 // these  pages don't have to be lazy loaded
 import Home from "pages/Home";
 import Algorithms from "pages/Algorithms";
+import SomethingWentWrong from "pages/SomethingWentWrong";
 // import SignIn from "pages/SignIn";
 // const Algorithms = lazy(() => import("pages/Algorithms"));
 
@@ -66,48 +68,55 @@ function App() {
   document.body.dir = i18next.dir();
 
   return (
-    <I18nextProvider i18n={i18next}>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Suspense fallback={<LoadingScreen />}>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/algorithms" element={<Algorithms />} />
+    <ErrorBoundary
+      FallbackComponent={SomethingWentWrong}
+      onReset={() => {
+        // reset the state of your app so the error doesn't happen again
+      }}
+    >
+      <I18nextProvider i18n={i18next}>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Suspense fallback={<LoadingScreen />}>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/algorithms" element={<Algorithms />} />
 
-              {/* ------------------------ GD ------------------------   */}
-              <Route path="/algorithms/gd1" element={<GD1 />} />
-              <Route path="/algorithms/gd2" element={<GD2 />} />
-              <Route path="/algorithms/gd3" element={<GD3 />} />
-              <Route path="/algorithms/gd4" element={<GD4 />} />
-              <Route path="/algorithms/gd5" element={<GD5 />} />
-              <Route path="/algorithms/gd6" element={<GD6 />} />
-              <Route path="/algorithms/gd7" element={<GD7 />} />
-              <Route path="/algorithms/gd8" element={<GD8 />} />
+                {/* ------------------------ GD ------------------------   */}
+                <Route path="/algorithms/gd1" element={<GD1 />} />
+                <Route path="/algorithms/gd2" element={<GD2 />} />
+                <Route path="/algorithms/gd3" element={<GD3 />} />
+                <Route path="/algorithms/gd4" element={<GD4 />} />
+                <Route path="/algorithms/gd5" element={<GD5 />} />
+                <Route path="/algorithms/gd6" element={<GD6 />} />
+                <Route path="/algorithms/gd7" element={<GD7 />} />
+                <Route path="/algorithms/gd8" element={<GD8 />} />
 
-              {/* // ------------------------ Linear regression ------------------------   */}
-              <Route path="/algorithms/lr1" element={<LR1 />} />
-              <Route path="/algorithms/lr2" element={<LR2 />} />
+                {/* // ------------------------ Linear regression ------------------------   */}
+                <Route path="/algorithms/lr1" element={<LR1 />} />
+                <Route path="/algorithms/lr2" element={<LR2 />} />
 
-              {/* // ------------------------ Logistic regression ------------------------   */}
-              <Route path="/algorithms/logreg1" element={<LogReg1 />} />
-              <Route path="/algorithms/logreg2" element={<LogReg2 />} />
-              <Route path="/algorithms/logreg3" element={<LogReg3 />} />
-              <Route path="/algorithms/logreg4" element={<LogReg4 />} />
-              <Route path="/algorithms/logreg5" element={<LogReg5 />} />
-              <Route path="/algorithms/logreg6" element={<LogReg6 />} />
-              <Route path="/algorithms/logreg7" element={<LogReg7 />} />
-              <Route path="/algorithms/logreg8" element={<LogReg8 />} />
+                {/* // ------------------------ Logistic regression ------------------------   */}
+                <Route path="/algorithms/logreg1" element={<LogReg1 />} />
+                <Route path="/algorithms/logreg2" element={<LogReg2 />} />
+                <Route path="/algorithms/logreg3" element={<LogReg3 />} />
+                <Route path="/algorithms/logreg4" element={<LogReg4 />} />
+                <Route path="/algorithms/logreg5" element={<LogReg5 />} />
+                <Route path="/algorithms/logreg6" element={<LogReg6 />} />
+                <Route path="/algorithms/logreg7" element={<LogReg7 />} />
+                <Route path="/algorithms/logreg8" element={<LogReg8 />} />
 
-              {/* // ------------------------ Neural Network ------------------------  */}
-              <Route path="/algorithms/nn1" element={<NN1 />} />
+                {/* // ------------------------ Neural Network ------------------------  */}
+                <Route path="/algorithms/nn1" element={<NN1 />} />
 
-              <Route path="/signin" element={<SignIn />} />
-            </Routes>
-          </Suspense>
-        </Router>
-      </ThemeProvider>
-    </I18nextProvider>
+                <Route path="/signin" element={<SignIn />} />
+              </Routes>
+            </Suspense>
+          </Router>
+        </ThemeProvider>
+      </I18nextProvider>
+    </ErrorBoundary>
   );
 }
 
