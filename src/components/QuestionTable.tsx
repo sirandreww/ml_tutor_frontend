@@ -76,7 +76,7 @@ export default function QuestionTable(props: QuestionTableProps) {
                 getCellClassName={(params: GridCellParams<string>) => {
                     if (params.value === '' || params.field === "step" || (props.exampleEnabled && params.row["step"] === "0")) {
                         return '';
-                    } else if (props.comparator(params.value == undefined? "" : params.value, props.correctAnswers[Number(params.id)][params.field])){
+                    } else if (props.comparator(params.value === undefined? "" : params.value, props.correctAnswers[Number(params.id)][params.field])){
                         return 'correct';
                     } else {
                         return 'wrong';

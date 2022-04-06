@@ -13,21 +13,13 @@ import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
 
+// these  pages don't have to be lazy loaded
 import Home from "pages/Home";
-// import Algorithms from "pages/algorithms/Algorithms.js";
-// import SignIn from "pages/sign/SignIn.js";
-// import GD1 from "pages/algorithms/gradient_descent/GD1";
-// import GD2 from "pages/algorithms/gradient_descent/GD2";
-// import GD3 from "pages/algorithms/gradient_descent/GD3";
-// import GD4 from "pages/algorithms/gradient_descent/GD4";
-// import GD5 from "pages/algorithms/gradient_descent/GD5";
-// import GD6 from "pages/algorithms/gradient_descent/GD6";
-// import GD7 from "pages/algorithms/gradient_descent/GD7";
-// import GD8 from "pages/algorithms/gradient_descent/GD8";
-// import GD9 from "pages/algorithms/gradient_descent/GD9";
-// import LR1 from "pages/algorithms/linear_regression/LR1";
-// const Home = lazy(() => import("pages/Home/Home.js"));
-const Algorithms = lazy(() => import("pages/Algorithms"));
+import Algorithms from "pages/Algorithms";
+// import SignIn from "pages/SignIn";
+// const Algorithms = lazy(() => import("pages/Algorithms"));
+
+// this page is not used, and thus we'll use lazy loading
 const SignIn = lazy(() => import("pages/SignIn"));
 
 // ------------------------ GD ------------------------  
