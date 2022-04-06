@@ -71,11 +71,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 # Our Notes
 
-If this project is not building properly ("npm start" fails) then:
-1. delete "package-lock.json" file.
-2. delete "node_modules/" folder.
-3. run "npm install"
+## Problems with packages?
 
-# Link to our website 
+If this project is not building properly (`npm start` fails) then:
+1. Delete `package-lock.json` file.
+2. Delete `node_modules/` folder.
+3. Run `npm install`
+
+Alternetivly you can run 
+```
+npm ci
+```
+
+## Remove Unused Dependencies
+
+To check if you have unused dependencies refer to this article:
+
+https://www.pluralsight.com/guides/how-to-remove-unused-dependencies-in-react
+
+# Link to our website
 
 https://boring-poincare-c8c6cb.netlify.app/
