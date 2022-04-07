@@ -37,6 +37,10 @@ const GD8 = lazy(() => import("pages/algorithms/gradient_descent/GD8"));
 // ------------------------ Linear regression ------------------------  
 const LR1 = lazy(() => import("pages/algorithms/linear_regression/LR1"));
 const LR2 = lazy(() => import("pages/algorithms/linear_regression/LR2"));
+const LR3 = lazy(() => import("pages/algorithms/linear_regression/LR3"));
+const LR4 = lazy(() => import("pages/algorithms/linear_regression/LR4"));
+const LR5 = lazy(() => import("pages/algorithms/linear_regression/LR5"));
+const LR6 = lazy(() => import("pages/algorithms/linear_regression/LR6"));
 
 // ------------------------ Logistic regression ------------------------  
 const LogReg1 = lazy(() => import("pages/algorithms/logistic_regression/LogReg1"));
@@ -96,6 +100,10 @@ function App() {
                 {/* // ------------------------ Linear regression ------------------------   */}
                 <Route path="/algorithms/lr1" element={<LR1 />} />
                 <Route path="/algorithms/lr2" element={<LR2 />} />
+                <Route path="/algorithms/lr3" element={<LR3 />} />
+                <Route path="/algorithms/lr4" element={<LR4 />} />
+                <Route path="/algorithms/lr5" element={<LR5 />} />
+                <Route path="/algorithms/lr6" element={<LR6 />} />
 
                 {/* // ------------------------ Logistic regression ------------------------   */}
                 <Route path="/algorithms/logreg1" element={<LogReg1 />} />

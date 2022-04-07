@@ -21,6 +21,10 @@ const gd_steps: string[] = [
 const lr_steps: string[] = [
   "1d_int",
   "1d_vis",
+  "p3_title",
+  "p4_title",
+  "p5_title",
+  "p6_title"
 ];
 
 const log_reg_steps: string[] = [
