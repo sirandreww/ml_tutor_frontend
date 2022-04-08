@@ -73,12 +73,12 @@ function App() {
   document.body.dir = i18next.dir();
 
   return (
-    // <ErrorBoundary
-    //   FallbackComponent={SomethingWentWrong}
-    //   onReset={() => {
-    //     // reset the state of your app so the error doesn't happen again
-    //   }}
-    // >
+    <ErrorBoundary
+      FallbackComponent={SomethingWentWrong}
+      onReset={() => {
+        // reset the state of your app so the error doesn't happen again
+      }}
+    >
       <I18nextProvider i18n={i18next}>
         <ThemeProvider theme={theme}>
           <Router>
@@ -125,7 +125,7 @@ function App() {
           </Router>
         </ThemeProvider>
       </I18nextProvider>
-    // </ErrorBoundary>
+    </ErrorBoundary>
   );
 }
 
