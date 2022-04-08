@@ -17,8 +17,8 @@ export type XYZdata = {
     z: Number[][]
 }
 
-export const math = create(all, {})
-export const DIGITS = 2
+const math = create(all, {})
+const DIGITS = 2
 
 export const PrettoSlider = styled(Slider)({
     width: '30%',

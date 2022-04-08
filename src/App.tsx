@@ -12,6 +12,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
+// @ts-ignore - if you want to remove FIX it before pushing to master
 import { ErrorBoundary } from 'react-error-boundary';
 
 // these  pages don't have to be lazy loaded
