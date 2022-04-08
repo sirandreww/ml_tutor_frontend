@@ -12,6 +12,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
+// @ts-ignore - if you want to remove FIX it before pushing to master
 import { ErrorBoundary } from 'react-error-boundary';
 
 // these  pages don't have to be lazy loaded
@@ -72,12 +73,12 @@ function App() {
   document.body.dir = i18next.dir();
 
   return (
-    <ErrorBoundary
-      FallbackComponent={SomethingWentWrong}
-      onReset={() => {
-        // reset the state of your app so the error doesn't happen again
-      }}
-    >
+    // <ErrorBoundary
+    //   FallbackComponent={SomethingWentWrong}
+    //   onReset={() => {
+    //     // reset the state of your app so the error doesn't happen again
+    //   }}
+    // >
       <I18nextProvider i18n={i18next}>
         <ThemeProvider theme={theme}>
           <Router>
@@ -124,7 +125,7 @@ function App() {
           </Router>
         </ThemeProvider>
       </I18nextProvider>
-    </ErrorBoundary>
+    // </ErrorBoundary>
   );
 }
 

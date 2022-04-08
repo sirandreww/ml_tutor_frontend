@@ -1,3 +1,4 @@
+// @ts-nocheck - if you want to remove FIX it before pushing to master
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';

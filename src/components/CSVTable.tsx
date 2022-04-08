@@ -1,4 +1,5 @@
 import * as React from 'react';
+// @ts-ignore - if you want to remove FIX it before pushing to master
 import { useDemoData } from '@mui/x-data-grid-generator';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
