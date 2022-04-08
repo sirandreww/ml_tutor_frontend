@@ -1,5 +1,6 @@
 import React from 'react';
 import { create, all } from 'mathjs';
+import Typography from '@mui/material/Typography';
 
 const math = create(all, {})
 type Matrix = math.Matrix
@@ -80,9 +81,6 @@ class LogisticRegressionModule {
     }
 
     public getAccuracy(test_batch: number[][], test_classifications: number[]): number {
-        // let X = math.transpose(math.matrix(test_batch))
-        // let Y = math.matrix(test_classifications)
-
         let total_mismatches = 0;
         for (let i = 0; i < test_batch.length; i++) {
             let prediction = this.predict(test_batch[i])
@@ -120,64 +118,36 @@ class LogisticRegressionModule {
     }
 
     private static createModule(X: Matrix, Y: Matrix, learning_rate: number, iterations: number): ModuleInfos {
-
-        // n = the total number of features in the batch
         const n: number = X.size()[0]
-        // m = the total number of samples in the batch
         const m: number = X.size()[1]
-
-        // console.log("total number of features(n) = ", n)
-        // console.log("total number of samples(m) = ", m)
 
         let W = math.zeros(n) as Matrix
         let B = 0
-
         let cost_per_iteration = []
-        let ws_per_iteration = [W]
-        let bs_per_iteration = [B]
+        let ws_per_iteration = []
+        let bs_per_iteration = []
 
         for (let i = 0; i < iterations; i++) {
-            // console.log("i  - ", i)
-            // console.log("W = ", W)
-            // console.log("B = ", B)
-            // Z = (W.transpose * X) + B
-            // console.log("Calculating Z - ")
-            let Z = math.map(math.multiply(math.transpose(W), X), x => x + B)
-            // console.log(Z)
-            // console.log("Calculating A - ")
-            let A = math.map(Z, x => LogisticRegressionModule.sigmoid(x))
-            // console.log(A)
 
-            // Calculate the cost function
-            // console.log("Calculating Cost - ")
+            // A = sigmoid(transpose(W)*X + B)
+            let Z = math.map(math.multiply(math.transpose(W), X), x => x + B)
+            let A = math.map(Z, x => LogisticRegressionModule.sigmoid(x))
+
+            // Loss Function
             let cost = Number(math.evaluate("((-1 * x)/m)", { m: m, x: LogisticRegressionModule.cost_function_segma(Y, A)}))
-            cost_per_iteration.push(cost)
-            // console.log(cost)
 
             // Gradiant Descent
-            // console.log("Calculating dW - ")
             let dW = LogisticRegressionModule.calc_dW(A, Y, X, m)
-            // console.log(dW)
-            // console.log("Calculating dB - ")
             let dB = LogisticRegressionModule.calc_dB(A, Y, m)
-            // console.log(dB)
-
-            // Change W, B
-            // console.log("Calculating new W - ")
-            // console.log("dW.T = \n", math.transpose(dW))
-            // console.log("learning_rate * dW.T = \n", math.map(math.transpose(dW),  x => x*learning_rate))
             W = math.subtract(W, math.map(math.transpose(dW),  x => x*learning_rate)) as Matrix
-            // console.log(W)
-            // console.log("Calculating new B - ")
             B = B - learning_rate*dB
-            // console.log(B)
+
+            // Adding more Info for future tasks
+            cost_per_iteration.push(cost)
             ws_per_iteration.push(W)
             bs_per_iteration.push(B)
         }
-        // console.log("final W - ")
-        // console.log(W)
-        // console.log("final B - ")
-        // console.log(B)
+
         return { module: {W: W, B: B} as Module,
             costs: cost_per_iteration,
             ws: ws_per_iteration,
@@ -197,18 +167,32 @@ export default function LogisticRegression(props: Props) {
     const  {data_batch, classifications, learning_rate, total_iterations } = props
     const alg = new LogisticRegressionModule(data_batch, classifications, learning_rate, total_iterations)
     const module = alg.getModule()
-    // const costs = alg.getCosts()
-    // const ws = alg.getWs()
-    // const bs = alg.getBs()
+    const costs = alg.getCosts()
+    const bs = alg.getBs()
+    const ws = alg.getWs()
 
     return(
         <div>
-            <div>The Module Ws = {module.W.toString()}</div>
-            <div>The Module B = {module.B}</div>
-            <div>The Module Accuracy = {alg.getAccuracy(x_test, y_test)}</div>
-            {/*<div>The Module costs = {costs}</div>*/}
-            {/*<div>The Module ws = {ws}</div>*/}
-            {/*<div>The Module bs = {bs}</div>*/}
+
+
+                <div>The Module Ws = {module.W.toString()}</div>
+                <div>The Module B = {module.B}</div>
+                <div>The Module Accuracy = {alg.getAccuracy(x_test, y_test)}</div>
+                <div>
+                    <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                        The Module bs = {bs[1]}
+                    </Typography>
+                </div>
+                <div>
+                    <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                        The Module bs = {costs[1]}
+                    </Typography>
+                </div>
+                <div>
+                    <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                        The Module bs = {ws[1].toArray().join(" | ")}
+                    </Typography>
+                </div>
         </div>
     )
 }
