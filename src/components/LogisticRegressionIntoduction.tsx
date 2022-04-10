@@ -1,15 +1,28 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
-import LogisticRegressionPlot from 'components/LogisticRegressionPlot';
+import NumberTextField from "components/NumberTextField";
+import { create, all } from 'mathjs';
+import { TextField } from '@mui/material';
 
+const math = create(all, {})
+
+function sigmoid(value: number): number {
+    let exp = math.exp(-value)
+    return Number(math.evaluate("1/(1+exp)", {exp: exp}))
+}
 
 export default function LogisticRegressionIntoduction() {
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
     const [t] = useTranslation('translation');
+
+    const [w_1, setW1] = React.useState(0);
+    const [x_1, setX1] = React.useState(0);
+    const [b, setB] = React.useState(0);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -21,12 +34,42 @@ export default function LogisticRegressionIntoduction() {
                     <br/>
                     {t("logreg.description")}
                     <br/>
-                    {}<br/>
-                    {}<br/>
                     <br/>
+                    Logistic regression is a classification algorithm. The parameters for this classifier are the weights 
+                    (<MathJax style={mathJaxStyle} inline>{"\\( w_1, w_2, w_3, ..., w_n \\)"}</MathJax>)
+                     and a number 
+                    (<MathJax style={mathJaxStyle} inline>{"\\( b \\)"}</MathJax>).
+                    <br/>
+                    The input for the classifier is an object with a vector of features 
+                    (<MathJax style={mathJaxStyle} inline>{"\\( x_1, x_2, x_3, ..., x_n \\)"}</MathJax>)
+                    <br/>
+                    <br/>
+                    The classifier calculates <MathJax style={mathJaxStyle} inline>{"\\( y \\)"}</MathJax>, which is the probability that the object belongs to the class "1" using the following calcultaion:
+                    <br/>
+                    <br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + ... + w_n * x_n + b)\\)"}</MathJax>
+                    <br/>
+                    {tab}{tab}Where the Sigmoid function <MathJax style={mathJaxStyle} inline>{"\\(\\sigma\\)"}</MathJax> is defined as :
+                    <br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\sigma(z) = \\frac{1}{1 + e^{-z}}\\)"}</MathJax>
+                    <br/>
+                    <br/>
+                    The classifier will then predict that the class of the object is "1" if <MathJax style={mathJaxStyle} inline>{"\\( y > 0.5 \\)"}</MathJax>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    Let's try to understand this even more with a demo, choose your weight and bias and test different values for x :
+                    <br/>
+                    <br/>
+                    <MathJax style={{fontSize:"30px"}} inline>{"\\(\\sigma (\\)"}</MathJax>
+                    <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{width: 100}}/> * 
+                    <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{width: 100}}/> + 
+                    <TextField label="b"  type="number" onChange={event => setB(Number(event.target.value))}  sx={{width: 100}}/>
+                    <MathJax style={{fontSize:"30px"}} inline >{"\\() = \\)"}</MathJax>
+                    <MathJax style={{fontSize:"30px"}} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax>
                 </Typography>
-                <LogisticRegressionPlot />
-                <Typography component={'span'}>
+                {/* <Typography component={'span'}>
                     <br/>
                     <h4 style={headers_style}>{}</h4><br/>
                     {}
@@ -43,7 +86,7 @@ export default function LogisticRegressionIntoduction() {
                     {tab}{tab}1. {t("gd.calc")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax><br/><br/>
                     {tab}{tab}2. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x))\\)"}</MathJax><br/><br/>
                     {tab}{tab}3. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
-                </Typography>
+                </Typography> */}
             </MathJaxContext>
         </Box>
     );
