@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import LogisticRegressionGeneric from 'components/LogisticRegressionGeneric';
+import LogisticRegressionGeneric from 'components/logistic_regression/LogisticRegressionGeneric';
 
 export default function LogReg1() {
     return (

@@ -5,11 +5,11 @@ import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 import { TextField } from '@mui/material';
-import LogisticRegressionPlot from 'components/LogisticRegressionPlot';
-import { sigmoid } from 'components/LogisticRegression/LogisticRegression';
+import LogisticRegressionPlot from 'components/logistic_regression/LogisticRegressionPlot';
+import { sigmoid } from 'components/logistic_regression/LogisticRegression';
 
 
-export default function LogisticRegressionIntoduction() {
+export default function LogisticRegressionVectorRepresentation() {
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
     const [t] = useTranslation('translation');
@@ -27,15 +27,19 @@ export default function LogisticRegressionIntoduction() {
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
-                        <h1 style={headers_style}>Logistic Regression</h1>
+                        <h1 style={headers_style}>Logistic Regression Using Vectors</h1>
                     </Typography>
                     <br/>
-                    {t("logreg.description")}
                     <br/>
                     <br/>
-                    Logistic regression is a classification algorithm. The parameters for this classifier are the weights 
-                    (<MathJax style={mathJaxStyle} inline>{"\\( w_1, w_2, w_3, ..., w_n \\)"}</MathJax>)
-                     and a number 
+                    The expression 
+                    (<MathJax style={mathJaxStyle} inline>{"\\(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + ... + w_n * x_n\\)"}</MathJax>)
+                    can be simplified as the multiplication of 2 vectors <MathJax style={mathJaxStyle} inline>{"\\(x, w\\)"}</MathJax> :
+                    <br/>
+                    <br/>
+                    <MathJax style={mathJaxStyle} inline>{`     \\begin{matrix}     1 & x & x^2 \\\\     1 & y & y^2 \\\\     1 & z & z^2 \\\\     \\end{matrix} `}</MathJax>
+                    <br/>
+                    <br/>
                     (<MathJax style={mathJaxStyle} inline>{"\\( b \\)"}</MathJax>).
                     <br/>
                     The input for the classifier is an object with a vector of features 
@@ -71,26 +75,7 @@ export default function LogisticRegressionIntoduction() {
                     Now let's see the function of the classifier as defined by the weight and bias :
                     <br/>
                     <br/>
-                    <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
                 </Typography>
-                {/* <Typography component={'span'}>
-                    <br/>
-                    <h4 style={headers_style}>{}</h4><br/>
-                    {}
-                    <br/><br/>
-                    {tab}<h4 style={headers_style}>{}</h4><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - {t("gd.point_vals.x_val")}<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax> - {t("gd.point_vals.y_val")}<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax> - {t("gd.derivatives.description")}<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax> - {t("gd.derivatives.derivative_val_x")}<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> - {t("gd.hyperparameter")}<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax>  - {t("gd.point_vals.x_val_new")}<br/><br/>
-                    <br/><br/>
-                    {tab}<h4 style={headers_style}>{t("gd.foreach_step")}</h4><br/>
-                    {tab}{tab}1. {t("gd.calc")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x)\\)"}</MathJax><br/><br/>
-                    {tab}{tab}2. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x))\\)"}</MathJax><br/><br/>
-                    {tab}{tab}3. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x = x_{new}\\)"}</MathJax><br/><br/>
-                </Typography> */}
             </MathJaxContext>
         </Box>
     );
