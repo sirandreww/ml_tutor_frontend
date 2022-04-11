@@ -4,16 +4,10 @@ import Typography from '@mui/material/Typography';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
-import NumberTextField from "components/NumberTextField";
-import { create, all } from 'mathjs';
 import { TextField } from '@mui/material';
+import LogisticRegressionPlot from 'components/LogisticRegressionPlot';
+import { sigmoid } from 'components/LogisticRegression/LogisticRegression';
 
-const math = create(all, {})
-
-function sigmoid(value: number): number {
-    let exp = math.exp(-value)
-    return Number(math.evaluate("1/(1+exp)", {exp: exp}))
-}
 
 export default function LogisticRegressionIntoduction() {
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -23,6 +17,10 @@ export default function LogisticRegressionIntoduction() {
     const [w_1, setW1] = React.useState(0);
     const [x_1, setX1] = React.useState(0);
     const [b, setB] = React.useState(0);
+
+    React.useEffect(() => {
+        <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
+    }, [w_1, x_1, b]);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -68,6 +66,12 @@ export default function LogisticRegressionIntoduction() {
                     <TextField label="b"  type="number" onChange={event => setB(Number(event.target.value))}  sx={{width: 100}}/>
                     <MathJax style={{fontSize:"30px"}} inline >{"\\() = \\)"}</MathJax>
                     <MathJax style={{fontSize:"30px"}} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax>
+                    <br/>
+                    <br/>
+                    Now let's see the function of the classifier as defined by the weight and bias :
+                    <br/>
+                    <br/>
+                    <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
                 </Typography>
                 {/* <Typography component={'span'}>
                     <br/>

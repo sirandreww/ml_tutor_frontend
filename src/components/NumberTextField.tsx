@@ -16,14 +16,12 @@ export default function NumberTextField(props: { value: number, onChange: (event
     /// function that checks that input is numeric before it calls on change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
-        console.log("event.target.value = ", event.target.value)
         if (isStringNumeric(event.target.value)){
-            console.log("event.target.value = ", event.target.value, " passed checks!");
             Number(event.target.value);
             props.onChange(event);
         }
     };
     return (
-        <TextField autoFocus fullWidth value={currentValue} onChange={handleChange} />
+        <TextField autoFocus fullWidth value={currentValue} type="number" onChange={handleChange}/>
     );
 }
