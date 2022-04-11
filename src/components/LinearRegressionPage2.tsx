@@ -73,7 +73,7 @@ function getGraph1D(f: string, points: number[][]) {
     });
 }
 
-export default function LinearRegressionGenericPage1D() {
+export default function LinearRegressionP2() {
     let points = [[1,3],[2,4],[3,8],[4,9]];
 
     React.useEffect(() => {
@@ -84,46 +84,7 @@ export default function LinearRegressionGenericPage1D() {
         <div>
             <Box sx={{ width: "100%" }}>
                 <MathJaxContext version={3} config={mathJaxConfig}>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
-                        {/* <Grid item xs={9}>
-                            <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
-                                In this example we will try to predict the housing prices (in millions) according to the number of rooms.
-                                The table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.
-                            </Typography>
-                        </Grid> */}
-
-                        <Grid item xs={3} justifyContent="end"> 
-                            <DataGrid
-                                columns={[
-                                    { headerName:"x (#rooms)", field: 'x', editable: false,sortable: false, headerAlign:'center', align:'center' },
-                                    { headerName:"y (price)",field: 'y', editable: false, sortable: false, headerAlign:'center', align:'center' }]
-                                } 
-                                rows={[
-                                    { id: 1, x: '1', y:'3'},
-                                    { id: 2, x: '2', y:'4'}, 
-                                    { id: 3, x: '3', y:'8'},
-                                    { id: 4, x: '4', y:'9'},
-                                ]}
-                                disableColumnMenu={true}
-                                hideFooter={true}
-                                autoHeight={true}
-                                
-                                sx={{
-                                    boxShadow: 2,
-                                    border: 2,
-                                    '.MuiDataGrid-columnSeparator': {
-                                    display: 'none',
-                                    },
-                                    '&.MuiDataGrid-root': {
-                                    border: 'none',
-                                    },
-                                    '.MuiDataGrid-columnHeaderTitle':{
-                                        
-                                    }
-                                }}
-                            />
-                        </Grid>
-                        
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} > 
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
