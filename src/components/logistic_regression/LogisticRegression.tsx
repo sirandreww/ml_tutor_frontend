@@ -2,6 +2,11 @@ import React from 'react';
 import { create, all } from 'mathjs';
 import Typography from '@mui/material/Typography';
 
+export function sigmoid(value: number): number {
+    let exp = math.exp(-value)
+    return Number(math.evaluate("1/(1+exp)", {exp: exp}))
+}
+
 const math = create(all, {})
 type Matrix = math.Matrix
 export type Module = {
