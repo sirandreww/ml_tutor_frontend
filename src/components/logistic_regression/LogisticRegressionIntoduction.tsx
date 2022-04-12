@@ -18,10 +18,6 @@ export default function LogisticRegressionIntoduction() {
     const [x_1, setX1] = React.useState(0);
     const [b, setB] = React.useState(0);
 
-    React.useEffect(() => {
-        <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
-    }, [w_1, x_1, b]);
-
     return (
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>

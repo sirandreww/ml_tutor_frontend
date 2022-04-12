@@ -22,10 +22,6 @@ export default function LogisticRegressionVectorRepresentation() {
     const [x_3, setX3] = React.useState(0);
     const [b, setB] = React.useState(0);
 
-    React.useEffect(() => {
-        <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
-    }, [w_1, x_1, b]);
-
     return (
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
@@ -74,29 +70,24 @@ export default function LogisticRegressionVectorRepresentation() {
                     Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :
                     <br />
                     <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\sigma \\Biggl( \\Biggl(\\)"}</MathJax>
+                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
                     <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
                     <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
                     <TextField label="w3" type="number" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
-                    <MathJax style={{ fontSize: "30px" }} inline>{`
-                    $$
-                        \\( \\Biggr) \\times \\Biggl(\\) 
-                        \\begin{bmatrix}
-                            x_1             \\\\ 
-                            x_2             \\\\ 
-                            x_3             \\\\ 
-                            \\vdots         \\\\ 
-                            x_n             \\\\ 
-                        \\end{bmatrix} 
-                    $$`}</MathJax>
-                    <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\( \\Biggr) + \\)"}</MathJax>
+                    <br />
+                    <br />
+                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(b = \\)"}</MathJax>
                     <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
-                    <MathJax style={{ fontSize: "30px" }} inline >{"\\(\\Biggr) = \\)"}</MathJax>
-                    <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax>
                     <br />
                     <br />
-                    Now let's see the function of the classifier as defined by the weight and bias :
+                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{x} = \\)"}</MathJax>
+                    <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
+                    <TextField label="x2" type="number" onChange={event => setX2(Number(event.target.value))} sx={{ width: 100 }} />
+                    <TextField label="x3" type="number" onChange={event => setX3(Number(event.target.value))} sx={{ width: 100 }} />
+                    <br />
+                    <br />
+                    <MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\times \\vec{x} + b) = \\)"}</MathJax>
+                    <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b).toString()}</MathJax>
                     <br />
                     <br />
                 </Typography>
