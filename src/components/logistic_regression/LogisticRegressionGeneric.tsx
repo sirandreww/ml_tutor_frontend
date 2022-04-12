@@ -1,7 +1,7 @@
 import React from 'react';
 import LogisticRegressionIntoduction from 'components/logistic_regression/LogisticRegressionIntoduction';
 import LogisticRegressionVectorRepresentation from 'components/logistic_regression/LogisticRegressionVectorRepresentation';
-import LogisticRegressionExercise1 from 'components/logistic_regression/LogisticRegressionBatchesExercise1';
+import LogisticRegressionExercise1 from 'components/logistic_regression/LogisticRegressionExercise1';
 
 type Props = {
     // includeIntroduction?: boolean,

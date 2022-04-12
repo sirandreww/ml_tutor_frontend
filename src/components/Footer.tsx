@@ -1,11 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material'
 import { Copyright } from '@mui/icons-material';
+import PrettyLine from 'components/PrettyLine';
 
 
 function Footer() {
     return (
-        <Box sx={{ bgcolor: '#cccccc', p: 6 }} component="footer">
+        <Box sx={{ bgcolor: 'white', p: 6 }} component="footer">
+            <PrettyLine />
             <Typography variant="h6" align="center" gutterBottom color="black">
                 MLomda
             </Typography>
