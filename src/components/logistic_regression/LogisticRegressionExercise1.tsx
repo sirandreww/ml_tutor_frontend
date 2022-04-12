@@ -115,46 +115,6 @@ export default function LogisticRegressionExercise1() {
                     2. <MathJax style={mathJaxStyle} inline>{"\\(x_2\\)"}</MathJax> the average value of the blue pallet in the image.
                     <br />
                     <br />
-                    (<MathJax style={mathJaxStyle} inline>{"\\(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + ... + w_n * x_n\\)"}</MathJax>)
-                    can be simplified as the multiplication of 2 vectors <MathJax style={mathJaxStyle} inline>{"\\(\\vec{x}, \\vec{w}\\)"}</MathJax> :
-                    <br />
-                    <br />
-                    <br />
-                    <CustomTable />
-                    <br />
-                    <br />
-                    <MathJax style={mathJaxStyle} inline>
-                        {`$$
-                        \\vec{w} \\times \\vec{x} = 
-                        \\begin{bmatrix}
-                            w_1 & w_2 & w_3 & \\cdots & w_n     \\\\
-                        \\end{bmatrix} 
-                        \\times
-                        \\begin{bmatrix}
-                            x_1             \\\\ 
-                            x_2             \\\\ 
-                            x_3             \\\\ 
-                            \\vdots         \\\\ 
-                            x_n             \\\\ 
-                        \\end{bmatrix} 
-                        = w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + ... + w_n * x_n
-                        $$`}
-                    </MathJax>
-                    <br />
-                    Thus the calculation done by the linear regression algorithm can be expressed as:
-                    <br />
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\times \\vec{x} + b)\\)"}</MathJax>
-                    <br />
-                    {tab}{tab}Where the Sigmoid function <MathJax style={mathJaxStyle} inline>{"\\(\\sigma\\)"}</MathJax> is defined as :
-                    <br />
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\sigma(z) = \\frac{1}{1 + e^{-z}}\\)"}</MathJax>
-                    <br />
-                    The classifier will then predict that the class of the object is "1" if <MathJax style={mathJaxStyle} inline>{"\\( y > 0.5 \\)"}</MathJax>
-                    <br />
-                    <br />
-                    <br />
-                    Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :
-                    <br />
                     <br />
                     <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
                     <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
@@ -166,7 +126,9 @@ export default function LogisticRegressionExercise1() {
                     <br />
                     <br />
                     <br />
-                    <MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\times \\vec{x} + b) = \\)"}</MathJax>                    <br />
+                    <CustomTable />
+                    <br />
+                    <br />
                     <br />
                 </Typography>
             </MathJaxContext>
