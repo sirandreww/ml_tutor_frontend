@@ -7,6 +7,11 @@ import { useTranslation } from "react-i18next";
 import { TextField, Grid } from '@mui/material';
 import { sigmoid } from 'components/logistic_regression/LogisticRegression';
 
+import Img1 from 'assets/images/LogisticRegressionEx1_1.png';
+import Img2 from 'assets/images/LogisticRegressionEx1_2.png';
+import Img3 from 'assets/images/LogisticRegressionEx1_3.png';
+import Img4 from 'assets/images/LogisticRegressionEx1_4.png';
+
 
 function getCorrectAnswers(w_1: number, w_2: number, b: number): { [id: string]: string }[] {
     let result: { [id: string]: string }[] = []
@@ -58,8 +63,30 @@ function makeRowFromArray(array: any[]): any[] {
 
 function getRow(index: number): any[] {
     const x_values = [[153, 173], [93, 83], [81, 124], [90, 18]]
+    const row_images = [
+        <Box component="img"
+            sx={{ height: "100%", width: "100%" }}
+            alt="image of a city"
+            src={Img1}
+        />,
+        <Box component="img"
+            sx={{ height: "100%", width: "100%" }}
+            alt="image of a forest"
+            src={Img2}
+        />,
+        <Box component="img"
+            sx={{ height: "100%", width: "100%" }}
+            alt="image of a city"
+            src={Img3}
+        />,
+        <Box component="img"
+            sx={{ height: "100%", width: "100%" }}
+            alt="image of a forest"
+            src={Img4}
+        />,
+    ]
     const row_values = [
-        "image",
+        row_images[index],
         <TextField label="" type="number" disabled value={x_values[index][0]} />,
         <TextField label="" type="number" disabled value={x_values[index][1]} />,
         <TextField label="" type="number" fullWidth />,
