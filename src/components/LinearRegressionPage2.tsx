@@ -135,6 +135,14 @@ export default function LinearRegressionP2() {
                                     </Grid>
                                     <Grid item xs={11}>
                                         <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"0.5"} onChange={(_)=>(_)}/>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{"J"}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={11}>
+                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"5.77"} onChange={(_)=>(_)}/>
                                     </Grid>  
 
                                     <Grid item xs={12}>
