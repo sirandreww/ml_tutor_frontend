@@ -142,7 +142,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"5.77"} onChange={(_)=>(_)}/>
+                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"0.45"} onChange={(_)=>(_)}/>
                                     </Grid>  
 
                                     <Grid item xs={12}>

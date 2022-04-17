@@ -8,8 +8,6 @@ import Typography from '@mui/material/Typography';
 
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
-import FunctionTextField from './FunctionTextField';
-
 import { DataGrid, GridCellEditCommitParams, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import functionPlot from "function-plot";
 
@@ -17,6 +15,7 @@ import { randomInt } from '@mui/x-data-grid-generator';
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 // --------------------------------------------------------
 
@@ -29,6 +28,12 @@ type Props = {
 }
 
 function getGraph1D(f: string, points: number[][]) {
+    // const regex = /([0-9]*.?[0-9]+)*/g;
+    // const values = f.match(regex)!.filter( r => r != "");
+    // let mark = ' + '
+    //  if ( parseInt(values[1]) < 0) {
+    //     mark = ''
+    // }
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)
@@ -38,9 +43,10 @@ function getGraph1D(f: string, points: number[][]) {
         target: '#graph-board',
         width,
         height,
-        xAxis: { domain: [-0.5, 5.5], label: 'x' },
-        yAxis: { domain: [-1, 13], label: 'y' },
-        title: '2.2x + 0.5',
+        xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
+        yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
+        // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
+        title: f,
         grid: true,
         disableZoom: true,
         data: [
@@ -50,46 +56,95 @@ function getGraph1D(f: string, points: number[][]) {
             {
                 points: points,
                 fnType: 'points',
-                graphType: 'scatter',
-            },
-            {
-                points: [[1,3],[1,2.7]],
-                fnType: 'points',
-                graphType: 'polyline',
-                color: 'black'
-            },
-            {
-                points: [[2,4],[2,4.9]],
-                fnType: 'points',
-                graphType: 'polyline',
-                color: 'black'
-            },
-            {
-                points: [[3,8],[3,7.1]],
-                fnType: 'points',
-                graphType: 'polyline',
-                color: 'black'
-            },
-            {
-                points: [[4,9],[4,9.3]],
-                fnType: 'points',
-                graphType: 'polyline',
-                color: 'black'
-            },
+                graphType: 'scatter'
+            }
+            // {
+            //     points: [[1,3],[1,2.7]],
+            //     fnType: 'points',
+            //     graphType: 'polyline',
+            //     color: 'black'
+            // },
+            // {
+            //     points: [[2,4],[2,4.9]],
+            //     fnType: 'points',
+            //     graphType: 'polyline',
+            //     color: 'black'
+            // },
+            // {
+            //     points: [[3,8],[3,7.1]],
+            //     fnType: 'points',
+            //     graphType: 'polyline',
+            //     color: 'black'
+            // },
+            // {
+            //     points: [[4,9],[4,9.3]],
+            //     fnType: 'points',
+            //     graphType: 'polyline',
+            //     color: 'black'
+            // },
         ]
     });
 }
 
 export default function LinearRegressionP2() {
-    let points = [[1,3],[2,4],[3,8],[4,9]];
 
-    
-    const [rows, setRows] = React.useState(() => [{ id: 0, x: randomInt(0, 15), y: randomInt(0, 15) }]);
+    const [rows, setRows] = React.useState(() => [{ id: 0, x: randomInt(0, 5.5), y: randomInt(0, 13) }]);
+
+    const [xBar, setxBar] = React.useState(() => calculateXBar());
+
+    const [yBar, setyBar] = React.useState(() => calculateYBar());
+
+    const [xDotX, setXDotX] = React.useState(() => calculateXDotX());
+
+    const [xDotY, setXDotY] = React.useState(() => calculateXDotY());
+
+    const [w, setW] = React.useState(() => calculateW());
+
+    const [b, setB] = React.useState(() => calculateB());
+
+    const [J, setJ] = React.useState(() => calculateJ());
+
+    const [points, setPoints] = React.useState(() => calculatePoints());
+
+
+
+
+    React.useEffect(() => {
+        setPoints(calculatePoints());
+        setValues();
+    },[rows]);
+
+    React.useEffect(() => {
+        setW(calculateW());
+    },[xDotY]);
+
+    React.useEffect(() => {
+        setB(calculateB());
+    },[w]);
+
+    React.useEffect(() => {
+        setJ(calculateJ());
+    },[w, b]);
+
+    React.useEffect(() => {
+        getGraph1D(`${w}*x+${b}`, points);
+    },[w, b]);
+
+    function setValues(){
+        setxBar(calculateXBar());
+        setyBar(calculateYBar());
+        setXDotX(calculateXDotX());
+        setXDotY(calculateXDotY());
+        // setW(calculateW());
+        // setB(calculateB());
+        // setJ(calculateJ());
+    }
+
+
     
       
     const handleDeleteRow = () => {
         setRows((prevRows) => {
-        // const rowToDeleteIndex = randomInt(0, prevRows.length - 1);
         return [
             ...rows.slice(0, prevRows.length - 1)  
         ];
@@ -97,32 +152,78 @@ export default function LinearRegressionP2() {
     };
       
     const handleAddRow = () => {
-        setRows((prevRows) => [...prevRows, { id: prevRows.length + 1, x: randomInt(0, 15), y: randomInt(0, 15) }]);
+        setRows((prevRows) => [...prevRows, { id: prevRows.length + 1, x: randomInt(0, 5.5), y: randomInt(0, 13) }]);
     };
 
-    React.useEffect(() => {
-        getGraph1D('2.2*x+0.5', points);
-    });
+
 
 
     const handleCommit = (e:GridCellEditCommitParams) => {
         const array = rows.map(r => 
             {
                 if (r.id === e.id){
-                    return {...r, [e.field]:e.value}
+                    return {...r, [e.field]:parseInt(e.value)}
                 }
                 else{
                     return {...r}
                 }
             })
             setRows(array)
-            console.log(rows)
-
     }
+
+    function calculateXBar(){
+        let sum = 0
+        rows.map(r => sum += r.x)
+        return sum/rows.length
+    }
+
+    function calculateYBar(){
+        let sum = 0
+        rows.map(r => sum += r.y)
+        return sum/rows.length
+    }
+
+    function calculateXDotX(){
+        let sum = 0
+        rows.map(r => sum += (r.x * r.x) )
+        return sum/rows.length
+    }
+
+    function calculateXDotY(){
+        let sum = 0
+        rows.map(r => sum += (r.x * r.y) )
+        return sum/rows.length
+    }
+
+    function calculateW(){
+        if ( xDotX - (xBar**2) == 0 ) {
+            return 0
+        }
+        else {
+            return ((xDotY - (xBar * yBar) ) / ( xDotX - (xBar**2) ))
+        }
+    }
+
+    function calculateB(){
+        return yBar - (w * xBar)
+    }
+
+    function calculateJ(){
+        let sum = 0
+        rows.map(r => sum += (((w * r.x) + (b - r.y))**2))
+        return sum/rows.length
+    }
+
+    function calculatePoints() {
+        return rows.map(r => [r.x, r.y])
+    }
+
+
 
     return (
         <div>
-         {/* {JSON.stringify(rows)} */}
+         {/* {JSON.stringify(points)} */}
+         {/* {JSON.stringify(w + '        ' + b)} */}
             <Box sx={{ width: "100%" }}>
                 <MathJaxContext version={3} config={mathJaxConfig}>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
@@ -176,7 +277,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"2.5"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={xBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1") } type="number"/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -184,7 +285,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"6"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={yBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -192,7 +293,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"7.5"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={xDotX.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -200,7 +301,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"17.75"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={xDotY.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -208,7 +309,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"2.2"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={w.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -216,7 +317,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"0.5"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={b.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid> 
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -224,7 +325,7 @@ export default function LinearRegressionP2() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={"0.5"} onChange={(_)=>(_)}/>
+                                        <TextField autoFocus fullWidth value={J.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
                                     </Grid> 
                                     
                                 </Grid>
