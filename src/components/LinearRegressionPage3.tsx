@@ -28,12 +28,12 @@ type Props = {
 }
 
 function getGraph1D(f: string, points: number[][]) {
-    // const regex = /([0-9]*.?[0-9]+)*/g;
-    // const values = f.match(regex)!.filter( r => r != "");
-    // let mark = ' + '
-    //  if ( parseInt(values[1]) < 0) {
-    //     mark = ''
-    // }
+    const regex = /([0-9]*.?[0-9]+)*/g;
+    const values = f.match(regex)!.filter( r => r != "");
+    let mark = ' + '
+     if ( parseFloat(values[1]) < 0) {
+        mark = ' - '
+    }
     var width = 800;
     var height = 500;
     // console.log("points= \n", points)
@@ -46,7 +46,7 @@ function getGraph1D(f: string, points: number[][]) {
         xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
         yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
         // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
-        title: f,
+        title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
         grid: true,
         disableZoom: true,
         data: [
@@ -127,7 +127,13 @@ export default function LinearRegressionP2() {
     },[w, b]);
 
     React.useEffect(() => {
-        getGraph1D(`${w}*x+${b}`, points);
+        if (points.length == 0) {
+            getGraph1D("0*x+0", points);
+
+        }
+        else{
+            getGraph1D(`${w}*x+${b}`, points);
+        }
     },[w, b]);
 
     function setValues(){
