@@ -30,6 +30,12 @@ type Props = {
 function getGraph1D(f: string, points: number[][]) {
     const regex = /([0-9]*.?[0-9]+)*/g;
     const values = f.match(regex)!.filter( r => r != "");
+    // let axisX = [0,10]
+    // let axisY = [0,10]
+    // if(points.length !=0 ){
+    //     axisX = [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3]
+    //     axisY = [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3]
+    // }
     let mark = ' + '
      if ( parseFloat(values[1]) < 0) {
         mark = ' - '
@@ -38,52 +44,53 @@ function getGraph1D(f: string, points: number[][]) {
     var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
+    if(points != null){
+        functionPlot({
+            target: '#graph-board',
+            width,
+            height,
+            xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
+            yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
+            // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
+            title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
+            grid: true,
+            disableZoom: true,
+            data: [
+                {
+                    fn: f,
+                },
+                {
+                    points: [[0,0]],
+                    fnType: 'points',
+                    graphType: 'scatter',
 
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
-        yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
-        // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
-        title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
-        grid: true,
-        disableZoom: true,
-        data: [
-            {
-                fn: f,
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: 'scatter'
-            }
-            // {
-            //     points: [[1,3],[1,2.7]],
-            //     fnType: 'points',
-            //     graphType: 'polyline',
-            //     color: 'black'
-            // },
-            // {
-            //     points: [[2,4],[2,4.9]],
-            //     fnType: 'points',
-            //     graphType: 'polyline',
-            //     color: 'black'
-            // },
-            // {
-            //     points: [[3,8],[3,7.1]],
-            //     fnType: 'points',
-            //     graphType: 'polyline',
-            //     color: 'black'
-            // },
-            // {
-            //     points: [[4,9],[4,9.3]],
-            //     fnType: 'points',
-            //     graphType: 'polyline',
-            //     color: 'black'
-            // },
-        ]
-    });
+                },
+                {
+                    points: points == null ? []:points ,
+                    fnType: 'points',
+                    graphType: 'scatter'
+                }
+            ]
+        });
+    }else{
+        functionPlot({
+            target: '#graph-board',
+            width,
+            height,
+            xAxis: { domain: [-10,10] , label: 'x' },
+            yAxis: { domain: [-10,10], label: 'y' },
+            // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
+            title: "0*x + 0",
+            grid: true,
+            disableZoom: true,
+            data: [
+                {
+                    fn: "0*x+0",
+                },
+                
+            ]
+        });
+    }
 }
 
 export default function LinearRegressionP2() {
@@ -127,9 +134,8 @@ export default function LinearRegressionP2() {
     },[w, b]);
 
     React.useEffect(() => {
-        if (points.length == 0) {
+        if (points.length == 0 ) {
             getGraph1D("0*x+0", points);
-
         }
         else{
             getGraph1D(`${w}*x+${b}`, points);
@@ -178,24 +184,32 @@ export default function LinearRegressionP2() {
     }
 
     function calculateXBar(){
+        if(rows.length == 0)
+            return 0
         let sum = 0
         rows.map(r => sum += r.x)
         return sum/rows.length
     }
 
     function calculateYBar(){
+        if(rows.length == 0)
+            return 0
         let sum = 0
         rows.map(r => sum += r.y)
         return sum/rows.length
     }
 
     function calculateXDotX(){
+        if(rows.length == 0)
+            return 0
         let sum = 0
         rows.map(r => sum += (r.x * r.x) )
         return sum/rows.length
     }
 
     function calculateXDotY(){
+        if(rows.length == 0)
+            return 0
         let sum = 0
         rows.map(r => sum += (r.x * r.y) )
         return sum/rows.length
@@ -215,12 +229,16 @@ export default function LinearRegressionP2() {
     }
 
     function calculateJ(){
+        if(rows.length == 0)
+            return 0
         let sum = 0
         rows.map(r => sum += (((w * r.x) + (b - r.y))**2))
         return sum/rows.length
     }
 
     function calculatePoints() {
+        if(rows.length == 0)
+            return []
         return rows.map(r => [r.x, r.y])
     }
 
