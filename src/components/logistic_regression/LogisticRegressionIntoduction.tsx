@@ -67,7 +67,10 @@ export default function LogisticRegressionIntoduction() {
                     Now let's see the function of the classifier as defined by the weight and bias :
                     <br/>
                     <br/>
-                    <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
+                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                        <MathJax style={{fontSize:"2em"}} inline>{"\\( \\frac{1}{1 + e^{-(w * x + b)}} \\)"}</MathJax>
+                    </Typography>
+                    <LogisticRegressionPlot ws={[w_1]} xs={[x_1]} b={b}/>
                 </Typography>
                 {/* <Typography component={'span'}>
                     <br/>
