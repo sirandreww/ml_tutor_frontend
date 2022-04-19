@@ -54,7 +54,7 @@ function getGraph1D(f: string, points: number[][]) {
             // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
             title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
             grid: true,
-            disableZoom: true,
+            disableZoom: false,
             data: [
                 {
                     fn: f,
@@ -63,6 +63,8 @@ function getGraph1D(f: string, points: number[][]) {
                     points: [[0,0]],
                     fnType: 'points',
                     graphType: 'scatter',
+                    color: 'transparent',
+                    
 
                 },
                 {
@@ -86,6 +88,13 @@ function getGraph1D(f: string, points: number[][]) {
             data: [
                 {
                     fn: "0*x+0",
+                },
+                {
+                    points: [[0,0]],
+                    fnType: 'points',
+                    graphType: 'scatter',
+                    color: 'transparent'
+
                 },
                 
             ]
@@ -119,6 +128,11 @@ export default function LinearRegressionP2() {
     React.useEffect(() => {
         setPoints(calculatePoints());
         setValues();
+        if(rows.length == 0){
+            setW(0);
+            setB(0);
+            setJ(0);
+        }
     },[rows]);
 
     React.useEffect(() => {
@@ -135,12 +149,12 @@ export default function LinearRegressionP2() {
 
     React.useEffect(() => {
         if (points.length == 0 ) {
-            getGraph1D("0*x+0", points);
+            getGraph1D("0*x+0", [[0,0]]);
         }
         else{
             getGraph1D(`${w}*x+${b}`, points);
         }
-    },[w, b]);
+    },[rows,w, b]);
 
     function setValues(){
         setxBar(calculateXBar());
