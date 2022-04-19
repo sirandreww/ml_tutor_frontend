@@ -44,7 +44,7 @@ function getGraph1D(f: string, points: number[][]) {
     var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
-    if(points != null){
+    if (points != null){
         functionPlot({
             target: '#graph-board',
             width,
@@ -60,21 +60,14 @@ function getGraph1D(f: string, points: number[][]) {
                     fn: f,
                 },
                 {
-                    points: [[0,0]],
-                    fnType: 'points',
-                    graphType: 'scatter',
-                    color: 'transparent',
-                    
-
-                },
-                {
-                    points: points == null ? []:points ,
+                    points: points,
                     fnType: 'points',
                     graphType: 'scatter'
                 }
             ]
         });
-    }else{
+    }
+    else {
         functionPlot({
             target: '#graph-board',
             width,
@@ -141,7 +134,7 @@ export default function LinearRegressionP2() {
 
     React.useEffect(() => {
         setB(calculateB());
-    },[w]);
+    },[w, yBar, xBar]);
 
     React.useEffect(() => {
         setJ(calculateJ());
@@ -149,7 +142,7 @@ export default function LinearRegressionP2() {
 
     React.useEffect(() => {
         if (points.length == 0 ) {
-            getGraph1D("0*x+0", [[0,0]]);
+            getGraph1D("0*x+0", []);
         }
         else{
             getGraph1D(`${w}*x+${b}`, points);
