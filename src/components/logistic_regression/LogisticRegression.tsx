@@ -21,7 +21,7 @@ type ModuleInfos = {
     bs: number[]
 }
 
-class LogisticRegressionModule {
+export class LogisticRegressionModule {
     // Private Fields
     private readonly _X: number[][];
     private readonly _Y: number[];
