@@ -1,16 +1,10 @@
 // ------------------------ IMPORTS ------------------------  
-import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { Box, Typography } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
-import GradientDescent1D from 'components/GradientDescentGenericPage1D';
-import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
-import LinearRegressionP3 from 'components/LinearRegressionPage3';
-import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { randomInt } from '@mui/x-data-grid-generator';
+import LinearRegressionP3 from 'components/linear_regression/LinearRegressionPage3';
+
 
 export default function LR3() {
     return (

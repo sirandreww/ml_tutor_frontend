@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import Introduction1D from 'components/LinearRegressionIntroduction1D';
+import Introduction1D from 'components/linear_regression/LinearRegressionIntroduction1D';
 
 export default function LR1() {
     return (

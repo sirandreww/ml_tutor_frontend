@@ -6,7 +6,7 @@ import { languageAlign, languageDirection, LeftItem } from 'components/LanguageA
 import GradientDescent1D from 'components/GradientDescentGenericPage1D';
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
-import LinearRegressionP2 from 'components/LinearRegressionPage2';
+import LinearRegressionP2 from 'components/linear_regression/LinearRegressionPage2';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 
 export default function LR2() {

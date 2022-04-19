@@ -2,20 +2,17 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import { LeftItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
-
 
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
-import { DataGrid, GridCellEditCommitParams, GridCellParams, GridColDef } from '@mui/x-data-grid';
+import { DataGrid} from '@mui/x-data-grid';
 import functionPlot from "function-plot";
 
-import { randomInt } from '@mui/x-data-grid-generator';
-
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+// import * as dfd from "danfojs";
 import TextField from '@mui/material/TextField';
+import { randomInt } from 'mathjs';
 
 // --------------------------------------------------------
 
@@ -44,60 +41,59 @@ function getGraph1D(f: string, points: number[][]) {
     var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
-    if (points != null){
-        functionPlot({
-            target: '#graph-board',
-            width,
-            height,
-            xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
-            yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
-            // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
-            title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
-            grid: true,
-            disableZoom: false,
-            data: [
-                {
-                    fn: f,
-                },
-                {
-                    points: points,
-                    fnType: 'points',
-                    graphType: 'scatter'
-                }
-            ]
-        });
-    }
-    else {
-        functionPlot({
-            target: '#graph-board',
-            width,
-            height,
-            xAxis: { domain: [-10,10] , label: 'x' },
-            yAxis: { domain: [-10,10], label: 'y' },
-            // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
-            title: "0*x + 0",
-            grid: true,
-            disableZoom: true,
-            data: [
-                {
-                    fn: "0*x+0",
-                },
-                {
-                    points: [[0,0]],
-                    fnType: 'points',
-                    graphType: 'scatter',
-                    color: 'transparent'
-
-                },
-                
-            ]
-        });
-    }
+    functionPlot({
+        target: '#graph-board',
+        width,
+        height,
+        xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
+        yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
+        // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
+        title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
+        grid: true,
+        disableZoom: false,
+        data: [
+            {
+                fn: f,
+            },
+            {
+                points: points,
+                fnType: 'points',
+                graphType: 'scatter'
+            }
+        ]
+    });
 }
 
-export default function LinearRegressionP2() {
 
-    const [rows, setRows] = React.useState(() => [{ id: 0, x: randomInt(0, 5.5), y: randomInt(0, 13) }]);
+export default function LinearRegressionP4() {
+
+    // dfd.readCSV("../../assets/datasets/Iris.csv")
+    // .then((df) => {
+    //     df.plot("plot_div").table()
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+
+    // function createRows(){
+    //     let rows = []
+    //     let i = 0
+    //     while (i<5){
+    //         rows.push({ id: i, x: randomInt(0, 5.5), y: randomInt(0, 13) })
+    //         i+=1
+    //     }
+    //     return rows
+    // }
+
+    
+    
+
+    const [rows] = React.useState(() =>[{ id: 0, x: 5.1, y: 3.5 },
+                                        { id: 1, x: 4.9, y: 3 },
+                                        { id: 2, x: 4.7, y: 3.2 },
+                                        { id: 3, x: 4.6, y: 3.1 },
+                                        { id: 4, x: 5, y: 3.6 }]);
 
     const [xBar, setxBar] = React.useState(() => calculateXBar());
 
@@ -160,35 +156,6 @@ export default function LinearRegressionP2() {
     }
 
 
-    
-      
-    const handleDeleteRow = () => {
-        setRows((prevRows) => {
-        return [
-            ...rows.slice(0, prevRows.length - 1)  
-        ];
-        });
-    };
-      
-    const handleAddRow = () => {
-        setRows((prevRows) => [...prevRows, { id: prevRows.length + 1, x: randomInt(0, 5.5), y: randomInt(0, 13) }]);
-    };
-
-
-
-
-    const handleCommit = (e:GridCellEditCommitParams) => {
-        const array = rows.map(r => 
-            {
-                if (r.id === e.id){
-                    return {...r, [e.field]:parseInt(e.value)}
-                }
-                else{
-                    return {...r}
-                }
-            })
-            setRows(array)
-    }
 
     function calculateXBar(){
         if(rows.length == 0)
@@ -279,25 +246,10 @@ export default function LinearRegressionP2() {
                                     '.MuiDataGrid-columnHeaderTitle':{
                                         
                                     }
-                                }}
-                                onCellEditCommit = {handleCommit}
-                                 
+                                }}                                
                                 />
                                 
                             </Box>
-                            <Stack
-                                sx={{ width: '100%', mb: 1 }}
-                                direction="row"
-                                alignItems="flex-start"
-                                columnGap={10}
-                            >
-                                <Button variant="contained" size="small" onClick={handleAddRow}>
-                                Add row
-                                </Button>
-                                <Button variant="contained" size="small" onClick={handleDeleteRow}>
-                                Delete row
-                                </Button>
-                            </Stack>
                         </Grid>
                         <Grid item xs={8}>
                                 <LeftItem>

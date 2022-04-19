@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
-import FunctionTextField from './FunctionTextField';
+import FunctionTextField from '../FunctionTextField';
 
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import functionPlot from "function-plot";
