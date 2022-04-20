@@ -271,8 +271,9 @@ export default function LinearRegressionP3() {
                                 </Button>
                             </Stack>
                         </Grid>
+
                         <Grid item xs={8}>
-                                <LeftItem>
+                            <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -280,7 +281,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1") } type="number"/>
+                                        <TextField autoFocus fullWidth value={xBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1") }/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -288,7 +289,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={yBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={yBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -296,7 +297,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xDotX.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={xDotX.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} />
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -304,7 +305,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xDotY.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={xDotY.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -312,7 +313,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={w.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={w.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -320,7 +321,7 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={b.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={b.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/>
                                     </Grid> 
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -328,18 +329,19 @@ export default function LinearRegressionP3() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={J.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        <TextField autoFocus fullWidth value={J.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/>
                                     </Grid> 
                                     
                                 </Grid>
                             </LeftItem>
-                            </Grid>
-                            <Box>
+                        </Grid>
+
+                        <Box>
                             <Grid item xs={12}>
                                 <div id='graph-board' style={{pointerEvents: 'none'}}></div>
                             </Grid>
-                            </Box>
-                        </Grid>
+                        </Box>
+                    </Grid>
                 </MathJaxContext>
             </Box>
         </div>

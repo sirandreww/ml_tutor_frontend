@@ -2,7 +2,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
-import { LeftItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import { LeftItem,CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 
 import { MathJax, MathJaxContext } from "better-react-mathjax";
@@ -13,6 +13,8 @@ import functionPlot from "function-plot";
 // import * as dfd from "danfojs";
 import TextField from '@mui/material/TextField';
 import { randomInt } from 'mathjs';
+import { GridColDef } from '@mui/x-data-grid';
+import QuestionTable from 'components/QuestionTable';
 
 // --------------------------------------------------------
 
@@ -24,7 +26,7 @@ type Props = {
     generateQuestionTable: boolean
 }
 
-function getGraph1D(f: string, points: number[][]) {
+function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
     const values = f.match(regex)!.filter( r => r != "");
     // let axisX = [0,10]
@@ -56,12 +58,16 @@ function getGraph1D(f: string, points: number[][]) {
                 fn: f,
             },
             {
+                fn: f2,
+            },
+            {
                 points: points,
                 fnType: 'points',
                 graphType: 'scatter'
             }
         ]
     });
+    
 }
 
 
@@ -96,21 +102,35 @@ export default function LinearRegressionP4() {
                                         { id: 4, x: 5, y: 3.6 }]);
 
     const [xBar, setxBar] = React.useState(() => calculateXBar());
-
     const [yBar, setyBar] = React.useState(() => calculateYBar());
-
     const [xDotX, setXDotX] = React.useState(() => calculateXDotX());
-
     const [xDotY, setXDotY] = React.useState(() => calculateXDotY());
-
     const [w, setW] = React.useState(() => calculateW());
-
     const [b, setB] = React.useState(() => calculateB());
-
     const [J, setJ] = React.useState(() => calculateJ());
+
+    
+
+    const [xBarInp, setxBarInp] = React.useState("-1");
+    const [xBarInpErr, setxBarInpErr] = React.useState(false);
+    const [yBarInp, setyBarInp] = React.useState("-1");
+    const [yBarInpErr, setyBarInpErr] = React.useState(false);
+    const [xDotXInp, setXDotXInp] = React.useState("-1");
+    const [xDotXInpErr, setxDotXInpErr] = React.useState(false);
+    const [xDotYInp, setXDotYInp] = React.useState("-1");
+    const [xDotYInpErr, setxDotYInpErr] = React.useState(false);
+    const [wInp, setWInp] = React.useState("-1");
+    const [wInpErr, setwInpErr] = React.useState(false);
+    const [bInp, setBInp] = React.useState("-1");
+    const [bInpErr, setBInpErr] = React.useState(false);
+    const [JInp, setJInp] = React.useState("-1");
+    const [JInpErr, setJInpErr] = React.useState(false);
 
     const [points, setPoints] = React.useState(() => calculatePoints());
 
+    const colNames: GridColDef[] =[
+        { headerName:"x", field: 'x', editable: true,sortable: false, headerAlign:'center', align:'center', width: 150 },
+        { headerName:"y", field: 'y', editable: true,sortable: false, headerAlign:'center', align:'center' }]
 
 
 
@@ -138,12 +158,72 @@ export default function LinearRegressionP4() {
 
     React.useEffect(() => {
         if (points.length == 0 ) {
-            getGraph1D("0*x+0", []);
+            getGraph1D("0*x+0", [],"0*x+0");
         }
         else{
-            getGraph1D(`${w}*x+${b}`, points);
+            getGraph1D(`${w}*x+${b}`, points,`${wInp}*x+${bInp}`);
+            // getGraph1D(`${wInp}*x+${bInp}`, points);
         }
-    },[rows,w, b]);
+    },[rows,w, b,wInp,bInp]);
+
+
+
+    React.useEffect(() => { //xBar.toString().indexOf('.')
+        // yBar.toString().slice(0,yBar.toString().indexOf('.') + 3)
+        if(parseFloat(xBarInp) == parseFloat(xBar.toString().slice(0,xBar.toString().indexOf('.') + 3))){
+            setxBarInpErr(false)
+        }else{
+            setxBarInpErr(true)
+        }
+    },[xBarInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(yBarInp) == parseFloat(yBar.toString().slice(0,yBar.toString().indexOf('.') + 3))){
+            setyBarInpErr(false)
+        }else{
+            setyBarInpErr(true)
+        }
+    },[yBarInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(xDotXInp) == parseFloat(xDotX.toString().slice(0,xDotX.toString().indexOf('.') + 3))){
+            setxDotXInpErr(false)
+        }else{
+            setxDotXInpErr(true)
+        }
+    },[xDotXInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(xDotYInp) == parseFloat(xDotY.toString().slice(0,xDotY.toString().indexOf('.') + 3))){
+            setxDotYInpErr(false)
+        }else{
+            setxDotYInpErr(true)
+        }
+    },[xDotYInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(wInp) == parseFloat(w.toString().slice(0,w.toString().indexOf('.') + 3))){
+            setwInpErr(false)
+        }else{
+            setwInpErr(true)
+        }
+    },[wInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(bInp) == parseFloat(b.toString().slice(0,b.toString().indexOf('.') + 3))){
+            setBInpErr(false)
+        }else{
+            setBInpErr(true)
+        }
+    },[bInp]);
+
+    React.useEffect(() => {
+        if(parseFloat(JInp) == parseFloat(J.toString().slice(0,J.toString().indexOf('.') + 3))){
+            setJInpErr(false)
+        }else{
+            setJInpErr(true)
+        }
+    },[JInp]);
 
     function setValues(){
         setxBar(calculateXBar());
@@ -217,7 +297,6 @@ export default function LinearRegressionP4() {
     }
 
 
-
     return (
         <div>
          {/* {JSON.stringify(points)} */}
@@ -229,11 +308,7 @@ export default function LinearRegressionP4() {
                             <Box sx={{ height: 415, bgcolor: 'background.paper' }}>
                                 <DataGrid hideFooter 
                                 rows={rows} 
-                                columns={[
-                                    { headerName:"x", field: 'x', editable: true,sortable: false, headerAlign:'center', align:'center', width: 150 },
-                                    { headerName:"y", field: 'y', editable: true,sortable: false, headerAlign:'center', align:'center' },
-                                  ]} 
-
+                                columns={colNames} 
                                 sx={{
                                     boxShadow: 2,
                                     border: 2,
@@ -251,16 +326,31 @@ export default function LinearRegressionP4() {
                                 
                             </Box>
                         </Grid>
+
+                       
+                        {/* <Grid item xs={8}>
+                            <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                <QuestionTable
+                                    headers={colNames}
+                                    exampleEnabled={true}
+                                    correctAnswers={[]}
+                                    comparator={(res, ans) => Number(ans) === Number(res)}
+                                /> 
+                            </Box>
+                        </Grid> */}
+
+                        
                         <Grid item xs={8}>
-                                <LeftItem>
+                            <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(\\overline{x}\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
+                                    
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1") } type="number"/>
+                                        <TextField autoFocus fullWidth value={xBarInp} onChange={ (e)=> setxBarInp(e.target.value) } error={xBarInpErr}/> 
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -268,7 +358,8 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={yBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={yBar.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="string" /> */}
+                                        <TextField autoFocus fullWidth value={yBarInp} onChange={ (e)=> setyBarInp(e.target.value) } error={yBarInpErr}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -276,7 +367,8 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xDotX.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={xDotX.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} /> */}
+                                        <TextField autoFocus fullWidth value={xDotXInp} onChange={ (e)=> setXDotXInp(e.target.value) } error={xDotXInpErr}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -284,7 +376,8 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={xDotY.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={xDotY.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} /> */}
+                                        <TextField autoFocus fullWidth value={xDotYInp} onChange={ (e)=> setXDotYInp(e.target.value) } error={xDotYInpErr}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -292,7 +385,8 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={w.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={w.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} /> */}
+                                        <TextField autoFocus fullWidth value={wInp} onChange={ (e)=> setWInp(e.target.value) } error={wInpErr}/>
                                     </Grid>
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -300,7 +394,8 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={b.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={b.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} /> */}
+                                        <TextField autoFocus fullWidth value={bInp} onChange={ (e)=> setBInp(e.target.value) } error={bInpErr}/>
                                     </Grid> 
                                     <Grid item xs={1}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
@@ -308,18 +403,23 @@ export default function LinearRegressionP4() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={11}>
-                                        <TextField autoFocus fullWidth value={J.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")} type="number"/>
+                                        {/* <TextField autoFocus fullWidth value={J.toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}/> */}
+                                        <TextField autoFocus fullWidth value={JInp} onChange={ (e)=> setJInp(e.target.value) } error={JInpErr}/>
                                     </Grid> 
-                                    
                                 </Grid>
                             </LeftItem>
-                            </Grid>
+                        </Grid>
+
+                        {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '}
+                        
+                        <Grid item xs={12}>
                             <Box>
-                            <Grid item xs={12}>
                                 <div id='graph-board' style={{pointerEvents: 'none'}}></div>
-                            </Grid>
                             </Box>
                         </Grid>
+                        
+
+                    </Grid>
                 </MathJaxContext>
             </Box>
         </div>
