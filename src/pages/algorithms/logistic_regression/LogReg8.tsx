@@ -12,7 +12,7 @@ export default function LogReg8() {
 
     return (
         <AlgorithmsDashboard
-            currentAlgorithmName="gd"
+            currentAlgorithmName="logreg"
             currentStep={8}
             component={
                 <Box>
