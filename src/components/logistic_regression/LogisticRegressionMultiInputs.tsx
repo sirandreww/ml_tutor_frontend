@@ -6,7 +6,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import {useTranslation} from "react-i18next";
 import { TextField } from '@mui/material';
 import Grid from "@mui/material/Grid";
-import { sigmoid } from 'components/logistic_regression/LogisticRegression';
+import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 
 export default function LogisticRegressionMultiInputs() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getGraph1D } from 'components/GradientDescentHelper';
-import { sigmoid } from 'components/logistic_regression/LogisticRegression';
+import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 import {all, create} from "mathjs";
 
 const math = create(all, {})
