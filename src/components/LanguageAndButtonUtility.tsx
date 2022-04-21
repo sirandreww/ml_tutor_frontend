@@ -8,6 +8,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import BrushIcon from '@mui/icons-material/Brush';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import QuizIcon from '@mui/icons-material/Quiz';
 import i18next from "i18next";
 
 
@@ -36,6 +38,8 @@ export const languageReversedDirection = () => {
 export const button = ({eventHandler, type}: { eventHandler: any, type: string }) => {
     switch(type) {
         case 'play': return playButton({eventHandler})
+        case 'train': return trainButton({eventHandler})
+        case 'test': return testButton({eventHandler})
         case 'pause': return pauseButton({eventHandler})
         case 'stop': return stopButton({eventHandler})
         case 'prev': return prevButton({eventHandler})
@@ -50,6 +54,26 @@ function playButton(handler: eventHandler) {
         <Tooltip title="Play" arrow>
             <IconButton aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
                 <PlayArrowIcon fontSize="inherit" />
+            </IconButton>
+        </Tooltip>
+    )
+}
+
+function trainButton(handler: eventHandler) {
+    return(
+        <Tooltip title="Train" arrow>
+            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
+                <ChangeCircleIcon fontSize="inherit" />
+            </IconButton>
+        </Tooltip>
+    )
+}
+
+function testButton(handler: eventHandler) {
+    return(
+        <Tooltip title="Test" arrow>
+            <IconButton aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
+                <QuizIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
     )

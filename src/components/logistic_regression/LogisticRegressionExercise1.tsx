@@ -5,7 +5,7 @@ import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField, Grid } from '@mui/material';
-import { sigmoid } from 'components/logistic_regression/LogisticRegression';
+import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 import Img1 from 'assets/images/LogisticRegressionEx1_1.png';
 import Img2 from 'assets/images/LogisticRegressionEx1_2.png';
