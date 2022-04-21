@@ -144,8 +144,8 @@ export default function LogisticRegressionTraining() {
                                 {`$$ 
                                     X_{2x2} = 
                                     \\begin{bmatrix}
-                                        x_{11} & x_{12} \\\\
-                                        x_{21} & x_{22} \\\\
+                                        x_{11} & x_{21} \\\\
+                                        x_{12} & x_{22} \\\\
                                     \\end{bmatrix} 
                                     =
                                 $$`}
@@ -156,13 +156,13 @@ export default function LogisticRegressionTraining() {
                             <TextField label="x11" type="number" size="small" onChange={event => {
                                 setX11(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
-                            <TextField label="x12" type="number" size="small" onChange={event => {
-                                setX12(Number(event.target.value)); updateModule()
+                            <TextField label="x21" type="number" size="small" onChange={event => {
+                                setX21(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
                         </Grid>
                         <Grid item xs={2} my={`auto`}>
-                            <TextField label="x21" type="number" size="small" onChange={event => {
-                                setX21(Number(event.target.value)); updateModule()
+                            <TextField label="x12" type="number" size="small" onChange={event => {
+                                setX12(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
                             <TextField label="x22" type="number" size="small" onChange={event => {
                                 setX22(Number(event.target.value)); updateModule()

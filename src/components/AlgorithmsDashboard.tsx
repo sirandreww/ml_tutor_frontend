@@ -35,7 +35,6 @@ const log_reg_steps: string[] = [
   "log_reg_step_5_title",
   "log_reg_step_6_title",
   "log_reg_step_7_title",
-  "log_reg_step_8_title"
 ]
 
 const neural_network_steps: string[] = [
