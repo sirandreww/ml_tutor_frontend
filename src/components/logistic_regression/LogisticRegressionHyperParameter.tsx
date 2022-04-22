@@ -278,13 +278,6 @@ const iris_virginica_train: number[] = iris_versicolor_train
 
 const TOTAL_NUMBER_OF_SAMPELS = 50
 
-type Props = {
-    alphaType: string,
-    percentageType: string,
-    buttonsType: string,
-    generateQuestionTable: boolean
-}
-
 function getClassifications(startAt: number, endAt: number): number[] {
     let classifications = [...iris_setosa_train].slice(startAt, endAt)
     classifications = classifications.concat([...iris_versicolor_train].slice(startAt, endAt))
@@ -294,12 +287,12 @@ function getClassifications(startAt: number, endAt: number): number[] {
 }
 
 function getDataBatch(startAt: number, endAt: number): number[][] {
-    console.log("iris_setosa = " + iris_setosa)
+    // console.log("iris_setosa = " + iris_setosa)
     let data = [...iris_setosa].slice(startAt, endAt)
     data = data.concat([...iris_versicolor].slice(startAt, endAt))
     data = data.concat([...iris_virginica].slice(startAt, endAt))
-    console.log("data = ")
-    console.log(data)
+    // console.log("data = ")
+    // console.log(data)
     return data
 }
 
@@ -329,9 +322,7 @@ function getElement(matrix: Matrix, index: number): string {
 let alg = new LogisticRegressionModule([], [], 0, 0)
 let acc = 0
 
-export default function LogisticRegressionHyperParameter(props: Props) {
-    const { alphaType, percentageType, buttonsType, generateQuestionTable } = props
-
+export default function LogisticRegressionHyperParameter() {
     const [alpha, setAlpha] = React.useState(0.05)
     const [numOfIterations, setNumOfIterations] = React.useState(10)
     const [dataSetPer, setDataSetPer] = React.useState(0.3)
@@ -367,81 +358,6 @@ export default function LogisticRegressionHyperParameter(props: Props) {
         }
     }
 
-    const getAlphaInput = (type: string) => {
-        switch (type) {
-            case 'slider':
-                return (
-                    <span>
-                        <PrettoSlider
-                            valueLabelDisplay="auto"
-                            aria-label="pretto slider"
-                            defaultValue={alpha}
-                            step={0.0001}
-                            min={0}
-                            max={0.1}
-                            onChange={(_, value) => handleStates({ al: Number(value), trn: false, tst: false })}
-                        />
-                    </span>
-                );
-            case 'input':
-                return <NumberTextField value={alpha} onChange={event => handleStates({ al: Number(event.target.value), trn: false, tst: false })} />
-            default:
-                return null
-        }
-    }
-    const getPercentageInput = (type: string) => {
-        switch (type) {
-            case 'slider':
-                return (
-                    <span>
-                        <PrettoSlider
-                            valueLabelDisplay="auto"
-                            aria-label="pretto slider"
-                            defaultValue={dataSetPer}
-                            step={0.05}
-                            min={0}
-                            max={0.95}
-                            onChange={(_, value) => handleStates({ per: Number(value), trn: false, tst: false })}
-                        />
-                    </span>
-                );
-            case 'input':
-                return <TextField type={'number'} InputProps={{ inputProps: { min: 0, max: 1 } }} value={alpha} onChange={event => handleStates({ per: Number(event.target.value), trn: false, tst: false })} />
-            default:
-                return null
-        }
-    }
-    const getButtonsInput = (type: string) => {
-        switch (type) {
-            case 'playGround':
-            case 'hyperParameter':
-                return (
-                    <CenterItem>
-                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({ trn: false, tst: false }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ trn: true, tst: false }), type: 'train' })}
-                        </Box>
-                    </CenterItem>
-                );
-            // case 'stepByStep':
-            //     return (
-            //         <CenterItem>
-            //             <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-            //                 {button({ eventHandler: () => handleStates({ al: alpha }), type: 'play' })}
-            //                 {button({ eventHandler: () => handleStates({ al: alpha }), type: 'train' })}
-            //                 {button({ eventHandler: () => handleStates({ al: alpha }), type: 'stop' })}
-            //                 {button({ eventHandler: () => handleStates({ al: alpha }), type: 'next' })}
-            //             </Box>
-            //         </CenterItem>
-            //     );
-            default:
-                return null
-        }
-    }
-
-
-
-
     return (
         <div>
             <Box sx={{ width: "100%" }}>
@@ -465,7 +381,15 @@ export default function LogisticRegressionHyperParameter(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={8}>
-                                        {getAlphaInput(alphaType)}
+                                        <PrettoSlider
+                                            valueLabelDisplay="auto"
+                                            aria-label="pretto slider"
+                                            defaultValue={alpha}
+                                            step={0.0001}
+                                            min={0}
+                                            max={0.1}
+                                            onChange={(_, value) => handleStates({ al: Number(value), trn: false, tst: false })}
+                                        />
                                     </Grid>
                                     <Grid item xs={4}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -473,7 +397,15 @@ export default function LogisticRegressionHyperParameter(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={8}>
-                                        {getPercentageInput(percentageType)}
+                                        <PrettoSlider
+                                            valueLabelDisplay="auto"
+                                            aria-label="pretto slider"
+                                            defaultValue={dataSetPer}
+                                            step={0.05}
+                                            min={0}
+                                            max={0.95}
+                                            onChange={(_, value) => handleStates({ per: Number(value), trn: false, tst: false })}
+                                        />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
@@ -546,11 +478,10 @@ export default function LogisticRegressionHyperParameter(props: Props) {
                         <Grid item xs={12}>
                             <CenterItem>
                                 <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                    {generateQuestionTable ? <div/> : <div/>}
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board' />
+                                    {button({ eventHandler: () => handleStates({ trn: false, tst: false }), type: 'stop' })}
+                                    {button({ eventHandler: () => handleStates({ trn: true, tst: false }), type: 'train' })}
                                 </Box>
                             </CenterItem>
-                            {getButtonsInput(buttonsType)}
                         </Grid>
                     </Grid>
                 </MathJaxContext>

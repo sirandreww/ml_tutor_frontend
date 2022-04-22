@@ -5,12 +5,11 @@ import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
-import {LogisticRegressionModule, sigmoid} from 'components/logistic_regression/LogisticRegressionCore';
+import {LogisticRegressionModule} from 'components/logistic_regression/LogisticRegressionCore';
 import Grid from "@mui/material/Grid";
 
 
 export default function LogisticRegressionTraining() {
-    const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
     const [t] = useTranslation('translation');
 
@@ -127,7 +126,7 @@ export default function LogisticRegressionTraining() {
                         1. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1xm}\\)"}</MathJax>.<br/>
                         2. Calculate <MathJax style={mathJaxStyle} inline>{"\\(dW\\)"}</MathJax>.<br/>
                         3. Calculate <MathJax style={mathJaxStyle} inline>{"\\(dB\\)"}</MathJax>.<br/>
-                        4. Apply <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\vec{w} - \\alpha*\\vec{w}^{t}\\)"}</MathJax>.<br/>
+                        4. Apply <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\vec{w} - \\alpha * dW^{t}\\)"}</MathJax>.<br/>
                         5. Apply <MathJax style={mathJaxStyle} inline>{"\\(b_{new} = b - \\alpha*dB\\)"}</MathJax>.<br/>
                     </Typography>
                     <br/>
@@ -144,8 +143,8 @@ export default function LogisticRegressionTraining() {
                                 {`$$ 
                                     X_{2x2} = 
                                     \\begin{bmatrix}
-                                        x_{11} & x_{12} \\\\
-                                        x_{21} & x_{22} \\\\
+                                        x_{11} & x_{21} \\\\
+                                        x_{12} & x_{22} \\\\
                                     \\end{bmatrix} 
                                     =
                                 $$`}
@@ -156,13 +155,13 @@ export default function LogisticRegressionTraining() {
                             <TextField label="x11" type="number" size="small" onChange={event => {
                                 setX11(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
-                            <TextField label="x12" type="number" size="small" onChange={event => {
-                                setX12(Number(event.target.value)); updateModule()
+                            <TextField label="x21" type="number" size="small" onChange={event => {
+                                setX21(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
                         </Grid>
                         <Grid item xs={2} my={`auto`}>
-                            <TextField label="x21" type="number" size="small" onChange={event => {
-                                setX21(Number(event.target.value)); updateModule()
+                            <TextField label="x12" type="number" size="small" onChange={event => {
+                                setX12(Number(event.target.value)); updateModule()
                             }} sx={{ width: "100%" }} />
                             <TextField label="x22" type="number" size="small" onChange={event => {
                                 setX22(Number(event.target.value)); updateModule()
