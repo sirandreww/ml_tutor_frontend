@@ -49,8 +49,8 @@ const LogReg2 = lazy(() => import("pages/algorithms/logistic_regression/LogReg2"
 const LogReg3 = lazy(() => import("pages/algorithms/logistic_regression/LogReg3"));
 const LogReg4 = lazy(() => import("pages/algorithms/logistic_regression/LogReg4"));
 const LogReg5 = lazy(() => import("pages/algorithms/logistic_regression/LogReg5"));
-const LogReg6 = lazy(() => import("pages/algorithms/logistic_regression/LogReg5"));
-const LogReg7 = lazy(() => import("pages/algorithms/logistic_regression/LogReg6"));
+const LogReg6 = lazy(() => import("pages/algorithms/logistic_regression/LogReg6"));
+const LogReg7 = lazy(() => import("pages/algorithms/logistic_regression/LogReg7"));
 
 // ------------------------ Neural Network ------------------------ 
 const NN1 = lazy(() => import("pages/algorithms/neural_network/NN1"));

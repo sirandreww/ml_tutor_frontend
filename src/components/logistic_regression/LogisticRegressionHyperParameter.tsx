@@ -287,12 +287,12 @@ function getClassifications(startAt: number, endAt: number): number[] {
 }
 
 function getDataBatch(startAt: number, endAt: number): number[][] {
-    console.log("iris_setosa = " + iris_setosa)
+    // console.log("iris_setosa = " + iris_setosa)
     let data = [...iris_setosa].slice(startAt, endAt)
     data = data.concat([...iris_versicolor].slice(startAt, endAt))
     data = data.concat([...iris_virginica].slice(startAt, endAt))
-    console.log("data = ")
-    console.log(data)
+    // console.log("data = ")
+    // console.log(data)
     return data
 }
 

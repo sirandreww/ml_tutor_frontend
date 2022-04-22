@@ -16,7 +16,8 @@ export type ModuleInfos = {
     module: Module,
     costs: number[],
     ws: Matrix[],
-    bs: number[]
+    bs: number[],
+    ys: Matrix[],
 }
 
 export class LogisticRegressionModule {
@@ -29,6 +30,7 @@ export class LogisticRegressionModule {
     private readonly _COSTS: number[];
     private readonly _WS: Matrix[];
     private readonly _BS: number[];
+    private readonly _YS: Matrix[];
 
 
     constructor(data_batch: number[][], classifications: number[], learning_rate: number, total_iterations: number) {
@@ -41,19 +43,20 @@ export class LogisticRegressionModule {
         // console.log("_Y:\n", classifications)
         // console.log("_ALPHA:\n", learning_rate)
         // console.log("_ITERATIONS:\n", total_iterations)
-        console.log("data_batch = " + data_batch)
-        console.log("classifications = " + classifications)
+        console.log("data_batch = \n", data_batch)
+        console.log("classifications = \n", classifications)
         let tmp = LogisticRegressionModule.createModule(
             math.transpose(math.matrix(this._X)),
             math.matrix(this._Y),
             this._ALPHA,
             this._ITERATIONS)
 
-        console.log("tmp = ", tmp)
+        console.log("tmp = \n", tmp)
         this._MODULE = tmp.module
         this._COSTS = tmp.costs
         this._WS = tmp.ws
         this._BS = tmp.bs
+        this._YS = tmp.ys
     }
 
     public getModule(): Module {
@@ -65,7 +68,8 @@ export class LogisticRegressionModule {
             module: this._MODULE,
             costs: this._COSTS,
             ws: this._WS,
-            bs: this._BS
+            bs: this._BS,
+            ys: this._YS,
         }
     }
 
@@ -95,8 +99,8 @@ export class LogisticRegressionModule {
     }
 
     public getAccuracy(test_batch: number[][], test_classifications: number[]): number {
-        console.log("test_batch = " + test_batch)
-        console.log("test_classifications = " + test_classifications)
+        // console.log("test_batch = " + test_batch)
+        // console.log("test_classifications = " + test_classifications)
 
         let total_mismatches = 0;
         for (let i = 0; i < test_batch.length; i++) {
@@ -105,8 +109,8 @@ export class LogisticRegressionModule {
                 total_mismatches++
         }
 
-        console.log("total_mismatches = " + total_mismatches)
-        console.log("test_classifications.length = " + test_classifications.length)
+        // console.log("total_mismatches = " + total_mismatches)
+        // console.log("test_classifications.length = " + test_classifications.length)
         return 1 - (total_mismatches/ test_classifications.length)
     }
 
@@ -145,6 +149,7 @@ export class LogisticRegressionModule {
         let cost_per_iteration = []
         let ws_per_iteration = []
         let bs_per_iteration = []
+        let ys_per_iteration = []
 
         for (let i = 0; i < iterations; i++) {
 
@@ -162,15 +167,18 @@ export class LogisticRegressionModule {
             B = B - learning_rate*dB
 
             // Adding more Info for future tasks
+            ys_per_iteration.push(A)
             cost_per_iteration.push(cost)
             ws_per_iteration.push(W)
             bs_per_iteration.push(B)
         }
 
-        return { module: {W: W, B: B} as Module,
+        return {
+            module: {W: W, B: B} as Module,
             costs: cost_per_iteration,
             ws: ws_per_iteration,
-            bs: bs_per_iteration
+            bs: bs_per_iteration,
+            ys: ys_per_iteration
         }
     }
 }
