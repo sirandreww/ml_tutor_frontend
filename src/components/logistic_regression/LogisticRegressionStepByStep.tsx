@@ -13,28 +13,29 @@ import {
     getLogisticRegressionModuleInfoColumns,
 } from "../QuestionTableDefinitions";
 
-const TOTAL_ITERATIONS = 2
+const TOTAL_ITERATIONS = 4
 const DIGITS = 0
 
 function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionModule): { [id: string]: string }[] {
     let moduleInfo = algo.getModuleInfo()
     let answers: { [id: string]: string }[] = []
-
+    let step = 0
     for (let epoch = 1; epoch < TOTAL_ITERATIONS + 1 ; epoch++) {
         xs.forEach((xi, id) => {
-            let yi = Number(moduleInfo.ys[epoch - 1].subset(math.index(id)))
+            let yi = Number(Number(moduleInfo.ys[epoch - 1].subset(math.index(id))).toFixed(DIGITS))
 
-            // console.log("moduleInfo.ys = \n", moduleInfo.ys)
-            // console.log("typeOf moduleInfo.ys = \n", (typeof moduleInfo.ys))
-            // console.log("moduleInfo.ys[epoch - 1] = \n", moduleInfo.ys[epoch - 1])
-            // console.log("typeOf moduleInfo.ys[epoch - 1] = \n", (typeof moduleInfo.ys[epoch - 1]))
-            // console.log("moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", moduleInfo.ys[epoch - 1].subset(math.index(id)))
-            // console.log("typeOf moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", (typeof moduleInfo.ys[epoch - 1].subset(math.index(id))))
-            // console.log("yi = \n", yi)
-            // console.log("typeOf yi = \n", (typeof yi))
-            // console.log("Number(yi) = \n", Number(yi))
+            console.log("moduleInfo.ys = \n", moduleInfo.ys)
+            console.log("typeOf moduleInfo.ys = \n", (typeof moduleInfo.ys))
+            console.log("moduleInfo.ys[epoch - 1] = \n", moduleInfo.ys[epoch - 1])
+            console.log("typeOf moduleInfo.ys[epoch - 1] = \n", (typeof moduleInfo.ys[epoch - 1]))
+            console.log("moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", moduleInfo.ys[epoch - 1].subset(math.index(id)))
+            console.log("typeOf moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", (typeof moduleInfo.ys[epoch - 1].subset(math.index(id))))
+            console.log("yi = \n", yi)
+            console.log("typeOf yi = \n", (typeof yi))
+            console.log("Number(yi) = \n", Number(yi))
 
             let tmp = {
+                "step": step.toString(),
                 "epoch": epoch.toFixed(DIGITS).toString(),
                 "sid": (id + 1).toFixed(DIGITS).toString(),
                 "xOne": xi[0].toFixed(DIGITS).toString(),
@@ -45,6 +46,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
 
             // console.log("tmp = \n", tmp)
             answers.push(tmp)
+            step++
         })
     }
 
@@ -56,6 +58,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
 function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id: string]: string }[] {
     let moduleInfo = algo.getModuleInfo()
     let answers: { [id: string]: string }[] = []
+    let step = 0
     let ws = moduleInfo.ws
     let bs = moduleInfo.bs
     let bPrev = 0
@@ -67,7 +70,8 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         let w1New = Number(ws[epoch].subset(math.index(0)))
         let w2New = Number(ws[epoch].subset(math.index(1)))
         answers.push({
-            "epoch": (epoch - 1).toFixed(DIGITS).toString(),
+            "step": step.toString(),
+            "epoch": epoch.toFixed(DIGITS).toString(),
             "wOne": w1Prev.toFixed(DIGITS).toString(),
             "wTwo": w2Prev.toFixed(DIGITS).toString(),
             "b": bPrev.toFixed(DIGITS).toString(),
@@ -78,9 +82,10 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
             "wTwoNew": w2New.toFixed(DIGITS).toString(),
             "bNew": bNew.toFixed(DIGITS).toString()
         })
+        step++
     }
 
-    console.log("Data Answers = \n", answers)
+    console.log("Module Answers = \n", answers)
     return answers
     // return []
 }

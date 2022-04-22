@@ -110,6 +110,12 @@ export function getOneDimensionalColumnNames(): GridColDef[] {
 export function getLogisticRegressionDataColumnNames(): GridColDef[] {
     return [
         {
+            field: 'step',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
+            flex: 1, editable: false, align: "center"
+        },
+        {
             field: 'epoch',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(Epoch\\)"}</MathJax>,
@@ -151,6 +157,12 @@ export function getLogisticRegressionDataColumnNames(): GridColDef[] {
 
 export function getLogisticRegressionModuleInfoColumns(): GridColDef[] {
     return [
+        {
+            field: 'step',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
+            flex: 1, editable: false, align: "center"
+        },
         {
             field: 'epoch',
             // @ts-ignore
