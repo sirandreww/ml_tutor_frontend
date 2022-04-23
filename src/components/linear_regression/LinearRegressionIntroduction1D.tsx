@@ -86,7 +86,7 @@ export default function Introduction1D() {
                     <br/>
                     <h4 style={headers_style}>How to find the optimal parameters of the model?</h4><br/>
                     We take the parameters that minimize the sum of mean squared loss:<br/>
-                    <MathJax style={mathJaxStyle} inline>{"\\(J=\\frac{1}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)\\)"}</MathJax><br/>
+                    <MathJax style={mathJaxStyle} inline>{"\\(J=\\frac{1}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)^{2}\\)"}</MathJax><br/>
                     <br/><br/>
                     {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{x}=\\frac{1}{m}\\sum_{i=1}^{m}x^{(i)}\\)"}</MathJax> - the mean value of x.<br/><br/>
