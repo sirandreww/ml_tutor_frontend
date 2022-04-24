@@ -10,47 +10,29 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { DataGrid} from '@mui/x-data-grid';
 import functionPlot from "function-plot";
 
-// import * as dfd from "danfojs";
 import TextField from '@mui/material/TextField';
-import { randomInt } from 'mathjs';
 import { GridColDef } from '@mui/x-data-grid';
-import QuestionTable from 'components/QuestionTable';
-
 // --------------------------------------------------------
 
 
-
-type Props = {
-    alphaType: string,
-    buttonsType: string,
-    generateQuestionTable: boolean
-}
-
 function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
-    const values = f.match(regex)!.filter( r => r != "");
-    // let axisX = [0,10]
-    // let axisY = [0,10]
-    // if(points.length !=0 ){
-    //     axisX = [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3]
-    //     axisY = [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3]
-    // }
+    const values = f2.match(regex)!.filter( r => r != "");
+
     let mark = ' + '
      if ( parseFloat(values[1]) < 0) {
         mark = ' - '
     }
     var width = 800;
     var height = 500;
-    // console.log("points= \n", points)
-    // console.log("f= \n", f)
+
     functionPlot({
         target: '#graph-board',
         width,
         height,
-        xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 3, Math.max.apply(null, points.map( r => r[0]) ) + 3], label: 'x' },
-        yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 3, Math.max.apply(null, points.map( r => r[1]) ) + 3], label: 'y' },
-        // title: `${parseInt(values[0])}*x${mark}${parseInt(values[1])}`,
-        title: `${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
+        xAxis: { domain: [Math.min.apply(null, points.map( r => r[0])) - 10, Math.max.apply(null, points.map( r => r[0]) ) + 10], label: 'x' },
+        yAxis: { domain: [Math.min.apply(null, points.map( r => r[1]) ) - 10, Math.max.apply(null, points.map( r => r[1]) ) + 10], label: 'y' },
+        title: `Function Based On Your Calculation (Red): ${parseFloat(values[0]).toPrecision(3).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}*x${mark}${Math.abs(parseFloat(values[1])).toPrecision(5).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1")}`,
         grid: true,
         disableZoom: false,
         data: [
@@ -73,28 +55,6 @@ function getGraph1D(f: string, points: number[][],f2: string) {
 
 export default function LinearRegressionP4() {
 
-    // dfd.readCSV("../../assets/datasets/Iris.csv")
-    // .then((df) => {
-    //     df.plot("plot_div").table()
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-
-    // function createRows(){
-    //     let rows = []
-    //     let i = 0
-    //     while (i<5){
-    //         rows.push({ id: i, x: randomInt(0, 5.5), y: randomInt(0, 13) })
-    //         i+=1
-    //     }
-    //     return rows
-    // }
-
-    
-    
-
     const [rows] = React.useState(() =>[{ id: 0, x: 5.1, y: 3.5 },
                                         { id: 1, x: 4.9, y: 3 },
                                         { id: 2, x: 4.7, y: 3.2 },
@@ -111,19 +71,19 @@ export default function LinearRegressionP4() {
 
     
 
-    const [xBarInp, setxBarInp] = React.useState("-1");
+    const [xBarInp, setxBarInp] = React.useState("");
     const [xBarInpErr, setxBarInpErr] = React.useState(false);
-    const [yBarInp, setyBarInp] = React.useState("-1");
+    const [yBarInp, setyBarInp] = React.useState("");
     const [yBarInpErr, setyBarInpErr] = React.useState(false);
-    const [xDotXInp, setXDotXInp] = React.useState("-1");
+    const [xDotXInp, setXDotXInp] = React.useState("");
     const [xDotXInpErr, setxDotXInpErr] = React.useState(false);
-    const [xDotYInp, setXDotYInp] = React.useState("-1");
+    const [xDotYInp, setXDotYInp] = React.useState("");
     const [xDotYInpErr, setxDotYInpErr] = React.useState(false);
-    const [wInp, setWInp] = React.useState("-1");
+    const [wInp, setWInp] = React.useState("");
     const [wInpErr, setwInpErr] = React.useState(false);
-    const [bInp, setBInp] = React.useState("-1");
+    const [bInp, setBInp] = React.useState("");
     const [bInpErr, setBInpErr] = React.useState(false);
-    const [JInp, setJInp] = React.useState("-1");
+    const [JInp, setJInp] = React.useState("");
     const [JInpErr, setJInpErr] = React.useState(false);
 
     const [points, setPoints] = React.useState(() => calculatePoints());
@@ -131,6 +91,13 @@ export default function LinearRegressionP4() {
     const colNames: GridColDef[] =[
         { headerName:"x", field: 'x', editable: true,sortable: false, headerAlign:'center', align:'center', width: 150 },
         { headerName:"y", field: 'y', editable: true,sortable: false, headerAlign:'center', align:'center' }]
+
+    function isNumberCorrect(answer : number, correct: number){
+        if(answer == null || correct == null){
+            return true
+        }
+        return correct - 0.01 <= answer && correct + 0.01 >= answer
+    }
 
 
 
@@ -157,7 +124,7 @@ export default function LinearRegressionP4() {
     },[w, b]);
 
     React.useEffect(() => {
-        if (points.length == 0 ) {
+        if (points.length == 0 || wInp == "" || bInp == "") {
             getGraph1D("0*x+0", [],"0*x+0");
         }
         else{
@@ -166,64 +133,78 @@ export default function LinearRegressionP4() {
         }
     },[rows,w, b,wInp,bInp]);
 
-
-
-    React.useEffect(() => { //xBar.toString().indexOf('.')
-        // yBar.toString().slice(0,yBar.toString().indexOf('.') + 3)
-        if(parseFloat(xBarInp) == parseFloat(xBar.toString().slice(0,xBar.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(xBarInp),xBar) || xBarInp == ""){
             setxBarInpErr(false)
-        }else{
+        }
+        else{
             setxBarInpErr(true)
         }
     },[xBarInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(yBarInp) == parseFloat(yBar.toString().slice(0,yBar.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(yBarInp),yBar) || yBarInp == ""){
             setyBarInpErr(false)
-        }else{
+        }
+        else{
             setyBarInpErr(true)
         }
     },[yBarInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(xDotXInp) == parseFloat(xDotX.toString().slice(0,xDotX.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(xDotXInp),xDotX) || xDotXInp == ""){
             setxDotXInpErr(false)
-        }else{
+        }
+        else{
             setxDotXInpErr(true)
         }
     },[xDotXInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(xDotYInp) == parseFloat(xDotY.toString().slice(0,xDotY.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(xDotYInp),xDotY) || xDotYInp == ""){
             setxDotYInpErr(false)
-        }else{
+        }
+        else{
             setxDotYInpErr(true)
         }
     },[xDotYInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(wInp) == parseFloat(w.toString().slice(0,w.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(wInp),w) || wInp == ""){
             setwInpErr(false)
-        }else{
+        }
+        else{
             setwInpErr(true)
         }
     },[wInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(bInp) == parseFloat(b.toString().slice(0,b.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(bInp),b) || bInp == ""){
             setBInpErr(false)
-        }else{
+        }
+        else{
             setBInpErr(true)
         }
     },[bInp]);
 
-    React.useEffect(() => {
-        if(parseFloat(JInp) == parseFloat(J.toString().slice(0,J.toString().indexOf('.') + 3))){
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(wInp),w) || wInp == ""){
+            setwInpErr(false)
+        }
+        else{
+            setwInpErr(true)
+        }
+    },[wInp]);
+
+    React.useEffect(() => { 
+        if(isNumberCorrect(parseFloat(JInp),J) || JInp == ""){
             setJInpErr(false)
-        }else{
+        }
+        else{
             setJInpErr(true)
         }
     },[JInp]);
+
 
     function setValues(){
         setxBar(calculateXBar());
@@ -305,7 +286,7 @@ export default function LinearRegressionP4() {
                 <MathJaxContext version={3} config={mathJaxConfig}>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
                         <Grid item xs={4}> 
-                            <Box sx={{ height: 415, bgcolor: 'background.paper' }}>
+                            <Box sx={{ height: 456, bgcolor: 'background.paper' }}>
                                 <DataGrid hideFooter 
                                 rows={rows} 
                                 columns={colNames} 
@@ -410,7 +391,6 @@ export default function LinearRegressionP4() {
                             </LeftItem>
                         </Grid>
 
-                        {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '}
                         
                         <Grid item xs={12}>
                             <Box>

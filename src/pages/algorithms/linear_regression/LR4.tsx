@@ -19,6 +19,8 @@ export default function LR4() {
                             <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
                             Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.
                             Your mission is to calculate the parameters in order to form the correct model.
+                            Below, you will see the correct model representation in blue, and your model will
+                            appear in red.
                             Good Luck!
                             </Typography>
                         </LeftItem>
