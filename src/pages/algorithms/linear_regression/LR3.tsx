@@ -17,8 +17,9 @@ export default function LR3() {
                     <Grid item xs={12}>
                         <LeftItem>
                             <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                            In this example we will try to predict the housing prices (in millions) according to the number of rooms.
-                            The table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.
+                             It's time to see the model in action. 
+                             Add points and edit the values as you want, you'll see the parameters being calculated on the go
+                             and the Linear line which represents the model's predictions forms on the graph below.
                             </Typography>
                         </LeftItem>
                     </Grid>

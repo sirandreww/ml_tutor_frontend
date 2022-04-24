@@ -132,6 +132,19 @@
         }
     },
 
+    "lr": {
+    
+        "tasks" : {
+            "1d_int": "Introduction",
+            "1d_vis": "First Example",
+            "p3_title": "Dynamic Model",
+            "p4_title": "Analytical Excercise",
+            "p5_title": "Calculation using Gradiant-Descent",
+            "p6_title": "Gradiant Descent Excercise"
+        }
+    },
+
+
     "sign_in":{
         "login":"Sign in",
         "forgot_pass":"Forgot password?",

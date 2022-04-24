@@ -17,8 +17,9 @@ export default function LR4() {
                     <Grid item xs={12}>
                         <LeftItem>
                             <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                            In this example we will try to predict the housing prices (in millions) according to the number of rooms.
-                            The table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.
+                            Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.
+                            Your mission is to calculate the parameters in order to form the correct model.
+                            Good Luck!
                             </Typography>
                         </LeftItem>
                     </Grid>
