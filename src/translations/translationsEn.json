@@ -123,8 +123,8 @@
     
         "tasks" : {
             "log_reg_step_1_title": "Introduction",
-            "log_reg_step_2_title": "Vector Representation",
-            "log_reg_step_3_title": "Exercise 1",
+            "log_reg_step_2_title": "Exercise 1",
+            "log_reg_step_3_title": "Vector Representation",
             "log_reg_step_4_title": "Multi-Inputs",
             "log_reg_step_5_title": "Train A Model",
             "log_reg_step_6_title": "Step By Step",

@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import LogisticRegressionExercise1 from 'components/logistic_regression/LogisticRegressionExercise1';
+import LogisticRegressionVectorRepresentation from 'components/logistic_regression/LogisticRegressionVectorRepresentation';
 
 export default function LogReg3() {
     return (
@@ -9,7 +9,7 @@ export default function LogReg3() {
             currentAlgorithmName="logreg"
             currentStep={3}
             component={
-                <LogisticRegressionExercise1 />
+                <LogisticRegressionVectorRepresentation />
             }
         />
     );
