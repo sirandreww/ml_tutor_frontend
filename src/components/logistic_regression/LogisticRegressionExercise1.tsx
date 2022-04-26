@@ -34,7 +34,20 @@ function getCorrectAnswers(w_1: number, w_2: number, b: number): { [id: string]:
     return result;
 }
 
-function getColumnsRow(): any[] {
+
+function MakeRowFromArray(props: { array: any[] }) {
+    let row = [];
+    const column_sizes = [2, 1, 1, 4, 2, 2];
+    for (var i = 0; i < 6; ++i) {
+        row.push(
+            <Grid item xs={column_sizes[i]}>
+                {props.array[i]}
+            </Grid>)
+    }
+    return (<>{row}</>);
+}
+
+function ColumnsRow() {
     const column_headers = [
         <MathJax style={mathJaxStyle} inline>{"\\(Image\\)"}</MathJax>,
         <MathJax style={mathJaxStyle} inline>{"\\(x_1\\)"}</MathJax>,
@@ -46,22 +59,14 @@ function getColumnsRow(): any[] {
             <Typography>(0 for forest 1 for city)</Typography>
         </div>
     ];
-    return makeRowFromArray(column_headers);
+    return (
+        <MakeRowFromArray array={column_headers} />
+    );
 }
 
-function makeRowFromArray(array: any[]): any[] {
-    let row = [];
-    const column_sizes = [2, 1, 1, 4, 2, 2];
-    for (var i = 0; i < 6; ++i) {
-        row.push(
-            <Grid item xs={column_sizes[i]}>
-                {array[i]}
-            </Grid>)
-    }
-    return row;
-}
 
-function getRow(index: number): any[] {
+
+function GetRow(props: { index: number, correct_answer: { [id: string]: string } }) {
     const x_values = [[153, 173], [93, 83], [81, 124], [90, 18]]
     const row_images = [
         <Box component="img"
@@ -85,30 +90,73 @@ function getRow(index: number): any[] {
             src={Img4}
         />,
     ]
-    const row_values = [
-        row_images[index],
-        <TextField label="" type="number" disabled value={x_values[index][0]} />,
-        <TextField label="" type="number" disabled value={x_values[index][1]} />,
-        <TextField label="" type="number" fullWidth />,
-        <TextField label="" type="number" />,
-        <TextField label="" type="number" />,
+    const [z, setZ] = React.useState('');
+    const handleZChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setZ(event.target.value);
+    };
+
+    const [y, setY] = React.useState('');
+    const handleYChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setY(event.target.value);
+    };
+
+    const [t, setT] = React.useState('');
+    const handleTChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setT(event.target.value);
+    };
+
+    function isError(a: string, b: string): boolean{
+        const epsilon = 0.01;
+        return (a !== "") && (Math.abs(Number(a) - Number(b)) > epsilon);
+    }
+
+    function isCorrect(a: string, b: string): boolean {
+        return (a !== "") && (! isError(a, b));
+    }
+
+    function getColor(a: string, b: string): ("success" | undefined) {
+        if (isCorrect(a, b)) {
+            return "success";
+        } else {
+            return undefined;
+        }
+    }
+
+    const row_values: any[] = [
+        row_images[props.index],
+        <TextField label="" type="number" disabled value={x_values[props.index][0]} />,
+        <TextField label="" type="number" disabled value={x_values[props.index][1]} />,
+        <TextField
+            label="" type="number" fullWidth value={z} onChange={handleZChange}
+            error={isError(z, props.correct_answer["logreg z"])}
+            color={getColor(z, props.correct_answer["logreg z"])} 
+            focused={z !== ""}
+        />,
+        <TextField label="" type="number" value={y} onChange={handleYChange}
+            error={isError(y, props.correct_answer["logreg y"])}
+            color={getColor(y, props.correct_answer["logreg y"])}
+            focused={y !== ""}
+        />,
+        <TextField label="" type="number" value={t} onChange={handleTChange}
+            error={isError(t, props.correct_answer["logreg type"])}
+            color={getColor(t, props.correct_answer["logreg type"])}
+            focused={t !== ""}
+        />,
     ];
-    return makeRowFromArray(row_values);
-}
-
-function CustomTable() {
-
-
-
-    const first_row = getColumnsRow()
 
     return (
+        <MakeRowFromArray array={row_values} />
+    );
+}
+
+function CustomTable(props: { correct_answers: { [id: string]: string }[] }) {
+    return (
         <Grid container rowSpacing={0} columnSpacing={0}>
-            {first_row}
-            {getRow(0)}
-            {getRow(1)}
-            {getRow(2)}
-            {getRow(3)}
+            <ColumnsRow />
+            <GetRow index={0} correct_answer={props.correct_answers[0]} />
+            <GetRow index={1} correct_answer={props.correct_answers[1]} />
+            <GetRow index={2} correct_answer={props.correct_answers[2]} />
+            <GetRow index={3} correct_answer={props.correct_answers[3]} />
         </Grid>
     )
 }
@@ -153,7 +201,7 @@ export default function LogisticRegressionExercise1() {
                     <br />
                     <br />
                     <br />
-                    <CustomTable />
+                    <CustomTable correct_answers={getCorrectAnswers(w_1, w_2, b)} />
                     <br />
                     <br />
                 </Typography>
