@@ -90,12 +90,6 @@ export default function LogisticRegressionVectorRepresentation() {
                     <MathJax style={mathJaxStyle} inline >{sigmoid(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b).toString()}</MathJax>
                     <br />
                     <br />
-                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
-                        <MathJax style={{fontSize:"2em"}} inline>{"\\( \\frac{1}{1 + e^{-(\\vec{w} \\cdot \\vec{x} + b)}} \\)"}</MathJax>
-                    </Typography>
-                    <LogisticRegressionPlot ws={[w_1, w_2, w_3]} xs={[x_1, x_2, x_3]} b={b}/>
-                    <br />
-                    <br />
                 </Typography>
             </MathJaxContext>
         </Box>

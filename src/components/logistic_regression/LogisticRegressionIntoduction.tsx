@@ -70,7 +70,7 @@ export default function LogisticRegressionIntoduction() {
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
                         <MathJax style={{fontSize:"2em"}} inline>{"\\( \\frac{1}{1 + e^{-(w * x + b)}} \\)"}</MathJax>
                     </Typography>
-                    <LogisticRegressionPlot ws={[w_1]} xs={[x_1]} b={b}/>
+                    <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
                 </Typography>
             </MathJaxContext>
         </Box>
