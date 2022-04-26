@@ -9,7 +9,7 @@ export default function LogisticRegressionPlot(props: { w1: number, x1: number, 
 
     // every time func changes re-draw the graph
     React.useEffect(() => {
-        getGraph1D(func, point, "scatter");
+        getGraph1D(func, point, "scatter", "");
     }, [func, point]);
 
     React.useEffect(() => {
