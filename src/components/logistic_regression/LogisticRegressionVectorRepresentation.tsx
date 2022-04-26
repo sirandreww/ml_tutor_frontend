@@ -39,11 +39,11 @@ export default function LogisticRegressionVectorRepresentation() {
                     <br />
                     <MathJax style={mathJaxStyle} inline>
                         {`$$
-                        \\vec{w} \\times \\vec{x} = 
+                        \\vec{w} \\cdot \\vec{x} = 
                         \\begin{bmatrix}
                             w_1 & w_2 & w_3 & \\cdots & w_n     \\\\
                         \\end{bmatrix} 
-                        \\times
+                        \\cdot
                         \\begin{bmatrix}
                             x_1             \\\\ 
                             x_2             \\\\ 
@@ -57,7 +57,7 @@ export default function LogisticRegressionVectorRepresentation() {
                     <br />
                     Thus the calculation done by the linear regression algorithm can be expressed as:
                     <br />
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\times \\vec{x} + b)\\)"}</MathJax>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\cdot \\vec{x} + b)\\)"}</MathJax>
                     <br />
                     {tab}{tab}Where the Sigmoid function <MathJax style={mathJaxStyle} inline>{"\\(\\sigma\\)"}</MathJax> is defined as :
                     <br />
@@ -86,12 +86,12 @@ export default function LogisticRegressionVectorRepresentation() {
                     <TextField label="x3" type="number" onChange={event => setX3(Number(event.target.value))} sx={{ width: 100 }} />
                     <br />
                     <br />
-                    <MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\times \\vec{x} + b) = \\)"}</MathJax>
+                    <MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\cdot \\vec{x} + b) = \\)"}</MathJax>
                     <MathJax style={mathJaxStyle} inline >{sigmoid(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b).toString()}</MathJax>
                     <br />
                     <br />
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
-                        <MathJax style={{fontSize:"2em"}} inline>{"\\( \\frac{1}{1 + e^{-(\\vec{w} \\times \\vec{x} + b)}} \\)"}</MathJax>
+                        <MathJax style={{fontSize:"2em"}} inline>{"\\( \\frac{1}{1 + e^{-(\\vec{w} \\cdot \\vec{x} + b)}} \\)"}</MathJax>
                     </Typography>
                     <LogisticRegressionPlot ws={[w_1, w_2, w_3]} xs={[x_1, x_2, x_3]} b={b}/>
                     <br />

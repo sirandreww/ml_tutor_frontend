@@ -143,7 +143,7 @@ export function getLogisticRegressionDataColumnNames(): GridColDef[] {
             field: 'yi',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle}
-                                 inline>{"\\(y_i = \\sigma(\\vec{w} * {X_{idXn}}^{t} + b) \\)"}</MathJax>,
+                                 inline>{"\\(y_i = \\sigma(\\vec{w} \\cdot {X_{idXn}}^{t} + b) \\)"}</MathJax>,
             flex: 2, editable: true
         },
         {

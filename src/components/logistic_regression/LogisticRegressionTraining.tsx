@@ -73,7 +73,7 @@ export default function LogisticRegressionTraining() {
                         4. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{C_{1xm}}\\)"}</MathJax> - The actual classifications for each sample (test batch)<br/>
                         <br/>
                         Then we calculate the vector of predictions <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>.<br/>
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}} = \\sigma(\\vec{w}*X^{t} + b)\\)"}</MathJax> (like Previously)<br/>
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}} = \\sigma(\\vec{w} \\cdot X^{t} + b)\\)"}</MathJax> (like Previously)<br/>
                         <br/>
                         After it we calculate the following Loss Function<br/>
                         <MathJax style={mathJaxStyle} inline>{"\\(Loss = \\frac{-1}{m} * \\sum_{i=1}^{m} ( c_i*log(y_i) + (1-c_i)*log(1-y_i) )\\)"}</MathJax><br/>
@@ -97,8 +97,8 @@ export default function LogisticRegressionTraining() {
                             Some Definitions:<br/>
                         </h4>
                         <MathJax style={mathJaxStyle} inline>{"\\(Loss\\)"}</MathJax> - The loss function mentioned above.<br/>
-                        <MathJax style={mathJaxStyle} inline>{"\\(dw_i = \\frac{dLoss}{dw_i} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm})*\\vec{X_i}\\)"}</MathJax> -The derivative of the Loss function by i'th weight, X_i is the i'th column of X<br/>
-                        <MathJax style={mathJaxStyle} inline>{"\\(dW = \\frac{dLoss}{d\\vec{w}} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm})*X_{mxn}\\)"}</MathJax> -The derivative of the Loss function by the weights<br/>
+                        <MathJax style={mathJaxStyle} inline>{"\\(dw_i = \\frac{dLoss}{dw_i} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_i}\\)"}</MathJax> -The derivative of the Loss function by i'th weight, X_i is the i'th column of X<br/>
+                        <MathJax style={mathJaxStyle} inline>{"\\(dW = \\frac{dLoss}{d\\vec{w}} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot X_{mxn}\\)"}</MathJax> -The derivative of the Loss function by the weights<br/>
                         <MathJax style={mathJaxStyle} inline>{"\\(db_i = \\frac{dLoss}{db_i} = y_i - c_i\\)"}</MathJax> -The derivative of the Loss function by the constant b for the i'th sample.<br/>
                         <MathJax style={mathJaxStyle} inline>{"\\(dB = \\sum_{i=1}^{m}\\frac{dLoss}{db_i} = \\sum_{i=1}^{m}(y_i - c_i)\\)"}</MathJax> - The derivative of the Loss function by the constant B on all samples.<br/>
                         <MathJax style={mathJaxStyle} inline>
@@ -109,9 +109,14 @@ export default function LogisticRegressionTraining() {
                                     \\end{bmatrix} 
                                     \\ = 
                                     \\begin{bmatrix}
-                                        (\\vec{Y}_{1xm} - \\vec{C}_{1xm})*\\vec{X_1} \\cdots & (\\vec{Y}_{1xm} - \\vec{C}_{1xm})*\\vec{X_n}  \\\\
+                                        (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_1} \\cdots & (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_n}  \\\\
                                     \\end{bmatrix} 
-                                    = (\\vec{Y}_{1xm} - \\vec{C}_{1xm})*X_{mxn}
+                                    $$`}
+                        </MathJax>
+                        <MathJax style={mathJaxStyle} inline>
+                                    {`$$
+                                    dW = \\frac{dLoss}{d\\vec{w}} =
+                                    (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot X_{mxn}
                                     $$`}
                         </MathJax>
                         <br/>

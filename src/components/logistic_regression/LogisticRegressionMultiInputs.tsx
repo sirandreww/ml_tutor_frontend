@@ -156,12 +156,12 @@ export default function LogisticRegressionMultiInputs() {
                             <TextField value={x_33} type="number" size="small" inputProps={{ readOnly: true, }} />
                         </Grid>
                     </Grid>
-                    2. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{yt} = \\vec{w} * X^t\\)"}</MathJax> -
+                    2. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{yt} = \\vec{w} \\cdot X^t\\)"}</MathJax> -
                     <Grid container>
                         <Grid item xs={6} my={`auto`}>
                             <MathJax style={{ fontSize: "20px" }} inline>
                                 {`$$ 
-                                \\vec{yt} = \\vec{w} * X^{t}_{3x3} = 
+                                \\vec{yt} = \\vec{w} \\cdot X^{t}_{3x3} = 
                                 \\begin{bmatrix}
                                     yt_{11} & yt_{12} & yt_{13} & \\\\
                                 \\end{bmatrix} 
