@@ -1,23 +1,23 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {mathJaxConfig, mathJaxStyle} from 'components/LanguageAndButtonUtility';
+import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
 import Grid from "@mui/material/Grid";
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 
 export default function LogisticRegressionMultiInputs() {
-    function getPrediction(x: number): number{
-        if(x > 0.5)
+    function getPrediction(x: number): number {
+        if (x > 0.5)
             return 1;
         else
             return 0;
     }
 
-    function calculateOneOutput(input_number: number): number{
+    function calculateOneOutput(input_number: number): number {
         switch (input_number) {
             case 1:
                 return (w_1 * x_11 + w_2 * x_12 + w_3 * x_13)
@@ -30,11 +30,11 @@ export default function LogisticRegressionMultiInputs() {
         }
     }
 
-    function addConstant(input_number: number, c: number): number{
+    function addConstant(input_number: number, c: number): number {
         return calculateOneOutput(input_number) + c
     }
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
+    const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
 
     const [w_1, setW1] = React.useState(0);
@@ -55,42 +55,45 @@ export default function LogisticRegressionMultiInputs() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'div'}>
-                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr'}}>
+                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                         <h1 style={headers_style}>Logistic Regression With Multiple Inputs</h1>
                     </Typography>
+                    <br />
+                    <br />
+                    <br />
                     So far we have learned how the logistic regression classifies an input (with either with 1 feature or more),
-                    In this page we will now learn how we can classifies multiple inputs in one time! <br/>
+                    In this page we will now learn how we can classifies multiple inputs in one time! <br />
                     In other words we can transform multiple input vectors <MathJax style={mathJaxStyle} inline>{"\\(\\vec{x_i} \\)"}</MathJax> to
                     one huge matrix <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> which holds all the data (rows are the samples and columns are the feature for each sample),
-                    then apply the sigmoid function on it and returns a vector <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>  of predictions for each input.<br/>
-                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( m \\)"}</MathJax> = the number of samples.<br/>
-                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( n \\)"}</MathJax> = the number of features.<br/>
-                    <br/>
-                    <br/>
-                    In this page we will have 3 samples which represents a color's RGB values, <br/>
-                    and we want to predict if the color is blue or not ( m = 3, n = 3) - <br/>
+                    then apply the sigmoid function on it and returns a vector <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>  of predictions for each input.<br />
+                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( m \\)"}</MathJax> = the number of samples.<br />
+                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( n \\)"}</MathJax> = the number of features.<br />
+                    <br />
+                    <br />
+                    In this page we will have 3 samples which represents a color's RGB values, <br />
+                    and we want to predict if the color is blue or not ( m = 3, n = 3) - <br />
                 </Typography>
-                <br/>
+                <br />
                 <Typography component={'div'}>
                     {tab}Vector of weights (weight for each feature):
-                    <br/>
-                    <Typography component={'div'} sx={{ fontSize: "13px"}}>
+                    <br />
+                    <Typography component={'div'} sx={{ fontSize: "13px" }}>
                         {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
                         <MathJax style={{ fontSize: "20px" }} inline>{"\\([ w_1, w_2, w_3 ] = \\)"}</MathJax>
                         <TextField label="red" type="number" size="small" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
                         <TextField label="green" type="number" size="small" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
                         <TextField label="blue" type="number" size="small" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
                     </Typography>
-                    <br/>
+                    <br />
                     {tab}The Constant value:
-                    <br/>
-                    <Typography component={'div'} sx={{ fontSize: "13px"}}>
+                    <br />
+                    <Typography component={'div'} sx={{ fontSize: "13px" }}>
                         {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(b = \\)"}</MathJax>
                         <TextField label="b" type="number" size="small" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                     </Typography>
-                    <br/>
+                    <br />
                     {tab}The data will be present in a matrix like this:
-                    <br/>
+                    <br />
                     <Grid container>
                         <Grid item xs={6} my={`auto`}>
                             <MathJax style={{ fontSize: "20px" }} inline>
@@ -122,10 +125,10 @@ export default function LogisticRegressionMultiInputs() {
                         </Grid>
                     </Grid>
                 </Typography>
-                <br/>
+                <br />
                 <Typography component={'div'}>
-                    The calculation of the sigmoid on this huge matrix is done as follows:<br/>
-                    1. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(X^t\\)"}</MathJax> - <br/>
+                    The calculation of the sigmoid on this huge matrix is done as follows:<br />
+                    1. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(X^t\\)"}</MathJax> - <br />
                     <Grid container>
                         <Grid item xs={6} my={`auto`}>
                             <MathJax style={{ fontSize: "20px" }} inline>
@@ -179,7 +182,7 @@ export default function LogisticRegressionMultiInputs() {
                             <TextField value={calculateOneOutput(3)} type="number" size="small" inputProps={{ readOnly: true, }} />
                         </Grid>
                     </Grid>
-                    3. Add the constant <MathJax style={{ fontSize: "13px" }} inline>{"\\(b\\)"}</MathJax> to each entry of the result vector - <br/>
+                    3. Add the constant <MathJax style={{ fontSize: "13px" }} inline>{"\\(b\\)"}</MathJax> to each entry of the result vector - <br />
                     <Grid container>
                         <Grid item xs={6} my={`auto`}>
                             <MathJax style={{ fontSize: "20px" }} inline>
@@ -202,7 +205,7 @@ export default function LogisticRegressionMultiInputs() {
                             <TextField value={addConstant(3, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
                         </Grid>
                     </Grid>
-                    4. Apply the <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\sigma\\)"}</MathJax> function on each entry of the previous vector - <br/>
+                    4. Apply the <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\sigma\\)"}</MathJax> function on each entry of the previous vector - <br />
                     <Grid container>
                         <Grid item xs={3} my={`auto`}>
                             <MathJax style={mathJaxStyle} inline>{"\\(\\sigma(\\vec{yt} + b)\\)"}</MathJax>
@@ -217,7 +220,7 @@ export default function LogisticRegressionMultiInputs() {
                             <TextField value={sigmoid(addConstant(3, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
                         </Grid>
                     </Grid>
-                    5. Get <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{Y_{1x3}}\\)"}</MathJax> by checking if <MathJax style={{ fontSize: "13px" }} inline>{"\\(y_i > 0.5\\)"}</MathJax> or not- <br/>
+                    5. Get <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{Y_{1x3}}\\)"}</MathJax> by checking if <MathJax style={{ fontSize: "13px" }} inline>{"\\(y_i > 0.5\\)"}</MathJax> or not- <br />
                     <Grid container>
                         <Grid item xs={3}>
                             <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1x3}} = \\)"}</MathJax>
@@ -233,6 +236,8 @@ export default function LogisticRegressionMultiInputs() {
                         </Grid>
                     </Grid>
                 </Typography>
+                <br />
+                <br />
             </MathJaxContext>
         </Box>
     );

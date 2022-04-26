@@ -1,13 +1,13 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import {PrettoSlider} from "../GradientDescentHelper";
+import { PrettoSlider } from "../GradientDescentHelper";
 import NumberTextField from "../NumberTextField";
-import {TextField} from "@mui/material";
-import {button, CenterItem, LeftItem, mathJaxConfig, mathJaxStyle} from "../LanguageAndButtonUtility";
+import { TextField } from "@mui/material";
+import { button, CenterItem, LeftItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";
 import Box from "@mui/material/Box";
-import {MathJax, MathJaxContext} from "better-react-mathjax";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Grid from "@mui/material/Grid";
-import {LogisticRegressionModule, Matrix, math} from "./LogisticRegressionCore";
+import { LogisticRegressionModule, Matrix, math } from "./LogisticRegressionCore";
 
 const iris_setosa: number[][] = [
     [5.1, 3.5, 1.4, 0.2],
@@ -345,7 +345,7 @@ export default function LogisticRegressionHyperParameter() {
         setTrain(trn)
         setTest(tst)
 
-        if(trn) {
+        if (trn) {
             let tmp = fetchAlgorithms(alpha, numOfIterations, dataSetPer)
             alg = tmp[0]
             acc = tmp[1]
@@ -353,7 +353,7 @@ export default function LogisticRegressionHyperParameter() {
             setTest(tst)
         }
 
-        if(tst) {
+        if (tst) {
             setTest(false)
         }
     }
@@ -425,7 +425,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 0)}/>
+                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 0)} />
                                     </Grid>
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
@@ -434,7 +434,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 1)}/>
+                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 1)} />
                                     </Grid>
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
@@ -443,7 +443,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 2)}/>
+                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 2)} />
                                     </Grid>
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
@@ -452,7 +452,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 3)}/>
+                                        <TextField InputProps={{ readOnly: true }} value={getElement(moduleInfo.module.W, 3)} />
                                     </Grid>
                                     <Grid item xs={12} />
                                     <Grid item xs={3}>

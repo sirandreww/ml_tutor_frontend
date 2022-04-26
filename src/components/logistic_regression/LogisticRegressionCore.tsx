@@ -1,8 +1,8 @@
-import {all, create} from "mathjs";
+import { all, create } from "mathjs";
 
 export function sigmoid(value: number): number {
     let exp = math.exp(-value)
-    return Number(math.evaluate("1/(1+exp)", {exp: exp}))
+    return Number(math.evaluate("1/(1+exp)", { exp: exp }))
 }
 
 export const math = create(all, {})
@@ -105,19 +105,19 @@ export class LogisticRegressionModule {
         let total_mismatches = 0;
         for (let i = 0; i < test_batch.length; i++) {
             let prediction = this.predict(test_batch[i])
-            if(prediction !== test_classifications[i])
+            if (prediction !== test_classifications[i])
                 total_mismatches++
         }
 
         // console.log("total_mismatches = " + total_mismatches)
         // console.log("test_classifications.length = " + test_classifications.length)
-        return 1 - (total_mismatches/ test_classifications.length)
+        return 1 - (total_mismatches / test_classifications.length)
     }
 
     // Private Static Methods
     private static sigmoid(value: number): number {
         let exp = math.exp(-value)
-        return Number(math.evaluate("1/(1+exp)", {exp: exp}))
+        return Number(math.evaluate("1/(1+exp)", { exp: exp }))
     }
 
     private static log(value: number): number {
@@ -126,14 +126,14 @@ export class LogisticRegressionModule {
 
     private static cost_function_segma(Y: Matrix, A: Matrix): number {
         let left = math.multiply(Y, math.map(A, LogisticRegressionModule.log))
-        let right = math.multiply(math.map(Y, x => 1-x), math.map(A, x => LogisticRegressionModule.log(1-x)))
+        let right = math.multiply(math.map(Y, x => 1 - x), math.map(A, x => LogisticRegressionModule.log(1 - x)))
 
         return math.sum(math.add(left, right) as Matrix)
     }
 
     private static calc_dW(A: Matrix, Y: Matrix, X: Matrix, m: number): Matrix {
         let dot = math.multiply(math.subtract(A, Y) as Matrix, math.transpose(X))
-        return math.map(dot, x => (x/m))
+        return math.map(dot, x => (x / m))
     }
 
     private static calc_dB(A: Matrix, Y: Matrix, m: number): number {
@@ -158,13 +158,13 @@ export class LogisticRegressionModule {
             let A = math.map(Z, x => LogisticRegressionModule.sigmoid(x))
 
             // Loss Function
-            let cost = Number(math.evaluate("((-1 * x)/m)", { m: m, x: LogisticRegressionModule.cost_function_segma(Y, A)}))
+            let cost = Number(math.evaluate("((-1 * x)/m)", { m: m, x: LogisticRegressionModule.cost_function_segma(Y, A) }))
 
             // Gradiant Descent
             let dW = LogisticRegressionModule.calc_dW(A, Y, X, m)
             let dB = LogisticRegressionModule.calc_dB(A, Y, m)
-            W = math.subtract(W, math.map(math.transpose(dW),  x => x*learning_rate)) as Matrix
-            B = B - learning_rate*dB
+            W = math.subtract(W, math.map(math.transpose(dW), x => x * learning_rate)) as Matrix
+            B = B - learning_rate * dB
 
             // Adding more Info for future tasks
             ys_per_iteration.push(A)
@@ -174,7 +174,7 @@ export class LogisticRegressionModule {
         }
 
         return {
-            module: {W: W, B: B} as Module,
+            module: { W: W, B: B } as Module,
             costs: cost_per_iteration,
             ws: ws_per_iteration,
             bs: bs_per_iteration,

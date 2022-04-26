@@ -1,12 +1,12 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import NumberTextField from "../NumberTextField";
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import { CenterItem, LeftItem, mathJaxConfig } from "../LanguageAndButtonUtility";
 import Box from "@mui/material/Box";
-import {MathJax, MathJaxContext} from "better-react-mathjax";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Grid from "@mui/material/Grid";
-import {LogisticRegressionModule, math} from "./LogisticRegressionCore";
+import { LogisticRegressionModule, math } from "./LogisticRegressionCore";
 import QuestionTable from "../QuestionTable";
 import {
     getLogisticRegressionDataColumnNames,
@@ -20,7 +20,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
     let moduleInfo = algo.getModuleInfo()
     let answers: { [id: string]: string }[] = []
     let step = 0
-    for (let epoch = 1; epoch < TOTAL_ITERATIONS + 1 ; epoch++) {
+    for (let epoch = 1; epoch < TOTAL_ITERATIONS + 1; epoch++) {
         xs.forEach((xi, id) => {
             let yi = Number(Number(moduleInfo.ys[epoch - 1].subset(math.index(id))).toFixed(DIGITS))
 
@@ -65,7 +65,7 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
     let w1Prev = 0
     let w2Prev = 0
 
-    for (let epoch = 0; epoch < TOTAL_ITERATIONS ; epoch++) {
+    for (let epoch = 0; epoch < TOTAL_ITERATIONS; epoch++) {
         let bNew = bs[epoch]
         let w1New = Number(ws[epoch].subset(math.index(0)))
         let w2New = Number(ws[epoch].subset(math.index(1)))

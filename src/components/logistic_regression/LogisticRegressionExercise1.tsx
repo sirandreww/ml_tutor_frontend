@@ -156,7 +156,6 @@ export default function LogisticRegressionExercise1() {
                     <CustomTable />
                     <br />
                     <br />
-                    <br />
                 </Typography>
             </MathJaxContext>
         </Box>
