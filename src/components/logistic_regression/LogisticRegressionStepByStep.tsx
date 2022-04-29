@@ -2,14 +2,14 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import NumberTextField from "../NumberTextField";
 import { TextField } from "@mui/material";
-import { CenterItem, LeftItem, mathJaxConfig } from "../LanguageAndButtonUtility";
+import {BlackAlignedItem, CenterItem, languageDirection, LeftItem, mathJaxConfig} from "../LanguageAndButtonUtility";
 import Box from "@mui/material/Box";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Grid from "@mui/material/Grid";
 import { LogisticRegressionModule, math } from "./LogisticRegressionCore";
 import QuestionTable from "../QuestionTable";
 import {
-    getLogisticRegressionDataColumnNames,
+    getLogisticRegressionDataColumnNames, getLogisticRegressionModuleColumns,
     getLogisticRegressionModuleInfoColumns,
 } from "../QuestionTableDefinitions";
 
@@ -21,6 +21,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
     let answers: { [id: string]: string }[] = []
     let step = 0
     for (let epoch = 1; epoch < TOTAL_ITERATIONS + 1; epoch++) {
+        // eslint-disable-next-line no-loop-func
         xs.forEach((xi, id) => {
             let yi = Number(Number(moduleInfo.ys[epoch - 1].subset(math.index(id))).toFixed(DIGITS))
 
@@ -36,8 +37,6 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
 
             let tmp = {
                 "step": step.toString(),
-                "epoch": epoch.toFixed(DIGITS).toString(),
-                "sid": (id + 1).toFixed(DIGITS).toString(),
                 "xOne": xi[0].toFixed(DIGITS).toString(),
                 "xTwo": xi[1].toFixed(DIGITS).toString(),
                 "yi": yi.toFixed(DIGITS).toString(),
@@ -50,7 +49,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
         })
     }
 
-    // console.log("Data Answers = \n", answers)
+    console.log("Data Answers = \n", answers)
     return answers
     // return []
 }
@@ -70,12 +69,11 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         let w1New = Number(ws[epoch].subset(math.index(0)))
         let w2New = Number(ws[epoch].subset(math.index(1)))
 
-        console.log("bNew ", bNew)
-        console.log("w2New ", w2New)
-        console.log("w2New ", w2New)
+        // console.log("bNew ", bNew)
+        // console.log("w2New ", w2New)
+        // console.log("w2New ", w2New)
         answers.push({
             "step": step.toString(),
-            "epoch": epoch.toFixed(DIGITS).toString(),
             "wOne": w1Prev.toFixed(DIGITS).toString(),
             "wTwo": w2Prev.toFixed(DIGITS).toString(),
             "b": bPrev.toFixed(DIGITS).toString(),
@@ -89,12 +87,24 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         step++
     }
 
-    // console.log("Module Answers = \n", answers)
+    console.log("Module Answers = \n", answers)
     return answers
     // return []
 }
 
+function getModuleFinalAnswers(algo: LogisticRegressionModule): { [id: string]: string }[] {
+    let module = algo.getModule()
+    let moduleFinalAnswers = [{
+        'step': "0",
+        'wOneFinal': Number(module.W.subset(math.index(0))).toFixed(DIGITS).toString(),
+        'wTwoFinal': Number(module.W.subset(math.index(1))).toFixed(DIGITS).toString(),
+        'bFinal': Number(module.B).toFixed(DIGITS).toString()
+    }]
+    console.log("Module Final Answers = \n", moduleFinalAnswers)
+    return moduleFinalAnswers
+}
 export default function LogisticRegressionStepByStep() {
+    const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
 
     const [alpha, setAlpha] = React.useState(0.001)
     // XS (vector of features) = [[x1_1, x1_2], [x2_1, x2_2], ...]
@@ -219,32 +229,109 @@ export default function LogisticRegressionStepByStep() {
                                 </Grid>
                             </LeftItem>
                         </Grid>
+                    </Grid>
 
+                    <br />
+
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
-                            <CenterItem>
-                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                    <QuestionTable
-                                        headers={getLogisticRegressionDataColumnNames()}
-                                        exampleEnabled={true}
-                                        correctAnswers={getDataAnswers(xs, cs, algo)}
-                                        comparator={(res, ans) => Number(ans) === Number(res)}
-                                    />
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
-                                </Box>
-                            </CenterItem>
+                            <BlackAlignedItem>
+                                <h4 style={headers_style} dir={languageDirection()}>
+                                    Iteration Number 1:<br />
+                                    <br />
+                                </h4>
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    Calculations:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionDataColumnNames()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(0, 3)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    Results:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionModuleInfoColumns()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getModuleAnswers(alpha, algo).slice(0, 1)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
+                            </BlackAlignedItem>
                         </Grid>
+                    </Grid>
+
+                    <br />
+
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
-                            <CenterItem>
-                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                    <QuestionTable
-                                        headers={getLogisticRegressionModuleInfoColumns()}
-                                        exampleEnabled={true}
-                                        correctAnswers={getModuleAnswers(alpha, algo)}
-                                        comparator={(res, ans) => Number(ans) === Number(res)}
-                                    />
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
-                                </Box>
-                            </CenterItem>
+                            <BlackAlignedItem>
+                                <h4 style={headers_style} dir={languageDirection()}>
+                                    Iteration Number 2:<br />
+                                    <br />
+                                </h4>
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    Calculations:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionDataColumnNames()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(3, 6)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    Results:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionModuleInfoColumns()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getModuleAnswers(alpha, algo).slice(1, 2)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
+                            </BlackAlignedItem>
+                        </Grid>
+                    </Grid>
+
+                    <br />
+
+                    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
+                        <Grid item xs={12}>
+                            <BlackAlignedItem>
+                                <h4 style={headers_style} dir={languageDirection()}>
+                                    Final Results:<br />
+                                </h4>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionModuleColumns()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getModuleFinalAnswers(algo)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                            </BlackAlignedItem>
                         </Grid>
                     </Grid>
                 </MathJaxContext>

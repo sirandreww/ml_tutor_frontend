@@ -116,18 +116,6 @@ export function getLogisticRegressionDataColumnNames(): GridColDef[] {
             flex: 1, editable: false, align: "center"
         },
         {
-            field: 'epoch',
-            // @ts-ignore
-            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Epoch\\)"}</MathJax>,
-            flex: 1, editable: true
-        },
-        {
-            field: 'sid',
-            // @ts-ignore
-            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Sample_{id}\\)"}</MathJax>,
-            flex: 1, editable: true
-        },
-        {
             field: 'xOne',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(x_1\\)"}</MathJax>,
@@ -162,12 +150,6 @@ export function getLogisticRegressionModuleInfoColumns(): GridColDef[] {
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
             flex: 1, editable: false, align: "center"
-        },
-        {
-            field: 'epoch',
-            // @ts-ignore
-            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Epoch\\)"}</MathJax>,
-            flex: 1, editable: true
         },
         {
             field: 'wOne',
@@ -221,6 +203,35 @@ export function getLogisticRegressionModuleInfoColumns(): GridColDef[] {
             field: 'bNew',
             // @ts-ignore
             headerName: <MathJax style={mathJaxStyle} inline>{"\\(b_{new}\\)"}</MathJax>,
+            flex: 1, editable: true
+        },
+    ];
+}
+
+export function getLogisticRegressionModuleColumns(): GridColDef[] {
+    return [
+        {
+            field: 'step',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(Step\\)"}</MathJax>,
+            flex: 1, editable: false, align: "center"
+        },
+        {
+            field: 'wOneFinal',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(w_{1_{final}}\\)"}</MathJax>,
+            flex: 1, editable: true
+        },
+        {
+            field: 'wTwoFinal',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(w_{2_{final}}\\)"}</MathJax>,
+            flex: 1, editable: true
+        },
+        {
+            field: 'bFinal',
+            // @ts-ignore
+            headerName: <MathJax style={mathJaxStyle} inline>{"\\(b_{final}\\)"}</MathJax>,
             flex: 1, editable: true
         },
     ];

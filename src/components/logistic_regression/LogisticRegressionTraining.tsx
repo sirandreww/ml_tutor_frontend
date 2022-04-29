@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import {
     BlackAlignedItem, BlackCenterAlignedLeftTextItem, BlackLeftItem,
     languageDirection,
-    LeftItem,
     mathJaxConfig,
     mathJaxStyle
 } from 'components/LanguageAndButtonUtility';
