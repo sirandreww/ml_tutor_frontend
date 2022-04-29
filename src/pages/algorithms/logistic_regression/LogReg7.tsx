@@ -30,7 +30,7 @@ export default function LogReg7() {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                    {t(translation_path.concat("intro"))}.<br />
+                                    {t(translation_path.concat("intro"))}<br />
                                     1. {t(translation_path.concat("sp_length"))}.<br />
                                     2. {t(translation_path.concat("sp_width"))}.<br />
                                     3. {t(translation_path.concat("pe_length"))}.<br />

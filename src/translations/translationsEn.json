@@ -133,7 +133,7 @@
             "intro_title": "Logistic Regression",
             "intro": {
                 "description":"In statistics, the logistic model (or logit model) is used to model the probability of a certain class or event taking place, such as the probability of a team winning, of a patient being healthy, etc.",
-                "weights": "Logistic regression is a classification algorithm. The parameters for this classifier are the weights",
+                "weights": "Logistic regression is a classification algorithm. The parameters for this classifier are the weights ",
                 "num": " and a number ",
                 "vec": "The input for the classifier is an object with a vector of features ",
                 "y": "The classifier calculates ",
@@ -193,7 +193,7 @@
                 "consider_x": " Matrix with multiple samples (m)",
                 "consider_w": " Vector of weights (n)",
                 "consider_b": " Constant",
-                "consider_c": " The actual classifications for each sample (test batch)",
+                "consider_c": " The actual classifications for each sample",
                 "calc_y": "Then we calculate the vector of predictions",
                 "prev": "like Previously",
                 "after": "After it we calculate the following Loss Function",
@@ -231,12 +231,15 @@
                 "sp_length": "Sepal Length (in centimeters)",
                 "sp_width": "Sepal Width (in centimeters)",
                 "pe_length": "Petal Length (in centimeters)",
-                "pe_width": "PetalWidth (in centimeters)",
+                "pe_width": "Petal Width (in centimeters)",
                 "dataset": "The dataset contains 3 types of Iris flowers (for each type we have 50 samples)",
                 "setosa": "Setosa",
                 "versicolor": "Versicolor",
                 "virginica": "Virginica",
-                "task": "Please insert the desired alpha, number of iterations and the percentage of the dataset to be our training batch (the rest is the test batch),\nWe will calculate the accuracy of the trained model based on the input, try to find the best parameters!"
+                "task": "Please insert the desired alpha, number of iterations and the percentage of the dataset to be our training batch (the rest is the test batch),\nWe will calculate the accuracy of the trained model based on the input, try to find the best parameters!",
+                "itr_num": "Number Of Iterations",
+                "trn_per": "Train Percentage",
+                "mdl_acc": "Accuracy"
             }
         }
     },

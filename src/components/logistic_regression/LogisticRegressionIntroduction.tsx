@@ -9,7 +9,7 @@ import LogisticRegressionPlot from 'components/logistic_regression/LogisticRegre
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 const translation_path = "logreg.pages.intro"
-export default function LogisticRegressionIntoduction() {
+export default function LogisticRegressionIntroduction() {
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
@@ -49,12 +49,14 @@ export default function LogisticRegressionIntoduction() {
                     <br />
                     {t(translation_path.concat(".demo"))}<br />
                     <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\sigma (\\)"}</MathJax>
-                    <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
-                    <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
-                    <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
-                    <MathJax style={{ fontSize: "30px" }} inline >{"\\() = \\)"}</MathJax>
-                    <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
+                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                        <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\sigma (\\)"}</MathJax>
+                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
+                        <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
+                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <MathJax style={{ fontSize: "30px" }} inline >{"\\() = \\)"}</MathJax>
+                        <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
+                    </Typography>
                     <br />
                     {t(translation_path.concat(".example"))}<br />
                     <br />

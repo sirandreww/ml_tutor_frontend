@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import {LeftItem, mathJaxConfig, mathJaxStyle} from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
@@ -63,26 +63,26 @@ export default function LogisticRegressionVectorRepresentation() {
                     <br />
                     {t( translation_path.concat(".demo"))}<br />
                     <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                    <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="w3" type="number" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(b = \\)"}</MathJax>
-                    <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{x} = \\)"}</MathJax>
-                    <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="x2" type="number" onChange={event => setX2(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="x3" type="number" onChange={event => setX3(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <MathJax style={mathJaxStyle} inline>{"\\(y = \\sigma(\\vec{w} \\cdot \\vec{x} + b) = \\)"}</MathJax>
-                    <MathJax style={mathJaxStyle} inline >{sigmoid(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b).toString()}</MathJax>
-                    <br />
-                    <br />
+                    <LeftItem>
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
+                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w3" type="number" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(b = \\)"}</MathJax>
+                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{x} = \\)"}</MathJax>
+                        <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="x2" type="number" onChange={event => setX2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="x3" type="number" onChange={event => setX3(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(y = \\sigma(\\vec{w} \\cdot \\vec{x} + b) = \\)"}</MathJax>
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline >{sigmoid(w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + b).toString()}</MathJax>
+                    </LeftItem>
                 </Typography>
             </MathJaxContext>
         </Box>

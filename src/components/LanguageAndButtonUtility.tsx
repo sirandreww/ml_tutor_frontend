@@ -169,6 +169,29 @@ export const AlignedItem = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary
 }));
 
+export const BlackCenterAlignedLeftTextItem = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    direction: 'ltr',
+    color: theme.palette.text.primary
+}));
+
+export const BlackAlignedItem = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: languageAlign(),
+    direction: languageDirection(),
+    color: theme.palette.text.primary
+}));
+
+export const BlackLeftItem = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "left",
+    direction: 'ltr',
+    color: theme.palette.text.primary
+}));
 
 export const mathJaxConfig = {
     loader: { load: ["[tex]/html"] },

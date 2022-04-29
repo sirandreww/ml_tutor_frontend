@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import {LeftItem, mathJaxConfig, mathJaxStyle} from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField, Grid } from '@mui/material';
@@ -187,19 +187,19 @@ export default function LogisticRegressionExercise1() {
                     2. <MathJax style={mathJaxStyle} inline>{"\\(x_2\\)"}</MathJax> {t( translation_path.concat(".blue_avg"))}<br />
                     <br />
                     <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                    <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(b = \\)"}</MathJax>
-                    <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <br />
-                    <CustomTable correct_answers={getCorrectAnswers(w_1, w_2, b)} />
-                    <br />
-                    <br />
+                    <LeftItem>
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
+                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(b = \\)"}</MathJax>
+                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <br />
+                        <CustomTable correct_answers={getCorrectAnswers(w_1, w_2, b)} />
+                    </LeftItem>
                 </Typography>
             </MathJaxContext>
         </Box>
