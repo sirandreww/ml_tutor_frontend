@@ -7,6 +7,7 @@ import { Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import LogisticRegressionHyperParameter from "../../../components/logistic_regression/LogisticRegressionHyperParameter";
 
+const translation_path = "logreg.pages.hp."
 export default function LogReg7() {
     // header style
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
@@ -20,7 +21,7 @@ export default function LogReg7() {
             component={
                 <Box>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Understanding Hyper Parameter Importance</h1>
+                        <h1 style={headers_style}>{t("logreg.pages.hp_title")}</h1>
                     </Typography>
                     <br />
                     <br />
@@ -29,20 +30,18 @@ export default function LogReg7() {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                    In this task will learn how the alpha, number of iterations and the size of training batch affects the accuracy of our model.<br />
-                                    We will take the Iris datasets which contains the following data of the Iris flower:<br />
-                                    1. Sepal Length (in centimeters).<br />
-                                    2. Sepal Width (in centimeters).<br />
-                                    3. Petal Length (in centimeters).<br />
-                                    3. PetalWidth (in centimeters).<br />
+                                    {t(translation_path.concat("intro"))}.<br />
+                                    1. {t(translation_path.concat("sp_length"))}.<br />
+                                    2. {t(translation_path.concat("sp_width"))}.<br />
+                                    3. {t(translation_path.concat("pe_length"))}.<br />
+                                    3. {t(translation_path.concat("pe_width"))}.<br />
                                     <br />
-                                    The dataset contains 3 types of Iris flowers (for each type we have 50 samples):<br />
-                                    1. Setosa.<br />
-                                    2. Versicolor.<br />
-                                    3. Virginica.<br />
+                                    {t(translation_path.concat("dataset"))}:<br />
+                                    1. {t(translation_path.concat("setosa"))}.<br />
+                                    2. {t(translation_path.concat("versicolor"))}.<br />
+                                    3. {t(translation_path.concat("virginica"))}.<br />
                                     <br />
-                                    Please insert the desired alpha, number of iterations and the percentage of the dataset to be our training batch (the rest is the test batch),<br />
-                                    We will calculate the accuracy of the trained model based on the input, try to find the best parameters!<br />
+                                    {t(translation_path.concat("task"))}<br />
                                 </Typography>
                             </LeftItem>
                         </Grid>

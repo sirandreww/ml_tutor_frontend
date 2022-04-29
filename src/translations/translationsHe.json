@@ -117,6 +117,46 @@
         "challenge":"אתגר את עצמך וחשב כל שלב באלגוריתם."
     },
 
+    "logreg": {
+        "tasks" : {
+            "log_reg_step_1_title": "Introduction",
+            "log_reg_step_2_title": "Exercise 1",
+            "log_reg_step_3_title": "Vector Representation",
+            "log_reg_step_4_title": "Multi-Samples",
+            "log_reg_step_5_title": "Train A Model",
+            "log_reg_step_6_title": "Step By Step",
+            "log_reg_step_7_title": "Hyper-Parameter"
+        },
+
+        "pages": {
+            "intro": {
+                "description":"In statistics, the logistic model (or logit model) is used to model the probability of a certain class or event taking place, such as the probability of a team winning, of a patient being healthy, etc.",
+                "cal_prob": "The classifier will then predict that the class of the object is \"1\" if ",
+                "demo": "Let's try to understand this even more with a demo, choose your weight and bias and test different values for x :",
+                "example": "Now let's see the function of the classifier as defined by the weight and bias :"
+
+            },
+            "ex1": {
+
+            },
+            "vec_rep": {
+
+            },
+            "multi_samples": {
+
+            },
+            "training": {
+
+            },
+            "sbs": {
+
+            },
+            "hp": {
+
+            }
+        }
+    },
+
     "sign_in":{
         "login":"תתחבר",
         "forgot_pass":"שכחת סיסמה?",

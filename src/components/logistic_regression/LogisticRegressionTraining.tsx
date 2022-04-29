@@ -9,6 +9,7 @@ import { LogisticRegressionModule } from 'components/logistic_regression/Logisti
 import Grid from "@mui/material/Grid";
 
 
+const translation_path = "logreg.pages.training."
 export default function LogisticRegressionTraining() {
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
@@ -37,73 +38,67 @@ export default function LogisticRegressionTraining() {
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Logistic Regression Training</h1>
+                        <h1 style={headers_style}>{t("logreg.pages.training_title")}</h1>
                     </Typography>
                     <br />
                     <br />
                     <br />
-                    So far we have learned how the logistic regression classifies an input (with either with 1 feature or more),
-                    In this page we will now learn how we build such model, in other words we will learn how we find the best weights and b to have the highest accuracy!
+                    {t(translation_path.concat("intro"))}
                 </Typography>
                 <br />
                 <br />
                 <Typography component={'div'}>
                     <br />
                     <h3 style={headers_style}>
-                        First what is a Logistic Regression Model? <br />
+                        {t(translation_path.concat("logReg_q"))}? <br />
                     </h3>
                     <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
-                        A logistic regression model donated by <MathJax style={mathJaxStyle} inline>{"\\(M({\\vec{w}}_{1xn}, b) \\)"}</MathJax> where:<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1xn}\\)"}</MathJax> - is the vector of weights.<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax> - is the constant.<br />
+                        {t(translation_path.concat("logReg_ans_p1"))} <MathJax style={mathJaxStyle} inline>{"\\(M({\\vec{w}}_{1xn}, b) \\)"}</MathJax> {t(translation_path.concat("logReg_ans_p2"))}:<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1xn}\\)"}</MathJax> - {t(translation_path.concat("logReg_ans_w"))}.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax> - {t(translation_path.concat("logReg_ans_b"))}.<br />
                     </Typography>
                     <br />
                     <h3 style={headers_style}>
-                        First of all how we can measure an accuracy of such model?<br />
+                        {t(translation_path.concat("acc_q"))}?<br />
                     </h3>
                     <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
-                        Answer: Cost Function (or Loss Function)<br />
-                        Which is a function that represents the error of our calculations.<br />
-                        If the returned value of this function is closer to 0 then the model is better and it predicts more correctly.<br />
-                        If the returned value of this function is more distant from 0 then the model is worst and it doesn't predict correctly.<br />
+                        {t(translation_path.concat("acc_ans"))}.<br />
                         <br />
                         <h4 style={headers_style}>
-                            Consider having:<br />
+                            {t(translation_path.concat("consider"))}:<br />
                         </h4>
-                        1. <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> - Matrix with multiple samples (m). <br />
-                        2. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w_{1xn}}\\)"}</MathJax> - Vector of weights (n).<br />
-                        3. <MathJax style={mathJaxStyle} inline>{"\\( b \\)"}</MathJax> - Constant.<br />
-                        4. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{C_{1xm}}\\)"}</MathJax> - The actual classifications for each sample (test batch)<br />
+                        1. <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> - {t(translation_path.concat("consider_x"))}. <br />
+                        2. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w_{1xn}}\\)"}</MathJax> - {t(translation_path.concat("consider_w"))}.<br />
+                        3. <MathJax style={mathJaxStyle} inline>{"\\( b \\)"}</MathJax> - {t(translation_path.concat("consider_b"))}.<br />
+                        4. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{C_{1xm}}\\)"}</MathJax> - {t(translation_path.concat("consider_c"))}<br />
                         <br />
-                        Then we calculate the vector of predictions <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>.<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}} = \\sigma(\\vec{w} \\cdot X^{t} + b)\\)"}</MathJax> (like Previously)<br />
+                        {t(translation_path.concat("calc_y"))} <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}} = \\sigma(\\vec{w} \\cdot X^{t} + b)\\)"}</MathJax> ({t(translation_path.concat("prev"))})<br />
                         <br />
-                        After it we calculate the following Loss Function<br />
+                        {t(translation_path.concat("after"))}<br />
                         <MathJax style={mathJaxStyle} inline>{"\\(Loss = \\frac{-1}{m} * \\sum_{i=1}^{m} ( c_i*log(y_i) + (1-c_i)*log(1-y_i) )\\)"}</MathJax><br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(c_i\\)"}</MathJax> - is the actual classification of the i'th sample.<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(y_i\\)"}</MathJax> - is the prediction of the i'th sample.<br />
-                        This function returns a number which indicates how good is our model!<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(c_i\\)"}</MathJax> - {t(translation_path.concat("ci"))}.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(y_i\\)"}</MathJax> - {t(translation_path.concat("yi"))}.<br />
+                        {t(translation_path.concat("ret_type"))}!<br />
                     </Typography>
                     <br />
                     <h3 style={headers_style}>
-                        What do we mean by train a model?<br />
+                        {t(translation_path.concat("trainModel_q"))}?<br />
                     </h3>
                     <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
-                        When we say train a model we mean that we get a lot of samples which are in form of a table like we have explained above<br />
-                        and we want to search for the best ws and b!<br />
-                        In other words we want to minimize the Loss Function --- Gradiant Descent!!!<br />
+                        {t(translation_path.concat("trainModel_ans"))}
                         <br />
-                        Consider having the same input as above <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> & <MathJax style={mathJaxStyle} inline>{"\\(\\vec{C_{1xm}}\\)"}</MathJax>:<br />
-                        Also we have the hyper-parameter of the Gradiant Descent <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax><br />
+                        {t(translation_path.concat("above_inputs"))} <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> & <MathJax style={mathJaxStyle} inline>{"\\(\\vec{C_{1xm}}\\)"}</MathJax>:<br />
+                        {t(translation_path.concat("additional_inputs"))} <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax><br />
                         <br />
                         <h4 style={headers_style}>
-                            Some Definitions:<br />
+                            {t(translation_path.concat("defs"))}:<br />
                         </h4>
-                        <MathJax style={mathJaxStyle} inline>{"\\(Loss\\)"}</MathJax> - The loss function mentioned above.<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(dw_i = \\frac{dLoss}{dw_i} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_i}\\)"}</MathJax> -The derivative of the Loss function by i'th weight, X_i is the i'th column of X<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(dW = \\frac{dLoss}{d\\vec{w}} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot X_{mxn}\\)"}</MathJax> -The derivative of the Loss function by the weights<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(db_i = \\frac{dLoss}{db_i} = y_i - c_i\\)"}</MathJax> -The derivative of the Loss function by the constant b for the i'th sample.<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(dB = \\sum_{i=1}^{m}\\frac{dLoss}{db_i} = \\sum_{i=1}^{m}(y_i - c_i)\\)"}</MathJax> - The derivative of the Loss function by the constant B on all samples.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(Loss\\)"}</MathJax> - {t(translation_path.concat("loss_def"))}.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(dw_i = \\frac{dLoss}{dw_i} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_i}\\)"}</MathJax> - {t(translation_path.concat("dwi_def"))}<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(dW = \\frac{dLoss}{d\\vec{w}} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot X_{mxn}\\)"}</MathJax> - {t(translation_path.concat("dW_def"))}<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(db_i = \\frac{dLoss}{db_i} = y_i - c_i\\)"}</MathJax> - {t(translation_path.concat("dbi_def"))}.<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(dB = \\sum_{i=1}^{m}\\frac{dLoss}{db_i} = \\sum_{i=1}^{m}(y_i - c_i)\\)"}</MathJax> - {t(translation_path.concat("dB_def"))}.<br />
                         <MathJax style={mathJaxStyle} inline>
                             {`$$
                                     dW = \\frac{dLoss}{d\\vec{w}} =
@@ -124,24 +119,24 @@ export default function LogisticRegressionTraining() {
                         </MathJax>
                         <br />
                         <h4 style={headers_style}>
-                            Initiate the following variables:<br />
+                            {t(translation_path.concat("init"))}:<br />
                         </h4>
-                        1. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w} = [0, 0, ..., 0]_{1xn}\\)"}</MathJax> - vector of weights (entry for each weight).<br />
-                        2. <MathJax style={mathJaxStyle} inline>{"\\(b = 0\\)"}</MathJax> - The constant.<br />
+                        1. <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w} = [0, 0, ..., 0]_{1xn}\\)"}</MathJax> - {t(translation_path.concat("init_w"))}.<br />
+                        2. <MathJax style={mathJaxStyle} inline>{"\\(b = 0\\)"}</MathJax> - {t(translation_path.concat("init_b"))}.<br />
                         <h4 style={headers_style}>
-                            In each step the Gradiant Descent does the following:<br />
+                            {t(translation_path.concat("step"))}:<br />
                         </h4>
-                        1. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1xm}\\)"}</MathJax>.<br />
-                        2. Calculate <MathJax style={mathJaxStyle} inline>{"\\(dW\\)"}</MathJax>.<br />
-                        3. Calculate <MathJax style={mathJaxStyle} inline>{"\\(dB\\)"}</MathJax>.<br />
-                        4. Apply <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\vec{w} - \\alpha * dW^{t}\\)"}</MathJax>.<br />
-                        5. Apply <MathJax style={mathJaxStyle} inline>{"\\(b_{new} = b - \\alpha*dB\\)"}</MathJax>.<br />
+                        1. {t(translation_path.concat("Calculate"))} <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1xm}\\)"}</MathJax>.<br />
+                        2. {t(translation_path.concat("Calculate"))} <MathJax style={mathJaxStyle} inline>{"\\(dW\\)"}</MathJax>.<br />
+                        3. {t(translation_path.concat("Calculate"))} <MathJax style={mathJaxStyle} inline>{"\\(dB\\)"}</MathJax>.<br />
+                        4. {t(translation_path.concat("Apply"))} <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\vec{w} - \\alpha * dW^{t}\\)"}</MathJax>.<br />
+                        5. {t(translation_path.concat("Apply"))} <MathJax style={mathJaxStyle} inline>{"\\(b_{new} = b - \\alpha*dB\\)"}</MathJax>.<br />
                     </Typography>
                     <br />
                 </Typography>
                 <Typography component={'div'}>
                     <h3 style={headers_style}>
-                        Let's try with a demo, insert following given data and their classifications:<br />
+                        {t(translation_path.concat("demo"))}:<br />
                     </h3>
                     <br />
                     <Grid container>
@@ -217,7 +212,7 @@ export default function LogisticRegressionTraining() {
                 <br />
                 <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
                     <h4 style={headers_style}>
-                        The Algorithm will initiate the following data:<br />
+                        {t(translation_path.concat("demo_init"))}:<br />
                     </h4>
                     <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1x2} = [ 0, 0 ]\\)"}</MathJax><br />
                     <MathJax style={mathJaxStyle} inline>{"\\(b = 0\\)"}</MathJax><br />
@@ -225,7 +220,7 @@ export default function LogisticRegressionTraining() {
                 <br />
                 <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
                     <h4 style={headers_style}>
-                        The results of the 1st iteration are:<br />
+                        {t(translation_path.concat("demo_itr_res"))}:<br />
                     </h4>
                     <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1x2} = \\)"}</MathJax>{"[" + module.predict([x_11, x_12]).toString() + ", " + module.predict([x_21, x_22]).toString() + " ]"}<br />
                     <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\)"}</MathJax>{module.getWs()[0].toString()}<br />
@@ -235,7 +230,7 @@ export default function LogisticRegressionTraining() {
                 <br />
                 <Typography component={'span'} sx={{ width: "100%", direction: 'ltr' }}>
                     <h4 style={headers_style}>
-                        The final results:<br />
+                        {t(translation_path.concat("demo_final_res"))}:<br />
                     </h4>
                     <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1x2} = \\)"}</MathJax>{module.getModule().W.toString()}<br />
                     <MathJax style={mathJaxStyle} inline>{"\\(b = \\)"}</MathJax>{module.getModule().B.toString()}<br />

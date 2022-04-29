@@ -119,16 +119,125 @@
     },
 
     "logreg": {
-        "description":"In statistics, the logistic model (or logit model) is used to model the probability of a certain class or event taking place, such as the probability of a team winning, of a patient being healthy, etc.",
-    
         "tasks" : {
             "log_reg_step_1_title": "Introduction",
             "log_reg_step_2_title": "Exercise 1",
             "log_reg_step_3_title": "Vector Representation",
-            "log_reg_step_4_title": "Multi-Inputs",
+            "log_reg_step_4_title": "Multi-Samples",
             "log_reg_step_5_title": "Train A Model",
             "log_reg_step_6_title": "Step By Step",
             "log_reg_step_7_title": "Hyper-Parameter"
+        },
+
+        "pages": {
+            "intro_title": "Logistic Regression",
+            "intro": {
+                "description":"In statistics, the logistic model (or logit model) is used to model the probability of a certain class or event taking place, such as the probability of a team winning, of a patient being healthy, etc.",
+                "weights": "Logistic regression is a classification algorithm. The parameters for this classifier are the weights",
+                "num": " and a number ",
+                "vec": "The input for the classifier is an object with a vector of features ",
+                "y": "The classifier calculates ",
+                "y_def": ", which is the probability that the object belongs to the class \"1\" using the following calculation:",
+                "sigmoid_fun_def": "Where the Sigmoid function is defined as ",
+                "cal_prob": "The classifier will then predict that the class of the object is \"1\" if ",
+                "demo": "Let's try to understand this even more with a demo, choose your weight and bias and test different values for x :",
+                "example": "Now let's see the function of the classifier as defined by the weight and bias :"
+            },
+            "ex1_title": "Logistic Regression Exercise 1",
+            "ex1": {
+                "line_1": "Now that we know the basics of linear regression, let's do an exercise together.",
+                "line_2": "We are given images and 2 features for every image :",
+                "red_avg": "the average value of the red pallet in the image.",
+                "blue_avg": "the average value of the blue pallet in the image."
+            },
+            "vec_rep_title": "Logistic Regression Using Vectors",
+            "vec_rep": {
+                "expr": "The expression",
+                "expr_simple": " can be simplified as the multiplication of 2 vectors",
+                "alg_calc": "Thus the calculation done by the linear regression algorithm can be expressed as:",
+                "sig_def": "Where the Sigmoid function is defined as ",
+                "y_calc": "The classifier will then predict that the class of the object is \"1\" if",
+                "demo": "Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :"
+            },
+            "multi_samples_title": "Logistic Regression With Multiple Samples",
+            "multi_samples": {
+                "intro": "So far we have learned how the logistic regression classifies an input (with either with 1 feature or more),\nIn this page we will now learn how we can classifies multiple inputs in one time!",
+                "vectors": "In other words we can transform multiple input vectors ",
+                "matrix": " to\none huge matrix ",
+                "Y": " which holds all the data (rows are the samples and columns are the feature for each sample),\nthen apply the sigmoid function on it and returns a vector ",
+                "pred": " of predictions for each input",
+                "samples_num": "the number of samples",
+                "features_num": "the number of features",
+                "task": "In this page we will have 3 samples which represents a color's RGB values,\nand we want to predict if the color is blue or not ( m = 3, n = 3) -",
+                "weights": "Vector of weights (weight for each feature):",
+                "b": "The Constant value:",
+                "matrix_pres": "The data will be present in a matrix like this:",
+                "sigmoid_cal": "The calculation of the sigmoid on this huge matrix is done as follows",
+                "calculate": " Calculate",
+                "add_b": " Add the constant b to each entry of the result vector - ",
+                "apply": " Apply the sigmoid function on each entry of the previous vector - ",
+                "get_Y": " Get ",
+                "by_checking": " by checking if "
+            },
+            "training_title": "Logistic Regression Training",
+            "training": {
+                "intro": "So far we have learned how the logistic regression classifies an input (with either with 1 feature or more),\nIn this page we will now learn how we build such model, in other words we will learn how we find the best weights and b to have the highest accuracy!",
+                "logReg_q": "First what is a Logistic Regression Model",
+                "logReg_ans_p1": "A logistic regression model donated by ",
+                "logReg_ans_p2": " where",
+                "logReg_ans_w": " is the vector of weights",
+                "logReg_ans_b": " is the constant",
+                "acc_q": "First of all how we can measure an accuracy of such model",
+                "acc_ans": "Answer: Cost Function (or Loss Function)\nWhich is a function that represents the error of our calculations.\nIf the returned value of this function is closer to 0 then the model is better and it predicts more correctly.\nIf the returned value of this function is more distant from 0 then the model is worst and it doesn't predict correctly.",
+                "consider": "Consider having",
+                "consider_x": " Matrix with multiple samples (m)",
+                "consider_w": " Vector of weights (n)",
+                "consider_b": " Constant",
+                "consider_c": " The actual classifications for each sample (test batch)",
+                "calc_y": "Then we calculate the vector of predictions",
+                "prev": "like Previously",
+                "after": "After it we calculate the following Loss Function",
+                "ci": " is the actual classification of the i'th sample",
+                "yi": " is the prediction of the i'th sample",
+                "ret_type": "This function returns a number which indicates how good is our model",
+                "trainModel_q": "What do we mean by train a model",
+                "trainModel_ans": "When we say train a model we mean that we get a lot of samples which are in form of a table like we have explained above\nand we want to search for the best ws and b!\nIn other words we want to minimize the Loss Function --- Gradiant Descent!!!\n",
+                "above_inputs": "Consider having the same input as above",
+                "additional_inputs": "Also we have the hyper-parameter of the Gradiant Descent",
+                "defs": "Some Definitions",
+                "loss_def": "The loss function mentioned above",
+                "dwi_def": "The derivative of the Loss function by i'th weight, X_i is the i'th column of X",
+                "dW_def": "The derivative of the Loss function by the weights",
+                "dbi_def": "The derivative of the Loss function by the constant b for the i'th sample",
+                "dB_def": "The derivative of the Loss function by the constant B on all samples",
+                "init": "Initiate the following variables",
+                "init_w": "vector of weights (entry for each weight)",
+                "init_b": "The constant",
+                "step": "In each step the Gradiant Descent does the following",
+                "step_calculate": "Calculate",
+                "step_apply": "Apply",
+                "demo": "Let's try with a demo, insert following given data and their classifications",
+                "demo_init": "The Algorithm will initiate the following data",
+                "demo_itr_res": "The results of the 1st iteration are",
+                "demo_final_res": "The final results"
+            },
+            "sbs_title": "Step By Step Training",
+            "sbs": {
+                "task": "In this task will learn calculate how we train a module step by step."
+            },
+            "hp_title": "Understanding Hyper Parameter Importance",
+            "hp": {
+                "intro": "In this task will learn how the alpha, number of iterations and the size of training batch affects the accuracy of our model.\nWe will take the Iris datasets which contains the following data of the Iris flower",
+                "sp_length": "Sepal Length (in centimeters)",
+                "sp_width": "Sepal Width (in centimeters)",
+                "pe_length": "Petal Length (in centimeters)",
+                "pe_width": "PetalWidth (in centimeters)",
+                "dataset": "The dataset contains 3 types of Iris flowers (for each type we have 50 samples)",
+                "setosa": "Setosa",
+                "versicolor": "Versicolor",
+                "virginica": "Virginica",
+                "task": "Please insert the desired alpha, number of iterations and the percentage of the dataset to be our training batch (the rest is the test batch),\nWe will calculate the accuracy of the trained model based on the input, try to find the best parameters!"
+            }
         }
     },
 
