@@ -36,7 +36,7 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
             // console.log("Number(yi) = \n", Number(yi))
 
             let tmp = {
-                "step": step.toString(),
+                "step": (step % 3).toString(),
                 "xOne": xi[0].toFixed(DIGITS).toString(),
                 "xTwo": xi[1].toFixed(DIGITS).toString(),
                 "yi": yi.toFixed(DIGITS).toString(),
@@ -73,7 +73,7 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         // console.log("w2New ", w2New)
         // console.log("w2New ", w2New)
         answers.push({
-            "step": step.toString(),
+            "step": (step % 1).toString(),
             "wOne": w1Prev.toFixed(DIGITS).toString(),
             "wTwo": w2Prev.toFixed(DIGITS).toString(),
             "b": bPrev.toFixed(DIGITS).toString(),

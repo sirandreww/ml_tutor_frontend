@@ -109,7 +109,7 @@ export default function LogisticRegressionTraining() {
                             <MathJax style={mathJaxStyle} inline>{"\\(dw_i = \\frac{dLoss}{dw_i} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot \\vec{X_i}\\)"}</MathJax> - {t(translation_path.concat("dwi_def"))}<br />
                             <MathJax style={mathJaxStyle} inline>{"\\(dW = \\frac{dLoss}{d\\vec{w}} = (\\vec{Y}_{1xm} - \\vec{C}_{1xm}) \\cdot X_{mxn}\\)"}</MathJax> - {t(translation_path.concat("dW_def"))}<br />
                             <MathJax style={mathJaxStyle} inline>{"\\(db_i = \\frac{dLoss}{db_i} = y_i - c_i\\)"}</MathJax> - {t(translation_path.concat("dbi_def"))}.<br />
-                            <MathJax style={mathJaxStyle} inline>{"\\(dB = \\sum_{i=1}^{m}\\frac{dLoss}{db_i} = \\sum_{i=1}^{m}(y_i - c_i)\\)"}</MathJax> - {t(translation_path.concat("dB_def"))}.<br />
+                            <MathJax style={mathJaxStyle} inline>{"\\(dB = \\frac{1}{m} * \\sum_{i=1}^{m}\\frac{dLoss}{db_i} = \\sum_{i=1}^{m}(y_i - c_i)\\)"}</MathJax> - {t(translation_path.concat("dB_def"))}.<br />
                             <MathJax style={mathJaxStyle} inline>
                                 {`$$
                                     dW = \\frac{dLoss}{d\\vec{w}} =
