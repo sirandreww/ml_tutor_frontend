@@ -3,11 +3,12 @@ import Typography from '@mui/material/Typography';
 import { PrettoSlider } from "../GradientDescentHelper";
 import NumberTextField from "../NumberTextField";
 import { TextField } from "@mui/material";
-import { button, CenterItem, LeftItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";
+import { button, CenterItem, LeftItem, BlackAlignedItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";
 import Box from "@mui/material/Box";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import Grid from "@mui/material/Grid";
 import { LogisticRegressionModule, Matrix, math } from "./LogisticRegressionCore";
+import {useTranslation} from "react-i18next";
 
 const iris_setosa: number[][] = [
     [5.1, 3.5, 1.4, 0.2],
@@ -322,6 +323,7 @@ function getElement(matrix: Matrix, index: number): string {
 let alg = new LogisticRegressionModule([], [], 0, 0)
 let acc = 0
 
+const translation_path = "logreg.pages.hp."
 export default function LogisticRegressionHyperParameter() {
     const [alpha, setAlpha] = React.useState(0.05)
     const [numOfIterations, setNumOfIterations] = React.useState(10)
@@ -329,6 +331,7 @@ export default function LogisticRegressionHyperParameter() {
     const [train, setTrain] = React.useState(false)
     const [test, setTest] = React.useState(false)
     const [moduleInfo, setModuleInfo] = React.useState(alg.getModuleInfo())
+    const [t] = useTranslation('translation');
 
     React.useEffect(() => {
     }, []);
@@ -364,51 +367,51 @@ export default function LogisticRegressionHyperParameter() {
                 <MathJaxContext version={3} config={mathJaxConfig}>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={12}>
-                            <LeftItem>
+                            <BlackAlignedItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
-                                    <Grid item xs={4}>
-                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                            Number of Iterations:
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <NumberTextField value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
-                                    </Grid>
-                                    <Grid item xs={6} />
-                                    <Grid item xs={4}>
-                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={8}>
-                                        <PrettoSlider
-                                            valueLabelDisplay="auto"
-                                            aria-label="pretto slider"
-                                            defaultValue={alpha}
-                                            step={0.0001}
-                                            min={0}
-                                            max={0.1}
-                                            onChange={(_, value) => handleStates({ al: Number(value), trn: false, tst: false })}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                            Train Percentage:
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={8}>
-                                        <PrettoSlider
-                                            valueLabelDisplay="auto"
-                                            aria-label="pretto slider"
-                                            defaultValue={dataSetPer}
-                                            step={0.05}
-                                            min={0}
-                                            max={0.95}
-                                            onChange={(_, value) => handleStates({ per: Number(value), trn: false, tst: false })}
-                                        />
-                                    </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                {t(translation_path.concat("itr_num"))}:
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <NumberTextField value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
+                                        </Grid>
+                                        <Grid item xs={6} />
+                                        <Grid item xs={4}>
+                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={8}>
+                                            <PrettoSlider
+                                                valueLabelDisplay="auto"
+                                                aria-label="pretto slider"
+                                                defaultValue={alpha}
+                                                step={0.0001}
+                                                min={0}
+                                                max={0.1}
+                                                onChange={(_, value) => handleStates({ al: Number(value), trn: false, tst: false })}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                {t(translation_path.concat("trn_per"))}:
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={8}>
+                                            <PrettoSlider
+                                                valueLabelDisplay="auto"
+                                                aria-label="pretto slider"
+                                                defaultValue={dataSetPer}
+                                                step={0.05}
+                                                min={0}
+                                                max={0.95}
+                                                onChange={(_, value) => handleStates({ per: Number(value), trn: false, tst: false })}
+                                            />
+                                        </Grid>
                                 </Grid>
-                            </LeftItem>
+                            </BlackAlignedItem>
                         </Grid>
                         <Grid item xs={12}>
                             <LeftItem>
@@ -465,7 +468,7 @@ export default function LogisticRegressionHyperParameter() {
                                     </Grid>
                                     <Grid item xs={3}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"Module Accuracy = "}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{t(translation_path.concat("mdl_acc")).concat(" = ")}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9} sx={{}}>

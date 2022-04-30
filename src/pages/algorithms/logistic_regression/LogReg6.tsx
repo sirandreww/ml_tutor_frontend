@@ -1,5 +1,6 @@
 // ------------------------ IMPORTS ------------------------
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -9,7 +10,7 @@ import LogisticRegressionStepByStep from "../../../components/logistic_regressio
 export default function LogReg6() {
     // header style
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
-
+    const [t] = useTranslation('translation');
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="logreg"
@@ -17,7 +18,7 @@ export default function LogReg6() {
             component={
                 <Box>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Step By Step Training</h1>
+                        <h1 style={headers_style}>{t("logreg.pages.sbs_title")}</h1>
                     </Typography>
                     <br />
                     <br />
@@ -26,8 +27,7 @@ export default function LogReg6() {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                    In this task will learn calculate how we train a module step by step.<br />
-
+                                    {t("logreg.pages.sbs.task")}
                                 </Typography>
                             </LeftItem>
                         </Grid>

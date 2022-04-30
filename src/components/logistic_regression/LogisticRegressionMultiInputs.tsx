@@ -1,7 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import {
+    BlackCenterAlignedLeftTextItem,
+    mathJaxConfig,
+    mathJaxStyle
+} from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
@@ -9,6 +13,7 @@ import Grid from "@mui/material/Grid";
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 
+const translation_path = "logreg.pages.multi_samples."
 export default function LogisticRegressionMultiInputs() {
     function getPrediction(x: number): number {
         if (x > 0.5)
@@ -56,48 +61,52 @@ export default function LogisticRegressionMultiInputs() {
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'div'}>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Logistic Regression With Multiple Inputs</h1>
+                        <h1 style={headers_style}>{t("logreg.pages.multi_samples_title")}</h1>
                     </Typography>
                     <br />
                     <br />
                     <br />
-                    So far we have learned how the logistic regression classifies an input (with either with 1 feature or more),
-                    In this page we will now learn how we can classifies multiple inputs in one time! <br />
-                    In other words we can transform multiple input vectors <MathJax style={mathJaxStyle} inline>{"\\(\\vec{x_i} \\)"}</MathJax> to
-                    one huge matrix <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax> which holds all the data (rows are the samples and columns are the feature for each sample),
-                    then apply the sigmoid function on it and returns a vector <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>  of predictions for each input.<br />
-                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( m \\)"}</MathJax> = the number of samples.<br />
-                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( n \\)"}</MathJax> = the number of features.<br />
+                    {t(translation_path.concat("intro"))} <br />
+                    {t(translation_path.concat("vectors"))} <MathJax style={mathJaxStyle} inline>{"\\(\\vec{x_i} \\)"}</MathJax>
+                    {t(translation_path.concat("matrix"))} <MathJax style={mathJaxStyle} inline>{"\\(X_{mxn}\\)"}</MathJax>
+                    {t(translation_path.concat("Y"))} <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1xm}}\\)"}</MathJax>
+                    {t(translation_path.concat("pred"))}.<br />
+                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( m \\)"}</MathJax> = {t(translation_path.concat("samples_num"))}.<br />
+                    {tab}<MathJax style={{ fontSize: "13px" }} inline>{"\\( n \\)"}</MathJax> = {t(translation_path.concat("features_num"))}.<br />
                     <br />
                     <br />
-                    In this page we will have 3 samples which represents a color's RGB values, <br />
-                    and we want to predict if the color is blue or not ( m = 3, n = 3) - <br />
+                    {t(translation_path.concat("task"))} <br />
                 </Typography>
                 <br />
                 <Typography component={'div'}>
-                    {tab}Vector of weights (weight for each feature):
+                    {t(translation_path.concat("weights"))}
                     <br />
                     <Typography component={'div'} sx={{ fontSize: "13px" }}>
-                        {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                        <MathJax style={{ fontSize: "20px" }} inline>{"\\([ w_1, w_2, w_3 ] = \\)"}</MathJax>
-                        <TextField label="red" type="number" size="small" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                        <TextField label="green" type="number" size="small" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
-                        <TextField label="blue" type="number" size="small" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
+                        <BlackCenterAlignedLeftTextItem>
+                            {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
+                            <MathJax style={{ fontSize: "20px" }} inline>{"\\([ w_1, w_2, w_3 ] = \\)"}</MathJax>
+                            <TextField label="red" type="number" size="small" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                            <TextField label="green" type="number" size="small" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                            <TextField label="blue" type="number" size="small" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} />
+                        </BlackCenterAlignedLeftTextItem>
                     </Typography>
                     <br />
-                    {tab}The Constant value:
+                    {t(translation_path.concat("b"))}
                     <br />
                     <Typography component={'div'} sx={{ fontSize: "13px" }}>
-                        {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(b = \\)"}</MathJax>
-                        <TextField label="b" type="number" size="small" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <BlackCenterAlignedLeftTextItem>
+                            {tab}{tab}<MathJax style={{ fontSize: "20px" }} inline>{"\\(b = \\)"}</MathJax>
+                            <TextField label="b" type="number" size="small" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        </BlackCenterAlignedLeftTextItem>
                     </Typography>
                     <br />
-                    {tab}The data will be present in a matrix like this:
+                    {t(translation_path.concat("matrix_pres"))}
                     <br />
-                    <Grid container>
-                        <Grid item xs={6} my={`auto`}>
-                            <MathJax style={{ fontSize: "20px" }} inline>
-                                {`$$ 
+                    <BlackCenterAlignedLeftTextItem>
+                        <Grid container>
+                            <Grid item xs={6} my={`auto`}>
+                                <MathJax style={{ fontSize: "20px" }} inline>
+                                    {`$$ 
                                         X_{3x3} = 
                                         \\begin{bmatrix}
                                             x_{11} & x_{12} & x_{13} & \\\\
@@ -106,33 +115,36 @@ export default function LogisticRegressionMultiInputs() {
                                         \\end{bmatrix} 
                                         =
                                     $$`}
-                            </MathJax>
+                                </MathJax>
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField label="x1_red" type="number" size="small" onChange={event => setX11(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x1_green" type="number" size="small" onChange={event => setX12(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x1_blue" type="number" size="small" onChange={event => setX13(Number(event.target.value))} sx={{ width: "100%" }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField label="x2_red" type="number" size="small" onChange={event => setX21(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x2_green" type="number" size="small" onChange={event => setX22(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x2_blue" type="number" size="small" onChange={event => setX23(Number(event.target.value))} sx={{ width: "100%" }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField label="x3_red" type="number" size="small" onChange={event => setX31(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x3_green" type="number" size="small" onChange={event => setX32(Number(event.target.value))} sx={{ width: "100%" }} />
+                                <TextField label="x3_blue" type="number" size="small" onChange={event => setX33(Number(event.target.value))} sx={{ width: "100%" }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField label="x1_red" type="number" size="small" onChange={event => setX11(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x1_green" type="number" size="small" onChange={event => setX12(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x1_blue" type="number" size="small" onChange={event => setX13(Number(event.target.value))} sx={{ width: "100%" }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField label="x2_red" type="number" size="small" onChange={event => setX21(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x2_green" type="number" size="small" onChange={event => setX22(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x2_blue" type="number" size="small" onChange={event => setX23(Number(event.target.value))} sx={{ width: "100%" }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField label="x3_red" type="number" size="small" onChange={event => setX31(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x3_green" type="number" size="small" onChange={event => setX32(Number(event.target.value))} sx={{ width: "100%" }} />
-                            <TextField label="x3_blue" type="number" size="small" onChange={event => setX33(Number(event.target.value))} sx={{ width: "100%" }} />
-                        </Grid>
-                    </Grid>
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
                 </Typography>
                 <br />
                 <Typography component={'div'}>
-                    The calculation of the sigmoid on this huge matrix is done as follows:<br />
-                    1. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(X^t\\)"}</MathJax> - <br />
-                    <Grid container>
-                        <Grid item xs={6} my={`auto`}>
-                            <MathJax style={{ fontSize: "20px" }} inline>
-                                {`$$ 
+                    {t(translation_path.concat("sigmoid_cal"))}:<br />
+                    {tab}1. {t(translation_path.concat("calculate"))} <MathJax style={{ fontSize: "13px" }} inline>{"\\(X^t\\)"}</MathJax> - <br />
+                    <BlackCenterAlignedLeftTextItem>
+                        <Grid container>
+                            <Grid item xs={6} my={`auto`}>
+                                <MathJax style={{ fontSize: "20px" }} inline>
+                                    {`$$ 
                                 X^{t}_{3x3} = 
                                 \\begin{bmatrix}
                                     x_{11} & x_{21} & x_{31} & \\\\
@@ -141,103 +153,117 @@ export default function LogisticRegressionMultiInputs() {
                                 \\end{bmatrix} 
                                 =
                             $$`}
-                            </MathJax>
+                                </MathJax>
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={x_11} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_21} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_31} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={x_12} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_22} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_32} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={x_13} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_23} type="number" size="small" inputProps={{ readOnly: true, }} />
+                                <TextField value={x_33} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={x_11} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_21} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_31} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={x_12} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_22} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_32} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={x_13} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_23} type="number" size="small" inputProps={{ readOnly: true, }} />
-                            <TextField value={x_33} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                    </Grid>
-                    2. Calculate <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{yt} = \\vec{w} \\cdot X^t\\)"}</MathJax> -
-                    <Grid container>
-                        <Grid item xs={6} my={`auto`}>
-                            <MathJax style={{ fontSize: "20px" }} inline>
-                                {`$$ 
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
+                    {tab}2. {t(translation_path.concat("calculate"))} <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{yt} = \\vec{w} \\cdot X^t\\)"}</MathJax> -
+                    <BlackCenterAlignedLeftTextItem>
+                        <Grid container>
+                            <Grid item xs={6} my={`auto`}>
+                                <MathJax style={{ fontSize: "20px" }} inline>
+                                    {`$$ 
                                 \\vec{yt} = \\vec{w} \\cdot X^{t}_{3x3} = 
                                 \\begin{bmatrix}
                                     yt_{11} & yt_{12} & yt_{13} & \\\\
                                 \\end{bmatrix} 
                                 =
                             $$`}
-                            </MathJax>
+                                </MathJax>
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={calculateOneOutput(1)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={calculateOneOutput(2)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={calculateOneOutput(3)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={calculateOneOutput(1)} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={calculateOneOutput(2)} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={calculateOneOutput(3)} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                    </Grid>
-                    3. Add the constant <MathJax style={{ fontSize: "13px" }} inline>{"\\(b\\)"}</MathJax> to each entry of the result vector - <br />
-                    <Grid container>
-                        <Grid item xs={6} my={`auto`}>
-                            <MathJax style={{ fontSize: "20px" }} inline>
-                                {`$$ 
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
+                    {tab}3. {t(translation_path.concat("add_b"))} <br />
+                    <BlackCenterAlignedLeftTextItem>
+                        <Grid container>
+                            <Grid item xs={6} my={`auto`}>
+                                <MathJax style={{ fontSize: "20px" }} inline>
+                                    {`$$ 
                                 \\vec{yt} + b = 
                                 \\begin{bmatrix}
                                     yt_{11}+b & yt_{12}+b & yt_{13}+b & \\\\
                                 \\end{bmatrix} 
                                 =
                             $$`}
-                            </MathJax>
+                                </MathJax>
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={addConstant(1, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={addConstant(2, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={2} my={`auto`}>
+                                <TextField value={addConstant(3, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={addConstant(1, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
+                    {tab}4. {t(translation_path.concat("apply"))} <br />
+                    <BlackCenterAlignedLeftTextItem>
+                        <br/>
+                        <Grid container>
+                            <Grid item xs={3} my={`auto`}>
+                                <MathJax style={mathJaxStyle} inline>{"\\(\\sigma(\\vec{yt} + b)\\)"}</MathJax>
+                            </Grid>
+                            <Grid item xs={3} my={`auto`}>
+                                <TextField value={sigmoid(addConstant(1, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={3} my={`auto`}>
+                                <TextField value={sigmoid(addConstant(2, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={3} my={`auto`}>
+                                <TextField value={sigmoid(addConstant(3, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={addConstant(2, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
+                    {tab}5. {t(translation_path.concat("get_Y"))} <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{Y_{1x3}}\\)"}</MathJax> {t(translation_path.concat("by_checking"))} <MathJax style={{ fontSize: "13px" }} inline>{"\\(y_i > 0.5\\)"}</MathJax> - <br />
+                    <BlackCenterAlignedLeftTextItem>
+                        <br/>
+                        <Grid container>
+                            <Grid item xs={3}>
+                                <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1x3}} = \\)"}</MathJax>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField value={getPrediction(sigmoid(addConstant(1, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField value={getPrediction(sigmoid(addConstant(2, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <TextField value={getPrediction(sigmoid(addConstant(3, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={2} my={`auto`}>
-                            <TextField value={addConstant(3, b)} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                    </Grid>
-                    4. Apply the <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\sigma\\)"}</MathJax> function on each entry of the previous vector - <br />
-                    <Grid container>
-                        <Grid item xs={3} my={`auto`}>
-                            <MathJax style={mathJaxStyle} inline>{"\\(\\sigma(\\vec{yt} + b)\\)"}</MathJax>
-                        </Grid>
-                        <Grid item xs={3} my={`auto`}>
-                            <TextField value={sigmoid(addConstant(1, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={3} my={`auto`}>
-                            <TextField value={sigmoid(addConstant(2, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={3} my={`auto`}>
-                            <TextField value={sigmoid(addConstant(3, b))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                    </Grid>
-                    5. Get <MathJax style={{ fontSize: "13px" }} inline>{"\\(\\vec{Y_{1x3}}\\)"}</MathJax> by checking if <MathJax style={{ fontSize: "13px" }} inline>{"\\(y_i > 0.5\\)"}</MathJax> or not- <br />
-                    <Grid container>
-                        <Grid item xs={3}>
-                            <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y_{1x3}} = \\)"}</MathJax>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField value={getPrediction(sigmoid(addConstant(1, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField value={getPrediction(sigmoid(addConstant(2, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField value={getPrediction(sigmoid(addConstant(3, b)))} type="number" size="small" inputProps={{ readOnly: true, }} />
-                        </Grid>
-                    </Grid>
+                        <br/>
+                    </BlackCenterAlignedLeftTextItem>
                 </Typography>
-                <br />
-                <br />
             </MathJaxContext>
         </Box>
     );

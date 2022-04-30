@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
+import {LeftItem, mathJaxConfig, mathJaxStyle} from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { useTranslation } from "react-i18next";
 import { TextField, Grid } from '@mui/material';
@@ -161,8 +161,8 @@ function CustomTable(props: { correct_answers: { [id: string]: string }[] }) {
     )
 }
 
+const translation_path = "logreg.pages.ex1"
 export default function LogisticRegressionExercise1() {
-    const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
 
@@ -175,35 +175,31 @@ export default function LogisticRegressionExercise1() {
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Logistic Regression Exercise 1</h1>
+                        <h1 style={headers_style}>{t("logreg.pages.ex1_title")}</h1>
                     </Typography>
                     <br />
                     <br />
                     <br />
-                    Now that we know the basics of linear regression, let's do an exercise together.
+                    {t( translation_path.concat(".line_1"))}<br />
+                    {t( translation_path.concat(".line_2"))}<br />
                     <br />
-                    We are given images and 2 features for every image :
-                    <br />
-                    <br />
-                    1. <MathJax style={mathJaxStyle} inline>{"\\(x_1\\)"}</MathJax> the average value of the red pallet in the image.
-                    <br />
-                    2. <MathJax style={mathJaxStyle} inline>{"\\(x_2\\)"}</MathJax> the average value of the blue pallet in the image.
+                    1. <MathJax style={mathJaxStyle} inline>{"\\(x_1\\)"}</MathJax> {t( translation_path.concat(".red_avg"))}<br />
+                    2. <MathJax style={mathJaxStyle} inline>{"\\(x_2\\)"}</MathJax> {t( translation_path.concat(".blue_avg"))}<br />
                     <br />
                     <br />
-                    <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                    <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                    <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <MathJax style={{ fontSize: "30px" }} inline>{"\\(b = \\)"}</MathJax>
-                    <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
-                    <br />
-                    <br />
-                    <br />
-                    <CustomTable correct_answers={getCorrectAnswers(w_1, w_2, b)} />
-                    <br />
-                    <br />
+                    <LeftItem>
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
+                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(b = \\)"}</MathJax>
+                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <br />
+                        <br />
+                        <br />
+                        <CustomTable correct_answers={getCorrectAnswers(w_1, w_2, b)} />
+                    </LeftItem>
                 </Typography>
             </MathJaxContext>
         </Box>
