@@ -10,6 +10,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getOneDimensionalColumnNames } from 'components/QuestionTableDefinitions';
 import FunctionTextField from './FunctionTextField';
 import NumberTextField from 'components/NumberTextField';
+import {TextField} from "@mui/material";
 // --------------------------------------------------------
 
 type Props = {
@@ -33,12 +34,12 @@ export default function GradientDescentGenericPage1D(props: Props) {
                             step={0.05}
                             min={0}
                             max={2}
-                            onChange={(_, value) => handleStates({ fn: myfun, al: Number(value), sx: startX, tck: false, cnt: count })}
+                            onChange={(_, value) => handleStates({ fn: myfun, al: Number(value), sx: startX, tck: false, cnt: count, sps: stepsPerSecond })}
                         />
                     </span>
                 );
             case 'input':
-                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0 })} />
+                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })} />
             default:
                 return null
         }
@@ -72,19 +73,20 @@ export default function GradientDescentGenericPage1D(props: Props) {
                 return null
         }
     }
-
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(0.1)
     const [startX, setStartX] = React.useState(-1)
     const [ticking, setTicking] = React.useState(false)
     const [count, setCount] = React.useState(0)
+    const [stepsPerSecond, setStepsPerSecond] = React.useState(1)
 
-    function handleStates({ fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count }) {
+    function handleStates({ fn = myfun, al = alpha, sx = startX, tck = ticking, cnt = count, sps = stepsPerSecond }) {
         setFun(fn)
         setStartX(sx)
         setAlpha(al)
         setCount(cnt)
         setTicking(tck)
+        setStepsPerSecond(sps)
     }
 
     React.useEffect(() => {
@@ -94,7 +96,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
-        const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
+        const timer = setTimeout(() => ticking && setCount((count + stepsPerSecond)), 1e3)
         return () => clearTimeout(timer)
     });
 
@@ -106,34 +108,54 @@ export default function GradientDescentGenericPage1D(props: Props) {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
-                                    <Grid item xs={1}>
+                                    <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={11}>
+                                    <Grid item xs={10}>
                                         <FunctionTextField value={myfun} vars="x" onChange={
-                                            event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0 })
+                                            event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })
                                         } />
                                     </Grid>
-                                    <Grid item xs={1}>
+                                    <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={11}>
+                                    <Grid item xs={10}>
                                         {getAlphaInput(alphaType)}
                                     </Grid>
-                                    <Grid item xs={1}>
+                                    <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(x_{0}\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={11}>
+                                    <Grid item xs={10}>
                                         <NumberTextField value={startX} onChange={
-                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0 })
+                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0, sps: stepsPerSecond })
                                         } />
                                     </Grid>
+                                    {(buttonsType === "stepByStep") ? null :
+                                        <Grid item xs={2}>
+                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                <MathJax style={mathJaxStyle} inline>{"\\(steps_{perSecond}\\)"}</MathJax>
+                                            </Typography>
+                                        </Grid>
+                                    }
+                                    {(buttonsType === "stepByStep") ? null :
+                                        <Grid item xs={10}>
+                                            <PrettoSlider
+                                                valueLabelDisplay="auto"
+                                                aria-label="pretto slider"
+                                                defaultValue={stepsPerSecond}
+                                                step={1}
+                                                min={1}
+                                                max={100}
+                                                onChange={(_, value) => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0, sps: Number(value) })}
+                                            />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </LeftItem>
                         </Grid>
@@ -141,13 +163,14 @@ export default function GradientDescentGenericPage1D(props: Props) {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
-                                    <Grid item xs={1}>
+                                    <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
                                             <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={11}>
-                                        <FunctionTextField InputProps={{ readOnly: true, }} vars="x" value={getDev(myfun, 'x')} onChange={(_)=>(_)}/>
+                                    <Grid item xs={10}>
+                                        {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>

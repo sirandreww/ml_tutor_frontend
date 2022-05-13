@@ -11,6 +11,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getTwoDimensionalColumnNames } from 'components/QuestionTableDefinitions';
 import FunctionTextField from './FunctionTextField';
 import NumberTextField from 'components/NumberTextField';
+import {TextField} from "@mui/material";
 // --------------------------------------------------------
 
 type Props = {
@@ -64,10 +65,10 @@ export default function GradientDescentGenericPage2D(props: Props) {
                 return (
                     <CenterItem>
                         <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: true }), type: 'brush' })}
-                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: (count <= 0) ? 0 : count - 1, d2D: data2D, dr: false }), type: 'prev' })}
-                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: true }), type: 'stop' })}
-                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count + 1, d2D: data2D, dr: true }), type: 'next' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count, d2D: data2D, dr: true, sps: stepsPerSecond }), type: 'brush' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: (count <= 0) ? 0 : count - 1, d2D: data2D, dr: false, sps: stepsPerSecond }), type: 'prev' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: true, sps: stepsPerSecond }), type: 'stop' })}
+                            {button({ eventHandler: () => handleStates({ fn: myfun, al: alpha, sx: startX, sy: startY, tck: false, cnt: count + 1, d2D: data2D, dr: true, sps: stepsPerSecond }), type: 'next' })}
                         </Box>
                     </CenterItem>
                 );
@@ -84,8 +85,9 @@ export default function GradientDescentGenericPage2D(props: Props) {
     const [count, setCount] = React.useState(0)
     const [data2D, setData2D] = React.useState({ x: new Array<Array<Number>>(), y: new Array<Number>(), z: new Array<Array<Number>>() })
     const [draw, setDraw] = React.useState(false)
+    const [stepsPerSecond, setStepsPerSecond] = React.useState(1)
 
-    function handleStates({ fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw }) {
+    function handleStates({ fn = myfun, al = alpha, sx = startX, sy = startY, tck = ticking, cnt = count, d2D = data2D, dr = draw, sps = stepsPerSecond }) {
         setFun(fn)
         setStartX(sx)
         setStartY(sy)
@@ -93,6 +95,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
         setDraw(dr)
         setCount(cnt)
         setTicking(tck)
+        setStepsPerSecond(sps)
 
         if (dr) {
             (myfun !== '') ? setData2D(getData2D(myfun)) : setData2D(d2D)
@@ -108,7 +111,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
 
     // For Initial plot when the page loads for the first time
     React.useEffect(() => {
-        const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
+        const timer = setTimeout(() => ticking && setCount(count + stepsPerSecond), 1e3)
         return () => clearTimeout(timer)
     });
 
@@ -126,7 +129,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <FunctionTextField value={myfun} vars="xy" onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false })} />
+                                        <FunctionTextField value={myfun} vars="xy" onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false})} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -142,7 +145,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <NumberTextField value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value) })} />
+                                        <NumberTextField value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value)})} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -150,8 +153,28 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <NumberTextField value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value) })} />
+                                        <NumberTextField value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value)})} />
                                     </Grid>
+                                    {(buttonsType === "stepByStep") ? null :
+                                        <Grid item xs={2}>
+                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                <MathJax style={mathJaxStyle} inline>{"\\(steps_{perSecond}\\)"}</MathJax>
+                                            </Typography>
+                                        </Grid>
+                                    }
+                                    {(buttonsType === "stepByStep") ? null :
+                                        <Grid item xs={10}>
+                                            <PrettoSlider
+                                                valueLabelDisplay="auto"
+                                                aria-label="pretto slider"
+                                                defaultValue={stepsPerSecond}
+                                                step={1}
+                                                min={1}
+                                                max={50}
+                                                onChange={(_, value) => handleStates({ sps: Number(value) })}
+                                            />
+                                        </Grid>
+                                    }
                                 </Grid>
                             </LeftItem>
                         </Grid>
@@ -166,7 +189,8 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <FunctionTextField vars='xy' InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} onChange={(_)=>(_)}/>
+                                        {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
 
                                     <Grid item xs={2}>
@@ -175,7 +199,8 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <FunctionTextField vars='xy' InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} onChange={(_)=>(_)}/>
+                                        {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
+                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
