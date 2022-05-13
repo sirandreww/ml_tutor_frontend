@@ -223,7 +223,11 @@
             },
             "sbs_title": "Step By Step Training",
             "sbs": {
-                "task": "In this task will learn calculate how we train a module step by step."
+                "task": "In this task will learn calculate how we train a module step by step.",
+                "itr_num": "Iteration number",
+                "res": "Results",
+                "calc": "Calculations",
+                "final_res": "Final Results"
             },
             "hp_title": "Understanding Hyper Parameter Importance",
             "hp": {
@@ -239,7 +243,8 @@
                 "task": "Please insert the desired alpha, number of iterations and the percentage of the dataset to be our training batch (the rest is the test batch),\nWe will calculate the accuracy of the trained model based on the input, try to find the best parameters!",
                 "itr_num": "Number Of Iterations",
                 "trn_per": "Train Percentage",
-                "mdl_acc": "Accuracy"
+                "mdl_acc": "Accuracy",
+                "mdl_loss": "Loss"
             }
         }
     },

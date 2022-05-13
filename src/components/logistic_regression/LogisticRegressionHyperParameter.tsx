@@ -297,19 +297,24 @@ function getDataBatch(startAt: number, endAt: number): number[][] {
     return data
 }
 
-function fetchAlgorithms(alpha: number, numOfIterations: number, per: number): [LogisticRegressionModule, number] {
+function fetchAlgorithms(alpha: number, numOfIterations: number, per: number): [LogisticRegressionModule, number, number] {
     let xs = getDataBatch(0, Math.floor(TOTAL_NUMBER_OF_SAMPELS * per))
     let y = getClassifications(0, Math.floor(TOTAL_NUMBER_OF_SAMPELS * per))
     let txs = getDataBatch(Math.floor(TOTAL_NUMBER_OF_SAMPELS * per) + 1, TOTAL_NUMBER_OF_SAMPELS)
     let ty = getClassifications(Math.floor(TOTAL_NUMBER_OF_SAMPELS * per) + 1, TOTAL_NUMBER_OF_SAMPELS)
     let algo = new LogisticRegressionModule(xs, y, alpha, numOfIterations)
     let acc = algo.getAccuracy(txs, ty)
+    let costs = algo.getCosts()
+    let loss = costs[costs.length - 1]
 
-    // console.log("xs = " + xs)
-    // console.log("y = " + y)
-    // console.log("txs = " + txs)
-    // console.log("ty = " + ty)
-    return [algo, acc]
+    console.log("xs = " + xs)
+    console.log("y = " + y)
+    console.log("txs = " + txs)
+    console.log("ty = " + ty)
+    console.log("acc = " + acc)
+    console.log("costs = " + costs)
+    console.log("loss = " + loss)
+    return [algo, acc, loss]
 }
 
 function getElement(matrix: Matrix, index: number): string {
@@ -322,6 +327,7 @@ function getElement(matrix: Matrix, index: number): string {
 
 let alg = new LogisticRegressionModule([], [], 0, 0)
 let acc = 0
+let loss = 0
 
 const translation_path = "logreg.pages.hp."
 export default function LogisticRegressionHyperParameter() {
@@ -352,6 +358,7 @@ export default function LogisticRegressionHyperParameter() {
             let tmp = fetchAlgorithms(alpha, numOfIterations, dataSetPer)
             alg = tmp[0]
             acc = tmp[1]
+            loss = tmp[2]
             setModuleInfo(alg.getModuleInfo())
             setTest(tst)
         }
@@ -414,7 +421,7 @@ export default function LogisticRegressionHyperParameter() {
                             </BlackAlignedItem>
                         </Grid>
                         <Grid item xs={12}>
-                            <LeftItem>
+                            <CenterItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems={"center"}>
                                     <Grid item xs={12}>
                                         <Typography style={{ color: 'black' }}>
@@ -424,7 +431,7 @@ export default function LogisticRegressionHyperParameter() {
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(w_1 = \\)"}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(w_1\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
@@ -433,7 +440,7 @@ export default function LogisticRegressionHyperParameter() {
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(w_2 = \\)"}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(w_2\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
@@ -442,7 +449,7 @@ export default function LogisticRegressionHyperParameter() {
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(w_3 = \\)"}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(w_3\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
@@ -451,7 +458,7 @@ export default function LogisticRegressionHyperParameter() {
                                     <Grid item xs={1} />
                                     <Grid item xs={2}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(w_4 = \\)"}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{"\\(w_4\\)"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
@@ -460,7 +467,7 @@ export default function LogisticRegressionHyperParameter() {
                                     <Grid item xs={12} />
                                     <Grid item xs={3}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"b = "}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{"b"}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9}>
@@ -468,14 +475,22 @@ export default function LogisticRegressionHyperParameter() {
                                     </Grid>
                                     <Grid item xs={3}>
                                         <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{t(translation_path.concat("mdl_acc")).concat(" = ")}</MathJax>
+                                            <MathJax style={mathJaxStyle} inline>{t(translation_path.concat("mdl_acc"))}</MathJax>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={9} sx={{}}>
                                         <TextField InputProps={{ readOnly: true }} value={acc} />
                                     </Grid>
+                                    <Grid item xs={3}>
+                                        <Typography style={{ color: 'black' }}>
+                                            <MathJax style={mathJaxStyle} inline>{t(translation_path.concat("mdl_loss"))}</MathJax>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={9} sx={{}}>
+                                        <TextField InputProps={{ readOnly: true }} value={loss} />
+                                    </Grid>
                                 </Grid>
-                            </LeftItem>
+                            </CenterItem>
                         </Grid>
 
                         <Grid item xs={12}>

@@ -12,6 +12,7 @@ import {
     getLogisticRegressionDataColumnNames, getLogisticRegressionModuleColumns,
     getLogisticRegressionModuleInfoColumns,
 } from "../QuestionTableDefinitions";
+import {useTranslation} from "react-i18next";
 
 const TOTAL_ITERATIONS = 2
 const DIGITS = 4
@@ -103,6 +104,8 @@ function getModuleFinalAnswers(algo: LogisticRegressionModule): { [id: string]: 
     console.log("Module Final Answers = \n", moduleFinalAnswers)
     return moduleFinalAnswers
 }
+
+const translation_path = "logreg.pages.sbs."
 export default function LogisticRegressionStepByStep() {
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
 
@@ -113,6 +116,8 @@ export default function LogisticRegressionStepByStep() {
     const [cs, setCS] = React.useState([0, 0, 0])
     // Logistic Regression model
     const [algo, setAlgo] = React.useState(new LogisticRegressionModule(xs, cs, alpha, TOTAL_ITERATIONS))
+    // Translate
+    const [t] = useTranslation('translation');
 
     function handleXS(sampleId: number, feature1: number, feature2: number) {
         let tmp = xs
@@ -237,25 +242,11 @@ export default function LogisticRegressionStepByStep() {
                         <Grid item xs={12}>
                             <BlackAlignedItem>
                                 <h4 style={headers_style} dir={languageDirection()}>
-                                    Iteration Number 1:<br />
+                                    {t(translation_path.concat("itr_num"))} 1:<br />
                                     <br />
                                 </h4>
                                 <h5 style={headers_style} dir={languageDirection()}>
-                                    Calculations:<br />
-                                </h5>
-                                <CenterItem>
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                        <QuestionTable
-                                            headers={getLogisticRegressionDataColumnNames()}
-                                            exampleEnabled={false}
-                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(0, 3)}
-                                            comparator={(res, ans) => Number(ans) === Number(res)}
-                                        />
-                                    </Box>
-                                </CenterItem>
-                                <br />
-                                <h5 style={headers_style} dir={languageDirection()}>
-                                    Results:<br />
+                                    {t(translation_path.concat("res"))}:<br />
                                 </h5>
                                 <CenterItem>
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
@@ -268,6 +259,20 @@ export default function LogisticRegressionStepByStep() {
                                     </Box>
                                 </CenterItem>
                                 <br />
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    {t(translation_path.concat("calc"))}:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionDataColumnNames()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(0, 3)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
                             </BlackAlignedItem>
                         </Grid>
                     </Grid>
@@ -278,25 +283,10 @@ export default function LogisticRegressionStepByStep() {
                         <Grid item xs={12}>
                             <BlackAlignedItem>
                                 <h4 style={headers_style} dir={languageDirection()}>
-                                    Iteration Number 2:<br />
-                                    <br />
+                                    {t(translation_path.concat("itr_num"))} 2:<br />
                                 </h4>
                                 <h5 style={headers_style} dir={languageDirection()}>
-                                    Calculations:<br />
-                                </h5>
-                                <CenterItem>
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                        <QuestionTable
-                                            headers={getLogisticRegressionDataColumnNames()}
-                                            exampleEnabled={false}
-                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(3, 6)}
-                                            comparator={(res, ans) => Number(ans) === Number(res)}
-                                        />
-                                    </Box>
-                                </CenterItem>
-                                <br />
-                                <h5 style={headers_style} dir={languageDirection()}>
-                                    Results:<br />
+                                    {t(translation_path.concat("res"))}:<br />
                                 </h5>
                                 <CenterItem>
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
@@ -309,6 +299,20 @@ export default function LogisticRegressionStepByStep() {
                                     </Box>
                                 </CenterItem>
                                 <br />
+                                <h5 style={headers_style} dir={languageDirection()}>
+                                    {t(translation_path.concat("calc"))}:<br />
+                                </h5>
+                                <CenterItem>
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                        <QuestionTable
+                                            headers={getLogisticRegressionDataColumnNames()}
+                                            exampleEnabled={false}
+                                            correctAnswers={getDataAnswers(xs, cs, algo).slice(3, 6)}
+                                            comparator={(res, ans) => Number(ans) === Number(res)}
+                                        />
+                                    </Box>
+                                </CenterItem>
+                                <br />
                             </BlackAlignedItem>
                         </Grid>
                     </Grid>
@@ -319,7 +323,7 @@ export default function LogisticRegressionStepByStep() {
                         <Grid item xs={12}>
                             <BlackAlignedItem>
                                 <h4 style={headers_style} dir={languageDirection()}>
-                                    Final Results:<br />
+                                    {t(translation_path.concat("final_res"))}:<br />
                                 </h4>
                                 <CenterItem>
                                     <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
