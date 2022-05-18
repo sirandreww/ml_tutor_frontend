@@ -6,21 +6,23 @@ import PrettyLine from 'components/PrettyLine';
 
 function Footer() {
     return (
-        <Box sx={{ bgcolor: 'white', p: 6 }} component="footer">
+        <>
             <PrettyLine />
-            <Typography variant="h6" align="center" gutterBottom color="black">
-                MLomda
-            </Typography>
-            <Typography
-                variant="subtitle1"
-                align="center"
-                color="black"
-                component="p"
-            >
-                Made by Technion Students!
-            </Typography>
-            <Copyright />
-        </Box>
+            <Box sx={{ bgcolor: 'white', p: 6 }} component="footer">
+                <Typography variant="h6" align="center" gutterBottom color="black">
+                    MLomda
+                </Typography>
+                <Typography
+                    variant="subtitle1"
+                    align="center"
+                    color="black"
+                    component="p"
+                >
+                    Made by Technion Students!
+                </Typography>
+                <Copyright />
+            </Box>
+        </>
     );
 }
 
