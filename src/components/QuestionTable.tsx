@@ -2,12 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 
-const IS_DEBUG_MODE = false;
-
 // @ts-ignore
 function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {
     let length = correctAnswers.length
-
+    const IS_DEBUG_MODE = false;
     var generated: { [id: string]: string }[] = [];
     for(var i = 0; i < length; i += 1){
         if (i === 0 && exampleEnabled) {
