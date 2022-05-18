@@ -2,6 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 
+const IS_DEBUG_MODE = false;
+
 // @ts-ignore
 function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {
     let length = correctAnswers.length
@@ -13,7 +15,7 @@ function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAns
         } else {
             var tmp:{ [id: string]: string } = {}
             for(var key in correctAnswers[i]) {
-                if (key === "step"){
+                if (key === "step" || IS_DEBUG_MODE){
                     tmp[key] = correctAnswers[i][key];
                 } else {
                     tmp[key] = "";

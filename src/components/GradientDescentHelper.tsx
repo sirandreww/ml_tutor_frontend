@@ -95,7 +95,7 @@ function getCorrectAnswersAux(f: string, vars: { 'v': string, 'val': number }[],
             tmps.push(tmp)
             nexts.push(next)
         }
-        
+
         if (isOneDimension) {
             const recursive = getCorrectAnswersAux(f, [{ 'v': 'x', 'val': Number(nexts[0]) }], alpha, maxDepth, currentDepth + 1)
             return [{ "step": currentDepth.toString(), "x": vs[0], "dx": devs[0], 'a*dx': tmps[0], "newX": nexts[0] }, ...recursive];
@@ -139,29 +139,33 @@ export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("po
     var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
-        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
-        title: title,
-        grid: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
+    try {
+        functionPlot({
+            target: '#graph-board',
+            width,
+            height,
+            xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
+            yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
+            title: title,
+            grid: true,
+            data: [
+                {
+                    fn: f,
+                    derivative: {
+                        fn: getDev(f, 'x'),
+                        updateOnMouseMove: true
+                    },
                 },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: pointsGraphType === undefined ? 'polyline': pointsGraphType,
-            }
-        ]
-    });
+                {
+                    points: points,
+                    fnType: 'points',
+                    graphType: pointsGraphType === undefined ? 'polyline' : pointsGraphType,
+                }
+            ]
+        });
+    } catch (e){
+        console.log("plotting failed! e = ", String(e))
+    }
 }
 
 export function getPoints2D(f: string, startX: Number, startY: Number, steps_count: Number, alpha: Number) {
