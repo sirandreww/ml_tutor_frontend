@@ -72,7 +72,7 @@ export default function Navbar(props: { scrollToColorParameters: any, appBarPara
               variant="h6"
               noWrap
               component="div"
-              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+              sx={{ mr: 2, ml:2, display: { xs: 'none', md: 'flex' } }}
             >
               <Link to={"/"}>
                 <img src={logo} alt="Logo" width="40" height="40" />
