@@ -166,9 +166,9 @@ export default function LogisticRegressionExercise1() {
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
 
-    const [w_1, setW1] = React.useState(0);
-    const [w_2, setW2] = React.useState(0);
-    const [b, setB] = React.useState(0);
+    const [w_1, setW1] = React.useState(0.6);
+    const [w_2, setW2] = React.useState(0.4);
+    const [b, setB] = React.useState(-100);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -189,12 +189,12 @@ export default function LogisticRegressionExercise1() {
                     <br />
                     <LeftItem>
                         <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                        <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w1" type="number" disabled value={w_1} onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="w2" type="number" disabled value={w_2} onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
                         <br />
                         <br />
                         <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(b = \\)"}</MathJax>
-                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField label="b" type="number" disabled value={b} onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                         <br />
                         <br />
                         <br />

@@ -61,7 +61,7 @@ export default function HeroSection() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper sx={{ width: "100%", height: "475px" }} elevation={3}>
-              <Graph2D function="x^2 + 0.01*(y^4 - 100*y^2 + 100*y)" />
+              <Graph2D function="x^2 + 0.01*(y^4 - 100*y^2 + 100*y)" y_i={-10} y_f={10} x_i={-10} x_f={10}/>
             </Paper>
           </Grid>
         </Grid>

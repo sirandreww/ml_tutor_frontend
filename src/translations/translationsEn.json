@@ -159,7 +159,8 @@
                 "alg_calc": "Thus the calculation done by the linear regression algorithm can be expressed as:",
                 "sig_def": "Where the Sigmoid function is defined as ",
                 "y_calc": "The classifier will then predict that the class of the object is \"1\" if",
-                "demo": "Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :"
+                "demo": "Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :",
+                "graph": "Here is the graph that represents the classifier :"
             },
             "multi_samples_title": "Logistic Regression With Multiple Samples",
             "multi_samples": {

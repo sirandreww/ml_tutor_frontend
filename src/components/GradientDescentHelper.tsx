@@ -204,16 +204,16 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
     return points
 }
 
-export function getData2D(f: string) {
+export function getData2D(f: string, y_i=-10, y_f=10, x_i=-10, x_f=10) {
     var data: { x: Number[][], y: Number[], z: Number[][] } = { x: [], y: [], z: [] }
     console.log('aseel data= ', data)
-    for (let y = -10; y < 11; y += 1) {
+    for (let y = y_i; y <= y_f; y += 1) {
         var xs = new Array<Number>()
         var zs = new Array<Number>()
 
-        for (let x = -10; x < 11; x += 1) {
-            zs.push(math.evaluate(f, { 'x': x, 'y': y }))
-            xs.push(x)
+        for (let x = x_i; x <= x_f; x += 1) {
+            zs.push(math.evaluate(f, { 'x': x, 'y': y }));
+            xs.push(x);
         };
 
         data.x.push(xs)
