@@ -2,9 +2,10 @@ import React from 'react';
 import { Box, Typography } from '@mui/material'
 import { Copyright } from '@mui/icons-material';
 import PrettyLine from 'components/PrettyLine';
-
+import {useTranslation} from "react-i18next";
 
 function Footer() {
+    const [t] = useTranslation('translation');
     return (
         <>
             <PrettyLine />
@@ -18,7 +19,7 @@ function Footer() {
                     color="black"
                     component="p"
                 >
-                    Made by Technion Students!
+                    {t("footer.made_by")}
                 </Typography>
                 <Copyright />
             </Box>
