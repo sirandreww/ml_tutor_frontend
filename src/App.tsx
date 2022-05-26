@@ -19,6 +19,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Home from "pages/Home";
 import Algorithms from "pages/Algorithms";
 import SomethingWentWrong from "pages/SomethingWentWrong";
+import ContactUs from 'pages/ContactUs';
 // import SignIn from "pages/SignIn";
 // const Algorithms = lazy(() => import("pages/Algorithms"));
 
@@ -86,6 +87,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/algorithms" element={<Algorithms />} />
+                <Route path="/contact" element={<ContactUs />} />
 
                 {/* ------------------------ GD ------------------------   */}
                 <Route path="/algorithms/gd1" element={<GD1 />} />
