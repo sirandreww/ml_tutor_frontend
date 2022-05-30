@@ -13,19 +13,13 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import translationsEn from "./translations/translationsEn.json";
 import translationsHe from "./translations/translationsHe.json";
 import LoadingScreen from "components/LoadingScreen";
-// @ts-ignore - if you want to remove FIX it before pushing to master
 import { ErrorBoundary } from 'react-error-boundary';
 
-// these  pages don't have to be lazy loaded
-import Home from "pages/Home";
-import Algorithms from "pages/Algorithms";
-import SomethingWentWrong from "pages/SomethingWentWrong";
-import ContactUs from 'pages/ContactUs';
-// import SignIn from "pages/SignIn";
-// const Algorithms = lazy(() => import("pages/Algorithms"));
-
-// this page is not used, and thus we'll use lazy loading
-const SignIn = lazy(() => import("pages/SignIn"));
+const Home                = lazy(() => import("pages/Home"));
+const Algorithms          = lazy(() => import("pages/Algorithms"));
+const SomethingWentWrong  = lazy(() => import("pages/SomethingWentWrong"));
+const ContactUs           = lazy(() => import("pages/ContactUs"));
+const SignIn              = lazy(() => import("pages/SignIn"));
 
 // ------------------------ GD ------------------------  
 const GD1 = lazy(() => import("pages/algorithms/gradient_descent/GD1"));
