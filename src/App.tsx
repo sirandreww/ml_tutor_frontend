@@ -1,5 +1,6 @@
 // import React from "react";
 import React from 'react';
+import { Box } from '@mui/material';
 import { Suspense, lazy } from "react";
 import "App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -19,6 +20,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import Home from "pages/Home";
 import Algorithms from "pages/Algorithms";
 import SomethingWentWrong from "pages/SomethingWentWrong";
+import ContactUs from 'pages/ContactUs';
 // import SignIn from "pages/SignIn";
 // const Algorithms = lazy(() => import("pages/Algorithms"));
 
@@ -83,42 +85,51 @@ function App() {
           <Router>
             <Suspense fallback={<LoadingScreen />}>
               <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/algorithms" element={<Algorithms />} />
+              <Box // this is here to allow the footer to stick to the bottom
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '100vh',
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/algorithms" element={<Algorithms />} />
+                  <Route path="/contact" element={<ContactUs />} />
 
-                {/* ------------------------ GD ------------------------   */}
-                <Route path="/algorithms/gd1" element={<GD1 />} />
-                <Route path="/algorithms/gd2" element={<GD2 />} />
-                <Route path="/algorithms/gd3" element={<GD3 />} />
-                <Route path="/algorithms/gd4" element={<GD4 />} />
-                <Route path="/algorithms/gd5" element={<GD5 />} />
-                <Route path="/algorithms/gd6" element={<GD6 />} />
-                <Route path="/algorithms/gd7" element={<GD7 />} />
-                <Route path="/algorithms/gd8" element={<GD8 />} />
+                  {/* ------------------------ GD ------------------------   */}
+                  <Route path="/algorithms/gd1" element={<GD1 />} />
+                  <Route path="/algorithms/gd2" element={<GD2 />} />
+                  <Route path="/algorithms/gd3" element={<GD3 />} />
+                  <Route path="/algorithms/gd4" element={<GD4 />} />
+                  <Route path="/algorithms/gd5" element={<GD5 />} />
+                  <Route path="/algorithms/gd6" element={<GD6 />} />
+                  <Route path="/algorithms/gd7" element={<GD7 />} />
+                  <Route path="/algorithms/gd8" element={<GD8 />} />
 
-                {/* // ------------------------ Linear regression ------------------------   */}
-                <Route path="/algorithms/lr1" element={<LR1 />} />
-                <Route path="/algorithms/lr2" element={<LR2 />} />
-                <Route path="/algorithms/lr3" element={<LR3 />} />
-                <Route path="/algorithms/lr4" element={<LR4 />} />
-                <Route path="/algorithms/lr5" element={<LR5 />} />
-                <Route path="/algorithms/lr6" element={<LR6 />} />
+                  {/* // ------------------------ Linear regression ------------------------   */}
+                  <Route path="/algorithms/lr1" element={<LR1 />} />
+                  <Route path="/algorithms/lr2" element={<LR2 />} />
+                  <Route path="/algorithms/lr3" element={<LR3 />} />
+                  <Route path="/algorithms/lr4" element={<LR4 />} />
+                  <Route path="/algorithms/lr5" element={<LR5 />} />
+                  <Route path="/algorithms/lr6" element={<LR6 />} />
 
-                {/* // ------------------------ Logistic regression ------------------------   */}
-                <Route path="/algorithms/logreg1" element={<LogReg1 />} />
-                <Route path="/algorithms/logreg2" element={<LogReg2 />} />
-                <Route path="/algorithms/logreg3" element={<LogReg3 />} />
-                <Route path="/algorithms/logreg4" element={<LogReg4 />} />
-                <Route path="/algorithms/logreg5" element={<LogReg5 />} />
-                <Route path="/algorithms/logreg6" element={<LogReg6 />} />
-                <Route path="/algorithms/logreg7" element={<LogReg7 />} />
+                  {/* // ------------------------ Logistic regression ------------------------   */}
+                  <Route path="/algorithms/logreg1" element={<LogReg1 />} />
+                  <Route path="/algorithms/logreg2" element={<LogReg2 />} />
+                  <Route path="/algorithms/logreg3" element={<LogReg3 />} />
+                  <Route path="/algorithms/logreg4" element={<LogReg4 />} />
+                  <Route path="/algorithms/logreg5" element={<LogReg5 />} />
+                  <Route path="/algorithms/logreg6" element={<LogReg6 />} />
+                  <Route path="/algorithms/logreg7" element={<LogReg7 />} />
 
-                {/* // ------------------------ Neural Network ------------------------  */}
-                <Route path="/algorithms/nn1" element={<NN1 />} />
+                  {/* // ------------------------ Neural Network ------------------------  */}
+                  <Route path="/algorithms/nn1" element={<NN1 />} />
 
-                <Route path="/signin" element={<SignIn />} />
-              </Routes>
+                  <Route path="/signin" element={<SignIn />} />
+                </Routes>
+              </Box>
             </Suspense>
           </Router>
         </ThemeProvider>

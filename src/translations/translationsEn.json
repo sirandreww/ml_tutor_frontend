@@ -3,6 +3,7 @@
     "back": "Back",
     "finish": "Finish",
     "reset": "Reset",
+    "tasks": "Tasks",
     "homepage":{
         "intro":"Understand how Machine Learning works by using 3D animation and simple explanations.",
         "get_started_btn":"Get started",
@@ -18,6 +19,7 @@
 
     "algorithms":{
         "algos": "Algorithms",
+        "contact": "Contact Us",
         "get_started":"How to Get started?",
         "choose_alg":"Simply choose one of the following algorithms and start learning!"
     },
@@ -141,7 +143,8 @@
                 "sigmoid_fun_def": "Where the Sigmoid function is defined as ",
                 "cal_prob": "The classifier will then predict that the class of the object is \"1\" if ",
                 "demo": "Let's try to understand this even more with a demo, choose your weight and bias and test different values for x :",
-                "example": "Now let's see the function of the classifier as defined by the weight and bias :"
+                "example": "Now let's see the function of the classifier as defined by the weight and bias :",
+                "task1": "Given w = 111 and b = 1, what value of x would result in the probability being 0.5?"
             },
             "ex1_title": "Logistic Regression Exercise 1",
             "ex1": {
@@ -157,7 +160,8 @@
                 "alg_calc": "Thus the calculation done by the linear regression algorithm can be expressed as:",
                 "sig_def": "Where the Sigmoid function is defined as ",
                 "y_calc": "The classifier will then predict that the class of the object is \"1\" if",
-                "demo": "Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :"
+                "demo": "Let's try to understand this even more with a demo, choose your weights and bias and test different values for x :",
+                "graph": "Here is the graph that represents the classifier :"
             },
             "multi_samples_title": "Logistic Regression With Multiple Samples",
             "multi_samples": {
