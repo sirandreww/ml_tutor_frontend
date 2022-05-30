@@ -29,6 +29,7 @@
     "noImplicitReturns": true
   },
   "include": [
-    "src"
+    "src",
+    "testing"
   ]
 }
