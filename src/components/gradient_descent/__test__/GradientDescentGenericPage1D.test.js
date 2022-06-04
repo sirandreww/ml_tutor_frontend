@@ -30,7 +30,7 @@ const hyperParameterPage = () => {
     )
 }
 
-describe("Testing Gradient Descent Pages", () => {
+describe("Testing Gradient Descent 1D Pages", () => {
 
     describe("Visualization page", () => {
         describe("When page renders", () => {

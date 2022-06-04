@@ -30,8 +30,7 @@ const hyperParameterPage = () => {
     )
 }
 
-describe("Testing Gradient Descent Pages", () => {
-
+describe("Testing Gradient Descent 2D Pages", () => {
     describe("Visualization page", () => {
         describe("When page renders", () => {
             it("Should render proper user inputs with default values",  () => {
@@ -78,11 +77,10 @@ describe("Testing Gradient Descent Pages", () => {
             })
         })
     })
-
     describe("Step By Step Page", () => {
         describe("When page renders", () => {
             it("Should render proper user inputs with default values",  () => {
-                render(visualizationPage());
+                render(stepByStepPage());
 
                 let funInput = screen.getByTestId("funInput")
                 let alphaInput = screen.getByTestId("alphaInput")
@@ -105,20 +103,19 @@ describe("Testing Gradient Descent Pages", () => {
                 expect(dfyResult.querySelectorAll('input')[0].value).toBe('2 * y')
             })
             it("Should render proper user buttons", () => {
-                render(visualizationPage())
+                render(stepByStepPage())
 
                 expect(screen.getByTestId("brushButton")).toBeTruthy();
-                expect(screen.getByTestId("playButton")).toBeTruthy();
+                expect(screen.getByTestId("prevButton")).toBeTruthy();
                 expect(screen.getByTestId("stopButton")).toBeTruthy();
-                expect(screen.getByTestId("pauseButton")).toBeTruthy();
+                expect(screen.getByTestId("nextButton")).toBeTruthy();
             })
         })
     })
-
     describe("Hyper-Parameter Page", () => {
         describe("When page renders", () => {
             it("Should render proper user inputs with default values",  () => {
-                render(visualizationPage());
+                render(hyperParameterPage());
 
                 let funInput = screen.getByTestId("funInput")
                 let alphaInput = screen.getByTestId("alphaInput")
@@ -144,7 +141,7 @@ describe("Testing Gradient Descent Pages", () => {
                 expect(dfyResult.querySelectorAll('input')[0].value).toBe('2 * y')
             })
             it("Should render proper user buttons", () => {
-                render(visualizationPage())
+                render(hyperParameterPage())
 
                 expect(screen.getByTestId("brushButton")).toBeTruthy();
                 expect(screen.getByTestId("playButton")).toBeTruthy();
