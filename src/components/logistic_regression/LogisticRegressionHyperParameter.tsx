@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { PrettoSlider } from "../GradientDescentHelper";
+import { PrettoSlider } from "../gradient_descent/GradientDescentHelper";
 import NumberTextField from "../NumberTextField";
 import { TextField } from "@mui/material";
 import { button, CenterItem, LeftItem, BlackAlignedItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";
@@ -307,13 +307,13 @@ function fetchAlgorithms(alpha: number, numOfIterations: number, per: number): [
     let costs = algo.getCosts()
     let loss = costs[costs.length - 1]
 
-    console.log("xs = " + xs)
-    console.log("y = " + y)
-    console.log("txs = " + txs)
-    console.log("ty = " + ty)
-    console.log("acc = " + acc)
-    console.log("costs = " + costs)
-    console.log("loss = " + loss)
+    // console.log("xs = " + xs)
+    // console.log("y = " + y)
+    // console.log("txs = " + txs)
+    // console.log("ty = " + ty)
+    // console.log("acc = " + acc)
+    // console.log("costs = " + costs)
+    // console.log("loss = " + loss)
     return [algo, acc, loss]
 }
 

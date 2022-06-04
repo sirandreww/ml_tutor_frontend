@@ -52,7 +52,7 @@ export const button = ({eventHandler, type}: { eventHandler: any, type: string }
 function playButton(handler: eventHandler) {
     return(
         <Tooltip title="Play" arrow>
-            <IconButton aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
+            <IconButton data-testid="playButton" aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
                 <PlayArrowIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -62,7 +62,7 @@ function playButton(handler: eventHandler) {
 function trainButton(handler: eventHandler) {
     return(
         <Tooltip title="Train" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
+            <IconButton data-testid="trainButton" aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <ChangeCircleIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -72,7 +72,7 @@ function trainButton(handler: eventHandler) {
 function testButton(handler: eventHandler) {
     return(
         <Tooltip title="Test" arrow>
-            <IconButton aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
+            <IconButton data-testid="testButton" aria-label="delete" size="large" color="success" onClick={handler.eventHandler}>
                 <QuizIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -82,7 +82,7 @@ function testButton(handler: eventHandler) {
 function pauseButton(handler: eventHandler) {
     return(
         <Tooltip title="Pause" arrow>
-            <IconButton aria-label="delete" size="large" onClick={handler.eventHandler}>
+            <IconButton data-testid="pauseButton" aria-label="delete" size="large" onClick={handler.eventHandler}>
                 <PauseIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -92,7 +92,7 @@ function pauseButton(handler: eventHandler) {
 function stopButton(handler: eventHandler) {
     return(
         <Tooltip title="Clear" arrow>
-            <IconButton aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
+            <IconButton data-testid="stopButton" aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
                 <ClearIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -102,7 +102,7 @@ function stopButton(handler: eventHandler) {
 function prevButton(handler: eventHandler) {
     return(
         <Tooltip title="Previous" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
+            <IconButton data-testid="prevButton" aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <ArrowBackIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -112,7 +112,7 @@ function prevButton(handler: eventHandler) {
 function nextButton(handler: eventHandler) {
     return(
         <Tooltip title="Next" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
+            <IconButton data-testid="nextButton" aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <ArrowForwardIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -122,7 +122,7 @@ function nextButton(handler: eventHandler) {
 function brushButton(handler: eventHandler) {
     return(
         <Tooltip title="Draw" arrow>
-            <IconButton aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
+            <IconButton data-testid="brushButton" aria-label="delete" size="large" color="warning" onClick={handler.eventHandler}>
                 <BrushIcon fontSize="inherit" />
             </IconButton>
         </Tooltip>
@@ -131,7 +131,7 @@ function brushButton(handler: eventHandler) {
 
 function defaultButton(handler: eventHandler) {
     return(
-        <Button aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
+        <Button data-testid="defaultButton" aria-label="delete" size="large" color="error" onClick={handler.eventHandler}>
             default button - you may want to change it
         </Button>
     )
