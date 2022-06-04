@@ -29,6 +29,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                 return (
                     <span>
                         <PrettoSlider
+                            data-testid="alphaInput"
                             valueLabelDisplay="auto"
                             aria-label="pretto slider"
                             defaultValue={alpha}
@@ -40,7 +41,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                     </span>
                 );
             case 'input':
-                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
+                return <NumberTextField InputProps={{"data-testid": "alphaInput"}} value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, sy: startY, tck: false, cnt: 0, d2D: data2D, dr: false })} />
             default:
                 return null
         }
@@ -129,7 +130,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <FunctionTextField value={myfun} vars="xy" onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false})} />
+                                        <FunctionTextField InputProps={{"data-testid":"funInput"}} value={myfun} vars="xy" onChange={event => handleStates({ fn: event.target.value, tck: false, cnt: 0, dr: false})} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -145,7 +146,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <NumberTextField value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value)})} />
+                                        <NumberTextField InputProps={{"data-testid":"xInput"}} value={startX} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sx: Number(event.target.value)})} />
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
@@ -153,7 +154,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <NumberTextField value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value)})} />
+                                        <NumberTextField InputProps={{"data-testid":"yInput"}} value={startY} onChange={event => handleStates({ tck: false, dr: false, cnt: 0, sy: Number(event.target.value)})} />
                                     </Grid>
                                     {(buttonsType === "stepByStep") ? null :
                                         <Grid item xs={2}>
@@ -165,6 +166,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                     {(buttonsType === "stepByStep") ? null :
                                         <Grid item xs={10}>
                                             <PrettoSlider
+                                                data-testId="stepPerSecondInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={stepsPerSecond}
@@ -190,7 +192,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                     </Grid>
                                     <Grid item xs={10}>
                                         {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                        <TextField data-testId="dfxResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
 
                                     <Grid item xs={2}>
@@ -200,7 +202,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                     </Grid>
                                     <Grid item xs={10}>
                                         {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
+                                        <TextField data-testId="dfyResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
