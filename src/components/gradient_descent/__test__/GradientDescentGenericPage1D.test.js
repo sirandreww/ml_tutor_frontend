@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+/* eslint-disable */
+import {  render, screen } from '@testing-library/react';
 import GradientDescentGenericPage1D from "../GradientDescentGenericPage1D";
 
 const visualizationPage = () => {
@@ -10,7 +11,6 @@ const visualizationPage = () => {
         />
     )
 }
-
 const stepByStepPage = () => {
     return (
         <GradientDescentGenericPage1D
@@ -20,7 +20,6 @@ const stepByStepPage = () => {
         />
     )
 }
-
 const hyperParameterPage = () => {
     return (
         <GradientDescentGenericPage1D
@@ -35,14 +34,25 @@ describe("Testing Gradient Descent Pages", () => {
 
     describe("Visualization page", () => {
         describe("When page renders", () => {
-            it("Should render proper user inputs",  () => {
+            it("Should render proper user inputs with default values",  () => {
                 render(visualizationPage());
 
-                expect(screen.getByTestId("funInput")).toBeTruthy();
-                expect(screen.getByTestId("alphaInput")).toBeTruthy();
-                expect(screen.getByTestId("xInput")).toBeTruthy();
-                expect(screen.getByTestId("stepPerSecondInput")).toBeTruthy();
-                expect(screen.getByTestId("dfResult")).toBeTruthy();
+                let funInput = screen.getByTestId("funInput")
+                let alphaInput = screen.getByTestId("alphaInput")
+                let xInput = screen.getByTestId("xInput")
+                let stepPerSecondInput = screen.getByTestId("stepPerSecondInput")
+                let dfResult = screen.getByTestId("dfResult")
+
+                expect(funInput).toBeTruthy();
+                expect(funInput.querySelectorAll('input')[0].value).toBe('x^2')
+                expect(alphaInput).toBeTruthy();
+                expect(alphaInput.querySelectorAll('input')[0].value).toBe('0.1')
+                expect(xInput).toBeTruthy();
+                expect(xInput.querySelectorAll('input')[0].value).toBe('-1')
+                expect(stepPerSecondInput).toBeTruthy();
+                expect(stepPerSecondInput.querySelectorAll('input')[0].value).toBe('1')
+                expect(dfResult).toBeTruthy();
+                expect(dfResult.querySelectorAll('input')[0].value).toBe('2 * x')
             })
             it("Should render proper user buttons", () => {
                 render(visualizationPage())
@@ -54,11 +64,7 @@ describe("Testing Gradient Descent Pages", () => {
         })
         describe("When handling events", () => {
             describe("When user enters input", () => {
-                it("Should update function", () => {})
-                it("Should update alpha", () => {})
-                it("Should update x0", () => {})
-                it("Should update steps per second", () => {})
-                it("Should calculate df correctly", () => {})
+
             })
             describe("When user click buttons", () => {
 
@@ -68,13 +74,22 @@ describe("Testing Gradient Descent Pages", () => {
 
     describe("Step By Step Page", () => {
         describe("When page renders", () => {
-            it("Should render proper user inputs",  () => {
+            it("Should render proper user inputs with default values",  () => {
                 render(stepByStepPage());
 
-                expect(screen.getByTestId("funInput")).toBeTruthy();
-                expect(screen.getByTestId("alphaInput")).toBeTruthy();
-                expect(screen.getByTestId("xInput")).toBeTruthy();
-                expect(screen.getByTestId("dfResult")).toBeTruthy();
+                let funInput = screen.getByTestId("funInput")
+                let alphaInput = screen.getByTestId("alphaInput")
+                let xInput = screen.getByTestId("xInput")
+                let dfResult = screen.getByTestId("dfResult")
+
+                expect(funInput).toBeTruthy();
+                expect(funInput.querySelectorAll('input')[0].value).toBe('x^2')
+                expect(alphaInput).toBeTruthy();
+                expect(alphaInput.querySelectorAll('input')[0].value).toBe('0.1')
+                expect(xInput).toBeTruthy();
+                expect(xInput.querySelectorAll('input')[0].value).toBe('-1')
+                expect(dfResult).toBeTruthy();
+                expect(dfResult.querySelectorAll('input')[0].value).toBe('2 * x')
             })
             it("Should render proper user buttons", () => {
                 render(stepByStepPage())
@@ -88,14 +103,25 @@ describe("Testing Gradient Descent Pages", () => {
 
     describe("Hyper-Parameter Page", () => {
         describe("When page renders", () => {
-            it("Should render proper user inputs",  () => {
+            it("Should render proper user inputs with default values",  () => {
                 render(hyperParameterPage());
 
-                expect(screen.getByTestId("funInput")).toBeTruthy();
-                expect(screen.getByTestId("alphaInput")).toBeTruthy();
-                expect(screen.getByTestId("xInput")).toBeTruthy();
-                expect(screen.getByTestId("stepPerSecondInput")).toBeTruthy();
-                expect(screen.getByTestId("dfResult")).toBeTruthy();
+                let funInput = screen.getByTestId("funInput")
+                let alphaInput = screen.getByTestId("alphaInput")
+                let xInput = screen.getByTestId("xInput")
+                let stepPerSecondInput = screen.getByTestId("stepPerSecondInput")
+                let dfResult = screen.getByTestId("dfResult")
+
+                expect(funInput).toBeTruthy();
+                expect(funInput.querySelectorAll('input')[0].value).toBe('x^2')
+                expect(alphaInput).toBeTruthy();
+                expect(alphaInput.querySelectorAll('input')[0].value).toBe('0.1')
+                expect(xInput).toBeTruthy();
+                expect(xInput.querySelectorAll('input')[0].value).toBe('-1')
+                expect(stepPerSecondInput).toBeTruthy();
+                expect(stepPerSecondInput.querySelectorAll('input')[0].value).toBe('1')
+                expect(dfResult).toBeTruthy();
+                expect(dfResult.querySelectorAll('input')[0].value).toBe('2 * x')
             })
             it("Should render proper user buttons", () => {
                 render(hyperParameterPage())
