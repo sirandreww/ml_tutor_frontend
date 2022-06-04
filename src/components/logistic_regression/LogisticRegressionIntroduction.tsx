@@ -58,9 +58,9 @@ export default function LogisticRegressionIntroduction() {
                     <br />
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                         <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\sigma (\\)"}</MathJax>
-                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
-                        <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
-                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="w1Input" label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
+                        <TextField data-testid="x1Input" label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
+                        <TextField data-testid="bInput" label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                         <MathJax style={{ fontSize: "30px" }} inline >{"\\() = \\)"}</MathJax>
                         <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
                     </Typography>

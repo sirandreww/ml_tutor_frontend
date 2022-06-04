@@ -66,18 +66,18 @@ export default function LogisticRegressionVectorRepresentation() {
                     <br />
                     <LeftItem>
                         <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{w} = \\)"}</MathJax>
-                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
-                        <TextField label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="w1Input" label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="w2Input" label="w2" type="number" onChange={event => setW2(Number(event.target.value))} sx={{ width: 100 }} />
                         {/* <TextField label="w3" type="number" onChange={event => setW3(Number(event.target.value))} sx={{ width: 100 }} /> */}
                         <br />
                         <br />
                         <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(b = \\)"}</MathJax>
-                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="bInput" label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                         <br />
                         <br />
                         <MathJax style={{ fontSize: "30px", color: 'black' }} inline>{"\\(\\vec{x} = \\)"}</MathJax>
-                        <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
-                        <TextField label="x2" type="number" onChange={event => setX2(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="x1Input" label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="x2Input" label="x2" type="number" onChange={event => setX2(Number(event.target.value))} sx={{ width: 100 }} />
                         {/* <TextField label="x3" type="number" onChange={event => setX3(Number(event.target.value))} sx={{ width: 100 }} /> */}
                         <br />
                         <br />
