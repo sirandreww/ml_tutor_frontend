@@ -1,6 +1,6 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
-import { getData2D, getGraph2D } from 'components/GradientDescentHelper';
+import { getData2D, getGraph2D } from 'components/gradient_descent/GradientDescentHelper';
 
 
 // --------------------------------------------------------

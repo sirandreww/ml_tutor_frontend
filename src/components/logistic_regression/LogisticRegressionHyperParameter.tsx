@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { PrettoSlider } from "../GradientDescentHelper";
+import { PrettoSlider } from "../gradient_descent/GradientDescentHelper";
 import NumberTextField from "../NumberTextField";
 import { TextField } from "@mui/material";
 import { button, CenterItem, LeftItem, BlackAlignedItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";

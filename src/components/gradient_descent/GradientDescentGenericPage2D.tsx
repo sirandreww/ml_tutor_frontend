@@ -5,11 +5,11 @@ import Grid from "@mui/material/Grid";
 import { button, LeftItem, CenterItem } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
-import { getDev, getCorrectAnswers, PrettoSlider, getData2D, getGraph2D, getPoints2D } from 'components/GradientDescentHelper';
+import { getDev, getCorrectAnswers, PrettoSlider, getData2D, getGraph2D, getPoints2D } from 'components/gradient_descent/GradientDescentHelper';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { getTwoDimensionalColumnNames } from 'components/QuestionTableDefinitions';
-import FunctionTextField from './FunctionTextField';
+import FunctionTextField from '../FunctionTextField';
 import NumberTextField from 'components/NumberTextField';
 import {TextField} from "@mui/material";
 // --------------------------------------------------------
