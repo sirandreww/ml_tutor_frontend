@@ -35,8 +35,8 @@ export default function GradientDescentIntroduction2D() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
-                    <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                        <h1 style={headers_style}>Gradient descent 2D</h1>
+                    <Typography component={'div'} sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                        <h1 data-testid="header" style={headers_style}>Gradient descent 2D</h1>
                     </Typography>
                     {t("gd.gd_two_vars")}<br />
                     <br />
@@ -47,10 +47,10 @@ export default function GradientDescentIntroduction2D() {
                 <div id='graph2-board' style={{ pointerEvents: 'none' }}></div>
                 <Typography component={'span'}>
                     <br />
-                    <h4 style={headers_style}>{t("gd.how")}</h4><br />
+                    <h4 data-testid="howto" style={headers_style}>{t("gd.how")}</h4><br />
                     {t("gd.almost_descr")}<br />
                     <br /><br />
-                    {tab}<h4 style={headers_style}>{t("gd.defs")}</h4><br />
+                    {tab}<h4 data-testid="definitions" style={headers_style}>{t("gd.defs")}</h4><br />
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - {t("gd.point_vals.x_val")}<br /><br />
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - {t("gd.point_vals.y_val")}<br /><br />
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(f(x, y)\\)"}</MathJax> - {t("gd.point_vals.z_val")}<br /><br />
@@ -62,7 +62,7 @@ export default function GradientDescentIntroduction2D() {
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(x_{new}\\)"}</MathJax> - {t("gd.point_vals.x_val_new")}<br /><br />
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(y_{new}\\)"}</MathJax> - {t("gd.point_vals.y_val_new")}<br /><br />
                     <br /><br />
-                    {tab}<h4 style={headers_style}>{t("gd.foreach_step")}</h4><br />
+                    {tab}<h4 data-testid="steps" style={headers_style}>{t("gd.foreach_step")}</h4><br />
                     {tab}{tab}1. {t("gd.calc")}<MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}(x, y)\\)"}</MathJax><br /><br />
                     {tab}{tab}2. {t("gd.calc")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dy}(x, y)\\)"}</MathJax><br /><br />
                     {tab}{tab}3. {t("gd.apply")} <MathJax style={mathJaxStyle} inline>{"\\(x_{new} = x - (\\alpha * \\frac{df}{dx}(x, y))\\)"}</MathJax><br /><br />
