@@ -23,9 +23,8 @@ const page_button_writing: { [id: string]: string; } = { 'Algorithms': "algorith
 const settings = [['he', 'עברית'], ['en', 'English']];
 
 const changeLang = (lan: string) => {
-  console.log(lan)
+  // console.log(lan)
   i18next.changeLanguage(lan);
-
 }
 
 // type ScrollToColorProps = {

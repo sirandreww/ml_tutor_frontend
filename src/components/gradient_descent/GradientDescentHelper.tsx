@@ -164,7 +164,7 @@ export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("po
             ]
         });
     } catch (e){
-        console.log("plotting failed! e = ", String(e))
+        // console.log("plotting failed! e = ", String(e))
     }
 }
 
@@ -180,10 +180,10 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
     var dfx = getDev(f, 'x')
     var dfy = getDev(f, 'y')
 
-    console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
+    // console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
 
     for (let i = 0; i < steps_count; i++) {
-        console.log("i=", i)
+        // console.log("i=", i)
 
         var tmpX = math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
         var tmpY = math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
@@ -191,7 +191,7 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
         var nextY = math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': tmpY })
         var z = math.evaluate(f, { 'x': nextX, 'y': nextY })
 
-        console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY)
+        // console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY)
         points.x.push(nextX)
         points.y.push(nextY)
         points.z.push(z)
@@ -200,13 +200,13 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
         prevY = nextY
     }
 
-    console.log("points = ", points)
+    // console.log("points = ", points)
     return points
 }
 
 export function getData2D(f: string, y_i=-10, y_f=10, x_i=-10, x_f=10) {
     var data: { x: Number[][], y: Number[], z: Number[][] } = { x: [], y: [], z: [] }
-    console.log('aseel data= ', data)
+    // console.log('aseel data= ', data)
     for (let y = y_i; y <= y_f; y += 1) {
         var xs = new Array<Number>()
         var zs = new Array<Number>()
@@ -225,9 +225,9 @@ export function getData2D(f: string, y_i=-10, y_f=10, x_i=-10, x_f=10) {
 }
 
 export function getGraph2D(data: XYZdata, points: XYZ) {
-    console.log('getGraph2D - \n')
-    console.log('data = ', data, '\n')
-    console.log('points = ', points, '\n')
+    // console.log('getGraph2D - \n')
+    // console.log('data = ', data, '\n')
+    // console.log('points = ', points, '\n')
 
     var z = new Array<Array<Number>>()
 

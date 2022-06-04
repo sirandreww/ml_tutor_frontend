@@ -307,13 +307,13 @@ function fetchAlgorithms(alpha: number, numOfIterations: number, per: number): [
     let costs = algo.getCosts()
     let loss = costs[costs.length - 1]
 
-    console.log("xs = " + xs)
-    console.log("y = " + y)
-    console.log("txs = " + txs)
-    console.log("ty = " + ty)
-    console.log("acc = " + acc)
-    console.log("costs = " + costs)
-    console.log("loss = " + loss)
+    // console.log("xs = " + xs)
+    // console.log("y = " + y)
+    // console.log("txs = " + txs)
+    // console.log("ty = " + ty)
+    // console.log("acc = " + acc)
+    // console.log("costs = " + costs)
+    // console.log("loss = " + loss)
     return [algo, acc, loss]
 }
 

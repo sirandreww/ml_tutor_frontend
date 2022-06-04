@@ -14,7 +14,7 @@ function isFunction(str: any, vars: ("x" | "xy")) {
             if (vars === "x") {
                 // quick check
                 isFunction = isFunction && (isStringNumeric(math.evaluate(str, { 'x': 0 }).toString()));
-                console.log("isFunction = ", isFunction)
+                // console.log("isFunction = ", isFunction)
 
                 // check derivatives
                 let dx = math.derivative(str, "x").toString();
@@ -50,14 +50,19 @@ function isFunction(str: any, vars: ("x" | "xy")) {
     }
 }
 
-export default function FunctionTextField(props: { value: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => (any), vars: ("x" | "xy"), InputProps?: Partial<any> }) {
+export default function FunctionTextField(props: {
+    value: string,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => (any),
+    vars: ("x" | "xy"),
+    InputProps?: Partial<any>,
+}) {
     const [currentValue, setValue] = React.useState(props.value);
     /// function that checks that input is numeric before it calls on change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
-        console.log("event.target.value = ", event.target.value);
+        // console.log("event.target.value = ", event.target.value);
         if (isFunction(event.target.value, props.vars)) {
-            console.log("event.target.value = ", event.target.value, " passed checks!")
+            // console.log("event.target.value = ", event.target.value, " passed checks!")
             props.onChange(event);
         }
     };

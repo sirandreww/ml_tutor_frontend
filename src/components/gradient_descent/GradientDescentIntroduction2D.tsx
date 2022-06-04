@@ -13,7 +13,7 @@ export default function GradientDescentIntroduction2D() {
     const [count, setCount] = React.useState(0)
 
     React.useEffect(() => {
-        console.log(count)
+        // console.log(count)
         let points = null;
         points = getPoints2D(fun, 10, -10, count, 0.05);
         getGraph2D(data, points);

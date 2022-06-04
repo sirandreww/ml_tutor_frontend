@@ -11,7 +11,11 @@ export function isStringNumeric(str: any) {
     }
 }
 
-export default function NumberTextField(props: { value: number, onChange: (event: React.ChangeEvent<HTMLInputElement>) => (any) }) {
+export default function NumberTextField(props: {
+    value: number,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => (any),
+    InputProps?: Partial<any>,
+}) {
     const [currentValue, setValue] = React.useState(props.value.toString());
     /// function that checks that input is numeric before it calls on change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +26,6 @@ export default function NumberTextField(props: { value: number, onChange: (event
         }
     };
     return (
-        <TextField autoFocus fullWidth value={currentValue} type="number" onChange={handleChange}/>
+        <TextField autoFocus fullWidth value={currentValue} type="number" onChange={handleChange} InputProps={props.InputProps}/>
     );
 }

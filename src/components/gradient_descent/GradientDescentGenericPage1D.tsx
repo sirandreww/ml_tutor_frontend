@@ -28,6 +28,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                 return (
                     <span>
                         <PrettoSlider
+                            data-testid="alphaInput"
                             valueLabelDisplay="auto"
                             aria-label="pretto slider"
                             defaultValue={alpha}
@@ -39,12 +40,11 @@ export default function GradientDescentGenericPage1D(props: Props) {
                     </span>
                 );
             case 'input':
-                return <NumberTextField value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })} />
+                return <NumberTextField InputProps={{"data-testid": "alphaInput"}} value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })} />
             default:
                 return null
         }
     }
-
     const getButtonsInput = (type: string) => {
         switch (type) {
             case 'playGround':
@@ -73,6 +73,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                 return null
         }
     }
+
     const [myfun, setFun] = React.useState('x^2')
     const [alpha, setAlpha] = React.useState(0.1)
     const [startX, setStartX] = React.useState(-1)
@@ -114,7 +115,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <FunctionTextField value={myfun} vars="x" onChange={
+                                        <FunctionTextField InputProps={{"data-testid":"funInput"}} value={myfun} vars="x" onChange={
                                             event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })
                                         } />
                                     </Grid>
@@ -132,7 +133,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={10}>
-                                        <NumberTextField value={startX} onChange={
+                                        <NumberTextField InputProps={{"data-testid": "xInput"}} value={startX} onChange={
                                             event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0, sps: stepsPerSecond })
                                         } />
                                     </Grid>
@@ -146,6 +147,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                     {(buttonsType === "stepByStep") ? null :
                                         <Grid item xs={10}>
                                             <PrettoSlider
+                                                data-testId="stepPerSecondInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={stepsPerSecond}
@@ -170,7 +172,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                     </Grid>
                                     <Grid item xs={10}>
                                         {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
-                                        <TextField autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                        <TextField data-testId="dfResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
                                     </Grid>
                                 </Grid>
                             </LeftItem>
