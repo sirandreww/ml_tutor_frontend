@@ -2,7 +2,6 @@
 import {getByTestId, render} from '@testing-library/react';
 import GradientDescentIntroduction1D from '../../components/gradient_descent/GradientDescentIntroduction1D';
 
-// description(<String>, <Function>) method is a way to group bunch of test which fit under the same suite case
 describe('Gradient Descent 1D Introduction Rendering', () => {
 
     it("Should have header with 'Gradient descent 1D' as value", () => {
