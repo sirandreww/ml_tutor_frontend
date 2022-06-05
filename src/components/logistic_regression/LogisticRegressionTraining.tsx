@@ -169,18 +169,18 @@ export default function LogisticRegressionTraining() {
                             </Grid>
                             <Grid item xs={4} my={`auto`} />
                             <Grid item xs={2} my={`auto`}>
-                                <TextField label="x11" type="number" size="small" onChange={event => {
+                                <TextField data-testid="x11Input" label="x11" type="number" size="small" onChange={event => {
                                     setX11(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
-                                <TextField label="x21" type="number" size="small" onChange={event => {
+                                <TextField data-testid="x21Input" label="x21" type="number" size="small" onChange={event => {
                                     setX21(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
                             </Grid>
                             <Grid item xs={2} my={`auto`}>
-                                <TextField label="x12" type="number" size="small" onChange={event => {
+                                <TextField data-testid="x12Input" label="x12" type="number" size="small" onChange={event => {
                                     setX12(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
-                                <TextField label="x22" type="number" size="small" onChange={event => {
+                                <TextField data-testid="x22Input" label="x22" type="number" size="small" onChange={event => {
                                     setX22(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
                             </Grid>
@@ -198,12 +198,12 @@ export default function LogisticRegressionTraining() {
                                 </MathJax>
                             </Grid>
                             <Grid item xs={2} my={`auto`}>
-                                <TextField label="classification 1" type="number" size="small" onChange={event => {
+                                <TextField data-testid="c1Input" label="classification 1" type="number" size="small" onChange={event => {
                                     setC1(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
                             </Grid>
                             <Grid item xs={2} my={`auto`}>
-                                <TextField label="classification 2" type="number" size="small" onChange={event => {
+                                <TextField data-testid="c2Input" label="classification 2" type="number" size="small" onChange={event => {
                                     setC2(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
                             </Grid>
@@ -215,7 +215,7 @@ export default function LogisticRegressionTraining() {
                             </Grid>
                             <Grid item xs={4} my={`auto`} />
                             <Grid item xs={2} my={`auto`}>
-                                <TextField value={a} type="number" size="small" onChange={event => {
+                                <TextField data-testid="alphaInput" value={a} type="number" size="small" onChange={event => {
                                     setAlpha(Number(event.target.value)); updateModule()
                                 }} sx={{ width: "100%" }} />
                             </Grid>
@@ -240,10 +240,10 @@ export default function LogisticRegressionTraining() {
                         {t(translation_path.concat("demo_itr_res"))}:<br />
                     </h4>
                     <BlackLeftItem>
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1x2} = \\)"}</MathJax>{"[" + module.predict([x_11, x_12]).toString() + ", " + module.predict([x_21, x_22]).toString() + " ]"}<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\)"}</MathJax>{module.getWs()[0].toString()}<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(b_{new} = \\)"}</MathJax>{module.getBs()[0].toString()}<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(Loss = \\)"}</MathJax>{module.getCosts()[0].toString()}<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{Y}_{1x2} = \\)"}</MathJax><span data-testid="ysResult">{"[" + module.predict([x_11, x_12]).toString() + ", " + module.predict([x_21, x_22]).toString() + " ]"}</span><br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{new} = \\)"}</MathJax><span data-testid="wsResult">{module.getWs()[0].toString()}</span><br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(b_{new} = \\)"}</MathJax><span data-testid="bResult">{module.getBs()[0].toString()}</span><br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(Loss = \\)"}</MathJax><span data-testid="lossResult">{module.getCosts()[0].toString()}</span><br />
                     </BlackLeftItem>
                 </Typography>
                 <br />
@@ -252,8 +252,8 @@ export default function LogisticRegressionTraining() {
                         {t(translation_path.concat("demo_final_res"))}:<br />
                     </h4>
                     <BlackLeftItem>
-                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1x2} = \\)"}</MathJax>{module.getModule().W.toString()}<br />
-                        <MathJax style={mathJaxStyle} inline>{"\\(b = \\)"}</MathJax>{module.getModule().B.toString()}<br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(\\vec{w}_{1x2} = \\)"}</MathJax><span>{module.getModule().W.toString()}</span><br />
+                        <MathJax style={mathJaxStyle} inline>{"\\(b = \\)"}</MathJax><span>{module.getModule().B.toString()}</span><br />
                     </BlackLeftItem>
                 </Typography>
                 <br />
