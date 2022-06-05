@@ -382,7 +382,7 @@ export default function LogisticRegressionHyperParameter() {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={2}>
-                                            <NumberTextField value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
+                                            <NumberTextField InputProps={{"data-testid": "noiInput"}} value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
                                         </Grid>
                                         <Grid item xs={6} />
                                         <Grid item xs={4}>
@@ -392,6 +392,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Grid>
                                         <Grid item xs={8}>
                                             <PrettoSlider
+                                                data-testid="alphaInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={alpha}
@@ -408,6 +409,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Grid>
                                         <Grid item xs={8}>
                                             <PrettoSlider
+                                                data-testid="trainPercentageInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={dataSetPer}
