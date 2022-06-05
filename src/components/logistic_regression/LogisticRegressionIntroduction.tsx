@@ -62,7 +62,7 @@ export default function LogisticRegressionIntroduction() {
                         <TextField data-testid="x1Input" label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
                         <TextField data-testid="bInput" label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                         <MathJax style={{ fontSize: "30px" }} inline >{"\\() = \\)"}</MathJax>
-                        <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
+                        <MathJax data-testid="result" style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
                     </Typography>
                     <br />
                     {t(translation_path.concat(".example"))}<br />
