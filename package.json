@@ -25,6 +25,7 @@
     "@types/react-router": "^5.1.18",
     "better-react-mathjax": "^1.0.3",
     "danfojs": "^1.1.0",
+    "exceljs": "^4.3.0",
     "function-plot": "^1.22.7",
     "i18next": "^21.6.16",
     "mathjs": "^10.4.3",

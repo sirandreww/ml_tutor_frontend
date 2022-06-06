@@ -4,12 +4,14 @@ import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { Box, Typography } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
 import GradientDescent1D from 'components/GradientDescentGenericPage1D';
-import { useTranslation } from "react-i18next";
+
 import Grid from "@mui/material/Grid";
 import LinearRegressionP2 from 'components/linear_regression/LinearRegressionPage2';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
+import { useTranslation } from "react-i18next";
 
 export default function LR2() {
+    const [t] = useTranslation('translation');
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
@@ -20,8 +22,7 @@ export default function LR2() {
                     <Grid item xs={9}>
                             <LeftItem>
                                 <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                                In this example we will try to predict the housing prices (in millions) according to the number of rooms.
-                                The table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.
+                                {t("lr.p2_desc")}
                                 </Typography>
                             </LeftItem>
                         </Grid>

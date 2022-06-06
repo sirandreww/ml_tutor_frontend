@@ -248,6 +248,32 @@
         }
     },
 
+    "lr": {
+        "tasks" : {
+            "1d_int": "פתיח",
+            "1d_vis": "דוגמא ראשונה",
+            "p3_title": "מודל דינאמי",
+            "p4_title": "תרגילים לפתרון האנליטי",
+            "p5_title": "חישובים בעזרת Gradient Descent",
+            "p6_title": "תרגיל Gradient Descent"
+        },
+
+        "title":"רגרסיה לינארית",
+        "examples_set":"בהינתן קבוצה של m נקודות",
+        "x_vals":"ערכים של המשתנה הבלתי תלוי",
+        "y_vals":"ערכים של המשתנה התלוי",
+        "description":"רגרסיה לינארית היא שיטה מתמטית למציאת הפרמטרים שמקשרים בין המשתנה הבלתי תלוי X והמשתנה התלוי Y \n בהנחה שהקשר ביניהם הוא לינארי \n נרצה למצוא את המודל והפרמטרים האופטימליים לנוסחה הבאה:",
+        "opt_params":"איך למצוא את הפרמטרים האופטימליים למודל?",
+        "min_params":"אנחנו בוחרים את הפרמטרים שמביאם למינימום את ה mean squared error loss",
+        "defs":"כמה הגדרות ",
+        "x_mean_val":"הממוצע של ערכי x",
+        "y_mean_val":"הממוצע של ערכי y",
+        "analytic_sol":"הפתרון האנליטי יהיה",
+        "p2_desc":"בתרגיל הזה ננסה לחזות את ערכי הדירות ( במליוני שקלים) כתלות במספר החדרים שיש בדירה.\nהטבלה מכילה מידע לגבי מחירי הדירות. למטה יש את הפרמטרים המחושבים שמהם המודל מחשב \nאת הפרמטרים כדי לשערך את חיזוי המודל, פונקציית הרגרסיה ולבסוף את הגרף שמייצג את הפונקציה הזו.",
+        "p3_desc":"הגיע הזמן לראות את אופן פעולת המודל. /n תוסיפו נקודות ותערכו את הערכים כרצונכם, תבחינו שערכי הפרמטרים משתנים בהתאם לערכים והם מחושבים לפי הנוסחאות שראינו קודם, שימו לב שגם פונקציית הרגרסיה שמייצגת את האופן בו המודל מבצע את החיזוי, מחושבת בהתאם לערכים האלה ואתם יכולים לראות את הגרף שלה גם.",
+        "p4_desc":"Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.\nYour mission is to calculate the parameters in order to form the correct model.\nBelow, you will see the correct model representation in blue, and your model will\nappear in red.\nGood Luck!"
+    },
+
     "sign_in":{
         "login":"תתחבר",
         "forgot_pass":"שכחת סיסמה?",

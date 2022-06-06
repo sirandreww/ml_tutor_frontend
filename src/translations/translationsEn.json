@@ -250,7 +250,6 @@
     },
 
     "lr": {
-    
         "tasks" : {
             "1d_int": "Introduction",
             "1d_vis": "First Example",
@@ -258,7 +257,22 @@
             "p4_title": "Analytical Excercise",
             "p5_title": "Calculation using Gradiant-Descent",
             "p6_title": "Gradiant Descent Excercise"
-        }
+        },
+
+        "title":"Linear regression",
+        "examples_set":"Given a set of m examples",
+        "x_vals":"sample values of the independent variable",
+        "y_vals":"sample values of the dependent variable respectively",
+        "description":"Linear regression is a mathematical method for finding the parameters of the relationship between an independent variable X and a dependent variable Y,\nassuming that the relationship between them is linear,\nwe would like to find an optimal regression model from the form",
+        "opt_params":"How to find the optimal parameters of the model?",
+        "min_params":"We take the parameters that minimize the sum of mean squared loss",
+        "defs":"Some definitions",
+        "x_mean_val":"the mean value of x",
+        "y_mean_val":"the mean value of y",
+        "analytic_sol":"So the analytical solution is",
+        "p2_desc":"In this example we will try to predict the housing prices (in millions) according to the number of rooms.\nThe table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.",
+        "p3_desc":"It's time to see the model in action. \nAdd points and edit the values as you want, you'll see the parameters being calculated on the go\nand the Linear line which represents the model's predictions forms on the graph below.",
+        "p4_desc":"Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.\nYour mission is to calculate the parameters in order to form the correct model.\nBelow, you will see the correct model representation in blue, and your model will\nappear in red.\nGood Luck!"
     },
 
 

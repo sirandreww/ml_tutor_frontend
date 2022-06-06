@@ -9,12 +9,11 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 import { DataGrid} from '@mui/x-data-grid';
 import functionPlot from "function-plot";
-
 import TextField from '@mui/material/TextField';
 import { GridColDef } from '@mui/x-data-grid';
 // --------------------------------------------------------
 
-
+//@ts-ignore
 function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
     const values = f2.match(regex)!.filter( r => r != "");
@@ -25,7 +24,6 @@ function getGraph1D(f: string, points: number[][],f2: string) {
     }
     var width = 800;
     var height = 500;
-
     functionPlot({
         target: '#graph-board',
         width,
@@ -296,7 +294,7 @@ export default function LinearRegressionP4() {
 
     return (
         <div>
-         {/* {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '} */}
+         {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '}
          {/* {JSON.stringify(points)} */}
          {/* {JSON.stringify(w + '        ' + b)} */}
             <Box sx={{ width: "100%" }}>
