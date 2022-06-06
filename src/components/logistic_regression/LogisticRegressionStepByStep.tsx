@@ -26,15 +26,15 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
         xs.forEach((xi, id) => {
             let yi = Number(Number(moduleInfo.ys[epoch - 1].subset(math.index(id))).toFixed(DIGITS))
 
-            // console.log("moduleInfo.ys = \n", moduleInfo.ys)
-            // console.log("typeOf moduleInfo.ys = \n", (typeof moduleInfo.ys))
-            // console.log("moduleInfo.ys[epoch - 1] = \n", moduleInfo.ys[epoch - 1])
-            // console.log("typeOf moduleInfo.ys[epoch - 1] = \n", (typeof moduleInfo.ys[epoch - 1]))
-            // console.log("moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", moduleInfo.ys[epoch - 1].subset(math.index(id)))
-            // console.log("typeOf moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", (typeof moduleInfo.ys[epoch - 1].subset(math.index(id))))
-            // console.log("yi = \n", yi)
-            // console.log("typeOf yi = \n", (typeof yi))
-            // console.log("Number(yi) = \n", Number(yi))
+            // // console.log("moduleInfo.ys = \n", moduleInfo.ys)
+            // // console.log("typeOf moduleInfo.ys = \n", (typeof moduleInfo.ys))
+            // // console.log("moduleInfo.ys[epoch - 1] = \n", moduleInfo.ys[epoch - 1])
+            // // console.log("typeOf moduleInfo.ys[epoch - 1] = \n", (typeof moduleInfo.ys[epoch - 1]))
+            // // console.log("moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", moduleInfo.ys[epoch - 1].subset(math.index(id)))
+            // // console.log("typeOf moduleInfo.ys[epoch - 1].subset(math.index(id)) = \n", (typeof moduleInfo.ys[epoch - 1].subset(math.index(id))))
+            // // console.log("yi = \n", yi)
+            // // console.log("typeOf yi = \n", (typeof yi))
+            // // console.log("Number(yi) = \n", Number(yi))
 
             let tmp = {
                 "step": (step % 3).toString(),
@@ -44,13 +44,13 @@ function getDataAnswers(xs: number[][], cs: number[], algo: LogisticRegressionMo
                 "dbi": (yi - cs[id]).toFixed(DIGITS).toString()
             }
 
-            // console.log("tmp = \n", tmp)
+            // // console.log("tmp = \n", tmp)
             answers.push(tmp)
             step++
         })
     }
 
-    console.log("Data Answers = \n", answers)
+    // console.log("Data Answers = \n", answers)
     return answers
     // return []
 }
@@ -70,9 +70,9 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         let w1New = Number(ws[epoch].subset(math.index(0)))
         let w2New = Number(ws[epoch].subset(math.index(1)))
 
-        // console.log("bNew ", bNew)
-        // console.log("w2New ", w2New)
-        // console.log("w2New ", w2New)
+        // // console.log("bNew ", bNew)
+        // // console.log("w2New ", w2New)
+        // // console.log("w2New ", w2New)
         answers.push({
             "step": (step % 1).toString(),
             "wOne": w1Prev.toFixed(DIGITS).toString(),
@@ -88,7 +88,7 @@ function getModuleAnswers(alpha: number, algo: LogisticRegressionModule): { [id:
         step++
     }
 
-    console.log("Module Answers = \n", answers)
+    // console.log("Module Answers = \n", answers)
     return answers
     // return []
 }
@@ -101,7 +101,7 @@ function getModuleFinalAnswers(algo: LogisticRegressionModule): { [id: string]: 
         'wTwoFinal': Number(module.W.subset(math.index(1))).toFixed(DIGITS).toString(),
         'bFinal': Number(module.B).toFixed(DIGITS).toString()
     }]
-    console.log("Module Final Answers = \n", moduleFinalAnswers)
+    // console.log("Module Final Answers = \n", moduleFinalAnswers)
     return moduleFinalAnswers
 }
 
@@ -156,7 +156,7 @@ export default function LogisticRegressionStepByStep() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <NumberTextField value={alpha} onChange={event => handleAlpha(Number(event.target.value))} />
+                                        <NumberTextField InputProps={{"data-testid":"alphaInput"}} value={alpha} onChange={event => handleAlpha(Number(event.target.value))} />
                                     </Grid>
                                     <Grid item xs={6} />
                                 </Grid>
@@ -181,25 +181,25 @@ export default function LogisticRegressionStepByStep() {
                                     </Grid>
                                     <Grid item xs={2}>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[0][0]} label="x11" type="number" size="small" onChange={event => handleXS(0, Number(event.target.value), xs[0][1])} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x11Input" value={xs[0][0]} label="x11" type="number" size="small" onChange={event => handleXS(0, Number(event.target.value), xs[0][1])} sx={{ width: "100%" }} />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[1][0]} label="x21" type="number" size="small" onChange={event => handleXS(1, Number(event.target.value), xs[1][1])} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x21Input" value={xs[1][0]} label="x21" type="number" size="small" onChange={event => handleXS(1, Number(event.target.value), xs[1][1])} sx={{ width: "100%" }} />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[2][0]} label="x31" type="number" size="small" onChange={event => handleXS(2, Number(event.target.value), xs[2][1])} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x31Input" value={xs[2][0]} label="x31" type="number" size="small" onChange={event => handleXS(2, Number(event.target.value), xs[2][1])} sx={{ width: "100%" }} />
                                         </Grid>
                                     </Grid>
 
                                     <Grid item xs={2}>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[0][1]} label="x12" type="number" size="small" onChange={event => handleXS(0, xs[0][0], Number(event.target.value))} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x12Input" value={xs[0][1]} label="x12" type="number" size="small" onChange={event => handleXS(0, xs[0][0], Number(event.target.value))} sx={{ width: "100%" }} />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[1][1]} label="x22" type="number" size="small" onChange={event => handleXS(1, xs[1][0], Number(event.target.value))} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x22Input" value={xs[1][1]} label="x22" type="number" size="small" onChange={event => handleXS(1, xs[1][0], Number(event.target.value))} sx={{ width: "100%" }} />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField value={xs[2][1]} label="x32" type="number" size="small" onChange={event => handleXS(2, xs[2][0], Number(event.target.value))} sx={{ width: "100%" }} />
+                                            <TextField data-testid="x32Input" value={xs[2][1]} label="x32" type="number" size="small" onChange={event => handleXS(2, xs[2][0], Number(event.target.value))} sx={{ width: "100%" }} />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={4} />
@@ -222,13 +222,13 @@ export default function LogisticRegressionStepByStep() {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <TextField value={cs[0]} label="1st Classification" type="number" size="small" onChange={event => handleCS(0, Number(event.target.value))} />
+                                        <TextField data-testid="c1Input" value={cs[0]} label="1st Classification" type="number" size="small" onChange={event => handleCS(0, Number(event.target.value))} />
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <TextField value={cs[1]} label="2nd Classification" type="number" size="small" onChange={event => handleCS(1, Number(event.target.value))} />
+                                        <TextField data-testid="c2Input" value={cs[1]} label="2nd Classification" type="number" size="small" onChange={event => handleCS(1, Number(event.target.value))} />
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <TextField value={cs[2]} label="3rd Classification" type="number" size="small" onChange={event => handleCS(2, Number(event.target.value))} />
+                                        <TextField data-testid="c3Input" value={cs[2]} label="3rd Classification" type="number" size="small" onChange={event => handleCS(2, Number(event.target.value))} />
                                     </Grid>
                                     <Grid item xs={2} />
                                 </Grid>

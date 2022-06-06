@@ -1,5 +1,5 @@
 import React from 'react';
-import { getGraph1D } from 'components/GradientDescentHelper';
+import { getGraph1D } from 'components/gradient_descent/GradientDescentHelper';
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 
 export default function LogisticRegressionPlot(props: { w1: number, x1: number, b: number }) {

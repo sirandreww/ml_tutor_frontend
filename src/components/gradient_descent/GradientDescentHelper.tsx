@@ -95,7 +95,7 @@ function getCorrectAnswersAux(f: string, vars: { 'v': string, 'val': number }[],
             tmps.push(tmp)
             nexts.push(next)
         }
-        
+
         if (isOneDimension) {
             const recursive = getCorrectAnswersAux(f, [{ 'v': 'x', 'val': Number(nexts[0]) }], alpha, maxDepth, currentDepth + 1)
             return [{ "step": currentDepth.toString(), "x": vs[0], "dx": devs[0], 'a*dx': tmps[0], "newX": nexts[0] }, ...recursive];
@@ -139,29 +139,33 @@ export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("po
     var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
-    functionPlot({
-        target: '#graph-board',
-        width,
-        height,
-        xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
-        yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
-        title: title,
-        grid: true,
-        data: [
-            {
-                fn: f,
-                derivative: {
-                    fn: getDev(f, 'x'),
-                    updateOnMouseMove: true
+    try {
+        functionPlot({
+            target: '#graph-board',
+            width,
+            height,
+            xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
+            yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
+            title: title,
+            grid: true,
+            data: [
+                {
+                    fn: f,
+                    derivative: {
+                        fn: getDev(f, 'x'),
+                        updateOnMouseMove: true
+                    },
                 },
-            },
-            {
-                points: points,
-                fnType: 'points',
-                graphType: pointsGraphType === undefined ? 'polyline': pointsGraphType,
-            }
-        ]
-    });
+                {
+                    points: points,
+                    fnType: 'points',
+                    graphType: pointsGraphType === undefined ? 'polyline' : pointsGraphType,
+                }
+            ]
+        });
+    } catch (e){
+        // console.log("plotting failed! e = ", String(e))
+    }
 }
 
 export function getPoints2D(f: string, startX: Number, startY: Number, steps_count: Number, alpha: Number) {
@@ -176,10 +180,10 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
     var dfx = getDev(f, 'x')
     var dfy = getDev(f, 'y')
 
-    console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
+    // console.log("f=", f, "dfx=", dfx, "dfy=", dfy, " startX=", startX, " startY=", startY, " steps_count=", steps_count, " alpha=", alpha)
 
     for (let i = 0; i < steps_count; i++) {
-        console.log("i=", i)
+        // console.log("i=", i)
 
         var tmpX = math.evaluate('alpha*('.concat(dfx).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
         var tmpY = math.evaluate('alpha*('.concat(dfy).concat(')'), { 'alpha': alpha, 'x': prevX, 'y': prevY })
@@ -187,7 +191,7 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
         var nextY = math.evaluate('prevY-tmpY', { 'prevY': prevY, 'tmpY': tmpY })
         var z = math.evaluate(f, { 'x': nextX, 'y': nextY })
 
-        console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY)
+        // console.log('prevX=', prevX, ' prevY=', prevY, ' tmpX=', tmpX, ' tmpY=', tmpY, ' nextX=', nextX, ' nextY=', nextY)
         points.x.push(nextX)
         points.y.push(nextY)
         points.z.push(z)
@@ -196,20 +200,20 @@ export function getPoints2D(f: string, startX: Number, startY: Number, steps_cou
         prevY = nextY
     }
 
-    console.log("points = ", points)
+    // console.log("points = ", points)
     return points
 }
 
-export function getData2D(f: string) {
+export function getData2D(f: string, y_i=-10, y_f=10, x_i=-10, x_f=10) {
     var data: { x: Number[][], y: Number[], z: Number[][] } = { x: [], y: [], z: [] }
-    console.log('aseel data= ', data)
-    for (let y = -10; y < 11; y += 1) {
+    // console.log('aseel data= ', data)
+    for (let y = y_i; y <= y_f; y += 1) {
         var xs = new Array<Number>()
         var zs = new Array<Number>()
 
-        for (let x = -10; x < 11; x += 1) {
-            zs.push(math.evaluate(f, { 'x': x, 'y': y }))
-            xs.push(x)
+        for (let x = x_i; x <= x_f; x += 1) {
+            zs.push(math.evaluate(f, { 'x': x, 'y': y }));
+            xs.push(x);
         };
 
         data.x.push(xs)
@@ -221,9 +225,9 @@ export function getData2D(f: string) {
 }
 
 export function getGraph2D(data: XYZdata, points: XYZ) {
-    console.log('getGraph2D - \n')
-    console.log('data = ', data, '\n')
-    console.log('points = ', points, '\n')
+    // console.log('getGraph2D - \n')
+    // console.log('data = ', data, '\n')
+    // console.log('points = ', points, '\n')
 
     var z = new Array<Array<Number>>()
 

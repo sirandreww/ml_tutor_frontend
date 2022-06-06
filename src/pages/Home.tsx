@@ -15,7 +15,7 @@ function Home() {
       <HeroSection />
       <PrettyLine />
       <Functionalities />
-      <PrettyLine />
+      {/* <PrettyLine /> */}
       <Footer />
     </>
   );

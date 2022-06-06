@@ -2,11 +2,20 @@ import React from 'react';
 import { Box, Typography } from '@mui/material'
 import { Copyright } from '@mui/icons-material';
 import PrettyLine from 'components/PrettyLine';
-
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+    const [t] = useTranslation('translation');
     return (
-        <Box sx={{ bgcolor: 'white', p: 6 }} component="footer">
+        <Box // this is here to allow the footer to stick to the bottom
+            component="footer"
+            sx={{
+                py: 3,
+                px: 2,
+                mt: 'auto',
+                backgroundColor: 'white'
+            }}
+        >
             <PrettyLine />
             <Typography variant="h6" align="center" gutterBottom color="black">
                 MLomda
@@ -17,7 +26,7 @@ function Footer() {
                 color="black"
                 component="p"
             >
-                Made by Technion Students!
+                {t("footer.made_by")}
             </Typography>
             <Copyright />
         </Box>

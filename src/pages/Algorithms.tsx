@@ -5,11 +5,13 @@ import Cards from 'components/Cards';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
 import {useTranslation} from "react-i18next";
+import PrettyLine from 'components/PrettyLine';
+import MathWritingExplanation from 'components/MathWritingExplanation'; 
 
 export default function Algorithms() {
     const [t] = useTranslation('translation');
     return (
-        <div>
+        <>
             <Navbar />
             <Box
                 sx={{
@@ -45,7 +47,9 @@ export default function Algorithms() {
                     <Cards />
                 </Stack>
             </Box>
+            <PrettyLine />
+            <MathWritingExplanation />
             <Footer />
-        </div>
+        </>
     );
 }

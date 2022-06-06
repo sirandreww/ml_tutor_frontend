@@ -43,15 +43,15 @@ export class LogisticRegressionModule {
         // console.log("_Y:\n", classifications)
         // console.log("_ALPHA:\n", learning_rate)
         // console.log("_ITERATIONS:\n", total_iterations)
-        console.log("data_batch = \n", data_batch)
-        console.log("classifications = \n", classifications)
+        // console.log("data_batch = \n", data_batch)
+        // console.log("classifications = \n", classifications)
         let tmp = LogisticRegressionModule.createModule(
             math.transpose(math.matrix(this._X)),
             math.matrix(this._Y),
             this._ALPHA,
             this._ITERATIONS)
 
-        console.log("tmp = \n", tmp)
+        // console.log("tmp = \n", tmp)
         this._MODULE = tmp.module
         this._COSTS = tmp.costs
         this._WS = tmp.ws

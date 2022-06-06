@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
 import LogisticRegressionPlot from 'components/logistic_regression/LogisticRegressionPlot';
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
+import AnswerField from 'components/AnswerField';
 
 const translation_path = "logreg.pages.intro"
 export default function LogisticRegressionIntroduction() {
@@ -18,6 +19,12 @@ export default function LogisticRegressionIntroduction() {
     const [x_1, setX1] = React.useState(0);
     const [b, setB] = React.useState(0);
 
+    function isCorrectT1(v: string): boolean{
+        const ep = 0.000001;
+        const diff = Number(v) - (-1 / 111)
+        return (-ep < diff && diff < ep);
+    }
+
     return (
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
@@ -28,7 +35,7 @@ export default function LogisticRegressionIntroduction() {
                     <br />
                     <br />
                     <br />
-                    {t( translation_path.concat(".description"))}<br />
+                    {t(translation_path.concat(".description"))}<br />
                     <br />
                     {t(translation_path.concat(".weights"))}
                     (<MathJax style={mathJaxStyle} inline>{"\\( w_1, w_2, w_3, ..., w_n \\)"}</MathJax>)
@@ -51,11 +58,11 @@ export default function LogisticRegressionIntroduction() {
                     <br />
                     <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                         <MathJax style={{ fontSize: "30px" }} inline>{"\\(\\sigma (\\)"}</MathJax>
-                        <TextField label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
-                        <TextField label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
-                        <TextField label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
+                        <TextField data-testid="w1Input" label="w1" type="number" onChange={event => setW1(Number(event.target.value))} sx={{ width: 100 }} /> *
+                        <TextField data-testid="x1Input" label="x1" type="number" onChange={event => setX1(Number(event.target.value))} sx={{ width: 100 }} /> +
+                        <TextField data-testid="bInput" label="b" type="number" onChange={event => setB(Number(event.target.value))} sx={{ width: 100 }} />
                         <MathJax style={{ fontSize: "30px" }} inline >{"\\() = \\)"}</MathJax>
-                        <MathJax style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
+                        <MathJax data-testid="result" style={{ fontSize: "30px" }} inline >{sigmoid(w_1 * x_1 + b).toString()}</MathJax><br />
                     </Typography>
                     <br />
                     {t(translation_path.concat(".example"))}<br />
@@ -64,6 +71,11 @@ export default function LogisticRegressionIntroduction() {
                         <MathJax style={{ fontSize: "2em" }} inline>{"\\( \\frac{1}{1 + e^{-(w * x + b)}} \\)"}</MathJax>
                     </Typography>
                     <LogisticRegressionPlot w1={w_1} x1={x_1} b={b} />
+                    <br />
+                    <br />
+                    {t("tasks")} :<br /><br />
+                    {tab}{tab}1. {t(translation_path.concat(".task1"))}<br />
+                    {tab}{tab}<AnswerField label='answer' type='number' isCorrect={isCorrectT1}/>
                     <br />
                     <br />
                 </Typography>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { PrettoSlider } from "../GradientDescentHelper";
+import { PrettoSlider } from "../gradient_descent/GradientDescentHelper";
 import NumberTextField from "../NumberTextField";
 import { TextField } from "@mui/material";
 import { button, CenterItem, LeftItem, BlackAlignedItem, mathJaxConfig, mathJaxStyle } from "../LanguageAndButtonUtility";
@@ -307,13 +307,13 @@ function fetchAlgorithms(alpha: number, numOfIterations: number, per: number): [
     let costs = algo.getCosts()
     let loss = costs[costs.length - 1]
 
-    console.log("xs = " + xs)
-    console.log("y = " + y)
-    console.log("txs = " + txs)
-    console.log("ty = " + ty)
-    console.log("acc = " + acc)
-    console.log("costs = " + costs)
-    console.log("loss = " + loss)
+    // console.log("xs = " + xs)
+    // console.log("y = " + y)
+    // console.log("txs = " + txs)
+    // console.log("ty = " + ty)
+    // console.log("acc = " + acc)
+    // console.log("costs = " + costs)
+    // console.log("loss = " + loss)
     return [algo, acc, loss]
 }
 
@@ -382,7 +382,7 @@ export default function LogisticRegressionHyperParameter() {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={2}>
-                                            <NumberTextField value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
+                                            <NumberTextField InputProps={{"data-testid": "noiInput"}} value={numOfIterations} onChange={event => handleStates({ itrs: Number(event.target.value) })} />
                                         </Grid>
                                         <Grid item xs={6} />
                                         <Grid item xs={4}>
@@ -392,6 +392,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Grid>
                                         <Grid item xs={8}>
                                             <PrettoSlider
+                                                data-testid="alphaInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={alpha}
@@ -408,6 +409,7 @@ export default function LogisticRegressionHyperParameter() {
                                         </Grid>
                                         <Grid item xs={8}>
                                             <PrettoSlider
+                                                data-testid="trainPercentageInput"
                                                 valueLabelDisplay="auto"
                                                 aria-label="pretto slider"
                                                 defaultValue={dataSetPer}

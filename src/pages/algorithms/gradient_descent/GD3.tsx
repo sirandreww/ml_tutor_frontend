@@ -3,7 +3,7 @@ import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
 import { Box, Typography } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
-import GradientDescent1D from 'components/GradientDescentGenericPage1D';
+import GradientDescent1D from 'components/gradient_descent/GradientDescentGenericPage1D';
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 

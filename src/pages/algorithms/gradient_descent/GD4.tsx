@@ -1,7 +1,7 @@
 // ------------------------ IMPORTS ------------------------  
 import React from 'react';
 import AlgorithmsDashboard from 'components/AlgorithmsDashboard';
-import GradientDescent1D from "components/GradientDescentGenericPage1D";
+import GradientDescent1D from "components/gradient_descent/GradientDescentGenericPage1D";
 import { Typography, Box } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
 import { useTranslation } from "react-i18next";

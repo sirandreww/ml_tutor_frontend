@@ -5,7 +5,7 @@ import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 // @ts-ignore
 function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAnswers: { [id: string]: string }[]): { [id: string]: string }[] {
     let length = correctAnswers.length
-
+    const IS_DEBUG_MODE = false;
     var generated: { [id: string]: string }[] = [];
     for(var i = 0; i < length; i += 1){
         if (i === 0 && exampleEnabled) {
@@ -13,7 +13,7 @@ function generateRows(headers: GridColDef[], exampleEnabled: boolean, correctAns
         } else {
             var tmp:{ [id: string]: string } = {}
             for(var key in correctAnswers[i]) {
-                if (key === "step"){
+                if (key === "step" || IS_DEBUG_MODE){
                     tmp[key] = correctAnswers[i][key];
                 } else {
                     tmp[key] = "";
