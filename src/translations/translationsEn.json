@@ -4,6 +4,16 @@
     "finish": "Finish",
     "reset": "Reset",
     "tasks": "Tasks",
+    "contact_us_page":{
+        "intro":"Who are we?",
+        "first_row":"We are thechnion students making this website as a part of a yearly project.",
+        "second_row":"Our names are: Andrew, Aseel, David, Eden and Ofik..",
+        "third_row":"What is this website?",
+        "fourth_row":"This website is made to help primarily high school students in understanding and visulaizing algorithms in machine learning.",
+        "fifth_row":"How can I report bugs or suggest features?",
+        "sixth_row":"You can do so by sending us an email at:"
+    },
+
     "homepage":{
         "intro":"Understand how Machine Learning works by using 3D animation and simple explanations.",
         "get_started_btn":"Get started",
