@@ -135,15 +135,11 @@ export function getPoints1D(f: string, startX: number, steps_count: number, alph
 }
 
 export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("polyline" | "interval" | "scatter"), title: string = f) {
-    var width = 800;
-    var height = 500;
     // console.log("points= \n", points)
     // console.log("f= \n", f)
     try {
         functionPlot({
             target: '#graph-board',
-            width,
-            height,
             xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
             yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
             title: title,

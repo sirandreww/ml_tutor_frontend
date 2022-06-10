@@ -188,7 +188,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                         comparator={(res, ans) => Number(ans) === Number(res)}
                                     />) : <div></div>
                                     }
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph-board' />
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr', display: 'inline-flex' }} id='graph-board' />
                                 </Box>
                             </CenterItem>
                             {getButtonsInput(buttonsType)}
