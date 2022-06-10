@@ -2,6 +2,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 import { button, LeftItem, CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import Typography from '@mui/material/Typography';
 import QuestionTable from 'components/QuestionTable';
@@ -111,89 +112,95 @@ export default function GradientDescentGenericPage1D(props: Props) {
                         <Grid item xs={12}>
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
-                                    <Grid item xs={2}>
-                                        <Typography style={{ color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <FunctionTextField InputProps={{"data-testid":"funInput"}} value={myfun} vars="x" onChange={
-                                            event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })
-                                        } />
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        {getAlphaInput(alphaType)}
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(x_{0}\\)"}</MathJax>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <NumberTextField InputProps={{"data-testid": "xInput"}} value={startX} onChange={
-                                            event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0, sps: stepsPerSecond })
-                                        } />
-                                    </Grid>
-                                    {(buttonsType === "stepByStep") ? null :
-                                        <Grid item xs={2}>
-                                            <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
-                                                <MathJax style={mathJaxStyle} inline>{"\\(steps_{perSecond}\\)"}</MathJax>
-                                            </Typography>
+                                    <Grid item xs={4}>
+                                        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
+                                            <Grid item xs={2}>
+                                                <Typography style={{ color: 'black' }}>
+                                                    <MathJax style={mathJaxStyle} inline>{"\\(f(x)\\)"}</MathJax>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                <FunctionTextField InputProps={{"data-testid":"funInput"}} value={myfun} vars="x" onChange={
+                                                    event => handleStates({ fn: event.target.value, al: alpha, sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })
+                                                } />
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                    <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                {getAlphaInput(alphaType)}
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                    <MathJax style={mathJaxStyle} inline>{"\\(x_{0}\\)"}</MathJax>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                <NumberTextField InputProps={{"data-testid": "xInput"}} value={startX} onChange={
+                                                    event => handleStates({ fn: myfun, al: alpha, sx: Number(event.target.value), tck: false, cnt: 0, sps: stepsPerSecond })
+                                                } />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                {(buttonsType === "stepByStep") ? null :
+                                                    <Typography style={{ width: '100%', height: '2rem', color: 'black' }}>
+                                                        <MathJax style={mathJaxStyle} inline>{"\\(steps_{perSecond}\\)"}</MathJax>
+                                                    </Typography>
+                                                }
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                {(buttonsType === "stepByStep") ? null :
+                                                    <PrettoSlider
+                                                        data-testId="stepPerSecondInput"
+                                                        valueLabelDisplay="auto"
+                                                        aria-label="pretto slider"
+                                                        defaultValue={stepsPerSecond}
+                                                        step={1}
+                                                        min={1}
+                                                        max={100}
+                                                        onChange={(_, value) => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0, sps: Number(value) })}
+                                                    />
+                                                }
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Divider sx={{ borderBottomWidth: 3 }} />
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
+                                                    <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xs={10}>
+                                                {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
+                                                <TextField data-testId="dfResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                            </Grid>
                                         </Grid>
-                                    }
-                                    {(buttonsType === "stepByStep") ? null :
-                                        <Grid item xs={10}>
-                                            <PrettoSlider
-                                                data-testId="stepPerSecondInput"
-                                                valueLabelDisplay="auto"
-                                                aria-label="pretto slider"
-                                                defaultValue={stepsPerSecond}
-                                                step={1}
-                                                min={1}
-                                                max={100}
-                                                onChange={(_, value) => handleStates({ fn: myfun, al: alpha, sx: startX, tck: false, cnt: 0, sps: Number(value) })}
-                                            />
-                                        </Grid>
-                                    }
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr', display: 'inline-flex' }} id='graph-board' />
+                                    </Grid>
                                 </Grid>
                             </LeftItem>
                         </Grid>
 
                         <Grid item xs={12}>
-                            <LeftItem>
-                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
-                                    <Grid item xs={2}>
-                                        <Typography style={{ width: '100%', height: '2rem', fontSize: '1.2rem', color: 'black' }}>
-                                            <MathJax style={mathJaxStyle} inline>{"\\(\\frac{df}{dx}\\)"}</MathJax>
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
-                                        <TextField data-testId="dfResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
-                                    </Grid>
-                                </Grid>
-                            </LeftItem>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <CenterItem>
-                                <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
-                                    {generateQuestionTable ? (<QuestionTable
-                                        headers={getOneDimensionalColumnNames()}
-                                        exampleEnabled={true}
-                                        correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}
-                                        comparator={(res, ans) => Number(ans) === Number(res)}
-                                    />) : <div></div>
-                                    }
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr', display: 'inline-flex' }} id='graph-board' />
-                                </Box>
-                            </CenterItem>
                             {getButtonsInput(buttonsType)}
+                            {generateQuestionTable ?
+                                (
+                                    <CenterItem>
+                                        <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
+                                            <QuestionTable
+                                                headers={getOneDimensionalColumnNames()}
+                                                exampleEnabled={true}
+                                                correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }], alpha, 5)}
+                                                comparator={(res, ans) => Number(ans) === Number(res)}
+                                            />
+                                        </Box>
+                                    </CenterItem>
+                                )
+                                : null
+                            }
                         </Grid>
                     </Grid>
                 </MathJaxContext>

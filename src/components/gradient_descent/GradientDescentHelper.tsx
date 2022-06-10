@@ -21,7 +21,7 @@ const math = create(all, {})
 const DIGITS = 2
 
 export const PrettoSlider = styled(Slider)({
-    width: '30%',
+    width: '100%',
     height: 8,
     '& .MuiSlider-track': {
         border: 'none',
