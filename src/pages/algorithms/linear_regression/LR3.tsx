@@ -4,9 +4,10 @@ import { Box, Typography } from '@mui/material';
 import { languageAlign, languageDirection, LeftItem } from 'components/LanguageAndButtonUtility';
 import Grid from "@mui/material/Grid";
 import LinearRegressionP3 from 'components/linear_regression/LinearRegressionPage3';
-
+import { useTranslation } from "react-i18next";
 
 export default function LR3() {
+    const [t] = useTranslation('translation');
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="lr"
@@ -17,9 +18,7 @@ export default function LR3() {
                     <Grid item xs={12}>
                         <LeftItem>
                             <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                             It's time to see the model in action. 
-                             Add points and edit the values as you want, you'll see the parameters being calculated on the go
-                             and the Linear line which represents the model's predictions forms on the graph below.
+                            {t("lr.p3_desc")}
                             </Typography>
                         </LeftItem>
                     </Grid>

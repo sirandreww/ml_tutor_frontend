@@ -4,30 +4,32 @@ import React from 'react';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
 import { Typography, Container } from '@mui/material';
+import {useTranslation} from "react-i18next";
 // import PrettyLine from 'components/PrettyLine';
 
 function ContactUs() {
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    const [t] = useTranslation('translation');
     return (
         <>
             <Navbar />
             <Container maxWidth="lg">
                 <Typography>
                     <br />
-                    Who are we?<br />
+                    {t("contact_us_page.intro")}<br />
                     <br />
-                    {tab}We are thechnion students making this website as a part of a yearly project.<br />
-                    {tab}Our names are: Andrew, Aseel, David, Eden and Ofik.<br />
-                    <br />
-                    <br />
-                    What is this website?<br />
-                    <br />
-                    {tab}This website is made to help primarily high school students in understanding and visulaizing algorithms in machine learning.<br />
+                    {tab}{t("contact_us_page.first_row")}<br />
+                    {tab}{t("contact_us_page.second_row")}<br />
                     <br />
                     <br />
-                    How can I report bugs or suggest features?<br />
+                    {t("contact_us_page.third_row")}<br />
                     <br />
-                    {tab}You can do so by sending us an email at:<br />
+                    {tab}{t("contact_us_page.fourth_row")}<br />
+                    <br />
+                    <br />
+                    {t("contact_us_page.fifth_row")}<br />
+                    <br />
+                    {tab}{t("contact_us_page.sixth_row")}<br />
                     {tab}mlomda@protonmail.com
                     <br />
                 </Typography>

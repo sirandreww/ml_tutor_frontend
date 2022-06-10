@@ -24,6 +24,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
     const { alphaType, buttonsType, generateQuestionTable } = props
 
     const getAlphaInput = (type: string) => {
+        // @ts-ignore
         switch (type) {
             case 'slider':
                 return (
@@ -41,6 +42,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                     </span>
                 );
             case 'input':
+                // @ts-ignore
                 return <NumberTextField InputProps={{"data-testid": "alphaInput"}} value={alpha} onChange={event => handleStates({ fn: myfun, al: Number(event.target.value), sx: startX, tck: false, cnt: 0, sps: stepsPerSecond })} />
             default:
                 return null

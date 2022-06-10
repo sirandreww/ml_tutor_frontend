@@ -29,14 +29,14 @@ export default function MathWritingExplanation() {
     return (
         <Container maxWidth="md">
             <Box height={50} />
-            Cheat sheet for math function notation:
+            {t("algorithms.cheat_sheet")}
             <Box height={50} />
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>function</TableCell>
-                            <TableCell align="left">notation</TableCell>
+                            <TableCell>{t("algorithms.function")}</TableCell>
+                            <TableCell align="left">{t("algorithms.notation")}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
