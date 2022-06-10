@@ -217,7 +217,7 @@ export default function GradientDescentGenericPage2D(props: Props) {
                                         correctAnswers={getCorrectAnswers(myfun, [{ 'v': 'x', 'val': startX }, { 'v': 'y', 'val': startY }], alpha, 5)}
                                         comparator={(res, ans) => Number(ans) === Number(res)}
                                     /> : <div></div>}
-                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }} id='graph2-board' />
+                                    <Box sx={{ width: "100%", textAlign: 'center', direction: 'ltr', display: 'inline-flex' }} id='graph2-board' />
                                 </Box>
                             </CenterItem>
                             {getButtonsInput(buttonsType)}
