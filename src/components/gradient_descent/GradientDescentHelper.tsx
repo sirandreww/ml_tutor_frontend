@@ -140,8 +140,6 @@ export function getGraph1D(f: string, points: number[][], pointsGraphType?: ("po
     try {
         functionPlot({
             target: '#graph-board',
-            // width,
-            // height,
             xAxis: { domain: [-(math.abs(points[0][0]) + 2), math.abs(points[0][0]) + 2], label: 'x' },
             yAxis: { domain: [-(math.abs(points[0][1]) + 2), math.abs(points[0][1]) + 2], label: 'f(x)' },
             title: title,

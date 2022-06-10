@@ -4,6 +4,7 @@ import functionPlot from "function-plot";
 import Typography from '@mui/material/Typography';
 import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { useTranslation } from "react-i18next";
 
 function getGraph1D(f: string, points: number[][]) {
     var width = 800;
@@ -57,7 +58,7 @@ function getGraph1D(f: string, points: number[][]) {
 }
 
 export default function Introduction1D() {
-
+    const [t] = useTranslation('translation');
     let points = [[1,3],[2,4],[3,8],[4,9]];
     
     React.useEffect(() => {
@@ -70,31 +71,30 @@ export default function Introduction1D() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
-                    <h1 style={headers_style}>Linear regression</h1>
+                    <h1 style={headers_style}> {t("lr.title")} </h1>
                     <br/>
-                    Given a set of m examples <MathJax style={mathJaxStyle} inline>{"\\((x^{(i)},y^{(i)})\\)"}</MathJax>,<br/>
-                    <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - sample values of the independent variable,<br/>
-                    <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - sample values of the dependent variable respectively.<br/>
+                    
+                    {t("lr.examples_set")} <MathJax style={mathJaxStyle} inline>{"\\((x^{(i)},y^{(i)})\\)"}</MathJax>,<br/>
+                    <MathJax style={mathJaxStyle} inline>{"\\(x\\)"}</MathJax> - {t("lr.x_vals")},<br/>
+                    <MathJax style={mathJaxStyle} inline>{"\\(y\\)"}</MathJax> - {t("lr.y_vals")}.<br/>
                     <br/>
-                    Linear regression is a mathematical method for finding the parameters of the relationship between an independent variable X and a dependent variable Y,<br/>
-                    assuming that the relationship between them is linear,<br/>
-                    we would like to find an optimal regression model from the form <MathJax style={mathJaxStyle} inline>{"\\(\\hat{y} = w \\cdot x + b\\)"}</MathJax>.<br/>
+                    {t("lr.description")} <MathJax style={mathJaxStyle} inline>{"\\(\\hat{y} = w \\cdot x + b\\)"}</MathJax>.<br/>
                     <br/>
                 </Typography>
                 <div id='graph-board' style={{pointerEvents: 'none'}}></div>
                 <Typography component={'span'}>
                     <br/>
-                    <h4 style={headers_style}>How to find the optimal parameters of the model?</h4><br/>
-                    We take the parameters that minimize the sum of mean squared loss:<br/>
+                    <h4 style={headers_style}>{t("lr.opt_params")}</h4><br/>
+                    {t("lr.min_params")}:<br/>
                     <MathJax style={mathJaxStyle} inline>{"\\(J=\\frac{1}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)^{2}\\)"}</MathJax><br/>
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>Some definitions:</h4><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{x}=\\frac{1}{m}\\sum_{i=1}^{m}x^{(i)}\\)"}</MathJax> - the mean value of x.<br/><br/>
-                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{y}=\\frac{1}{m}\\sum_{i=1}^{m}y^{(i)}\\)"}</MathJax> - the mean value of y.<br/><br/>
+                    {tab}<h4 style={headers_style}>{t("lr.defs")}:</h4><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{x}=\\frac{1}{m}\\sum_{i=1}^{m}x^{(i)}\\)"}</MathJax> - {t("lr.x_mean_val")}.<br/><br/>
+                    {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{y}=\\frac{1}{m}\\sum_{i=1}^{m}y^{(i)}\\)"}</MathJax> - {t("lr.y_mean_val")}.<br/><br/>
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{x\\cdot x} =\\frac{1}{m}\\sum_{i=1}^{m}x^{(i)}x^{(i)}\\)"}</MathJax><br/><br/>
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(\\overline{x\\cdot y} =\\frac{1}{m}\\sum_{i=1}^{m}x^{(i)}y^{(i)}\\)"}</MathJax><br/><br/>
                     <br/><br/>
-                    {tab}<h4 style={headers_style}>So the analytical solution is:</h4><br/>
+                    {tab}<h4 style={headers_style}>{t("lr.analytic_sol")}:</h4><br/>
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(w = \\frac{\\overline{x\\cdot y}-\\bar{x}\\cdot \\bar{y}}{\\overline{x\\cdot x}-\\bar{x}\\cdot \\bar{x}}\\)"}</MathJax><br/><br/>
                     {tab}{tab}<MathJax style={mathJaxStyle} inline>{"\\(b = \\overline{y} - w \\bar{x}\\)"}</MathJax><br/><br/>
                 </Typography>

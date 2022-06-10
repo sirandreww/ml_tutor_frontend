@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {  render, screen } from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import GradientDescentGenericPage1D from "../GradientDescentGenericPage1D";
 
 const visualizationPage = () => {
@@ -64,10 +64,44 @@ describe("Testing Gradient Descent 1D Pages", () => {
         })
         describe("When handling events", () => {
             describe("When user enters input", () => {
+                it('Should update the function and its df', () => {
+                    render(visualizationPage());
 
-            })
-            describe("When user click buttons", () => {
+                    let funInput = screen.getByTestId("funInput").querySelectorAll('input')[0]
+                    let dfResult = screen.getByTestId("dfResult").querySelectorAll('input')[0]
 
+                    fireEvent.change(funInput, {target: {value: 'x^3'}})
+                    expect(funInput.value).toBe('x^3')
+                    expect(dfResult.value).toBe('3 * x ^ 2')
+
+                })
+                it('Should update alpha', () => {
+                    render(visualizationPage());
+
+                    let alphaInput = screen.getByTestId("alphaInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(alphaInput, {target: {value: 5}})
+                    expect(alphaInput.value).toBe('5')
+
+                })
+                it('Should update starting value of x', () => {
+                    render(visualizationPage());
+
+                    let xInput = screen.getByTestId("xInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(xInput, {target: {value: 5}})
+                    expect(xInput.value).toBe('5')
+
+                })
+                it('Should update the number of steps in each second', () => {
+                    render(visualizationPage());
+
+                    let stepPerSecondInput = screen.getByTestId("stepPerSecondInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(stepPerSecondInput, {target: {value: 5}})
+                    expect(stepPerSecondInput.value).toBe('5')
+
+                })
             })
         })
     })
@@ -97,6 +131,39 @@ describe("Testing Gradient Descent 1D Pages", () => {
                 expect(screen.getByTestId("prevButton")).toBeTruthy();
                 expect(screen.getByTestId("stopButton")).toBeTruthy();
                 expect(screen.getByTestId("nextButton")).toBeTruthy();
+            })
+        })
+        describe("When handling events", () => {
+            describe("When user enters input", () => {
+                it('Should update the function and its df', () => {
+                    render(stepByStepPage());
+
+                    let funInput = screen.getByTestId("funInput").querySelectorAll('input')[0]
+                    let dfResult = screen.getByTestId("dfResult").querySelectorAll('input')[0]
+
+                    fireEvent.change(funInput, {target: {value: 'x^3'}})
+                    expect(funInput.value).toBe('x^3')
+                    expect(dfResult.value).toBe('3 * x ^ 2')
+
+                })
+                it('Should update alpha', () => {
+                    render(stepByStepPage());
+
+                    let alphaInput = screen.getByTestId("alphaInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(alphaInput, {target: {value: 2}})
+                    expect(alphaInput.value).toBe('2')
+
+                })
+                it('Should update starting value of x', () => {
+                    render(stepByStepPage());
+
+                    let xInput = screen.getByTestId("xInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(xInput, {target: {value: 5}})
+                    expect(xInput.value).toBe('5')
+
+                })
             })
         })
     })
@@ -129,6 +196,48 @@ describe("Testing Gradient Descent 1D Pages", () => {
                 expect(screen.getByTestId("playButton")).toBeTruthy();
                 expect(screen.getByTestId("stopButton")).toBeTruthy();
                 expect(screen.getByTestId("pauseButton")).toBeTruthy();
+            })
+        })
+        describe("When handling events", () => {
+            describe("When user enters input", () => {
+                it('Should update the function and its df', () => {
+                    render(hyperParameterPage());
+
+                    let funInput = screen.getByTestId("funInput").querySelectorAll('input')[0]
+                    let dfResult = screen.getByTestId("dfResult").querySelectorAll('input')[0]
+
+                    fireEvent.change(funInput, {target: {value: 'x^3'}})
+                    expect(funInput.value).toBe('x^3')
+                    expect(dfResult.value).toBe('3 * x ^ 2')
+
+                })
+                it('Should update alpha', () => {
+                    render(hyperParameterPage());
+
+                    let alphaInput = screen.getByTestId("alphaInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(alphaInput, {target: {value: 2}})
+                    expect(alphaInput.value).toBe('2')
+
+                })
+                it('Should update starting value of x', () => {
+                    render(hyperParameterPage());
+
+                    let xInput = screen.getByTestId("xInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(xInput, {target: {value: 5}})
+                    expect(xInput.value).toBe('5')
+
+                })
+                it('Should update the number of steps in each second', () => {
+                    render(hyperParameterPage());
+
+                    let stepPerSecondInput = screen.getByTestId("stepPerSecondInput").querySelectorAll('input')[0]
+
+                    fireEvent.change(stepPerSecondInput, {target: {value: 5}})
+                    expect(stepPerSecondInput.value).toBe('5')
+
+                })
             })
         })
     })
