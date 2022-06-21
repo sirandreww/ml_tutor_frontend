@@ -50,6 +50,9 @@ const LogReg7 = lazy(() => import("pages/algorithms/logistic_regression/LogReg7"
 
 // ------------------------ Neural Network ------------------------ 
 const NN1 = lazy(() => import("pages/algorithms/neural_network/NN1"));
+const NN2 = lazy(() => import("pages/algorithms/neural_network/NN2"));
+const NN3 = lazy(() => import("pages/algorithms/neural_network/NN3"));
+
 
 const theme = createTheme({});
 
@@ -120,6 +123,8 @@ function App() {
 
                   {/* // ------------------------ Neural Network ------------------------  */}
                   <Route path="/algorithms/nn1" element={<NN1 />} />
+                  <Route path="/algorithms/nn2" element={<NN2 />} />
+                  <Route path="/algorithms/nn3" element={<NN3 />} />
 
                   <Route path="/signin" element={<SignIn />} />
                 </Routes>

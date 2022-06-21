@@ -10,6 +10,7 @@
   
   h1 {
     text-align: center;
+    font-family: 'PT Sans', sans-serif;
   }
   
   .cards__container {
@@ -102,6 +103,7 @@
     color: #252e48;
     font-size: 18px;
     line-height: 24px;
+    font-family: 'PT Sans', sans-serif;
   }
   
   @media only screen and (min-width: 1200px) {

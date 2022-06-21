@@ -39,6 +39,8 @@ const log_reg_steps: string[] = [
 
 const neural_network_steps: string[] = [
   "nn_step_1_title",
+  "nn_step_2_title",
+  "nn_step_3_title",
 ]
 
 export default function AlgorithmsDashboard(props: { currentAlgorithmName: ("gd" | "lr" | "logreg" | "nn"), currentStep: number, component: any }) {

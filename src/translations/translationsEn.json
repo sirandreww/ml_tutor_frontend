@@ -266,6 +266,21 @@
         }
     },
 
+    "nn": {
+        "tasks" : {
+            "nn_step_1_title": "Introduction",
+            "nn_step_2_title": "Exercise 1",
+            "nn_step_3_title": "Tenserflow Playground"
+        },
+
+        "pages": {
+            "intro_title": "Neural Networks",
+            "intro": {
+                "nn_description":"An artificial neural network, or neural network (NN) for short, is a computing system inspired by the biological neural network of the brain. A simplified explanation goes as follow"
+            }
+        }
+    },
+
     "lr": {
         "tasks" : {
             "1d_int": "Introduction",
