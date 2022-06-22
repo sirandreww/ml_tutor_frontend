@@ -309,7 +309,33 @@
         "analytic_sol":"So the analytical solution is",
         "p2_desc":"In this example we will try to predict the housing prices (in millions) according to the number of rooms.\nThe table contains data of housing prices. below, there are the parameters needed in order to evaluate the prediction of the model, the Regression function, and finally, the graph with the regression line.",
         "p3_desc":"It's time to see the model in action. \nAdd points and edit the values as you want, you'll see the parameters being calculated on the go\nand the Linear line which represents the model's predictions forms on the graph below.",
-        "p4_desc":"Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.\nYour mission is to calculate the parameters in order to form the correct model.\nBelow, you will see the correct model representation in blue, and your model will\nappear in red.\nGood Luck!"
+        "p4_desc":"Now it's your turn! you're given a partial table from the Iris Database, where X is the Sepal length, and Y is the Sepal width of the flower.\nYour mission is to calculate the parameters in order to form the correct model.\nBelow, you will see the correct model representation in blue, and your model will\nappear in red.\nGood Luck!",
+        "p5_desc": { 
+            "d1": "Lets find the optimal w and b using GD",
+            "d2": "We take the parameters that minimize the loss function:"
+        },
+        "p5_steps": { 
+            "s1a": "1. Select",
+            "s1b": "and",
+            "s1c": "at random",
+            "s2": "2. Calculate",
+            "s3": "3. Calculate",
+            "s4": "4. Apply",
+            "s5": "5. Apply",
+            "s6a": "6. We repeat this process (steps 2-5) until our loss function is a very small value or ideally 0. The value of",
+            "s6b": "and",
+            "s6c": "that we are left with now will be the optimum values."
+        },
+        "p5_ex1": "In this example we will repeat the process 3 times while using ",
+        "p5_ex2": "and then will see the resulting model and how it changes every update:",
+        "p6": {
+            "task": "Now lets try it yourself",
+            "desc1": "Follow the process and keep updating the values of ",
+            "desc2": "and",
+            "desc3": " while using ",
+            "desc4": "Below, you will see the correct model representation in blue, and your model will appear in red. Good Luck!"
+        },
+        "p5_title":"Linear regression using Gradient Descent"
     },
 
 

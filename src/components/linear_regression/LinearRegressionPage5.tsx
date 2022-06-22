@@ -6,6 +6,7 @@ import { mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import Grid from "@mui/material/Grid";
+import { useTranslation } from "react-i18next";
 
 function getGraphWBJ(f1: string, points1: number[][],f2: string, points2: number[][],f3: string, points3: number[][]) {
     var width = 800;
@@ -172,7 +173,7 @@ function getGraph1D(f: string, points: number[][]) {
 }
 
 export default function LinearRegressionP5() {
-
+    const [t] = useTranslation('translation');
     let points = [[1,3],[2,4],[3,8],[4,9]];
     let w_vals = [[0, 0], [1, 3.728], [2, 0.923], [3, 3.04], [4, 1.448], [5, 2.652], [6, 1.749], [7, 2.433], [8, 1.92], [9, 2.31], [10, 2.02], [11, 2.241], [12, 2.077], [13, 2.204], [14, 2.111], [15, 2.184], [16, 2.132], [17, 2.153], [18, 2.168], [19, 2.178], [20, 2.188], [21, 2.198]];
     let b_vals = [[0, 0], [1, 1.26], [2, 0.298], [3, 1.011], [4, 0.463], [5, 0.865], [6, 0.551], [7, 0.778], [8, 0.597], [9, 0.724], [10, 0.619], [11, 0.689], [12, 0.627], [13, 0.665], [14, 0.629], [15, 0.648], [16, 0.626], [17, 0.615], [18, 0.601], [19, 0.564], [20, 0.535], [21, 0.506]];
@@ -203,23 +204,22 @@ export default function LinearRegressionP5() {
         <Box sx={{ width: '100%' }}>
             <MathJaxContext version={3} config={mathJaxConfig}>
                 <Typography component={'span'}>
-                    <h1 style={headers_style}>Linear regression using Gradient Descent</h1>
+                    <h1 style={headers_style}>{t("lr.p5_title")}</h1>
                     <br/>
-                    <h4 style={headers_style}>Lets find the optimal w and b using GD</h4><br/>
-                    We take the parameters that minimize the loss function:<br/>
+                    <h4 style={headers_style}>{t("lr.p5_desc.d1")}</h4><br/>
+                    {t("lr.p5_desc.d2")}<br/>
                     <MathJax style={mathJaxStyle} inline>{"\\(J(w,b)=\\frac{1}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)^{2}\\)"}</MathJax><br/>
                     <br/>
-                    1. Select <MathJax style={mathJaxStyle} inline>{"\\(w_0\\)"}</MathJax> and <MathJax style={mathJaxStyle} inline>{"\\(b_0\\)"}</MathJax> at random<br/><br/>
-                    2. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{dJ}{dw}(w, b)=\\frac{2}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)x^{(i)}\\)"}</MathJax><br/><br/>
-                    3. Calculate <MathJax style={mathJaxStyle} inline>{"\\(\\frac{dJ}{db}(w, b)=\\frac{2}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)\\)"}</MathJax><br/><br/>
-                    4. Apply <MathJax style={mathJaxStyle} inline>{"\\(w = w - (\\alpha * \\frac{df}{dw}(w, b))\\)"}</MathJax><br/><br/>
-                    5. Apply <MathJax style={mathJaxStyle} inline>{"\\(b = b - (\\alpha * \\frac{df}{db}(w, b))\\)"}</MathJax><br/><br/>
-                    6. We repeat this process (steps 2-5) until our loss function is a very small value or ideally 0.
-                       The value of <MathJax style={mathJaxStyle} inline>{"\\(w\\)"}</MathJax> and <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax> that we are left with now will be the optimum values.
+                    {t("lr.p5_steps.s1a")} <MathJax style={mathJaxStyle} inline>{"\\(w_0\\)"}</MathJax> {t("lr.p5_steps.s1b")} <MathJax style={mathJaxStyle} inline>{"\\(b_0\\)"}</MathJax> {t("lr.p5_steps.s1c")}<br/><br/>
+                    {t("lr.p5_steps.s2")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{dJ}{dw}(w, b)=\\frac{2}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)x^{(i)}\\)"}</MathJax><br/><br/>
+                    {t("lr.p5_steps.s3")} <MathJax style={mathJaxStyle} inline>{"\\(\\frac{dJ}{db}(w, b)=\\frac{2}{m} \\sum_{i=1}^{m}\\left(w\\cdot x^{(i)}+b-y^{(i)}\\right)\\)"}</MathJax><br/><br/>
+                    {t("lr.p5_steps.s4")} <MathJax style={mathJaxStyle} inline>{"\\(w = w - (\\alpha * \\frac{df}{dw}(w, b))\\)"}</MathJax><br/><br/>
+                    {t("lr.p5_steps.s5")} <MathJax style={mathJaxStyle} inline>{"\\(b = b - (\\alpha * \\frac{df}{db}(w, b))\\)"}</MathJax><br/><br/>
+                    {t("lr.p5_steps.s6a")} <MathJax style={mathJaxStyle} inline>{"\\(w\\)"}</MathJax> {t("lr.p5_steps.s6b")} <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax> {t("lr.p5_steps.s6c")}
                     <br/><br/>
                 </Typography>
                 <Typography component={'span'}>
-                In this example we will repeat the process 3 times while using <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = 0.1 and then will see the resulting model and how it changes every update:   
+                {t("lr.p5_ex1")}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = 0.1 {t("lr.p5_ex2")}   
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }}>
                         <Grid item xs={3} justifyContent="end"> 
                             <DataGrid

@@ -22,10 +22,12 @@ import Grid from "@mui/material/Grid";
 import LinearRegressionP6 from 'components/linear_regression/LinearRegressionPage6';
 import { button,CenterItem, mathJaxConfig, mathJaxStyle } from 'components/LanguageAndButtonUtility';
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { useTranslation } from "react-i18next";
 
 
 
 export default function LR6() {
+    const [t] = useTranslation('translation');
     const tab = <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     const headers_style = {fontFamily: 'Arial, Helvetica, sans-serif'}
     return (
@@ -39,12 +41,10 @@ export default function LR6() {
                         <LeftItem>
                         <MathJaxContext version={3} config={mathJaxConfig}>
                         <Typography sx={{ color: 'black', fontSize: '1rem', textAlign: languageAlign(), direction: languageDirection() }}>
-                            <h4 style={headers_style}>Now lets try it yourself</h4><br/>
-                            Follow the process and keep updating the values of <MathJax style={mathJaxStyle} inline>{"\\(w\\)"}</MathJax> and <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax>,
-                            while using <MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = 0.01.
-                            Below, you will see the correct model representation in blue, and your model will
-                            appear in red.
-                            Good Luck!
+                            <h4 style={headers_style}>{t("lr.p6.task")}</h4><br/>
+                            {t("lr.p6.desc1")}<MathJax style={mathJaxStyle} inline>{"\\(w\\)"}</MathJax> {t("lr.p6.desc2")} <MathJax style={mathJaxStyle} inline>{"\\(b\\)"}</MathJax>,
+                            {t("lr.p6.desc3")}<MathJax style={mathJaxStyle} inline>{"\\(\\alpha\\)"}</MathJax> = 0.01.
+                            <br/>{t("lr.p6.desc4")}
                             </Typography>
                         </MathJaxContext>
                         </LeftItem>
