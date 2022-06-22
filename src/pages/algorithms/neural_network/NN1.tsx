@@ -11,7 +11,7 @@ import LogisticRegressionPlot from 'components/logistic_regression/LogisticRegre
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
 import AnswerField from 'components/AnswerField';
 import NNGraph2d from 'components/NNGraph2D';
-import nn1 from "assets/images/nn1.png"
+import nn1 from "assets/images/nn1.png";
 
 const translation_path = "nn.pages.intro"
 export default function NN1() {
@@ -30,6 +30,7 @@ export default function NN1() {
                             <Typography sx={{ width: "100%", textAlign: 'center', direction: 'ltr' }}>
                                 <h1 style={headers_style}>{t("nn.pages.intro_title")}</h1>
                             </Typography>
+                            <br />
                             <br />
                             <br />
                             An artificial neural network, or neural network (NN) for short, is a computing system
@@ -55,7 +56,7 @@ export default function NN1() {
                             </ol>
                             Let's take a look at an example :<br />
                             <br />
-                            <NNGraph2d layers={[2, 3, 2, 3, 2]} colors={["green", "blue", "blue", "blue", "red"]} />
+                            <NNGraph2d layers={[2, 3, 2, 3, 2]} colors={["green", "blue", "blue", "blue", "red"]} style={{height: "400px"}}/>
                             <br />
                             In the graph above the green neurons are the input neurons, the blue neurons
                             are in internal layers and the red neurons are the output neurons. <br />
@@ -63,7 +64,7 @@ export default function NN1() {
                             <br />
                             Now that we have a basic understanding of how a neural network looks like, we
                             can start talking about how it calculates the output. Each neuron in each layer
-                            is a perceptron of all the neurons of the layers before it. <br />
+                            is a logistic regression of all the neurons of the layers before it. <br />
                             <br />
                             For example in this neural network : <br />
                             <br />
@@ -79,13 +80,20 @@ export default function NN1() {
                                 />
                             </Box>
                             <br />
-
-
-
-
-                            <br />
-                            <br />
-                            <br />
+                            The value of 
+                            <MathJax style={mathJaxStyle} inline>{"\\( \\: a_{1}^{[1]} \\)"}</MathJax>
+                            (The value of the top-most neuron in the first internal layer) is 
+                            calculated using the following formula:<br />
+                            <MathJax style={mathJaxStyle} inline>{"\\( a_{1}^{[1]} = \\sigma ( w_{1}^{[1]} \\cdot a^{[0]} + b[1]) \\)"}</MathJax><br />
+                            Where 
+                            <MathJax style={mathJaxStyle} inline>{"\\( \\: w_{1}^{[1]} \\cdot a^{[0]} \\: \\)"}</MathJax>
+                            is a dot multiplication of 2 vectors, one has the values from the input layer
+                            and the othe vector has the weight for each connection with a neuron from a
+                            previous layer. 
+                            <MathJax style={mathJaxStyle} inline>{"\\( \\: b[1] \\: \\)"}</MathJax>
+                            is the bias that that neuron has, and 
+                            <MathJax style={mathJaxStyle} inline>{"\\( \\: \\sigma \\: \\)"}</MathJax>
+                            is the a non linear function such as sigmoid, ReLU or Tanh.
                             <br />
                             <br />
                         </Typography>
