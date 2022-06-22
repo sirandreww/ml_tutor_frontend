@@ -21,6 +21,9 @@ const options = {
     },
     edges: {
         color: "#000000"
+    },
+    nodes: {
+        shape: "circle"
     }
 };
 
@@ -47,7 +50,7 @@ export default function NNGraph2d(props: Props) {
         for (var i = 0; i < props.layers.length; i += 1) {
             const first_id_in_current_layer = cid;
             for (var j = 0; j < props.layers[i]; j += 1) {
-                nodes = nodes.concat({ id: cid, label: `Layer ${i + 1}, Neuron ${j + 1}`, color: `${props.colors[i]}` });
+                nodes = nodes.concat({ id: cid, label: `Layer ${i}\nNeuron ${j + 1}`, color: `${props.colors[i]}` });
                 if (i > 0) {
                     // not first layer
                     for (var k = first_id_in_current_layer - 1; k >= (first_id_in_current_layer - props.layers[i - 1]); k -= 1) {

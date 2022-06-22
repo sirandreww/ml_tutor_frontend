@@ -19,6 +19,10 @@ export default function NN2() {
     const headers_style = { fontFamily: 'Arial, Helvetica, sans-serif' }
     const [t] = useTranslation('translation');
 
+    const red = "#ff5e5e";
+    const blue = "#469be2";
+    const green = "#70ad47";
+
     return (
         <AlgorithmsDashboard
             currentAlgorithmName="nn"
@@ -33,17 +37,15 @@ export default function NN2() {
                             <br />
                             <br />
                             <br />
-                            Let's try to solve an excersise together, take a look at the following neural network:<br />
+                            Let's try to solve an exercise together, take a look at the following neural network:<br />
                             <br />
-                            <NNGraph2d layers={[2, 2, 1]} colors={["green", "blue", "red"]} style={{height: "300px"}} />
+                            <NNGraph2d layers={[2, 2, 1]} colors={[green, blue, red]} style={{height: "300px"}} />
                             <br />
-                            The excersise will be to take some possibilites for inputs, wights 
+                            The exercise will be to take some possibilites for inputs, weights 
                             and biases and to calculate the value of each neuron. 
                             <br />
                             <br />
                             <NNEx1 />
-                            <br />
-                            
                             <br />
                             <br />
                         </Typography>
