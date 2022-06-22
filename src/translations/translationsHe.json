@@ -65,7 +65,7 @@
 
         "logistic_regression":{
             "text":"תלמד את האלגוריתם logistic regression.",
-            "info":"האלגוריתם מוצא את הקו הכי קרוב לכל הנקודות.",
+            "info":"האלגוריתם מוצא את הקו המפריד הכי טוב בין שתי קבוצות של נקודות.",
             "label":"logistic regression"
         }
 

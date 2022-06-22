@@ -66,7 +66,7 @@
 
         "logistic_regression":{
             "text":"Learn the Logistic Regression Algorithm",
-            "info":"This algorithm finds the closest line to all the points",
+            "info":"This algorithm finds the line that best splits two sets of points",
             "label":"Logistic Regression"
         }
 
