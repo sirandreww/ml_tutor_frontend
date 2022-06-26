@@ -37,12 +37,11 @@ export default function NN2() {
                             <br />
                             <br />
                             <br />
-                            Let's try to solve an exercise together, take a look at the following neural network:<br />
+                            {t("nn.pages.ex1.ex1_1")}<br />
                             <br />
                             <NNGraph2d layers={[2, 2, 1]} colors={[green, blue, red]} style={{height: "300px"}} />
                             <br />
-                            The exercise will be to take some possibilites for inputs, weights 
-                            and biases and to calculate the value of each neuron. 
+                            {t("nn.pages.ex1.ex1_2")}
                             <br />
                             <br />
                             <NNEx1 />

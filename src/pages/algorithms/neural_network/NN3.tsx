@@ -33,16 +33,13 @@ export default function NN3() {
                             <br />
                             <br />
                             <br />
-                            Now that we understand what a neural network is and how it calculates its output,
-                            there's one last thing we need to do... Train one! <br />
+                            {t("nn.pages.tfp.tfp_1")} <br />
                             <br />
-                            Training a neural network means to find the best weights for each connection for 
-                            each two neurons, as well as finding the best bias for each neuron. This is done
-                            using gradient descent! <br />
+                            {t("nn.pages.tfp.tfp_2")} <br />
                             <br />
-                            Your next assignment is simple. 
-                            Follow <a href="https://playground.tensorflow.org/">this</a> link to a website 
-                            called TenserFlow playground, and find a good model for each one of the four datasets.
+                            {t("nn.pages.tfp.tfp_3")} 
+                            {t("nn.pages.tfp.tfp_4")} <a href="https://playground.tensorflow.org/">{t("nn.pages.tfp.link")}</a> {t("nn.pages.tfp.tfp_5")} 
+                            {t("nn.pages.tfp.tfp_6")}
                             <br />
                             <br />
                         </Typography>

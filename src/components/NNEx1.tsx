@@ -16,6 +16,7 @@ import Xarrow from "react-xarrows";
 import NumberTextField from "./NumberTextField";
 import { width } from "@mui/system";
 import { sigmoid } from 'components/logistic_regression/LogisticRegressionCore';
+import { useTranslation } from "react-i18next";
 
 
 // --------------------------------------------------------
@@ -92,6 +93,7 @@ function Arrow(props: { start: any, end: any, label?: number, style?: any, color
 }
 
 export default function NNEx1() {
+    const [t] = useTranslation('translation');
     // -------------------------------- refs for arrows ---------------------------------
     const L2N1B = useRef(null);
     const L2N2B = useRef(null);
@@ -182,7 +184,7 @@ export default function NNEx1() {
     }
 
     return (<div>
-        First Start by choosing the weights you want for the neural network:
+        {t("NNEX1.first")}
         <Grid container rowSpacing={1} columnSpacing={0}>
 
             <Grid item xs={4}>
@@ -205,7 +207,8 @@ export default function NNEx1() {
             </Grid>
         </Grid>
         <br />
-        Now let's calculate the output of the neural network:<br />
+        {t("NNEX1.second")}
+        <br />
         <br />
         <LeftItem>
             <Grid container rowSpacing={5} columnSpacing={0}>
