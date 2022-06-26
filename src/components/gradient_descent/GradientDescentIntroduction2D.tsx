@@ -44,7 +44,7 @@ export default function GradientDescentIntroduction2D() {
                     {t("gd.steps")} <br />
                     <br />
                 </Typography>
-                <Box id='graph2-board'  sx={{ width: "100%", display: 'inline-flex'}}></Box>
+                <Box id='graph2-board' sx={{textAlign: 'center', display: 'inline-flex', justifyContent: "center" }}></Box>
                 <Typography component={'span'}>
                     <br />
                     <h4 data-testid="howto" style={headers_style}>{t("gd.how")}</h4><br />
