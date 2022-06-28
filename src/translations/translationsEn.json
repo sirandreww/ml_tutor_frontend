@@ -311,9 +311,9 @@
             "tfp": {
                 "tfp_1":"Now that we understand what a neural network is and how it calculates its output, there's one last thing we need to do... Train one!",
                 "tfp_2":"Training a neural network means to find the best weights for each connection for each two neurons, as well as finding the best bias for each neuron. This is done using gradient descent!",
-                "tfp_3":"Your next assignment is simple.",
+                "tfp_3":"Your next assignment is simple. ",
                 "tfp_4":"Follow",
-                "tfp_5":"link to a website",
+                "tfp_5":"link to a website ",
                 "tfp_6":"called TenserFlow playground, and find a good model for each one of the four datasets.",
                 "link":"this"
             }
