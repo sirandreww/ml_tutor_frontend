@@ -38,42 +38,32 @@ export default function NN1() {
                             <br />
                             <br />
                             <br />
-                            An artificial neural network, or neural network (NN) for short, is a computing system
-                            inspired by the biological neural network of the brain.<br />
-                            A NN is made up of mainly 3 elements:<br />
+                            {t("nn.pages.intro.nn_description")}<br />
+                            {t("nn.pages.intro.nn_description2")}<br />
                             <ol>
                                 <li>
-                                    Input neurons, they have values that correspond to the input in some way.
-                                    For example if the input is an image there will be a neuron for each pixel, and
-                                    the value of each neuron will be the value (number from 0 to 255) of that pixel.
+                                {t("nn.pages.intro.nn_description3")}
                                 </li>
                                 <li>
-                                    One or more hidden layers of neurons. Each one of these layers is a
-                                    generalization of information in the previous layer.
+                                {t("nn.pages.intro.nn_description4")}
                                 </li>
                                 <li>
-                                    Output neurons, they encode the output of the neural network. For example,
-                                    when the problem is to figure out if an image is a cat or a dog, we would
-                                    have two ouput neurons (one says cat, and the other says dog), the one that
-                                    has the maximum value dictates what the neural network thinks the image
-                                    contains.
+                                {t("nn.pages.intro.nn_description5")}
                                 </li>
                             </ol>
-                            Let's take a look at an example :<br />
+                            {t("nn.pages.intro.nn_description6")}<br />
                             <br />
                             <NNGraph2d layers={[2, 3, 2, 3, 3]} colors={[green, blue, blue, blue, red]} style={{ height: "400px" }} />
                             <br />
-                            In the graph above: <br />
-                            <ColoredSquare color={green} />  The green neurons are the input neurons <br />
-                            <ColoredSquare color={blue} /> The blue neurons are in the hidden layers <br />
-                            <ColoredSquare color={red} /> The red neurons are the output neurons <br />
+                            {t("nn.pages.intro.nn_description7")} <br />
+                            <ColoredSquare color={green} />  {t("nn.pages.intro.nn_description8")} <br />
+                            <ColoredSquare color={blue} /> {t("nn.pages.intro.nn_description9")} <br />
+                            <ColoredSquare color={red} /> {t("nn.pages.intro.nn_description10")} <br />
                             <br />
                             <br />
-                            Now that we have a basic understanding of how a neural network looks like, we
-                            can start talking about how it calculates the output. Each neuron in each layer
-                            is a logistic regression of all the neurons of the layers before it. <br />
+                            {t("nn.pages.intro.nn_description11")} <br />
                             <br />
-                            For example in this neural network : <br />
+                            {t("nn.pages.intro.nn_description12")}<br />
                             <br />
                             <Box
                                 display="flex"
@@ -87,20 +77,17 @@ export default function NN1() {
                                 />
                             </Box>
                             <br />
-                            The value of
+                            {t("nn.pages.intro.nn_description13")}
                             <MathJax style={mathJaxStyle} inline>{"\\( \\: a_{1}^{[1]} \\)"}</MathJax>
-                            (The value of the top-most neuron in the first hidden layer) is
-                            calculated using the following formula:<br />
+                            {t("nn.pages.intro.nn_description14")}<br />
                             <MathJax style={mathJaxStyle} inline>{"\\( a_{1}^{[1]} = \\sigma ( w_{1}^{[1]} \\cdot a^{[0]} + b[1]) \\)"}</MathJax><br />
-                            Where
+                            {t("nn.pages.intro.nn_description15")}
                             <MathJax style={mathJaxStyle} inline>{"\\( \\: w_{1}^{[1]} \\cdot a^{[0]} \\: \\)"}</MathJax>
-                            is a dot multiplication of 2 vectors, one has the values from the input layer
-                            and the othe vector has the weight for each connection with a neuron from a
-                            previous layer.
+                            {t("nn.pages.intro.nn_description16")}
                             <MathJax style={mathJaxStyle} inline>{"\\( \\: b[1] \\: \\)"}</MathJax>
-                            is the bias that that neuron has, and
+                            {t("nn.pages.intro.nn_description17")}
                             <MathJax style={mathJaxStyle} inline>{"\\( \\: \\sigma \\: \\)"}</MathJax>
-                            is the a non linear function such as sigmoid, ReLU or Tanh.
+                            {t("nn.pages.intro.nn_description18")}
                             <br />
                             <br />
                         </Typography>

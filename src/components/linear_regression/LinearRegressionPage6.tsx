@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { GridColDef } from '@mui/x-data-grid';
 import FunctionTextField from '../FunctionTextField';
 // --------------------------------------------------------
-
+ 
 
 function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
@@ -371,9 +371,6 @@ export default function LinearRegressionP6() {
 
     return (
         <div>
-         {/* {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '} */}
-         {/* {JSON.stringify(points)} */}
-         {/* {JSON.stringify(w + '        ' + b)} */}
             <Box sx={{ width: "100%" }}>
                 <MathJaxContext version={3} config={mathJaxConfig}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
@@ -406,10 +403,6 @@ export default function LinearRegressionP6() {
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
                         <Grid item xs={6}>
                         Step 0 values:
-                        {JSON.stringify(w0) + ' ' + JSON.stringify(b0) + ' ' + JSON.stringify(J0) + ' ' + JSON.stringify(dw0) +
-     ' ' + JSON.stringify(db0) + ' ' + JSON.stringify(w0Inp) + ' ' + JSON.stringify(b0Inp) + ' ' +
-     ' ' + JSON.stringify(J0Inp) + ' ' + JSON.stringify(dw0Inp) + ' ' + JSON.stringify(db0Inp) + ' '}
-                            
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
@@ -468,9 +461,6 @@ export default function LinearRegressionP6() {
                         </Grid>
                         <Grid item xs={6}>
                             Step 1 values:
-                            {JSON.stringify(w1) + ' ' + JSON.stringify(b1) + ' ' + JSON.stringify(J1) + ' ' + JSON.stringify(dw1) +
-     ' ' + JSON.stringify(db1) + ' ' + JSON.stringify(w1Inp) + ' ' + JSON.stringify(b1Inp) + ' ' +
-     ' ' + JSON.stringify(J1Inp) + ' ' + JSON.stringify(dw1Inp) + ' ' + JSON.stringify(db1Inp) + ' '}
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
@@ -533,9 +523,6 @@ export default function LinearRegressionP6() {
                         </Grid>
                         <Grid item xs={6}>
                             Step 2 values:
-                            {JSON.stringify(w2) + ' ' + JSON.stringify(b2) + ' ' + JSON.stringify(J2) + ' ' + JSON.stringify(dw2) +
-     ' ' + JSON.stringify(db2) + ' ' + JSON.stringify(w2Inp) + ' ' + JSON.stringify(b2Inp) + ' ' +
-     ' ' + JSON.stringify(J2Inp) + ' ' + JSON.stringify(dw2Inp) + ' ' + JSON.stringify(db2Inp) + ' '}
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>
@@ -598,9 +585,6 @@ export default function LinearRegressionP6() {
                         </Grid>            
                         <Grid item xs={6}>
                             Step 3 values:
-                            {JSON.stringify(w3) + ' ' + JSON.stringify(b3) + ' ' + JSON.stringify(J3) + ' ' + JSON.stringify(dw3) +
-     ' ' + JSON.stringify(db3) + ' ' + JSON.stringify(w3Inp) + ' ' + JSON.stringify(b3Inp) + ' ' +
-     ' ' + JSON.stringify(J3Inp) + ' ' + JSON.stringify(dw3Inp) + ' ' + JSON.stringify(db3Inp) + ' '}
                             <LeftItem>
                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} alignItems="center">
                                     <Grid item xs={1}>

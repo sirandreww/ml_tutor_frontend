@@ -7,7 +7,7 @@
     "contact_us_page":{
         "intro":"Who are we?",
         "first_row":"We are thechnion students making this website as a part of a yearly project.",
-        "second_row":"Our names are: Andrew, Aseel, David, Eden and Ofik..",
+        "second_row":"Our names are: Andrew, Aseel, David, Eden and Ofek..",
         "third_row":"What is this website?",
         "fourth_row":"This website is made to help primarily high school students in understanding and visulaizing algorithms in machine learning.",
         "fifth_row":"How can I report bugs or suggest features?",
@@ -72,6 +72,11 @@
 
         
 
+    },
+
+    "NNEX1":{
+        "first":"First Start by choosing the weights you want for the neural network:",
+        "second":"Now let's calculate the output of the neural network:"
     },
 
     "gd":{
@@ -276,17 +281,41 @@
         "pages": {
             "intro_title": "Neural Networks",
             "intro": {
-                "nn_description":"An artificial neural network, or neural network (NN) for short, is a computing system inspired by the biological neural network of the brain. A simplified explanation goes as follow"
+                "nn_description":"An artificial neural network, or neural network (NN) for short, is a computing system inspired by the biological neural network of the brain.",
+                "nn_description2":"A NN is made up of mainly 3 elements:",
+                "nn_description3":"Input neurons, they have values that correspond to the input in some way. For example if the input is an image there will be a neuron for each pixel, and the value of each neuron will be the value (number from 0 to 255) of that pixel.",
+                "nn_description4":"One or more hidden layers of neurons. Each one of these layers is a generalization of information in the previous layer.",
+                "nn_description5":"Output neurons, they encode the output of the neural network. For example, when the problem is to figure out if an image is a cat or a dog, we would have two ouput neurons (one says cat, and the other says dog), the one that has the maximum value dictates what the neural network thinks the image contains.",
+                "nn_description6":"Let's take a look at an example :",
+                "nn_description7":"In the graph above:",
+                "nn_description8":"The green neurons are the input neurons",
+                "nn_description9":"The blue neurons are in the hidden layers",
+                "nn_description10":"The red neurons are the output neurons",
+                "nn_description11":"Now that we have a basic understanding of how a neural network looks like, we can start talking about how it calculates the output. Each neuron in each layer is a logistic regression of all the neurons of the layers before it.",
+                "nn_description12":"For example in this neural network :",
+                "nn_description13":"The value of",
+                "nn_description14":"(The value of the top-most neuron in the first hidden layer) is calculated using the following formula:",
+                "nn_description15":"Where",
+                "nn_description16":"is a dot multiplication of 2 vectors, one has the values from the input layer and the othe vector has the weight for each connection with a neuron from a previous layer.",
+                "nn_description17":"is the bias that that neuron has, and",
+                "nn_description18":"is the a non linear function such as sigmoid, ReLU or Tanh."
             },
 
             "ex1_title": "Exercise 1",
             "ex1": {
-                "nn_description":"An artificial neural network, or neural network (NN) for short, is a computing system inspired by the biological neural network of the brain. A simplified explanation goes as follow"
+                "ex1_1":"Let's try to solve an exercise together, take a look at the following neural network:",
+                "ex1_2":"The exercise will be to take some possibilites for inputs, weights and biases and to calculate the value of each neuron. "
             },
 
             "tfp_title": "Tenserflow Playground",
             "tfp": {
-                "nn_description":"An artificial neural network, or neural network (NN) for short, is a computing system inspired by the biological neural network of the brain. A simplified explanation goes as follow"
+                "tfp_1":"Now that we understand what a neural network is and how it calculates its output, there's one last thing we need to do... Train one!",
+                "tfp_2":"Training a neural network means to find the best weights for each connection for each two neurons, as well as finding the best bias for each neuron. This is done using gradient descent!",
+                "tfp_3":"Your next assignment is simple.",
+                "tfp_4":"Follow",
+                "tfp_5":"link to a website",
+                "tfp_6":"called TenserFlow playground, and find a good model for each one of the four datasets.",
+                "link":"this"
             }
         }
     },
