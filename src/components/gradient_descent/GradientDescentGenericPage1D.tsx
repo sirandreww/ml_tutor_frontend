@@ -173,7 +173,7 @@ export default function GradientDescentGenericPage1D(props: Props) {
                                             </Grid>
                                             <Grid item xs={10}>
                                                 {/* FunctionTextField doesn't work properly, it doesn't change the value*/}
-                                                <TextField data-testId="dfResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'x')} />
+                                                <TextField data-testId="dfResult" autoFocus fullWidth InputProps={{ readOnly: true, }} value={getDev(myfun, 'y')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
