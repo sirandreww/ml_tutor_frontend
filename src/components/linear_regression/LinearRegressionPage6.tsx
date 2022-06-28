@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { GridColDef } from '@mui/x-data-grid';
 import FunctionTextField from '../FunctionTextField';
 // --------------------------------------------------------
-
+ 
 
 function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
