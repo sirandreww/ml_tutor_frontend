@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 import { GridColDef } from '@mui/x-data-grid';
 import FunctionTextField from '../FunctionTextField';
 // --------------------------------------------------------
-
+ 
 
 function getGraph1D(f: string, points: number[][],f2: string) {
     const regex = /([0-9]*.?[0-9]+)*/g;
@@ -371,9 +371,6 @@ export default function LinearRegressionP6() {
 
     return (
         <div>
-         {/* {JSON.stringify(xBar) + ' ' + JSON.stringify(yBar) + ' ' + JSON.stringify(xDotX) + ' ' + JSON.stringify(xDotY) + ' ' + JSON.stringify(w) + ' ' + JSON.stringify(b) + ' ' + JSON.stringify(J) + ' '} */}
-         {/* {JSON.stringify(points)} */}
-         {/* {JSON.stringify(w + '        ' + b)} */}
             <Box sx={{ width: "100%" }}>
                 <MathJaxContext version={3} config={mathJaxConfig}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >

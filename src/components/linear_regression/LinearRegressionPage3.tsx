@@ -225,8 +225,6 @@ export default function LinearRegressionP3() {
 
     return (
         <div>
-         {/* {JSON.stringify(points)} */}
-         {/* {JSON.stringify(w + '        ' + b)} */}
             <Box sx={{ width: "100%" }}>
                 <MathJaxContext version={3} config={mathJaxConfig}>
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, }} >
